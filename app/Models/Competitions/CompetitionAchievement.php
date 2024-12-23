@@ -2,6 +2,7 @@
 
 namespace App\Models\Competitions;
 
+use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,8 +11,6 @@ class CompetitionAchievement extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'is_group',
-        'leader_nim',
         'scope',
         'degree',
         'ormawa_delegation',
@@ -29,8 +28,8 @@ class CompetitionAchievement extends Model
         'event_photo_url',
     ];
 
-    public function users()
+    public function mahasiswa()
     {
-        return $this->belongsToMany(User::class, 'user_competition_achivments');
+        return $this->hasManyThrough(Mahasiswa::class, MahasiswaAchievement::class, 'id_competition_achievement', 'id');
     }
 }

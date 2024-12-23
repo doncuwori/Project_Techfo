@@ -6,21 +6,18 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class usersTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        User::create([
-            'name' => 'Andi Setiawan',
-            'nim' => '2110512083',
-            'prodi' => 'S1 Sistem Informasi',
-            'angkatan' => '2021',
-            'email' => 'admin@example.com',
+        $user = User::create([
+            'name' => 'Admin TU',
+            'username' => '01020304',
+            'password' => Hash::make('01020304'),
             'role' => 'admin',
-            'password' => Hash::make('password'),
         ]);
     }
 }

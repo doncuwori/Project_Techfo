@@ -91,7 +91,7 @@ const CardLomba = ({ data }) => {
                                 <div
                                     className="w-full h-44 bg-gray-300 rounded-xl relative bg-cover bg-center"
                                     style={{
-                                        backgroundImage: `url(${competition.poster_url})`,
+                                        backgroundImage: `url(${competition.poster_url ?? 'img/posterlomba.jpg'})`,
                                     }}
                                 >
                                     <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-0.5 rounded-2xl">

@@ -92,7 +92,10 @@ const CardBeasiswa = ({ data }) => {
                                 <div
                                     className="w-full h-44 bg-gray-300 rounded-xl relative bg-cover bg-center "
                                     style={{
-                                        backgroundImage: `url(${scholarship.poster_url})`,
+                                        backgroundImage: `url(${
+                                            scholarship.poster_url ||
+                                            "img/posterbeasiswa.jpg"
+                                        })`,
                                     }}
                                 >
                                     <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-2xl">

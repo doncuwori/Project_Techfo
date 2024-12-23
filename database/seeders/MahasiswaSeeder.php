@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Mahasiswa;
+use App\Models\Prodi;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -53,20 +55,23 @@ class MahasiswaSeeder extends Seeder
                     $value['kode_program_studi'] == 511
                 ) {
 
-                    $exist = User::where('nim', $value['nim'])->first();
+                    $prodi = Prodi::where('kode_prodi', (int) $value['kode_program_studi'])->first();
 
-                    if ($exist) {
-                        continue;
-                    }
-
-                    User::create([
+                    $user = User::create([
                         'name' => $value['nama_mahasiswa'],
-                        'nim' => $value['nim'],
-                        'prodi' =>  $value['nama_program_studi'],
-                        'angkatan' => $value['tahun_angkatan'],
-                        'email' => $value['nim'] . '@mahasiswa.upnvj.ac.id',
-                        'role' => 'user',
+                        'username' => $value['nim'],
                         'password' => Hash::make($value['nim']),
+                        'role' => 'mahasiswa',
+                    ]);
+
+                    Mahasiswa::create([
+                        'id_user' => $user->id,
+                        'id_prodi' => $prodi->id,
+                        'nim' => $value['nim'],
+                        'nama' => $value['nama_mahasiswa'],
+                        'email' => $value['nim'] . '@mahasiswa.upnvj.ac.id',
+                        'gender' => $value['jenis_kelamin'],
+                        'angkatan' => $value['tahun_angkatan']
                     ]);
                 }
             }

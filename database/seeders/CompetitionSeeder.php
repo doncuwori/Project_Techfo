@@ -15,8 +15,6 @@ class CompetitionSeeder extends Seeder
     public function run(): void
     {
         CompetitionRegistrant::create(attributes: [
-            'is_group' => false,
-            'leader_nim' => '1234567890', // Admin
             'ormawa_delegation' => 'HIMTI',
             'mentor_name' => 'Dr. Alice Pembimbing',
             'activity_name' => 'Hackathon 2023',
@@ -35,8 +33,6 @@ class CompetitionSeeder extends Seeder
 
         CompetitionRegistrant::create(attributes:
         [
-            'is_group' => true,
-            'leader_nim' => '0987654321', // User
             'ormawa_delegation' => 'HIMTI',
             'mentor_name' => 'Prof. Bob Pembimbing',
             'activity_name' => 'Simposium AI',
@@ -54,8 +50,6 @@ class CompetitionSeeder extends Seeder
         ]);
         
         CompetitionRegistrant::create(attributes:[
-            'is_group' => false,
-            'leader_nim' => '1122334455', // John Doe
             'ormawa_delegation' => 'HIMSI',
             'mentor_name' => 'Dr. Jane Pembimbing',
             'activity_name' => 'Workshop Data Science',
@@ -72,8 +66,6 @@ class CompetitionSeeder extends Seeder
             'updated_at' => now(),
         ]);
         CompetitionRegistrant::create(attributes:[
-            'is_group' => true,
-            'leader_nim' => '2233445566', // Jane Smith
             'ormawa_delegation' => 'HIMTEK',
             'mentor_name' => 'Prof. Steve Pembimbing',
             'activity_name' => 'Kompetisi Robotika',
@@ -90,8 +82,6 @@ class CompetitionSeeder extends Seeder
             'updated_at' => now(),
         ]);
         CompetitionRegistrant::create(attributes:[
-            'is_group' => false,
-            'leader_nim' => '3344556677', // Alice Johnson
             'ormawa_delegation' => 'HIMTE',
             'mentor_name' => 'Dr. Mark Pembimbing',
             'activity_name' => 'Pameran Teknik Elektro',
@@ -108,8 +98,6 @@ class CompetitionSeeder extends Seeder
             'updated_at' => now(),
         ]);
         CompetitionRegistrant::create(attributes:[
-            'is_group' => true,
-            'leader_nim' => '4455667788', // Bob Brown
             'ormawa_delegation' => 'HMM',
             'mentor_name' => 'Prof. Anne Pembimbing',
             'activity_name' => 'Expo Desain Mekanik',

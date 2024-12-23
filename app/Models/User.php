@@ -45,6 +45,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'id_user');
+    }
+
     // Relasi dengan Competition Registrants (pendaftar lomba)
     public function competitionRegistrants()
     {

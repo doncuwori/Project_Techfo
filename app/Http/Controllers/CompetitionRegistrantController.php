@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Competitions\CompetitionRegistrant;
-
+use App\Models\Competitions\MahasiswaRegistrant;
+use App\Models\Mahasiswa;
 use App\Models\User;
 use App\Models\Pivot\UserCompetitionRegistrants;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class CompetitionRegistrantController extends Controller
 {
@@ -22,25 +23,17 @@ class CompetitionRegistrantController extends Controller
     {
         $user = Auth::user();
 
-        $request->validate([
-            'is_group' => 'required',
-            "ormawa_delegation" => 'required',
-            "activity_name" => 'required',
-            "scope" => 'required',
-            "field" => 'required',
-            "mentor_name" => 'required',
-            "organizer" => 'required',
-            "host_country" => 'required',
-            "location" => 'required',
-            "activity_date_start" => 'required',
-            "activity_date_end" => 'required',
-            "description" => 'required',
-        ]);
+        $idMahasiswa = Mahasiswa::where('id_user', $user->id)->first()->id;
+
+        $filename = null;
+        if($request->hasFile('poster_url')) {
+            $file = $request->file('poster_url');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/'), $filename);
+        }
 
         $competition = CompetitionRegistrant::create(
             [
-                'is_group' => $request->is_group,
-                'leader_nim' => $user->nim,
                 'ormawa_delegation' => $request->ormawa_delegation,
                 'activity_name' => $request->activity_name,
                 'scope' => $request->scope,
@@ -52,34 +45,33 @@ class CompetitionRegistrantController extends Controller
                 'activity_date_start' => $request->activity_date_start,
                 'activity_date_end' => $request->activity_date_end,
                 'description' => $request->description,
-                'poster_url' => $request->poster_url,
+                'poster_url' => $filename,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
         );
 
+        MahasiswaRegistrant::create([
+            'id_competition_registrant' => $competition->id,
+            'id_mahasiswa' => $idMahasiswa,
+            'is_leader' => true
+        ]);
+
         if ($request->is_group == true) {
-            $request->validate([
-                'members' => 'required|array',
-                'members.*.nim' => 'required|exists:users,nim',
-                'members.*.name' => 'required|string',
-            ]);
 
             $members = $request->members;
 
             foreach ($members as $memberData) {
-                $member = User::where('nim', operator: $memberData['nim'])->first();
-
-                if ($member) {
-                    $competition->users()->attach($member->id);
-                } else {
-                    // Handle the case where the user with the given NIM does not exist
-                    return response()->json(['error' => "User with NIM $member does not exist."], 404);
-                }
+                if($memberData == null) {
+                    continue;
+                };
+                MahasiswaRegistrant::create([
+                    'id_competition_registrant' => $competition->id,
+                    'id_mahasiswa' => $memberData,
+                    'is_leader' => false
+                ]);
             }
         }
-
-        $competition->users()->attach($user->id);
 
         return redirect()->route('pendataanLomba')->with('success', 'Kompetisi berhasil ditambahkan');
     }

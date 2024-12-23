@@ -7,7 +7,7 @@ import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
 import toast, { Toaster } from "react-hot-toast";
 
-const PendataanLomba = () => {
+const PendataanLomba = ({ mahasiswa }) => {
     const [tabValue, settabValue] = useState("Partisipasi");
 
     return (
@@ -46,7 +46,7 @@ const PendataanLomba = () => {
                     </div>
                     <BiodataUser />
                     {tabValue === "Partisipasi" ? (
-                        <TabPartisipasiLomba />
+                        <TabPartisipasiLomba mahasiswa={mahasiswa}/>
                     ) : (
                         <TabPrestasiLomba />
                     )}

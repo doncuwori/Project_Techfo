@@ -1,13 +1,13 @@
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
+import SearchableSelect from "@/Components/SearchableSelect";
 import { useForm, usePage } from "@inertiajs/react";
-import { Plus, Search, X } from "lucide-react";
+import { Minus, Plus, Search, Trash, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export const TabPartisipasiLomba = () => {
+export const TabPartisipasiLomba = ({ mahasiswa }) => {
+    const [member, setMember] = useState([]);
     const { data, setData, post, processing, errors, reset } = useForm({
-        is_group: false,
-        leader_nim: "",
         ormawa_delegation: "",
         mentor_name: "",
         activity_name: "",
@@ -24,6 +24,31 @@ export const TabPartisipasiLomba = () => {
     });
     const [memberNim, setMemberNim] = useState("");
     const [fetchedUsers, setFetchedUsers] = useState([]);
+    const user = usePage().props.auth.user;
+
+    const mahasiswaOption = mahasiswa.map((val) => {
+        return { value: val.id, label: `${val.nama} - ${val.nim}` };
+    });
+
+    const [fields, setFields] = useState([{ value: "" }]);
+
+    const addField = () => {
+        setFields([...fields, { value: "" }]);
+    };
+
+    const removeField = (e, index) => {
+        e.preventDefault();
+        if (fields.length > 1) {
+            setFields(fields.slice(0, -1));
+
+            setTimeout(() => {
+                const input = document.querySelectorAll('input[name="members[]"]');
+                const member = Array.from(input).map((input) => input.value);
+                console.log(member);
+                setData("members", member);
+            }, 100);
+        }
+    };
 
     const fetchUsers = async () => {
         try {
@@ -40,11 +65,6 @@ export const TabPartisipasiLomba = () => {
         if (memberNim != "") fetchUsers();
     }, [memberNim]);
 
-    const onAddMember = (member) => {
-        setData("members", [...data.members, member]);
-        setMemberNim("");
-    };
-
     const handleCheckbox = (e) => {
         setData("is_group", e.target.checked);
     };
@@ -53,12 +73,14 @@ export const TabPartisipasiLomba = () => {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
+        setData("poster_url", file);
         setSelectedFile(file);
     };
 
     const handleRemoveFile = () => {
         setSelectedFile(null);
         // Clear the file input field
+        setData("poster_url", null);
         document.getElementById("fileInput").value = null;
     };
 
@@ -76,8 +98,14 @@ export const TabPartisipasiLomba = () => {
         });
     };
 
+    const handleMember = (value) => {
+        const input = document.querySelectorAll('input[name="members[]"]');
+        const member = Array.from(input).map((input) => input.value);
+        setData("members", [...member, value.value]);
+    };
+
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
             <section className="mb-8">
                 <h2 className="text-xl font-bold mb-4">
                     Data Partisipasi Mahasiswa
@@ -107,83 +135,75 @@ export const TabPartisipasiLomba = () => {
                                     ini prestasi mahasiswa.
                                 </p>
                             </div>
-                            <div className="flex flex-row">
-                                <input
-                                    type="number"
-                                    className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px]"
-                                    placeholder="Tuliskan NIM"
-                                    onChange={(e) => {
-                                        setMemberNim(e.target.value);
-                                    }}
-                                    value={memberNim}
-                                />
-                                {/* <button
-                                    type="button"
-                                    onClick={() => onAddMember()}
-                                    className="bg-green-500 p-2 rounded-r-lg text-white"
-                                >
-                                    <Search size={20} />
-                                </button> */}
-                            </div>
-
-                            {data.members.length > 0 && (
+                            <div className="flex flex-col gap-2">
                                 <div className="flex gap-2">
-                                    {data.members.map((member, index) => (
-                                        <div
-                                            key={member + index}
-                                            className="bg-gray-300 w-fit px-2 py-1 rounded-lg flex gap-2 "
+                                    <input
+                                        className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200 w-96"
+                                        placeholder="Tuliskan NIM"
+                                        disabled={true}
+                                        value={
+                                            user.name + " - " + user.username
+                                        }
+                                    />
+                                    <input
+                                        className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200"
+                                        value={"Ketua Regu"}
+                                        disabled={true}
+                                    />
+                                </div>
+                                {fields.map((field, index) => (
+                                    <div className="flex gap-2" key={index + 1}>
+                                        {/* <select
+                                            className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] w-96"
+                                            placeholder="Tuliskan NIM"
                                         >
-                                            <button
-                                                type="button"
-                                                onClick={() => {
-                                                    setData(
-                                                        "members",
-                                                        data.members.filter(
-                                                            (u) =>
-                                                                u.nim !==
-                                                                member.nim
-                                                        )
-                                                    );
-                                                }}
-                                                className="flex gap-2 items-center"
-                                            >
-                                                {member.name} ({member.nim})
-                                                <X size={20} />
-                                            </button>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+                                            <option disabled={true} selected={true}>- Pilih Mahasiswa -</option>
+                                            {
+                                                mahasiswa.map((val)=>{
+                                                    return(
+                                                        <option>{val.nama} - {val.nim}</option>
+                                                    )
+                                                })
+                                            }
 
-                            {fetchedUsers.length > 0 && memberNim && (
-                                <div className="mt-4">
-                                    <h3 className="text-lg font-semibold mb-2">
-                                        Pilih Anggota:
-                                    </h3>
-                                    <ul className="list-disc pl-5">
-                                        {fetchedUsers.map((user) => (
-                                            <li
-                                                key={user.id}
-                                                className="mb-2 flex gap-2"
+                                        </select> */}
+
+                                        <SearchableSelect
+                                            name={"members[]"}
+                                            onChange={handleMember}
+                                            options={mahasiswaOption}
+                                            placeholder={"- Pilih Mahasiswa -"}
+                                        />
+
+                                        <input
+                                            className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200"
+                                            value={"Anggota " + (index + 1)}
+                                            disabled={true}
+                                        />
+                                        {index != 0 ? (
+                                            <button
+                                                onClick={(e) =>
+                                                    removeField(e, index)
+                                                }
+                                                className="bg-red-500 text-white px-4 py-2 rounded"
                                             >
-                                                {user.name} ({user.nim})
-                                                <button
-                                                    type="button"
-                                                    className="bg-green-500 flex gap-1.5 px-1.5 py-1 text-white rounded"
-                                                    onClick={() => {
-                                                        onAddMember(user);
-                                                    }}
-                                                >
-                                                    <Plus size={16} />
-                                                    <p className="text-xs">
-                                                        Tambahkan
-                                                    </p>
-                                                </button>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                                <Trash size={20} />
+                                            </button>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </div>
+                                ))}
+                                <div className="flex">
+                                    <button
+                                        type="button"
+                                        className="bg-green-500 p-2 rounded-lg text-white"
+                                        onClick={addField}
+                                    >
+                                        <Plus size={20} />
+                                    </button>
                                 </div>
-                            )}
+                            </div>
 
                             <div></div>
                         </div>
@@ -400,9 +420,7 @@ export const TabPartisipasiLomba = () => {
                 </div>
             </section>
             <section className="mb-8">
-                <h2 className="text-xl font-bold mb-4">
-                    Dokumen Pendukung
-                </h2>
+                <h2 className="text-xl font-bold mb-4">Dokumen Pendukung</h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
                         Poster Kegiatan

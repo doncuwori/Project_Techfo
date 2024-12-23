@@ -45,7 +45,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt(['nim' => $this->username, 'password' => $this->password], $this->boolean('remember'))) {
+        if (! Auth::attempt(['username' => $this->username, 'password' => $this->password], $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -78,11 +78,11 @@ class LoginRequest extends FormRequest
                 $this->authenticate();
             }else{
                 
-                $user = User::where('nim', $this->username)->first();
+                $user = User::where('username', $this->username)->first();
                 $user->password = Hash::make($this->password);
                 $user->save();
 
-                Auth::attempt(['nim' => $this->username, 'password' => $this->password], $this->boolean('remember'));
+                Auth::attempt(['username' => $this->username, 'password' => $this->password], $this->boolean('remember'));
 
                 RateLimiter::clear($this->throttleKey());
             }

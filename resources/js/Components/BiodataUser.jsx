@@ -3,6 +3,7 @@ import React from "react";
 
 export const BiodataUser = () => {
     const user = usePage().props.auth.user;
+    const mahasiswa = usePage().props.auth.mahasiswa;
     return (
         <section className="mb-8">
             <h2 className="text-xl font-bold mb-4">Biodata Mahasiswa</h2>
@@ -32,7 +33,7 @@ export const BiodataUser = () => {
                 <div className="w-[500px] self-stretch px-4 rounded-md flex-col justify-start items-start inline-flex">
                     <div className="self-stretch grow shrink basis-0 py-3 justify-start items-center gap-2 inline-flex">
                         <div className="text-[#2d3036] text-sm font-normal leading-tight">
-                            {user.nim}
+                            {user.username}
                         </div>
                     </div>
                     <div className="self-stretch grow shrink basis-0 py-3 justify-start items-center gap-2 inline-flex">
@@ -42,12 +43,12 @@ export const BiodataUser = () => {
                     </div>
                     <div className="self-stretch grow shrink basis-0 py-3 justify-start items-center gap-2 inline-flex">
                         <div className="text-[#2d3036] text-sm font-normal leading-tight">
-                            {user.prodi}
+                            {mahasiswa.prodi.nama_prodi}
                         </div>
                     </div>
                     <div className="self-stretch grow shrink basis-0 py-3 justify-start items-center gap-2 inline-flex">
                         <div className="text-[#2d3036] text-sm font-normal leading-tight">
-                            {user.angkatan}
+                            {mahasiswa.angkatan}
                         </div>
                     </div>
                 </div>
