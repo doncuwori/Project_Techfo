@@ -48,7 +48,7 @@ const PendataanLomba = ({ mahasiswa }) => {
                     {tabValue === "Partisipasi" ? (
                         <TabPartisipasiLomba mahasiswa={mahasiswa}/>
                     ) : (
-                        <TabPrestasiLomba />
+                        <TabPrestasiLomba mahasiswa={mahasiswa}/>
                     )}
                 </div>
             </main>

@@ -1,7 +1,7 @@
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 import SearchableSelect from "@/Components/SearchableSelect";
 import { useForm, usePage } from "@inertiajs/react";
-import { Minus, Plus, Search, Trash, X } from "lucide-react";
+import { Minus, Plus, Trash, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -22,6 +22,7 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
         poster_url: "",
         members: [],
     });
+
     const [memberNim, setMemberNim] = useState("");
     const [fetchedUsers, setFetchedUsers] = useState([]);
     const user = usePage().props.auth.user;
@@ -42,7 +43,9 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
             setFields(fields.slice(0, -1));
 
             setTimeout(() => {
-                const input = document.querySelectorAll('input[name="members[]"]');
+                const input = document.querySelectorAll(
+                    'input[name="members[]"]'
+                );
                 const member = Array.from(input).map((input) => input.value);
                 console.log(member);
                 setData("members", member);
@@ -136,9 +139,9 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
                                 </p>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 flex-wrap">
                                     <input
-                                        className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200 w-96"
+                                        className="text-sm px-4 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200 md:w-96"
                                         placeholder="Tuliskan NIM"
                                         disabled={true}
                                         value={

@@ -29,7 +29,6 @@ const SearchableSelect = ({ options, placeholder, onChange, name }) => {
     setTimeout(() => {
       setIsOpen(false);
     }, 200);
-
   }
 
   return (
@@ -43,7 +42,7 @@ const SearchableSelect = ({ options, placeholder, onChange, name }) => {
           onChange={(e) => handleSearch(e.target.value)}
           onFocus={(e) => setIsOpen(true)}
           onBlur={handleLostFocus}
-          className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] w-96"
+          className="text-sm px-4 py-2 rounded-lg border-neutral-400 border-[1.5px] w-full md:w-96"
         />
         {isOpen && (
           <ul className="dropdown-menu">
