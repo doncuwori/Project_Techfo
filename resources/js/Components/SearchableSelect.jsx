@@ -32,7 +32,7 @@ const SearchableSelect = ({ options, placeholder, onChange, name }) => {
   }
 
   return (
-    <div className="searchable-select">
+    <div className="searchable-select w-full">
       <div className="dropdown">
         <input type="hidden" name={name} value={realValue} />
         <input
@@ -42,7 +42,7 @@ const SearchableSelect = ({ options, placeholder, onChange, name }) => {
           onChange={(e) => handleSearch(e.target.value)}
           onFocus={(e) => setIsOpen(true)}
           onBlur={handleLostFocus}
-          className="text-sm px-4 py-2 rounded-lg border-neutral-400 border-[1.5px] w-full md:w-96"
+          className="text-sm px-4 py-2 rounded-lg border-neutral-400 border-[1.5px] w-full"
         />
         {isOpen && (
           <ul className="dropdown-menu">

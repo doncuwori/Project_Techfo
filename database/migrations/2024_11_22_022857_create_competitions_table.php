@@ -14,13 +14,13 @@ return new class extends Migration
         // Pendaftar Lomba
         Schema::create('competition_registrants', function (Blueprint $table) {
             $table->id(); // ID kompetisi
+            $table->foreignId('id_country')->nullable()->constrained('countries')->onDelete('cascade');
+            $table->foreignId('id_dosen')->nullable()->constrained('dosens')->onDelete('cascade');
             $table->string('ormawa_delegation')->nullable(); // Delegasi ORMAWA
             $table->string('activity_name'); // Nama kegiatan
             $table->string('scope')->nullable(); // Tingkat Prestasi lomba
             $table->string('field')->nullable(); // Bidang lomba
-            $table->string('mentor_name')->nullable(); // Nama pembimbing
             $table->string('organizer')->nullable(); // Penyelenggara
-            $table->string('host_country')->nullable(); // Negara penyelenggara
             $table->string('location')->nullable(); // Lokasi kegiatan
             $table->date('activity_date_start')->nullable(); // Tanggal mulai
             $table->date('activity_date_end')->nullable(); // Tanggal selesai
@@ -40,13 +40,13 @@ return new class extends Migration
         // Pemenang Lomba
         Schema::create('competition_achievements', function (Blueprint $table) {
             $table->id(); // ID kompetisi
+            $table->foreignId('id_country')->nullable()->constrained('countries')->onDelete('cascade');
+            $table->foreignId('id_dosen')->nullable()->constrained('dosens')->onDelete('cascade');
             $table->string('ormawa_delegation')->nullable(); // Delegasi ORMAWA
             $table->string('activity_name'); // Nama kegiatan
             $table->string('scope')->nullable(); // Tingkat Prestasi lomba
             $table->string('field')->nullable(); // Bidang lomba
-            $table->string('mentor_name')->nullable(); // Nama pembimbing
             $table->string('organizer')->nullable(); // Penyelenggara
-            $table->string('host_country')->nullable(); // Negara penyelenggara
             $table->string('location')->nullable(); // Lokasi kegiatan
             $table->date('activity_date_start')->nullable(); // Tanggal mulai
             $table->date('activity_date_end')->nullable(); // Tanggal selesai
@@ -64,6 +64,7 @@ return new class extends Migration
             $table->id(); // ID relasi
             $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');
             $table->foreignId('id_competition_achievement')->constrained('competition_achievements')->onDelete('cascade'); // Foreign key ke competitions
+            $table->boolean('is_leader')->default(false);
             $table->timestamps();
         });    
 

@@ -2,6 +2,8 @@
 
 namespace App\Models\Competitions;
 
+use App\Models\Country;
+use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,14 +14,14 @@ class CompetitionRegistrant extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_dosen',
+        'id_country',
         'scope',
         'degree',
         'ormawa_delegation',
-        'mentor_name',
         'activity_name',
         'field',
         'organizer',
-        'host_country',
         'location',
         'activity_date_start',
         'activity_date_end',
@@ -29,5 +31,14 @@ class CompetitionRegistrant extends Model
     public function mahasiswa()
     {
         return $this->hasManyThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_competition_registrant', 'id');
+    }
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class, 'id_dosen');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'id_country');
     }
 }

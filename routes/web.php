@@ -26,6 +26,8 @@ use App\Http\Controllers\ScholarshipRegistrantController;
 use App\Models\Abdimas\AbdimasInformation;
 use App\Models\Competitions\CompetitionInformation;
 use App\Models\Competitions\CompetitionRegistrant;
+use App\Models\Country;
+use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Researchs\ResearchInformation;
 use App\Models\Scholarships\ScholarshipInformation;
@@ -94,9 +96,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/pendataanLomba', function () {
 
         $mahasiswa = Mahasiswa::all();
+        $dosen = Dosen::all();
+        $country = Country::all();
 
         return Inertia::render('User/Pendataan/PendataanLomba', [
-            'mahasiswa' => $mahasiswa
+            'mahasiswa' => $mahasiswa,
+            'dosen' => $dosen,
+            'country' => $country
         ]);
     })->name('pendataanLomba');
 

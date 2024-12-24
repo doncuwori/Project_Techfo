@@ -5,16 +5,17 @@ import { Minus, Plus, Trash, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export const TabPartisipasiLomba = ({ mahasiswa }) => {
+export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
     const [member, setMember] = useState([]);
     const { data, setData, post, processing, errors, reset } = useForm({
+        id_country: "",
+        id_dosen: "",
         ormawa_delegation: "",
         mentor_name: "",
         activity_name: "",
         field: "",
         organizer: "",
         scope: "",
-        host_country: "",
         location: "",
         activity_date_start: "",
         activity_date_end: "",
@@ -29,6 +30,14 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
 
     const mahasiswaOption = mahasiswa.map((val) => {
         return { value: val.id, label: `${val.nama} - ${val.nim}` };
+    });
+
+    const dosenOption = dosen.map((val) => {
+        return { value: val.id, label: `${val.nama} - ${val.nidn}` };
+    });
+
+    const countryOption = country.map((val) => {
+        return { value: val.id, label: val.country_name };
     });
 
     const [fields, setFields] = useState([{ value: "" }]);
@@ -107,6 +116,14 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
         setData("members", [...member, value.value]);
     };
 
+    const handleCountry = (value) => {
+        setData("id_country", value.value);
+    };
+
+    const handleDosen = (value) => {
+        setData("id_dosen", value.value);
+    };
+
     return (
         <form onSubmit={handleSubmit} encType="multipart/form-data">
             <section className="mb-8">
@@ -171,12 +188,16 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
 
                                         </select> */}
 
-                                        <SearchableSelect
-                                            name={"members[]"}
-                                            onChange={handleMember}
-                                            options={mahasiswaOption}
-                                            placeholder={"- Pilih Mahasiswa -"}
-                                        />
+                                        <div className="w-96">
+                                            <SearchableSelect
+                                                name={"members[]"}
+                                                onChange={handleMember}
+                                                options={mahasiswaOption}
+                                                placeholder={
+                                                    "- Pilih Mahasiswa -"
+                                                }
+                                            />
+                                        </div>
 
                                         <input
                                             className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200"
@@ -322,7 +343,12 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
                         Dosen Pembimbing/Pendamping
                         <span className="text-red-600">*</span>
                     </label>
-                    <input
+                    <SearchableSelect
+                        onChange={handleDosen}
+                        options={dosenOption}
+                        placeholder={"- Pilih Dosen -"}
+                    />
+                    {/* <input
                         type="text"
                         onChange={(e) => {
                             setData("mentor_name", e.target.value);
@@ -330,7 +356,7 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
                         value={data.mentor_name}
                         className="w-full border rounded-lg p-2"
                         placeholder="Tuliskan nama dosen pembimbing/pendamping..."
-                    />
+                    /> */}
                 </div>
 
                 <div className="mb-4">
@@ -352,7 +378,12 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
                         Negara Penyelenggara
                         <span className="text-red-600">*</span>
                     </label>
-                    <select
+                    <SearchableSelect
+                        onChange={handleCountry}
+                        options={countryOption}
+                        placeholder={"- Pilih Negara -"}
+                    />
+                    {/* <select
                         onChange={(e) => {
                             setData("host_country", e.target.value);
                         }}
@@ -362,7 +393,7 @@ export const TabPartisipasiLomba = ({ mahasiswa }) => {
                         <option>Pilih Negara Penyelenggara</option>
                         <option>Indonesia</option>
                         <option>Malaysia</option>
-                    </select>
+                    </select> */}
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">

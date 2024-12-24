@@ -34,13 +34,13 @@ class CompetitionRegistrantController extends Controller
 
         $competition = CompetitionRegistrant::create(
             [
+                'id_dosen' => $request->id_dosen,
+                'id_country' => $request->id_country,
                 'ormawa_delegation' => $request->ormawa_delegation,
                 'activity_name' => $request->activity_name,
                 'scope' => $request->scope,
                 'field' => $request->field,
-                'mentor_name' => $request->mentor_name,
                 'organizer' => $request->organizer,
-                'host_country' => $request->host_country,
                 'location' => $request->location,
                 'activity_date_start' => $request->activity_date_start,
                 'activity_date_end' => $request->activity_date_end,
