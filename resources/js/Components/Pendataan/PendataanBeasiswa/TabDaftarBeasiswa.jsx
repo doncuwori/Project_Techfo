@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import toast from "react-hot-toast";
+import SearchableSelect from "@/Components/SearchableSelect";
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 
-export const TabDaftarBeasiswa = () => {
+export const TabDaftarBeasiswa = ({ country }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         type: "",
@@ -12,6 +13,10 @@ export const TabDaftarBeasiswa = () => {
         event_date: "",
         description: "",
         proof_scan_url: null, 
+    });
+
+    const countryOption = country.map((val) => {
+        return { value: val.id, label: val.country_name };
     });
 
     const [posterKegiatan, setPosterKegiatan] = useState(null); 
@@ -56,6 +61,10 @@ export const TabDaftarBeasiswa = () => {
         });
     };
 
+    const handleCountry = (value) => {
+        setData("id_country", value.value);
+    };
+
     return (
         <form onSubmit={handleSubmit}>
             {/* Section Data Pendaftar Beasiswa */}
@@ -69,7 +78,7 @@ export const TabDaftarBeasiswa = () => {
                         value={data.name}
                         onChange={(e) => setData("name", e.target.value)}
                         type="text"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
                     />
                 </div>
@@ -81,7 +90,7 @@ export const TabDaftarBeasiswa = () => {
                         value={data.type}
                         onChange={(e) => setData("type", e.target.value)}
                         id="type"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     >
                         <option>-- Pilih Jenis Beasiswa --</option>
                         <option>Beasiswa dari Pemerintah</option>
@@ -97,7 +106,7 @@ export const TabDaftarBeasiswa = () => {
                         value={data.organizer}
                         onChange={(e) => setData("organizer", e.target.value)}
                         type="text"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Tuliskan penyelenggara kegiatan..."
                     />
                 </div>
@@ -105,16 +114,21 @@ export const TabDaftarBeasiswa = () => {
                     <label htmlFor="host_country" className="block text-gray-700 font-bold mb-2">
                         Negara Penyelenggara<span className="text-red-600">*</span>
                     </label>
-                    <select
+                    <SearchableSelect
+                        onChange={handleCountry}
+                        options={countryOption}
+                        placeholder={"-- Pilih Negara Penyelenggara --"}
+                    />
+                    {/* <select
                         value={data.host_country}
                         onChange={(e) => setData("host_country", e.target.value)}
                         id="host_country"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     >
                         <option>Pilih Negara Penyelenggara</option>
                         <option>Indonesia</option>
                         <option>Malaysia</option>
-                    </select>
+                    </select> */}
                 </div>
                 <div className="mb-4">
                     <label htmlFor="event_date" className="block text-gray-700 font-bold mb-2">
@@ -125,7 +139,7 @@ export const TabDaftarBeasiswa = () => {
                         value={data.event_date}
                         onChange={(e) => setData("event_date", e.target.value)}
                         id="event_date"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
@@ -137,7 +151,7 @@ export const TabDaftarBeasiswa = () => {
                         value={data.event_date}
                         onChange={(e) => setData("event_date", e.target.value)}
                         id="event_date"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
@@ -148,7 +162,7 @@ export const TabDaftarBeasiswa = () => {
                         id="description"
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Write text here..."
                     ></textarea>
                 </div>

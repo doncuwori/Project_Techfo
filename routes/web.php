@@ -128,7 +128,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('detailBeasiswa');
 
     Route::get('/pendataanBeasiswa', function () {
-        return Inertia::render('User/Pendataan/PendataanBeasiswa');
+        
+        $country = Country::all();
+
+        return Inertia::render('User/Pendataan/PendataanBeasiswa', [
+            'country' => $country
+        ]);
     })->name('pendataanBeasiswa');
 
     Route::post('/pendataanDaftarBeasiswa', [ScholarshipRegistrantController::class, 'store'])

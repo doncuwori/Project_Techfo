@@ -42,7 +42,7 @@ const SearchableSelect = ({ options, placeholder, onChange, name }) => {
           onChange={(e) => handleSearch(e.target.value)}
           onFocus={(e) => setIsOpen(true)}
           onBlur={handleLostFocus}
-          className="text-sm px-4 py-2 rounded-lg border-neutral-400 border-[1.5px] w-full"
+          className="text-md px-4 py-2 rounded-lg border-neutral-400 border-[1.5px] w-full"
         />
         {isOpen && (
           <ul className="dropdown-menu">

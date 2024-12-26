@@ -1,9 +1,9 @@
-import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
-import SearchableSelect from "@/Components/SearchableSelect";
 import { useForm, usePage } from "@inertiajs/react";
 import { Minus, Plus, Trash, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import SearchableSelect from "@/Components/SearchableSelect";
+import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 
 export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
     const [member, setMember] = useState([]);
@@ -158,7 +158,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             <div className="flex flex-col gap-2">
                                 <div className="flex gap-2 flex-wrap">
                                     <input
-                                        className="text-sm px-4 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200 md:w-96"
+                                        className="text-md px-4 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200 md:w-96"
                                         placeholder="Tuliskan NIM"
                                         disabled={true}
                                         value={
@@ -242,7 +242,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                         onChange={(e) => {
                             setData("ormawa_delegation", e.target.value);
                         }}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     >
                         <option>Bukan Delegasi dari ORMAWA</option>
                         <option>
@@ -285,7 +285,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             setData("activity_name", e.target.value);
                         }}
                         value={data.activity_name}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
                     />
                 </div>
@@ -301,7 +301,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                                     setData("scope", e.target.value);
                                 }}
                                 value={data.scope}
-                                className="w-full border rounded-lg p-2"
+                                className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Tingkat Prestasi --</option>
                                 <option>International</option>
@@ -325,7 +325,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                                     setData("field", e.target.value);
                                 }}
                                 value={data.field}
-                                className="w-full border rounded-lg p-2"
+                                className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Bidang Lomba --</option>
                                 <option>Ilmiah/Penalaran/Akademik</option>
@@ -354,7 +354,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             setData("mentor_name", e.target.value);
                         }}
                         value={data.mentor_name}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Tuliskan nama dosen pembimbing/pendamping..."
                     /> */}
                 </div>
@@ -369,7 +369,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             setData("organizer", e.target.value);
                         }}
                         value={data.organizer}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Tuliskan penyelenggara kegiatan..."
                     />
                 </div>
@@ -381,14 +381,14 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                     <SearchableSelect
                         onChange={handleCountry}
                         options={countryOption}
-                        placeholder={"- Pilih Negara -"}
+                        placeholder={"-- Pilih Negara Penyelenggara --"}
                     />
                     {/* <select
                         onChange={(e) => {
                             setData("host_country", e.target.value);
                         }}
                         value={data.host_country}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     >
                         <option>Pilih Negara Penyelenggara</option>
                         <option>Indonesia</option>
@@ -406,7 +406,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             setData("location", e.target.value);
                         }}
                         value={data.location}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Tuliskan tempat pelaksanaan kegiatan..."
                     />
                 </div>
@@ -421,7 +421,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                         }}
                         value={data.activity_date_start}
                         type="date"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
@@ -435,7 +435,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                         }}
                         value={data.activity_date_end}
                         type="date"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
@@ -448,7 +448,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             setData("description", e.target.value);
                         }}
                         value={data.description}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Write text here..."
                     ></textarea>
                 </div>

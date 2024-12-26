@@ -1,12 +1,10 @@
-import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import toast from "react-hot-toast";
+import SearchableSelect from "@/Components/SearchableSelect";
+import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 
-export const TabLolosBeasiswa = () => {
-    const [scanBukti, setScanBukti] = useState(null);
-    const [posterKegiatan, setPosterKegiatan] = useState(null);
-
+export const TabLolosBeasiswa = ({ country }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         type: "",
@@ -18,6 +16,13 @@ export const TabLolosBeasiswa = () => {
         scan_bukti_url: "",
         poster_kegiatan_url: "",
     });
+
+    const countryOption = country.map((val) => {
+        return { value: val.id, label: val.country_name };
+    });
+
+    const [scanBukti, setScanBukti] = useState(null);
+    const [posterKegiatan, setPosterKegiatan] = useState(null);
 
     const handleFileChange = (e, setFile) => {
         const file = e.target.files[0];
@@ -37,13 +42,17 @@ export const TabLolosBeasiswa = () => {
         post(route("scholarshipRecipient.store"), {
             onSuccess: (res) => {
                 reset();
-                toast.success("Berhasil Membuat Data Pendaftaran Beasiswa");
+                toast.success("Berhasil Membuat Data Penerima Beasiswa");
             },
             onError: (errors) => {
-                toast.error("Gagal Membuat Data Pendaftaran Beasiswa");
+                toast.error("Gagal Membuat Data Penerima Beasiswa");
                 console.error(errors);
             },
         });
+    };
+
+    const handleCountry = (value) => {
+        setData("id_country", value.value);
     };
 
     return (
@@ -62,7 +71,7 @@ export const TabLolosBeasiswa = () => {
                         onChange={(e) => setData("name", e.target.value)}
                         type="text"
                         id="name"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
                     />
                 </div>
@@ -77,7 +86,7 @@ export const TabLolosBeasiswa = () => {
                         value={data.type}
                         onChange={(e) => setData("type", e.target.value)}
                         id="type"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     >
                         <option>-- Pilih Jenis Beasiswa --</option>
                         <option>Beasiswa dari Pemerintah</option>
@@ -96,7 +105,7 @@ export const TabLolosBeasiswa = () => {
                         value={data.organizer}
                         onChange={(e) => setData("organizer", e.target.value)}
                         type="text"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Tuliskan penyelenggara kegiatan..."
                     />
                 </div>
@@ -109,18 +118,23 @@ export const TabLolosBeasiswa = () => {
                         Negara Penyelenggara
                         <span className="text-red-600">*</span>
                     </label>
-                    <select
+                    <SearchableSelect
+                        onChange={handleCountry}
+                        options={countryOption}
+                        placeholder={"-- Pilih Negara Penyelenggara --"}
+                    />
+                    {/* <select
                         value={data.host_country}
                         onChange={(e) =>
                             setData("host_country", e.target.value)
                         }
                         id="host_country"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     >
                         <option>Pilih Negara Penyelenggara</option>
                         <option>Indonesia</option>
                         <option>Malaysia</option>
-                    </select>
+                    </select> */}
                 </div>
 
                 <div className="mb-4">
@@ -135,7 +149,7 @@ export const TabLolosBeasiswa = () => {
                         onChange={(e) => setData("event_date", e.target.value)}
                         value={data.event_date}
                         id="event_date"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     />
                 </div>
 
@@ -151,18 +165,18 @@ export const TabLolosBeasiswa = () => {
                         id="description"
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Write text here..."
                     ></textarea>
                 </div>
             </section>
 
             <section className="mb-8">
-                <h2 className="text-xl font-bold mb-4">Dokumen Pendukung</h2>
+                <h2 className="text-xl font-bold mb-4">Bukti Dokumen<span className="text-red-600">*</span></h2>
                 {/* Scan Bukti */}
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
-                        Scan Bukti
+                        Scan Bukti<span className="text-red-600">*</span>
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
@@ -202,8 +216,8 @@ export const TabLolosBeasiswa = () => {
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
-                            Detail scan berupa bukti
-                            atau dokumen penerima beasiswa.
+                            Detail scan berupa bukti atau dokumen penerima
+                            beasiswa.
                         </li>
                         <li>
                             Tipe file yang dapat diunggah antara lain: .jpg,
@@ -216,7 +230,7 @@ export const TabLolosBeasiswa = () => {
                 {/* Poster Kegiatan */}
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
-                        Poster Kegiatan
+                        Poster Kegiatan<span className="text-red-600">*</span>
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>

@@ -1,11 +1,11 @@
-import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
-import SearchableSelect from "@/Components/SearchableSelect";
 import { useForm, usePage } from "@inertiajs/react";
 import { Plus, Trash, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import SearchableSelect from "@/Components/SearchableSelect";
+import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 
-export const TabPrestasiLomba = ({ mahasiswa }) => {
+export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
     const [member, setMember] = useState([]);
     const { data, setData, post, processing, errors, reset } = useForm({
         is_group: false,
@@ -34,6 +34,14 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
 
     const mahasiswaOption = mahasiswa.map((val) => {
         return { value: val.id, label: `${val.nama} - ${val.nim}` };
+    });
+
+    const dosenOption = dosen.map((val) => {
+        return { value: val.id, label: `${val.nama} - ${val.nidn}` };
+    });
+
+    const countryOption = country.map((val) => {
+        return { value: val.id, label: val.country_name };
     });
 
     const [fields, setFields] = useState([{ value: "" }]);
@@ -124,6 +132,14 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
         setData("members", [...member, value.value]);
     };
 
+    const handleDosen = (value) => {
+        setData("id_dosen", value.value);
+    };
+
+    const handleCountry = (value) => {
+        setData("id_country", value.value);
+    };
+
     return (
         <form onSubmit={handleSubmit} encType="multipart/form-data">
             <section className="mb-8">
@@ -156,9 +172,9 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                                 </p>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 flex-wrap">
                                     <input
-                                        className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200 w-96"
+                                        className="text-md px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200 md:w-96"
                                         placeholder="Tuliskan NIM"
                                         disabled={true}
                                         value={
@@ -188,12 +204,16 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
 
                                         </select> */}
 
-                                        <SearchableSelect
-                                            name={"members[]"}
-                                            onChange={handleMember}
-                                            options={mahasiswaOption}
-                                            placeholder={"- Pilih Mahasiswa -"}
-                                        />
+                                        <div className="w-96">
+                                            <SearchableSelect
+                                                name={"members[]"}
+                                                onChange={handleMember}
+                                                options={mahasiswaOption}
+                                                placeholder={
+                                                    "- Pilih Mahasiswa -"
+                                                }
+                                            />
+                                        </div>
 
                                         <input
                                             className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200"
@@ -238,7 +258,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                         onChange={(e) => {
                             setData("ormawa_delegation", e.target.value);
                         }}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     >
                         <option>Bukan Delegasi dari ORMAWA</option>
                         <option>
@@ -281,7 +301,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                             setData("activity_name", e.target.value);
                         }}
                         value={data.activity_name}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
                     />
                 </div>
@@ -298,7 +318,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                                     setData("scope", e.target.value);
                                 }}
                                 value={data.scope}
-                                className="w-full border rounded-lg p-2"
+                                className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Tingkat Prestasi --</option>
                                 <option>International</option>
@@ -320,7 +340,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                                     setData("degree", e.target.value);
                                 }}
                                 value={data.degree}
-                                className="w-full border rounded-lg p-2"
+                                className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Gelar --</option>
                                 <option>Juara Harapan I</option>
@@ -347,7 +367,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                                     setData("field", e.target.value);
                                 }}
                                 value={data.field}
-                                className="w-full border rounded-lg p-2"
+                                className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Bidang Lomba --</option>
                                 <option>Ilmiah/Penalaran/Akademik</option>
@@ -362,15 +382,20 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                                 Dosen Pembimbing/Pendamping
                                 <span className="text-red-600">*</span>
                             </label>
-                            <input
+                            <SearchableSelect
+                                onChange={handleDosen}
+                                options={dosenOption}
+                                placeholder={"- Pilih Dosen -"}
+                            />
+                            {/* <input
                                 type="text"
                                 onChange={(e) => {
                                     setData("mentor_name", e.target.value);
                                 }}
                                 value={data.mentor_name}
-                                className="w-full border rounded-lg p-2"
+                                className="w-full border rounded-lg px-4"
                                 placeholder="Tuliskan nama dosen pembimbing/pendamping..."
-                            />
+                            /> */}
                         </div>
                     </div>
                 </div>
@@ -385,7 +410,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                             setData("organizer", e.target.value);
                         }}
                         value={data.organizer}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Tuliskan penyelenggara kegiatan..."
                     />
                 </div>
@@ -394,17 +419,22 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                         Negara Penyelenggara
                         <span className="text-red-600">*</span>
                     </label>
-                    <select
+                    <SearchableSelect
+                        onChange={handleCountry}
+                        options={countryOption}
+                        placeholder={"-- Pilih Negara Penyelenggara --"}
+                    />
+                    {/* <select
                         onChange={(e) => {
                             setData("host_country", e.target.value);
                         }}
                         value={data.host_country}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     >
                         <option>Pilih Negara Penyelenggara</option>
                         <option>Indonesia</option>
                         <option>Malaysia</option>
-                    </select>
+                    </select> */}
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
@@ -417,7 +447,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                             setData("location", e.target.value);
                         }}
                         value={data.location}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Tuliskan tempat pelaksanaan kegiatan..."
                     />
                 </div>
@@ -432,7 +462,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                         }}
                         value={data.activity_date_start}
                         type="date"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
@@ -446,7 +476,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                         }}
                         value={data.activity_date_end}
                         type="date"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
@@ -459,18 +489,18 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                             setData("description", e.target.value);
                         }}
                         value={data.description}
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg px-4"
                         placeholder="Write text here..."
                     ></textarea>
                 </div>
             </section>
             <section className="mb-8">
-                <h2 className="text-xl font-bold mb-4">Dokumen Pendukung</h2>
+                <h2 className="text-xl font-bold mb-4">Bukti Dokumen<span className="text-red-600">*</span></h2>
 
                 {/* Upload Scan Bukti */}
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
-                        Scan Bukti
+                        Scan Bukti<span className="text-red-600">*</span>
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
@@ -523,7 +553,7 @@ export const TabPrestasiLomba = ({ mahasiswa }) => {
                 {/* Upload Foto Kegiatan */}
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
-                        Foto Kegiatan
+                        Foto Kegiatan<span className="text-red-600">*</span>
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>

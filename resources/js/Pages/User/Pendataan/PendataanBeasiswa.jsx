@@ -7,7 +7,7 @@ import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
 import { Toaster } from "react-hot-toast";
 
-const PendataanBeasiswa = () => {
+const PendataanBeasiswa = ({ country }) => {
     const [tabValue, settabValue] = useState("Daftar");
     return (
         <div className="min-h-screen flex flex-col items-center">
@@ -45,9 +45,9 @@ const PendataanBeasiswa = () => {
                     </div>
                     <BiodataUser />
                     {tabValue === "Daftar" ? (
-                        <TabDaftarBeasiswa />
+                        <TabDaftarBeasiswa country={country}/>
                     ) : (
-                        <TabLolosBeasiswa />
+                        <TabLolosBeasiswa country={country}/>
                     )}
                 </div>
             </main>
