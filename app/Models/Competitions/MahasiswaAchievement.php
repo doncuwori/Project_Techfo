@@ -2,6 +2,7 @@
 
 namespace App\Models\Competitions;
 
+use App\Models\Mahasiswa;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,4 +17,14 @@ class MahasiswaAchievement extends Model
         'id_competition_achievement',
         'is_leader',
     ];
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
+    }
+
+    public function competitionAchievement()
+    {
+        return $this->belongsTo(CompetitionAchievement::class, 'id_competition_achievement');
+    }
 }

@@ -41,4 +41,16 @@ class CompetitionRegistrant extends Model
     {
         return $this->belongsTo(Country::class, 'id_country');
     }
+
+    public function participants()
+    {
+        return $this->hasMany(MahasiswaRegistrant::class, 'id_competition_registrant');
+    }
+
+    public function getExistAttribute()
+    {
+        return CompetitionAchievement::where('activity_name', $this->activity_name)->exists();
+    }
+
+    protected $appends = ['exist'];
 }

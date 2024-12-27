@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
         
 
         // Redirect based on role
-        if ($user->role === 'user') {
+        if ($user->role === 'mahasiswa') {
             return redirect()->intended('/dashboardUser');
         } 
 

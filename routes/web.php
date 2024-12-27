@@ -26,6 +26,8 @@ use App\Http\Controllers\ScholarshipRegistrantController;
 use App\Models\Abdimas\AbdimasInformation;
 use App\Models\Competitions\CompetitionInformation;
 use App\Models\Competitions\CompetitionRegistrant;
+use App\Models\Competitions\MahasiswaAchievement;
+use App\Models\Competitions\MahasiswaRegistrant;
 use App\Models\Country;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
@@ -72,10 +74,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/abdimas/{postId}', [AbdimasInformationController::class, 'show'])->name('abdimas.show');
     Route::get('/penelitian/{postId}', [ResearchInformationController::class, 'show'])->name('research.show');
 
+    Route::get('/prestasi-lomba/{id}', [CompetitionsAchievementController::class, 'fillCreate'])->name('competition-achievement.fill-create');
+    Route::post('/prestasi-lomba', [CompetitionsAchievementController::class, 'fillStore'])->name('competition-achievement.fill-store');
+
 
     // Profile
     Route::get('/profile', function () {
-        return Inertia::render('User/Profile');
+
+        $idMahasiswa = Mahasiswa::where('id_user', Auth::user()->id)->first()->id;
+
+        $partisipasiLomba = MahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('competitionRegistrant')->get();
+        $prestasiLomba = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)->with('competitionAchievement')->get();
+
+        return Inertia::render('User/Profile',[
+            'partisipasiLomba' => $partisipasiLomba,
+            'prestasiLomba' => $prestasiLomba
+        ]);
     })->name('profile');
 
 
