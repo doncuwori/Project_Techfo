@@ -13,6 +13,7 @@ import {
     Title,
 } from "chart.js";
 import axios from "axios";
+import { data } from "autoprefixer";
 
 // Registering the required Chart.js components
 ChartJS.register(
@@ -27,18 +28,20 @@ ChartJS.register(
     Title
 );
 
-const LaporanKeaktifan = ({ competitionCount, scholarshipCount, abdimasCount, researchCount }) => {
+const LaporanKeaktifan = ({
+    competitionCount,
+    scholarshipCount,
+    abdimasCount,
+    researchCount,
+    rekapJuara,
+    rekapLomba,
+}) => {
     const pieData = {
-        labels: [
-            "S-1 Informatika",
-            "S-1 Sistem Informasi",
-            "D-3 Sistem Informasi",
-            "S-1 Sains Data",
-        ],
+        labels: Object.keys(rekapLomba),
         datasets: [
             {
                 label: "Program Studi",
-                data: [25, 40, 20, 15],
+                data: Object.values(rekapLomba),
                 backgroundColor: ["#356a33", "#58b055", "#81cd7d", "#b6e2b4"],
                 hoverOffset: 4,
             },
@@ -51,11 +54,23 @@ const LaporanKeaktifan = ({ competitionCount, scholarshipCount, abdimasCount, re
             legend: { position: "right" },
             tooltip: {
                 callbacks: {
-                    label: ({ label, raw }) => `${label}: ${raw}%`,
+                    label: ({ label, raw }) => `${label}: ${raw}`,
                 },
             },
         },
     };
+
+    const rekapData = Object.keys(rekapJuara).map((key) => ({
+        labels: Object.keys(rekapJuara[key]),
+        datasets: [
+            {
+                label: "Jumlah Juara",
+                data: Object.values(rekapJuara[key]),
+                backgroundColor: ["#356a33", "#58b055", "#81cd7d", "#b6e2b4"],
+                hoverOffset: 4,
+            },
+        ],
+    }));
 
     const barData = {
         labels: [
@@ -83,7 +98,7 @@ const LaporanKeaktifan = ({ competitionCount, scholarshipCount, abdimasCount, re
             },
             tooltip: {
                 callbacks: {
-                    label: ({ label, raw }) => `${label}: ${raw} siswa`,
+                    label: ({ label, raw }) => `${label}: ${raw} Mahasiswa`,
                 },
             },
         },
@@ -247,45 +262,20 @@ const LaporanKeaktifan = ({ competitionCount, scholarshipCount, abdimasCount, re
                         <h2 className="text-xl font-semibold text-left mb-4">
                             Rekap Juara Lomba
                         </h2>
-                        <div className="p-4 bg-white rounded-lg border border-[#d1d3d8]">
-                            <div className="flex items-end gap-6">
-                                <div className="w-[19px] pb-9 flex flex-col items-center gap-8">
-                                    {[25, 20, 15, 10, 5].map((num) => (
-                                        <div
-                                            key={num}
-                                            className="self-stretch text-center text-gray-500 text-sm font-normal leading-tight"
-                                        >
-                                            {num}
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="flex grow h-[185px] justify-center items-end gap-10">
-                                    {[
-                                        "Juara 1",
-                                        "Juara 2",
-                                        "Juara 3",
-                                        "Juara Umum",
-                                        "Juara Favorit",
-                                        "Juara Harapan",
-                                        "Lainnya",
-                                    ].map((label) => (
-                                        <div
-                                            key={label}
-                                            className="flex flex-col items-center gap-2"
-                                        >
-                                            <div className="flex items-end gap-[5px]">
-                                                <div className="w-6 h-[90px] bg-[#b44621] rounded-xl"></div>
-                                                <div className="w-6 h-[157px] bg-[#fe632e] rounded-xl"></div>
-                                                <div className="w-6 h-[60px] bg-[#fe9673] rounded-xl"></div>
-                                                <div className="w-6 h-[35px] bg-[#ffcfbe] rounded-xl"></div>
-                                            </div>
-                                            <div className="text-center text-gray-500 text-sm font-normal leading-tight">
-                                                {label}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                        <div className="p-4 bg-white rounded-lg border border-[#d1d3d8] grid grid-cols-2 gap-4">
+                            {rekapData.map((item, index) => {
+                                console.log(item);
+                                return (
+                                    <div className="flex flex-col items-center justify-center gap-4 border rounded-md p-4 shadow">
+                                        <Bar
+                                            key={index}
+                                            data={item}
+                                            options={barOptions}
+                                        />
+                                        <h3 className="text-gray-700 text-lg font-medium leading-7">{Object.keys(rekapJuara)[index]}</h3>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 
