@@ -3,14 +3,70 @@ import "react-circular-progressbar/dist/styles.css";
 import NavbarAdmin from "@/Components/NavbarAdmin";
 import { formatDate, formatDatetimeToIndonesian } from "@/lib/helper";
 import CardStatis from "@/Components/Laporan/Lomba/CardStatis";
+import { Bar } from "react-chartjs-2";
+import {
+    Chart as ChartJS,
+    ArcElement,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Title,
+} from "chart.js";
+
+ChartJS.register(
+    ArcElement,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    PointElement,
+    LineElement,
+    Title
+);
 
 const LaporanLomba = ({
     competitionAchievementsCount,
     competitionRegistrantsCount,
     user,
     registrant,
+    rekapJuara,
 }) => {
-    console.log(competitionAchievementsCount, competitionRegistrantsCount);
+
+    const rekapData = Object.keys(rekapJuara).map((key) => ({
+        labels: Object.keys(rekapJuara[key]),
+        datasets: [
+            {
+                label: "Jumlah Juara",
+                data: Object.values(rekapJuara[key]),
+                backgroundColor: ["#356a33", "#58b055", "#81cd7d", "#b6e2b4"],
+                hoverOffset: 4,
+            },
+        ],
+    }));
+
+    const barOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top",
+                labels: { boxWidth: 0, padding: 10 },
+            },
+            tooltip: {
+                callbacks: {
+                    label: ({ label, raw }) => `${label}: ${raw} Mahasiswa`,
+                },
+            },
+        },
+        scales: {
+            x: { ticks: { font: { size: 12 } } },
+            y: { beginAtZero: true, ticks: { stepSize: 5 } },
+        },
+    };
 
     return (
         <body>
@@ -28,109 +84,27 @@ const LaporanLomba = ({
                             competitionRegistrantsCount
                         }
                     />
-                    <div class="self-stretch h-[360px] p-6 bg-white rounded-lg border-2 border-neutral-100 flex-col justify-start items-start gap-8 flex">
+                    <div class="self-stretch p-6 bg-white rounded-lg border-2 border-neutral-100 flex-col justify-start items-start gap-8 flex">
                         <div class="justify-start items-start gap-3 inline-flex">
                             <div class="text-[#2d3036] text-xl font-semibold leading-7">
                                 REKAP JUARA
                             </div>
                         </div>
-                        <div class="self-stretch justify-start items-end gap-6 inline-flex">
-                            <div class="w-[19px] pb-9 flex-col justify-start items-center gap-[31px] inline-flex">
-                                <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                    25
-                                </div>
-                                <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                    20
-                                </div>
-                                <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                    15
-                                </div>
-                                <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                    10
-                                </div>
-                                <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                    5
-                                </div>
-                            </div>
-                            <div class="grow shrink basis-0 h-[185px] justify-center items-end gap-[39px] flex">
-                                <div class="grow shrink basis-0 flex-col justify-center items-center gap-2 inline-flex">
-                                    <div class="self-stretch justify-center items-end gap-[5px] inline-flex">
-                                        <div class="w-6 h-[90px] bg-[#b44621] rounded-xl"></div>
-                                        <div class="w-6 h-[157px] bg-[#fe632e] rounded-xl"></div>
-                                        <div class="w-6 h-[60px] bg-[#fe9673] rounded-xl"></div>
-                                        <div class="w-6 h-[35px] bg-[#ffcfbe] rounded-xl"></div>
+                        <div className="p-4 bg-white rounded-lg border border-[#d1d3d8] grid grid-cols-3 gap-4 w-full">
+                            {rekapData.map((item, index) => {
+                                return (
+                                    <div className="flex flex-col items-center justify-center gap-4 border rounded-md p-4 shadow">
+                                        <Bar
+                                            key={index}
+                                            data={item}
+                                            options={barOptions}
+                                        />
+                                        <h3 className="text-gray-700 text-lg font-medium leading-7">
+                                            {Object.keys(rekapJuara)[index]}
+                                        </h3>
                                     </div>
-                                    <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                        Juara 1
-                                    </div>
-                                </div>
-                                <div class="grow shrink basis-0 flex-col justify-center items-center gap-2 inline-flex">
-                                    <div class="self-stretch justify-center items-end gap-[5px] inline-flex">
-                                        <div class="w-6 h-[90px] bg-[#b44621] rounded-xl"></div>
-                                        <div class="w-6 h-[157px] bg-[#fe632e] rounded-xl"></div>
-                                        <div class="w-6 h-[60px] bg-[#fe9673] rounded-xl"></div>
-                                        <div class="w-6 h-[35px] bg-[#ffcfbe] rounded-xl"></div>
-                                    </div>
-                                    <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                        Juara 2
-                                    </div>
-                                </div>
-                                <div class="grow shrink basis-0 flex-col justify-center items-center gap-2 inline-flex">
-                                    <div class="self-stretch justify-center items-end gap-[5px] inline-flex">
-                                        <div class="w-6 h-[90px] bg-[#b44621] rounded-xl"></div>
-                                        <div class="w-6 h-[157px] bg-[#fe632e] rounded-xl"></div>
-                                        <div class="w-6 h-[60px] bg-[#fe9673] rounded-xl"></div>
-                                        <div class="w-6 h-[35px] bg-[#ffcfbe] rounded-xl"></div>
-                                    </div>
-                                    <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                        Juara 3
-                                    </div>
-                                </div>
-                                <div class="grow shrink basis-0 flex-col justify-center items-center gap-2 inline-flex">
-                                    <div class="self-stretch justify-center items-end gap-[5px] inline-flex">
-                                        <div class="w-6 h-[90px] bg-[#b44621] rounded-xl"></div>
-                                        <div class="w-6 h-[157px] bg-[#fe632e] rounded-xl"></div>
-                                        <div class="w-6 h-[60px] bg-[#fe9673] rounded-xl"></div>
-                                        <div class="w-6 h-[35px] bg-[#ffcfbe] rounded-xl"></div>
-                                    </div>
-                                    <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                        Juara Umum
-                                    </div>
-                                </div>
-                                <div class="grow shrink basis-0 flex-col justify-center items-center gap-2 inline-flex">
-                                    <div class="self-stretch justify-center items-end gap-[5px] inline-flex">
-                                        <div class="w-6 h-[90px] bg-[#b44621] rounded-xl"></div>
-                                        <div class="w-6 h-[157px] bg-[#fe632e] rounded-xl"></div>
-                                        <div class="w-6 h-[60px] bg-[#fe9673] rounded-xl"></div>
-                                        <div class="w-6 h-[35px] bg-[#ffcfbe] rounded-xl"></div>
-                                    </div>
-                                    <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                        Juara Favorit
-                                    </div>
-                                </div>
-                                <div class="grow shrink basis-0 flex-col justify-center items-center gap-2 inline-flex">
-                                    <div class="self-stretch justify-center items-end gap-[5px] inline-flex">
-                                        <div class="w-6 h-[90px] bg-[#b44621] rounded-xl"></div>
-                                        <div class="w-6 h-[157px] bg-[#fe632e] rounded-xl"></div>
-                                        <div class="w-6 h-[60px] bg-[#fe9673] rounded-xl"></div>
-                                        <div class="w-6 h-[35px] bg-[#ffcfbe] rounded-xl"></div>
-                                    </div>
-                                    <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                        Juara Harapan
-                                    </div>
-                                </div>
-                                <div class="grow shrink basis-0 flex-col justify-center items-center gap-2 inline-flex">
-                                    <div class="self-stretch justify-center items-end gap-[5px] inline-flex">
-                                        <div class="w-6 h-[90px] bg-[#b44621] rounded-xl"></div>
-                                        <div class="w-6 h-[157px] bg-[#fe632e] rounded-xl"></div>
-                                        <div class="w-6 h-[60px] bg-[#fe9673] rounded-xl"></div>
-                                        <div class="w-6 h-[35px] bg-[#ffcfbe] rounded-xl"></div>
-                                    </div>
-                                    <div class="self-stretch text-center text-gray-500 text-sm font-normal font-['Inter'] leading-tight">
-                                        Lainnya
-                                    </div>
-                                </div>
-                            </div>
+                                );
+                            })}
                         </div>
                     </div>
 

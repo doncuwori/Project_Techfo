@@ -9,7 +9,9 @@ const DashboardAdmin = ({
     competitionAchievementsCount,
     scholarshipRegistrantsCount,
     scholarshipRecipientsCount,
-    user
+    user,
+    rekapJuara,
+    rekapLomba
 }) => {
     console.log(
         competitionRegistrantsCount,
@@ -52,6 +54,8 @@ const DashboardAdmin = ({
                     <LaporanKeaktifan
                         competitionCount={`${competitionAchievementsCount}/${competitionRegistrantsCount} `}
                         scholarshipCount={`${scholarshipRecipientsCount}/${scholarshipRegistrantsCount}`}
+                        rekapJuara={rekapJuara}
+                        rekapLomba={rekapLomba}
                     />
                 </div>
             </main>

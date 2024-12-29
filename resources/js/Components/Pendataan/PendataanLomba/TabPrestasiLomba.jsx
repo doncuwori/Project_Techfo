@@ -352,7 +352,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                                 <option>Medali Emas</option>
                                 <option>Medali Perak</option>
                                 <option>Medali Perunggu</option>
-                                <option>Penerima Hibah</option>
+                                <option>Penerima Hibah</option>
                                 <option>Terbaik</option>
                             </select>
                         </div>
