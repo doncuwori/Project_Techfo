@@ -10,7 +10,7 @@ const ProfileSection = () => {
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8 w-full">
                 <img
                     className="w-32 h-32 md:w-44 md:h-44 rounded-full"
-                    src="/img/profile.png"
+                    src="/img/profiledefault.png"
                     alt="Profile"
                 />
                 <div className="flex flex-row flex-grow gap-4 bg-white border border-[#d1d3d8] rounded-lg w-full">

@@ -210,12 +210,12 @@ const Navbar = ({ data }) => {
                     className={`flex items-center space-x-2 transition duration-150 hover:scale-105 hover:border-4 hover:border-orange-400 hover:rounded-full ${
                         route().current("profile")
                             ? "border-4 border-orange-400 rounded-full"
-                            : ""
+                            : "border-4 rounded-full"
                     }`}
                 >
                     <img
                         className="w-9 h-9 md:w-9 md:h-9 rounded-full ml-auto cursor-pointer"
-                        src="/img/profile.png"
+                        src="/img/profiledefault.png"
                         alt="User Profile"
                     />
                 </button>
