@@ -96,7 +96,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                                 Tingkat Prestasi
                                 <span className="text-red-600">*</span>
                             </label>
-                            <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.activity_name}/>
+                            <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.scope}/>
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">

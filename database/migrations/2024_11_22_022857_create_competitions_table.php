@@ -14,17 +14,17 @@ return new class extends Migration
         // Pendaftar Lomba
         Schema::create('competition_registrants', function (Blueprint $table) {
             $table->id(); // ID kompetisi
-            $table->foreignId('id_country')->nullable()->constrained('countries')->onDelete('cascade');
-            $table->foreignId('id_dosen')->nullable()->constrained('dosens')->onDelete('cascade');
-            $table->string('ormawa_delegation')->nullable(); // Delegasi ORMAWA
+            $table->foreignId('id_country')->constrained('countries')->onDelete('cascade');
+            $table->foreignId('id_dosen')->constrained('dosens')->onDelete('cascade');
+            $table->string('ormawa_delegation'); // Delegasi ORMAWA
             $table->string('activity_name'); // Nama kegiatan
-            $table->string('scope')->nullable(); // Tingkat Prestasi lomba
-            $table->string('field')->nullable(); // Bidang lomba
-            $table->string('organizer')->nullable(); // Penyelenggara
-            $table->string('location')->nullable(); // Lokasi kegiatan
-            $table->date('activity_date_start')->nullable(); // Tanggal mulai
-            $table->date('activity_date_end')->nullable(); // Tanggal selesai
-            $table->text('description')->nullable(); // Deskripsi kegiatan
+            $table->string('scope'); // Tingkat Prestasi lomba
+            $table->string('field'); // Bidang lomba
+            $table->string('organizer'); // Penyelenggara
+            $table->string('location'); // Lokasi kegiatan
+            $table->date('activity_date_start'); // Tanggal mulai
+            $table->date('activity_date_end'); // Tanggal selesai
+            $table->text('description'); // Deskripsi kegiatan
             $table->string('poster_url')->nullable(); // URL poster
             $table->timestamps();
         });
@@ -40,23 +40,23 @@ return new class extends Migration
         // Pemenang Lomba
         Schema::create('competition_achievements', function (Blueprint $table) {
             $table->id(); // ID kompetisi
-            $table->foreignId('id_country')->nullable()->constrained('countries')->onDelete('cascade');
-            $table->foreignId('id_dosen')->nullable()->constrained('dosens')->onDelete('cascade');
-            $table->string('ormawa_delegation')->nullable(); // Delegasi ORMAWA
+            $table->foreignId('id_country')->constrained('countries')->onDelete('cascade');
+            $table->foreignId('id_dosen')->constrained('dosens')->onDelete('cascade');
+            $table->string('ormawa_delegation'); // Delegasi ORMAWA
             $table->string('activity_name'); // Nama kegiatan
-            $table->string('scope')->nullable(); // Tingkat Prestasi lomba
-            $table->string('field')->nullable(); // Bidang lomba
-            $table->string('organizer')->nullable(); // Penyelenggara
-            $table->string('location')->nullable(); // Lokasi kegiatan
-            $table->date('activity_date_start')->nullable(); // Tanggal mulai
-            $table->date('activity_date_end')->nullable(); // Tanggal selesai
-            $table->text('description')->nullable(); // Deskripsi kegiatan
+            $table->string('scope'); // Tingkat Prestasi lomba
+            $table->string('field'); // Bidang lomba
+            $table->string('organizer'); // Penyelenggara
+            $table->string('location'); // Lokasi kegiatan
+            $table->date('activity_date_start'); // Tanggal mulai
+            $table->date('activity_date_end'); // Tanggal selesai
+            $table->text('description'); // Deskripsi kegiatan
 
             // PEMENANG LOMBA
 
-            $table->string('degree')->nullable(); // Gelar lomba
-            $table->string('proof_scan_url')->nullable(); // URL bukti scan
-            $table->string('event_photo_url')->nullable(); // URL poster
+            $table->string('degree'); // Gelar lomba
+            $table->string('proof_scan_url'); // URL bukti scan
+            $table->string('event_photo_url'); // URL poster
             $table->timestamps();
         });
         

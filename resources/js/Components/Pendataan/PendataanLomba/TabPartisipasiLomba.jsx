@@ -102,9 +102,10 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
         post(route("competitions.store"), {
             onSuccess: (res) => {
                 reset();
-                toast.success("Partisipasi Lomba Berhasil Dibuat");
+                toast.success("Berhasil Membuat Data Partisipasi Lomba");
             },
             onError: (errors) => {
+                toast.error("Gagal Membuat Data Partisipasi Lomba");
                 console.error(errors);
             },
         });

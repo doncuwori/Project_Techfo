@@ -10,6 +10,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         is_group: false,
         leader_nim: "",
+        id_country: "",
         ormawa_delegation: "",
         achievement_level: "",
         mentor_name: "",
@@ -18,7 +19,6 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
         degree: "",
         organizer: "",
         scope: "",
-        host_country: "",
         location: "",
         activity_date_start: "",
         activity_date_end: "",

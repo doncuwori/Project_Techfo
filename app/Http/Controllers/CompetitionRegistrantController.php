@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\MahasiswaRegistrant;
 use App\Models\Mahasiswa;
-use App\Models\User;
-use App\Models\Pivot\UserCompetitionRegistrants;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class CompetitionRegistrantController extends Controller
 {

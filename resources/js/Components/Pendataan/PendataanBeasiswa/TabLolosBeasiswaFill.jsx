@@ -4,21 +4,11 @@ import toast from "react-hot-toast";
 import SearchableSelect from "@/Components/SearchableSelect";
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 
-export const TabLolosBeasiswa = ({ country }) => {
+export const TabLolosBeasiswaFill = ({ dataFill }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
-        id_country: "",
-        name: "",
-        type: "",
-        organizer: "",
-        event_date_start: "",
-        event_date_end: "",
-        description: "",
-        scan_bukti_url: "",
-        poster_kegiatan_url: "",
-    });
-
-    const countryOption = country.map((val) => {
-        return { value: val.id, label: val.country_name };
+        id_scholarship_registrant: dataFill.id,
+        proof_scan_url: "",
+        poster_url: "",
     });
 
     const [scanBuktiFile, setScanBuktiFile] = useState(null);
@@ -49,9 +39,9 @@ export const TabLolosBeasiswa = ({ country }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        data.name = data.name.trim();
-        post(route("scholarshipRecipient.store"), {
+        post(route("scholarship-recipient.fill-store"), {
             onSuccess: (res) => {
+                console.log("success");
                 reset();
                 toast.success("Berhasil Membuat Data Penerima Beasiswa");
             },
@@ -60,10 +50,6 @@ export const TabLolosBeasiswa = ({ country }) => {
                 console.error(errors);
             },
         });
-    };
-
-    const handleCountry = (value) => {
-        setData("id_country", value.value);
     };
 
     return (
@@ -78,12 +64,9 @@ export const TabLolosBeasiswa = ({ country }) => {
                         Nama Beasiswa<span className="text-red-600">*</span>
                     </label>
                     <input
-                        value={data.name}
-                        onChange={(e) => setData("name", e.target.value)}
-                        type="text"
-                        id="name"
-                        className="w-full border rounded-lg px-4"
-                        placeholder="Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.name}
                     />
                 </div>
                 <div className="mb-4">
@@ -93,19 +76,11 @@ export const TabLolosBeasiswa = ({ country }) => {
                     >
                         Jenis Beasiswa<span className="text-red-600">*</span>
                     </label>
-                    <select
-                        value={data.type}
-                        onChange={(e) => setData("type", e.target.value)}
-                        id="type"
-                        className="w-full border rounded-lg px-4"
-                    >
-                        <option>-- Pilih Jenis Beasiswa --</option>
-                        <option>Beasiswa dari Pemerintah</option>
-                        <option>Beasiswa Swasta</option>
-                        <option>Beasiswa dari Negara Maju</option>
-                        <option>Beasiswa dari Komunitas</option>
-                        <option>Beasiswa dari Perguruan Tinggi</option>
-                    </select>
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.type}
+                    />
                 </div>
 
                 <div className="mb-4">
@@ -113,11 +88,9 @@ export const TabLolosBeasiswa = ({ country }) => {
                         Penyelenggara<span className="text-red-600">*</span>
                     </label>
                     <input
-                        value={data.organizer}
-                        onChange={(e) => setData("organizer", e.target.value)}
-                        type="text"
-                        className="w-full border rounded-lg px-4"
-                        placeholder="Tuliskan penyelenggara kegiatan..."
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.organizer}
                     />
                 </div>
 
@@ -129,23 +102,11 @@ export const TabLolosBeasiswa = ({ country }) => {
                         Negara Penyelenggara
                         <span className="text-red-600">*</span>
                     </label>
-                    <SearchableSelect
-                        onChange={handleCountry}
-                        options={countryOption}
-                        placeholder={"-- Pilih Negara Penyelenggara --"}
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.country.country_name}
                     />
-                    {/* <select
-                        value={data.host_country}
-                        onChange={(e) =>
-                            setData("host_country", e.target.value)
-                        }
-                        id="host_country"
-                        className="w-full border rounded-lg px-4"
-                    >
-                        <option>Pilih Negara Penyelenggara</option>
-                        <option>Indonesia</option>
-                        <option>Malaysia</option>
-                    </select> */}
                 </div>
 
                 <div className="mb-4">
@@ -157,11 +118,9 @@ export const TabLolosBeasiswa = ({ country }) => {
                         <span className="text-red-600">*</span>
                     </label>
                     <input
-                        type="date"
-                        onChange={(e) => setData("event_date_start", e.target.value)}
-                        value={data.event_date_start}
-                        id="event_date_start"
-                        className="w-full border rounded-lg px-4"
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.event_date_start}
                     />
                 </div>
 
@@ -174,11 +133,9 @@ export const TabLolosBeasiswa = ({ country }) => {
                         <span className="text-red-600">*</span>
                     </label>
                     <input
-                        type="date"
-                        onChange={(e) => setData("event_date_end", e.target.value)}
-                        value={data.event_date_end}
-                        id="event_date_end"
-                        className="w-full border rounded-lg px-4"
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.event_date_end}
                     />
                 </div>
 
@@ -191,10 +148,9 @@ export const TabLolosBeasiswa = ({ country }) => {
                         <span className="text-red-600">*</span>
                     </label>
                     <textarea
-                        id="description"
-                        value={data.description}
-                        onChange={(e) => setData("description", e.target.value)}
-                        className="w-full border rounded-lg px-4"
+                        disabled
+                        value={dataFill.description}
+                        className="w-full border rounded-lg px-4 bg-gray-100"
                         placeholder="Write text here..."
                     ></textarea>
                 </div>
@@ -228,7 +184,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                         {scanBuktiFile && (
                             <div className="mt-4 flex items-center justify-center">
                                 <p className="text-green-500 mr-2">
-                                    {scanBukti.name}
+                                    {scanBuktiFile.name}
                                 </p>
                                 <button
                                     type="button"
@@ -267,7 +223,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                         <p className="text-gray-500">Max. file size: 10MB</p>
                         <input
                             type="file"
-                            accept=".jpg,.jpeg,.png,.pdf"
+                            accept=".jpg,.jpeg,.png"
                             className="hidden"
                             id="poster-kegiatan"
                             onChange={handlePosterKegiatanChange}

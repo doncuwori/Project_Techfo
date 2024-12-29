@@ -1,11 +1,11 @@
 import { formatDate } from "@/lib/helper";
 import { Clock4 } from "lucide-react";
 
-const RiwayatPrestasiLomba = ({ data }) => {
+const RiwayatPenerimaBeasiswa = ({ data }) => {
     return (
         <div className="py-6 px-8 mb-6">
             <h2 className="text-2xl font-semibold mb-6">
-                Riwayat Prestasi Lomba
+                Riwayat Penerima Beasiswa
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.map((d, index) => (
@@ -16,11 +16,11 @@ const RiwayatPrestasiLomba = ({ data }) => {
                         <div className="w-[125px] h-[127px] relative">
                             <img
                                 src={
-                                    d.competition_achievement.event_photo_url !=
+                                    d.scholarship_recipient.poster_url !=
                                     null
                                         ? "/images/" +
-                                          d.competition_achievement
-                                              .event_photo_url
+                                          d.scholarship_recipient
+                                              .poster_url
                                         : "/images/noimage.png"
                                 }
                                 alt="Deskripsi gambar"
@@ -32,10 +32,10 @@ const RiwayatPrestasiLomba = ({ data }) => {
                         </div>
                         <div className="flex flex-col justify-between gap-2 w-full">
                             <div className="text-black text-lg font-medium">
-                                {d.competition_achievement.activity_name}
+                                {d.scholarship_recipient.name}
                             </div>
                             <div className="text-gray-500 text-sm font-normal leading-tight">
-                                {d.competition_achievement.description}
+                                {d.scholarship_recipient.description}
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock4 size={18} className="text-orange-500" />
@@ -45,7 +45,7 @@ const RiwayatPrestasiLomba = ({ data }) => {
                             </div>
                         </div>
                         <div className="absolute bottom-4 right-4 bg-green-500 p-2 px-4 rounded-md text-white hover:shadow-lg">
-                            {d.competition_achievement.degree}
+                            Berhasil
                         </div>
                     </div>
                 ))}
@@ -54,4 +54,4 @@ const RiwayatPrestasiLomba = ({ data }) => {
     );
 };
 
-export default RiwayatPrestasiLomba;
+export default RiwayatPenerimaBeasiswa;

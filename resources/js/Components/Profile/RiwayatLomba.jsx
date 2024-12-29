@@ -1,7 +1,7 @@
 import { formatDate } from "@/lib/helper";
 import { Clock4 } from "lucide-react";
 
-const RiwayatLomba = ({data}) => {
+const RiwayatLomba = ({ data }) => {
     return (
         <div className="py-6 px-8 mb-6">
             <h2 className="text-2xl font-semibold mb-6">

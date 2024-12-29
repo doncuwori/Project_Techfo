@@ -5,7 +5,6 @@ namespace App\Models\Competitions;
 use App\Models\Country;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,10 +27,12 @@ class CompetitionRegistrant extends Model
         'description',
         'poster_url',
     ];
+    
     public function mahasiswa()
     {
         return $this->hasManyThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_competition_registrant', 'id');
     }
+
     public function dosen()
     {
         return $this->belongsTo(Dosen::class, 'id_dosen');

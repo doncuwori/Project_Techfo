@@ -6,13 +6,14 @@ import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 
 export const TabDaftarBeasiswa = ({ country }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
+        id_country: "",
         name: "",
         type: "",
         organizer: "",
-        host_country: "",
-        event_date: "",
+        event_date_start: "",
+        event_date_end: "",
         description: "",
-        proof_scan_url: null, 
+        poster_url: "", 
     });
 
     const countryOption = country.map((val) => {
@@ -21,37 +22,25 @@ export const TabDaftarBeasiswa = ({ country }) => {
 
     const [posterKegiatan, setPosterKegiatan] = useState(null); 
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setPosterKegiatan(file);
-            setData("proof_scan_url", file); 
-        }
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setData("poster_url", file);
+        setPosterKegiatan(file);
     };
 
     const handleRemoveFile = () => {
-        setPosterKegiatan(null); 
-        setData("proof_scan_url", null); 
+        setPosterKegiatan(null);
+        // Clear the file input field
+        setData("poster_url", null);
+        document.getElementById("fileInput").value = null;
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append("name", data.name);
-        formData.append("type", data.type);
-        formData.append("organizer", data.organizer);
-        formData.append("host_country", data.host_country);
-        formData.append("event_date", data.event_date);
-        formData.append("description", data.description);
-        if (posterKegiatan) {
-            formData.append("proof_scan_url", posterKegiatan); // Tambahkan file ke form data
-        }
-
         post(route("scholarshipRegistrant.store"), {
-            data: formData,
-            onSuccess: () => {
-                reset(); // Reset form setelah sukses
+            onSuccess: (res) => {
+                reset();
                 toast.success("Berhasil Membuat Data Lolos Beasiswa");
             },
             onError: (errors) => {
@@ -131,26 +120,26 @@ export const TabDaftarBeasiswa = ({ country }) => {
                     </select> */}
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="event_date" className="block text-gray-700 font-bold mb-2">
-                        Waktu Pelaksanaan<span className="text-red-600">*</span>
+                    <label htmlFor="event_date_start" className="block text-gray-700 font-bold mb-2">
+                        Waktu Pelaksanaan Dimulai<span className="text-red-600">*</span>
                     </label>
                     <input
                         type="date"
-                        value={data.event_date}
-                        onChange={(e) => setData("event_date", e.target.value)}
-                        id="event_date"
+                        value={data.event_date_start}
+                        onChange={(e) => setData("event_date_start", e.target.value)}
+                        id="event_date_start"
                         className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="event_date" className="block text-gray-700 font-bold mb-2">
-                        Waktu Berakhir<span className="text-red-600">*</span>
+                    <label htmlFor="event_date_end" className="block text-gray-700 font-bold mb-2">
+                        Waktu Pelaksanaan Berakhir<span className="text-red-600">*</span>
                     </label>
                     <input
                         type="date"
-                        value={data.event_date}
-                        onChange={(e) => setData("event_date", e.target.value)}
-                        id="event_date"
+                        value={data.event_date_end}
+                        onChange={(e) => setData("event_date_end", e.target.value)}
+                        id="event_date_end"
                         className="w-full border rounded-lg px-4"
                     />
                 </div>
@@ -178,7 +167,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
                         <p className="text-gray-500">Max. file size: 10MB</p>
                         <input
                             type="file"
-                            accept=".jpg,.jpeg,.png"
+                            accept=".jpg,.jpeg,.png,.pdf"
                             className="hidden"
                             id="poster-kegiatan"
                             onChange={handleFileChange}

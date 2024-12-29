@@ -8,15 +8,29 @@ import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
 import { Toaster } from "react-hot-toast";
 import RiwayatPrestasiLomba from "@/Components/Profile/RiwayatPrestasiLomba";
+import RiwayatBeasiswa from "@/Components/Profile/RiwayatBeasiswa";
+import RiwayatPenerimaBeasiswa from "@/Components/Profile/RiwayatPenerimaBeasiswa";
 
-const Profile = ({partisipasiLomba, prestasiLomba}) => {
+const Profile = ({
+    partisipasiLomba,
+    prestasiLomba,
+    pendaftarBeasiswa,
+    penerimaBeasiswa,
+}) => {
     return (
         <div>
             <Navbar />
             <ProfileSection />
-            <CatatanKeaktifan partisipasiLomba={partisipasiLomba} prestasiLomba={prestasiLomba}/>
-            <RiwayatLomba data={partisipasiLomba}/>
-            <RiwayatPrestasiLomba data={prestasiLomba}/>
+            <CatatanKeaktifan
+                partisipasiLomba={partisipasiLomba}
+                prestasiLomba={prestasiLomba}
+                pendaftarBeasiswa={pendaftarBeasiswa}
+                penerimaBeasiswa={penerimaBeasiswa}
+            />
+            <RiwayatLomba data={partisipasiLomba} />
+            <RiwayatPrestasiLomba data={prestasiLomba} />
+            <RiwayatBeasiswa data={pendaftarBeasiswa} />
+            <RiwayatPenerimaBeasiswa data={penerimaBeasiswa} />
             <RiwayatKegiatan />
             <Footer />
             <ScrollUpButton />

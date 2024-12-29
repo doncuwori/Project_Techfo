@@ -32,6 +32,8 @@ use App\Models\Country;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Researchs\ResearchInformation;
+use App\Models\Scholarships\MahasiswaRecipient;
+use App\Models\Scholarships\MahasiswaRegistrant as ScholarshipsMahasiswaRegistrant;
 use App\Models\Scholarships\ScholarshipInformation;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -77,6 +79,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/prestasi-lomba/{id}', [CompetitionsAchievementController::class, 'fillCreate'])->name('competition-achievement.fill-create');
     Route::post('/prestasi-lomba', [CompetitionsAchievementController::class, 'fillStore'])->name('competition-achievement.fill-store');
 
+    Route::get('/penerima-beasiswa/{id}', [ScholarshipRecipientController::class, 'fillCreate'])->name('scholarship-recipient.fill-create');
+    Route::post('/penerima-beasiswa', [ScholarshipRecipientController::class, 'fillStore'])->name('scholarship-recipient.fill-store');
+
 
     // Profile
     Route::get('/profile', function () {
@@ -85,10 +90,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         $partisipasiLomba = MahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('competitionRegistrant')->get();
         $prestasiLomba = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)->with('competitionAchievement')->get();
+        $pendaftarBeasiswa = ScholarshipsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRegistrant')->get();
+        $penerimaBeasiswa = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRecipient')->get();
 
         return Inertia::render('User/Profile',[
             'partisipasiLomba' => $partisipasiLomba,
-            'prestasiLomba' => $prestasiLomba
+            'prestasiLomba' => $prestasiLomba,
+            'pendaftarBeasiswa' => $pendaftarBeasiswa,
+            'penerimaBeasiswa' => $penerimaBeasiswa
         ]);
     })->name('profile');
 

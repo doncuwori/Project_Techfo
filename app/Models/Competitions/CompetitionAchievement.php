@@ -34,6 +34,7 @@ class CompetitionAchievement extends Model
     {
         return $this->hasManyThrough(Mahasiswa::class, MahasiswaAchievement::class, 'id_competition_achievement', 'id');
     }
+    
     public function dosen()
     {
         return $this->belongsTo(Dosen::class, 'id_dosen');

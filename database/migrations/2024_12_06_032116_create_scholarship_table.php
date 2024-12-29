@@ -13,46 +13,45 @@ return new class extends Migration
     {
         Schema::create('scholarship_registrants', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_country')->constrained('countries')->onDelete('cascade');
             $table->string('name');
             $table->string('type');
             $table->string('organizer');
-            $table->string('host_country');
             $table->date('event_date_start');
             $table->date('event_date_end');
             $table->text('description');
-            $table->foreignId('created_by')->constrained('users');
+            $table->string('poster_url')->nullable();
             $table->timestamps();
         });
 
-        Schema::create('user_scholarship_registrants', function (Blueprint $table) {
+        Schema::create('mahasiswa_scholarship_registrants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('scholarship_registrant_id')->constrained('scholarship_registrants')->onDelete('cascade');
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');
+            $table->foreignId('id_scholarship_registrant')->constrained('scholarship_registrants')->onDelete('cascade');
             $table->timestamps();
         });
         
 
         Schema::create('scholarship_recipients', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_country')->constrained('countries')->onDelete('cascade');
             $table->string('name');
             $table->string('type');
             $table->string('organizer');
-            $table->string('host_country');
             $table->date('event_date_start');
             $table->date('event_date_end');
             $table->text('description');
-            $table->text('proof_scan_url')->nullable();
-            $table->foreignId('created_by')->constrained('users');
+            $table->string('proof_scan_url');
+            $table->string('poster_url');
             $table->timestamps();
         });
         
-        Schema::create('user_scholarship_recipients', function (Blueprint $table) {
+        Schema::create('mahasiswa_scholarship_recipients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('scholarship_recipient_id')->constrained('scholarship_recipients')->onDelete('cascade');
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');
+            $table->foreignId('id_scholarship_recipient')->constrained('scholarship_recipients')->onDelete('cascade');
             $table->timestamps();
         });
-        
         
     }
 
@@ -61,6 +60,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('scholarship_registrants');
+        Schema::dropIfExists('user_scholarship_registrants');
+        Schema::dropIfExists('scholarship_recipients');
+        Schema::dropIfExists('user_scholarship_recipients');
     }
 };

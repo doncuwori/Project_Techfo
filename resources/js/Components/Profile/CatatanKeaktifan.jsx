@@ -1,11 +1,11 @@
-const CatatanKeaktifan = ({partisipasiLomba, prestasiLomba}) => {
+const CatatanKeaktifan = ({partisipasiLomba, prestasiLomba, pendaftarBeasiswa, penerimaBeasiswa}) => {
     return (
         <div className="py-6 px-8">
             <h2 className="text-2xl font-semibold mb-6">Catatan Keaktifan</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
                     { label: "LOMBA", icon: "🏆", count: `${partisipasiLomba.length}/${prestasiLomba.length}` },
-                    { label: "BEASISWA", icon: "📝", count: "36/50" },
+                    { label: "BEASISWA", icon: "📝", count: `${pendaftarBeasiswa.length}/${penerimaBeasiswa.length}` },
                     { label: "ABDIMAS", icon: "👥", count: "36/50" },
                     { label: "PENELITIAN", icon: "🔍", count: "36/50" },
                 ].map((item) => (
