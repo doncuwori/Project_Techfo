@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Abdimas\AbdimasInformation;
+use App\Models\Abdimas\DosenAbdimas;
+use App\Models\Dosen;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -13,23 +16,21 @@ class AbdimasInformationController extends Controller
     {
         // return view('competition-information');
         $user = auth()->user();
+        $dosen = Dosen::all();
 
         return Inertia::render('Admin/PusatInformasi/TambahInfoAbdimas', [
             'user' => $user,
+            'dosen' => $dosen
         ]);
     }
 
     public function store(Request $request){
         $user = Auth::user();
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'lecturer_1' => 'required|string|max:255',
-            'lecturer_2' => 'string|max:255',
-            'lecturer_3' => 'string|max:255',
-            'lecturer_4' => 'string|max:255',
-            'lecturer_5' => 'string|max:255',
-            'registration_start' => 'required|date',
-            'registration_end' => 'required|date',
+            'event_time_start' => 'required|date',
+            'event_time_end' => 'required|date',
             'location' => 'required|string|max:255',
             'total_students_required' => 'required|integer',
             'description' => 'required|string'
@@ -40,25 +41,28 @@ class AbdimasInformationController extends Controller
         // Create a new abdimas information record
         $abdimas = AbdimasInformation::create([
             'name' => $request->name,
-            'lecturer_1' => $request->lecturer_1,
-            'lecturer_2' => $request->lecturer_2,
-            'lecturer_3' => $request->lecturer_3,
-            'lecturer_4' => $request->lecturer_4,
-            'lecturer_5' => $request->lecturer_5,
-            'registration_start' => $request->registration_start,
-            'registration_end' => $request->registration_end,
+            'event_time_start' => $request->event_time_start,
+            'event_time_end' => $request->event_time_end,
             'location' => $request->location,
             'total_students_required' => $request->total_students_required,
             'created_by' => $user->id,
             'description' => $request->description,
-            // TODO:
-            // 'assignment_letter_url' => "https://www.google.com",
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
+        foreach($request->dosens as  $index => $d) {
+            if($d!= null){
+                DosenAbdimas::create([
+                    'id_dosen' => $d,
+                    'id_abdimas_information' => $abdimas->id,
+                    'is_leader' => $index == 0 ? true : false
+                ]);
+            }
+        }
+
         // Return a response
-        return redirect()->route('tambahInfoAbdimas')->with('success', 'Informasi pengabdian Masyarakat berhasil ditambahkan');
+        return redirect()->route('pusatAbdimas')->with('success', 'Informasi pengabdian Masyarakat berhasil ditambahkan');
     }
 
     public function show(AbdimasInformation $postId) {

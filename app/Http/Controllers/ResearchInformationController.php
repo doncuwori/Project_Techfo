@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Researchs\DosenResearch;
 use App\Models\Researchs\ResearchInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,13 +39,8 @@ class ResearchInformationController extends Controller
         $user = Auth::user();
         $request->validate([
             'name' => 'required|string|max:255',
-            'lecturer_1' => 'required|string|max:255',
-            'lecturer_2' => 'required|string|max:255',
-            'lecturer_3' => 'required|string|max:255',
-            'lecturer_4' => 'required|string|max:255',
-            'lecturer_5' => 'required|string|max:255',
-            'registration_start' => 'required|date',
-            'registration_end' => 'required|date',
+            'event_time_start' => 'required|date',
+            'event_time_end' => 'required|date',
             'location' => 'required|string|max:255',
             'total_students_required' => 'required|integer',
             'description' => 'required|string'
@@ -52,28 +48,30 @@ class ResearchInformationController extends Controller
         ]);
 
 
-        // Create a new abdimas information record
         $abdimas = ResearchInformation::create([
             'name' => $request->name,
-            'lecturer_1' => $request->lecturer_1,
-            'lecturer_2' => $request->lecturer_2,
-            'lecturer_3' => $request->lecturer_3,
-            'lecturer_4' => $request->lecturer_4,
-            'lecturer_5' => $request->lecturer_5,
-            'registration_start' => $request->registration_start,
-            'registration_end' => $request->registration_end,
+            'event_time_start' => $request->event_time_start,
+            'event_time_end' => $request->event_time_end,
             'location' => $request->location,
             'total_students_required' => $request->total_students_required,
             'created_by' => $user->id,
             'description' => $request->description,
-            // TODO:
-            'assignment_letter_url' => "https://www.google.com",
+            // 'assignment_letter_url' => "https://www.google.com",
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
+        foreach($request->dosens as  $index => $d) {
+            if($d!= null){
+                DosenResearch::create([
+                    'id_dosen' => $d,
+                    'id_research_information' => $abdimas->id,
+                    'is_leader' => $index == 0 ? true : false
+                ]);
+            }
+        }
 
-        return redirect()->route('tambahInfoPenelitian')->with('success', 'Informasi penelitian berhasil ditambahkan');
+        return redirect()->route('pusatPenelitian')->with('success', 'Informasi penelitian berhasil ditambahkan');
     }
 
     /**

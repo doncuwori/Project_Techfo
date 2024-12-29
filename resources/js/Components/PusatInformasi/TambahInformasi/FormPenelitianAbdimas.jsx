@@ -1,20 +1,50 @@
+import SearchableSelect from "@/Components/SearchableSelect";
 import { useForm } from "@inertiajs/react";
-import React from "react";
+import { Plus, Trash } from "lucide-react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-const FormPenelitianAbdimas = ({ type }) => {
+const FormPenelitianAbdimas = ({ type, dosen }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
-        lecturer_1: "",
-        lecturer_2: "",
-        lecturer_3: "",
-        lecturer_4: "",
-        lecturer_5: "",
+        dosens: [],
         description: "",
         registration_deadline: "",
         location: "",
         total_students_required: "",
         assignment_letter_url: "",
+    });
+
+    const [fields, setFields] = useState([{ value: "" }]);
+
+    const addField = () => {
+        setFields([...fields, { value: "" }]);
+    };
+
+    const removeField = (e, index) => {
+        e.preventDefault();
+        if (fields.length > 1) {
+            setFields(fields.slice(0, -1));
+
+            setTimeout(() => {
+                const input = document.querySelectorAll(
+                    'input[name="dosens[]"]'
+                );
+                const member = Array.from(input).map((input) => input.value);
+                console.log(member);
+                setData("dosens", member);
+            }, 100);
+        }
+    };
+
+    const handleDosens = (value) => {
+        const input = document.querySelectorAll('input[name="dosens[]"]');
+        const dosen = Array.from(input).map((input) => input.value);
+        setData("dosens", [...dosen, value.value]);
+    };
+
+    const dosenOption = dosen.map((val) => {
+        return { value: val.id, label: `${val.nama} - ${val.nidn}` };
     });
 
     const handleSubmit = (e) => {
@@ -60,7 +90,8 @@ const FormPenelitianAbdimas = ({ type }) => {
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Lokasi Kegiatan<span className="text-red-600">*</span>
+                            Lokasi Kegiatan
+                            <span className="text-red-600">*</span>
                         </label>
                         <input
                             value={data.location}
@@ -75,7 +106,8 @@ const FormPenelitianAbdimas = ({ type }) => {
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Waktu Mulai Pendaftaran<span className="text-red-600">*</span>
+                            Waktu Mulai Pendaftaran
+                            <span className="text-red-600">*</span>
                         </label>
                         <input
                             value={data.event_time_start}
@@ -89,7 +121,8 @@ const FormPenelitianAbdimas = ({ type }) => {
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Waktu Berakhir Pendaftaran<span className="text-red-600">*</span>
+                            Waktu Berakhir Pendaftaran
+                            <span className="text-red-600">*</span>
                         </label>
                         <input
                             value={data.event_time_end}
@@ -103,7 +136,8 @@ const FormPenelitianAbdimas = ({ type }) => {
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Total Mahasiswa yang Dibutuhkan<span className="text-red-600">*</span>
+                            Total Mahasiswa yang Dibutuhkan
+                            <span className="text-red-600">*</span>
                         </label>
                         <input
                             value={data.total_students_required}
@@ -119,86 +153,75 @@ const FormPenelitianAbdimas = ({ type }) => {
                         />
                     </div>
 
-                    <div className="space-y-4">
-                        <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2">
-                                Nama Lengkap Ketua<span className="text-red-600">*</span>
-                            </label>
-                            <input
-                                value={data.lecturer_1}
-                                onChange={(e) =>
-                                    setData("lecturer_1", e.target.value)
-                                }
-                                type="text"
-                                className="w-full border rounded-lg p-3"
-                                placeholder="Hayyu Satya S.Kom., MM."
-                            />
-                        </div>
+                    <div className="flex flex-col gap-2">
+                        <label className="block text-gray-700 font-bold mb-2">
+                            Daftar Dosen
+                            <span className="text-red-600">*</span>
+                        </label>
+                        {fields.map((field, index) => (
+                            <div className="flex gap-2" key={index + 1}>
+                                {/* <select
+                                            className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] w-96"
+                                            placeholder="Tuliskan NIM"
+                                        >
+                                            <option disabled={true} selected={true}>- Pilih Mahasiswa -</option>
+                                            {
+                                                mahasiswa.map((val)=>{
+                                                    return(
+                                                        <option>{val.nama} - {val.nim}</option>
+                                                    )
+                                                })
+                                            }
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2">
-                                Nama Lengkap Dosen 2
-                            </label>
-                            <input
-                                value={data.lecturer_2}
-                                onChange={(e) =>
-                                    setData("lecturer_2", e.target.value)
-                                }
-                                type="text"
-                                className="w-full border rounded-lg p-3"
-                                placeholder="Hayyu Satya S.Kom., MM."
-                            />
-                        </div>
+                                        </select> */}
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2">
-                                Nama Lengkap Dosen 3
-                            </label>
-                            <input
-                                value={data.lecturer_3}
-                                onChange={(e) =>
-                                    setData("lecturer_3", e.target.value)
-                                }
-                                type="text"
-                                className="w-full border rounded-lg p-3"
-                                placeholder="Hayyu Satya S.Kom., MM."
-                            />
-                        </div>
+                                <div className="w-full">
+                                    <SearchableSelect
+                                        name={"dosens[]"}
+                                        onChange={handleDosens}
+                                        options={dosenOption}
+                                        placeholder={"- Pilih Dosen -"}
+                                    />
+                                </div>
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2">
-                                Nama Lengkap Dosen 4
-                            </label>
-                            <input
-                                value={data.lecturer_4}
-                                onChange={(e) =>
-                                    setData("lecturer_4", e.target.value)
-                                }
-                                type="text"
-                                className="w-full border rounded-lg p-3"
-                                placeholder="Hayyu Satya S.Kom., MM."
-                            />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2">
-                                Nama Lengkap Dosen 5
-                            </label>
-                            <input
-                                value={data.lecturer_5}
-                                onChange={(e) =>
-                                    setData("lecturer_5", e.target.value)
-                                }
-                                type="text"
-                                className="w-full border rounded-lg p-3"
-                                placeholder="Hayyu Satya S.Kom., MM."
-                            />
+                                <input
+                                    className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200"
+                                    value={index==0 ? "Ketua" : "Anggota " + (index)}
+                                    disabled={true}
+                                />
+                                {index != 0 ? (
+                                    <button
+                                        onClick={(e) => removeField(e, index)}
+                                        className="bg-red-500 text-white px-4 py-2 rounded"
+                                    >
+                                        <Trash size={20} />
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={(e) => removeField(e, index)}
+                                        className="bg-red-300 text-white px-4 py-2 rounded"
+                                        disabled
+                                    >
+                                        <Trash size={20} />
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                        <div className="flex">
+                            <button
+                                type="button"
+                                className="bg-green-500 p-2 rounded-lg text-white"
+                                onClick={addField}
+                            >
+                                <Plus size={20} />
+                            </button>
                         </div>
                     </div>
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Deskripsi Kegiatan<span className="text-red-600">*</span>
+                            Deskripsi Kegiatan
+                            <span className="text-red-600">*</span>
                         </label>
                         <textarea
                             onChange={(e) => {
