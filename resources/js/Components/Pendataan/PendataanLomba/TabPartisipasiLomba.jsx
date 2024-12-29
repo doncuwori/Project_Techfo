@@ -245,6 +245,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                         }}
                         className="w-full border rounded-lg px-4"
                     >
+                        <option>-- Pilih Delegasi --</option>
                         <option>Bukan Delegasi dari ORMAWA</option>
                         <option>
                             Badan Eksekutif Mahasiswa Fakultas Ilmu Komputer

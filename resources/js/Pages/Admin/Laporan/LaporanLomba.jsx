@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import NavbarAdmin from "@/Components/NavbarAdmin";
 import { formatDate, formatDatetimeToIndonesian } from "@/lib/helper";
@@ -16,6 +16,8 @@ import {
     LineElement,
     Title,
 } from "chart.js";
+import TabelTabPartisipasi from "@/Components/Laporan/Lomba/TabelTabPartisipasi";
+import TabelTabPrestasi from "@/Components/Laporan/Lomba/TabelTabPrestasi";
 
 ChartJS.register(
     ArcElement,
@@ -35,7 +37,10 @@ const LaporanLomba = ({
     user,
     registrant,
     rekapJuara,
+    dataPendaftar,
+    dataPemenang
 }) => {
+    const [tabValue, settabValue] = useState("Pemenang");
 
     const rekapData = Object.keys(rekapJuara).map((key) => ({
         labels: Object.keys(rekapJuara[key]),
@@ -109,11 +114,29 @@ const LaporanLomba = ({
                     </div>
 
                     <div class="bg-white p-4 rounded-lg shadow-lg mt-6 mb-6 border-2 border-neutral-100">
-                        <div class="flex items-center space-x-2 mb-4">
-                            <button class="bg-green-500 text-white px-4 py-2 rounded-md font-semibold">
-                                Penerima
+                    <div class="flex items-center mb-4">
+                            <button
+                                onClick={() => {
+                                    settabValue("Pemenang");
+                                }}
+                                className={`${
+                                    tabValue === "Pemenang"
+                                        ? "bg-green-500 text-white"
+                                        : "bg-gray-200 text-gray-700"
+                                } py-1.5 px-2 w-[140px] rounded-l-md duration-300`}
+                            >
+                                Pemenang
                             </button>
-                            <button class="bg-white text-green-500 px-4 py-2 border border-green-500 rounded-md font-semibold">
+                            <button
+                                onClick={() => {
+                                    settabValue("Pendaftar");
+                                }}
+                                className={`${
+                                    tabValue === "Pendaftar"
+                                        ? "bg-green-500 text-white"
+                                        : "bg-gray-200 text-gray-700"
+                                } py-1.5 px-2 w-[140px] rounded-r-md duration-300`}
+                            >
                                 Pendaftar
                             </button>
                         </div>
@@ -151,98 +174,11 @@ const LaporanLomba = ({
                             </div>
                         </div>
                         <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 ">
-                                <thead>
-                                    <tr>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            No
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            NIM
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Nama
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Delegasi Ormawa
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Dosen Pembimbing/Pendamping
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Bidang
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Penyelenggara
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Negara Penyelenggara
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Tempat Pelaksanaan
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Waktu Pelaksanaan
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Deskripsi Kegiatan
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Scan Bukti
-                                        </th>
-                                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Foto Kegiatan
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    {registrant.map((item, index) => (
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {index + 1}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                1234567890
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                John Doe
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {item.ormawa_delegation}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {item.mentor_name}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {item.field}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {item.organizer}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {item.host_country}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {item.location}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {formatDate(
-                                                    item.activity_date_start
-                                                )}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                {item.description}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                Bukti.png
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-center">
-                                                Kegiatan.png
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        {tabValue == "Pendaftar" ? (
+                            <TabelTabPartisipasi dataPendaftar={dataPendaftar} />
+                        ) : (
+                            <TabelTabPrestasi dataPemenang={dataPemenang} />
+                        )}
                         </div>
                     </div>
 

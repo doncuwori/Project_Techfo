@@ -8,8 +8,9 @@ const LaporanBeasiswa = ({
     scholarshipRegistrantsCount,
     scholarshipRecipientsCount,
     user,
+    dataPendaftar,
+    dataPenerima,
 }) => {
-    console.log(scholarshipRegistrantsCount, scholarshipRecipientsCount);
     const [tabValue, settabValue] = useState("Penerima");
     return (
         <div>
@@ -89,9 +90,9 @@ const LaporanBeasiswa = ({
 
                     <div class="overflow-x-auto">
                         {tabValue == "Penerima" ? (
-                            <TabelTabPenerima />
+                            <TabelTabPenerima dataPenerima={dataPenerima} />
                         ) : (
-                            <TabelTabPendaftar />
+                            <TabelTabPendaftar dataPendaftar={dataPendaftar} />
                         )}
                     </div>
 

@@ -32,8 +32,15 @@ class CompetitionAchievement extends Model
 
     public function mahasiswa()
     {
-        return $this->hasManyThrough(Mahasiswa::class, MahasiswaAchievement::class, 'id_competition_achievement', 'id');
+        return $this->hasManyThrough(Mahasiswa::class, MahasiswaAchievement::class, 'id_competition_achievement', 'id',null,'id_mahasiswa');
     }
+
+    public function getLeaderAttribute()
+    {
+        return MahasiswaAchievement::where('id_competition_achievement', $this->id)->where('is_leader', true)->with('mahasiswa')->first();
+    }
+
+    protected $appends = ['leader'];
     
     public function dosen()
     {

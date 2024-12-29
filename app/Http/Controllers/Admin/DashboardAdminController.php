@@ -8,6 +8,7 @@ use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\MahasiswaAchievement;
 use App\Models\Prodi;
+use App\Models\Scholarships\MahasiswaRecipient;
 use App\Models\Scholarships\ScholarshipRecipient;
 use App\Models\Scholarships\ScholarshipRegistrant;
 use Inertia\Inertia;
@@ -63,6 +64,16 @@ class DashboardAdminController extends Controller
             })->count();
         }
 
+        $arrayBeasiswa = [];
+
+        foreach($prodi as $p){
+            $arrayBeasiswa[$p->nama_prodi] = MahasiswaRecipient::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->count();
+        }
+
         return Inertia::render('Admin/DashboardAdmin', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
             'competitionAchievementsCount' => $competitionAchievementsCount,
@@ -70,7 +81,8 @@ class DashboardAdminController extends Controller
             'scholarshipRecipientsCount' => $scholarshipRecipientsCount,
             'user' => $user,
             'rekapJuara' => $arrayJuara,
-            'rekapLomba' => $arrayLomba
+            'rekapLomba' => $arrayLomba,
+            'rekapBeasiswa' => $arrayBeasiswa
         ]);
 
     }

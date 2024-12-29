@@ -35,6 +35,7 @@ const LaporanKeaktifan = ({
     researchCount,
     rekapJuara,
     rekapLomba,
+    rekapBeasiswa
 }) => {
     const pieData = {
         labels: Object.keys(rekapLomba),
@@ -73,16 +74,11 @@ const LaporanKeaktifan = ({
     }));
 
     const barData = {
-        labels: [
-            "S-1 Informatika",
-            "S-1 Sistem Informasi",
-            "D-3 Sistem Informasi",
-            "S-1 Sains Data",
-        ],
+        labels: Object.keys(rekapBeasiswa),
         datasets: [
             {
                 label: "Program Studi",
-                data: [25, 30, 20, 15],
+                data: Object.values(rekapBeasiswa),
                 backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
                 borderRadius: 10,
             },

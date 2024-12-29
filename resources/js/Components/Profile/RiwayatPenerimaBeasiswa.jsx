@@ -27,7 +27,7 @@ const RiwayatPenerimaBeasiswa = ({ data }) => {
                                 className="w-full h-full object-cover rounded-xl"
                             />
                             <div className="absolute top-2 left-2 bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-2xl">
-                                Lomba
+                                Beasiswa
                             </div>
                         </div>
                         <div className="flex flex-col justify-between gap-2 w-full">

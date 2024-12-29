@@ -16,10 +16,16 @@ class AdminScholarshipController extends Controller
 
         $user = auth()->user();
 
+        $dataPendaftar = ScholarshipRegistrant::with('mahasiswa.prodi')->orderBy('created_at', 'desc')->get();
+
+        $dataPenerima = ScholarshipRecipient::with('mahasiswa.prodi')->orderBy('created_at', 'desc')->get();
+
         return Inertia::render('Admin/Laporan/LaporanBeasiswa', [
             'scholarshipRegistrantsCount' => $scholarshipRegistrantsCount,
             'scholarshipRecipientsCount' => $scholarshipRecipientsCount,
             'user' => $user,
+            'dataPendaftar' => $dataPendaftar,
+            'dataPenerima' => $dataPenerima
         ]);
     }
 }

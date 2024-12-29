@@ -91,11 +91,13 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
     const handleFileScanBuktiChange = (event) => {
         const file = event.target.files[0];
         setScanBuktiFile(file);
+        setData("proof_scan_url", file);
     };
 
     const handleFileKegiatanChange = (event) => {
         const file = event.target.files[0];
         setKegiatanFile(file);
+        setData("event_photo_url", file);
     };
 
     const handleRemoveScanBuktiFile = () => {
@@ -260,6 +262,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                         }}
                         className="w-full border rounded-lg px-4"
                     >
+                        <option>-- Pilih Delegasi --</option>
                         <option>Bukan Delegasi dari ORMAWA</option>
                         <option>
                             Badan Eksekutif Mahasiswa Fakultas Ilmu Komputer
