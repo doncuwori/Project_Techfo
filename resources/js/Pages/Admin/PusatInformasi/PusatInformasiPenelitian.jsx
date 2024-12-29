@@ -1,7 +1,7 @@
 import NavbarAdmin from "@/Components/NavbarAdmin";
 import React from "react";
 import { FilePenLine } from "lucide-react";
-import TabelPusatInfo from "@/Components/Admin/Laporan/Penelitian/TabelPusatInfo";
+import TabelPusatInfo from "@/Components/Laporan/Penelitian/TabelPusatInfo";
 
 const PusatInformasiPenelitian = () => {
     return (

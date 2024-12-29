@@ -148,6 +148,7 @@ const FormPenelitianAbdimas = ({ type, dosen }) => {
                                 )
                             }
                             type="number"
+                            min="0"
                             className="w-full border rounded-lg p-3"
                             placeholder="Masukkan Total Mahasiswa yang Dibutuhkan"
                         />

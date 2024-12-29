@@ -66,6 +66,9 @@ class AbdimasInformationController extends Controller
     }
 
     public function show(AbdimasInformation $postId) {
+
+        $postId = AbdimasInformation::with('dosen')->where('id', $postId)->first();
+        
         return Inertia::render('User/Abdimas/DetailAbdimas', [
             'data' => $postId
         ]);

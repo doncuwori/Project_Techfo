@@ -54,7 +54,21 @@ const MainContent = ({ data }) => {
                 <p className="text-gray-700 mb-4">{data.description}</p>
                 <div className="mb-4">
                     <h2 className="text-lg font-bold mb-2">Penyelenggara</h2>
-                    <p className="text-gray-700">{data.lecturer_1}</p>
+                    <ol className="list-decimal pl-5">
+                        {data.dosen &&
+                            data.dosen.length > 0 &&
+                            data.dosen.map(
+                                (dosen, index) =>
+                                    dosen.nama && (
+                                        <li
+                                            key={index}
+                                            className="text-gray-700"
+                                        >
+                                            {dosen.nama}{" "}
+                                        </li>
+                                    )
+                            )}
+                    </ol>
                 </div>
             </div>
         </div>

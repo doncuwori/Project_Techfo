@@ -100,7 +100,7 @@ const CardAbdimas = ({ data }) => {
                                         className="text-orange-500"
                                     />
                                     <span className="text-orange-500 text-xs font-medium leading-tight">
-                                        {formatDate(abdimas.registration_end)}
+                                        {formatDate(abdimas.event_time_end)}
                                     </span>
                                 </div>
                             </div>
