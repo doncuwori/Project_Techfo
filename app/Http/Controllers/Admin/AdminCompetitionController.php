@@ -50,12 +50,17 @@ class AdminCompetitionController extends Controller
             }
         }
 
+        $dataPendaftar = CompetitionRegistrant::with(['mahasiswa', 'dosen', 'country'])->orderBy('created_at', 'desc')->get();
+        $dataPemenang = CompetitionAchievement::with(['mahasiswa', 'dosen', 'country'])->orderBy('created_at', 'desc')->get();
+
         return Inertia::render('Admin/Laporan/LaporanLomba', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
             'competitionAchievementsCount' => $competitionAchievementsCount,
             'user' => $user,
             'registrant' => $registrant,
-            'rekapJuara' => $arrayJuara
+            'rekapJuara' => $arrayJuara,
+            'dataPendaftar' => $dataPendaftar,
+            'dataPemenang' => $dataPemenang
         ]);
     }
 }

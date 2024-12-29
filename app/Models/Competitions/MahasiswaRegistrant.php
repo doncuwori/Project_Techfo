@@ -16,6 +16,7 @@ class MahasiswaRegistrant extends Model
         'is_leader',
     ];
 
+
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');

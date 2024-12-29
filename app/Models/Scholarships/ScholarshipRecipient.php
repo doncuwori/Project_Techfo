@@ -26,7 +26,7 @@ class ScholarshipRecipient extends Model
 
     public function mahasiswa()
     {
-        return $this->hasManyThrough(Mahasiswa::class, MahasiswaRecipient::class, 'id_scholarship_registrant', 'id');
+        return $this->hasOneThrough(Mahasiswa::class, MahasiswaRecipient::class, 'id_scholarship_recipient', 'id', null,'id_mahasiswa');
     }
 
     public function country()

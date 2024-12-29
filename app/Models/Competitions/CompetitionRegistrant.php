@@ -30,7 +30,11 @@ class CompetitionRegistrant extends Model
     
     public function mahasiswa()
     {
-        return $this->hasManyThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_competition_registrant', 'id');
+        return $this->hasManyThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_competition_registrant', 'id', null,'id_mahasiswa');
+    }
+    public function getLeaderAttribute()
+    {
+        return MahasiswaRegistrant::where('id_competition_registrant', $this->id)->where('is_leader', true)->with('mahasiswa')->first();
     }
 
     public function dosen()
@@ -53,5 +57,5 @@ class CompetitionRegistrant extends Model
         return CompetitionAchievement::where('activity_name', $this->activity_name)->exists();
     }
 
-    protected $appends = ['exist'];
+    protected $appends = ['exist', 'leader'];
 }
