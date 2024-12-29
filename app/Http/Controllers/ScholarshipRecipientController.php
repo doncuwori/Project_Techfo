@@ -82,13 +82,13 @@ class ScholarshipRecipientController extends Controller
 
         $scholarship = ScholarshipRecipient::create(
             [
-                'id_country' => $request->id_country,
-                'name' => $request->name,
-                'type' => $request->type,
-                'organizer' => $request->organizer,
-                'event_date_start' => $request->event_date_start,
-                'event_date_end' => $request->event_date_end,
-                'description' => $request->description,
+                'id_country' => $data->id_country,
+                'name' => $data->name,
+                'type' => $data->type,
+                'organizer' => $data->organizer,
+                'event_date_start' => $data->event_date_start,
+                'event_date_end' => $data->event_date_end,
+                'description' => $data->description,
                 'proof_scan_url' => $proof_scan_url,
                 'poster_url' => $poster_url,
                 'created_at' => now(),
