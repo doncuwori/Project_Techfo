@@ -65,12 +65,12 @@ class AbdimasInformationController extends Controller
         return redirect()->route('pusatAbdimas')->with('success', 'Informasi pengabdian Masyarakat berhasil ditambahkan');
     }
 
-    public function show(AbdimasInformation $postId) {
+    public function show(string $id) {
 
-        $postId = AbdimasInformation::with('dosen')->where('id', $postId)->first();
+        $post = AbdimasInformation::with('dosen')->where('id', $id)->first();
         
         return Inertia::render('User/Abdimas/DetailAbdimas', [
-            'data' => $postId
+            'data' => $post
         ]);
     }
 }
