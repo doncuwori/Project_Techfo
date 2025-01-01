@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Abdimas\AbdimasInformation;
 use App\Models\Abdimas\DosenAbdimas;
 use App\Models\Dosen;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -14,7 +13,7 @@ class AbdimasInformationController extends Controller
 {
     public function index()
     {
-        // return view('competition-information');
+        
         $user = auth()->user();
         $dosen = Dosen::all();
 
@@ -34,11 +33,9 @@ class AbdimasInformationController extends Controller
             'location' => 'required|string|max:255',
             'total_students_required' => 'required|integer',
             'description' => 'required|string'
-            // 'assignment_letter_url' => 'required|url',
         ]);
         
         
-        // Create a new abdimas information record
         $abdimas = AbdimasInformation::create([
             'name' => $request->name,
             'event_time_start' => $request->event_time_start,
@@ -61,16 +58,15 @@ class AbdimasInformationController extends Controller
             }
         }
 
-        // Return a response
         return redirect()->route('pusatAbdimas')->with('success', 'Informasi pengabdian Masyarakat berhasil ditambahkan');
     }
 
-    public function show(string $id) {
+    public function show(string $postId) {
 
-        $post = AbdimasInformation::with('dosen')->where('id', $id)->first();
+        $postId = AbdimasInformation::with('dosen')->where('id', $postId)->first();
         
         return Inertia::render('User/Abdimas/DetailAbdimas', [
-            'data' => $post
+            'data' => $postId
         ]);
     }
 }

@@ -18,7 +18,6 @@ class ResearchInformation extends Model
         'total_students_required',
         'created_by',
         'description',
-        // 'assignment_letter_url',
     ];
 
     protected $table = 'researches_information';

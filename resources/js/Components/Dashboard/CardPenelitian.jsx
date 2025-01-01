@@ -97,7 +97,7 @@ const CardPenelitian = ({ data }) => {
                                         className="text-orange-500"
                                     />
                                     <span className="text-orange-500 text-xs font-medium leading-tight">
-                                        {formatDate(research.registration_end)}
+                                        {formatDate(research.event_time_end)}
                                     </span>
                                 </div>
                             </div>

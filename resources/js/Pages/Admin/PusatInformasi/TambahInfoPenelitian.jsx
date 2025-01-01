@@ -5,7 +5,7 @@ import FormPenelitianAbdimas from "@/Components/PusatInformasi/TambahInformasi/F
 import React from "react";
 import { Toaster } from "react-hot-toast";
 
-const TambahInfoPenelitian = ({ user }) => {
+const TambahInfoPenelitian = ({ user, dosen }) => {
     return (
         <div className="min-h-screen flex flex-col items-center bg-gray-100">
             <NavbarAdmin user={user} />
@@ -15,7 +15,7 @@ const TambahInfoPenelitian = ({ user }) => {
                         <h1 className="text-center text-2xl font-bold mb-6">
                             Tambah Informasi Penelitian
                         </h1>
-                        <FormPenelitianAbdimas type="penelitian"/>
+                        <FormPenelitianAbdimas type="penelitian" dosen={dosen}/>
                     </div>
                 </main>
             </div>

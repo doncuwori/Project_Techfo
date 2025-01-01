@@ -12,15 +12,17 @@ const MainContent = ({ data }) => {
                     <h2 className="text-lg mb-2">Diunggah oleh</h2>
                     <div className="flex items-center">
                         <img
-                            src="/img/profile.png"
+                            src="/img/profiledefault.png"
                             className="w-10 h-10 rounded-full mr-2"
                             alt="Profile Picture"
                         />
                         <div>
                             {/* CreatedBy */}
-                            <p className="text-gray-700 font-bold">
-                                {data.lecturer_1}
-                            </p>
+                            {data.dosen && data.dosen.length > 0 && (
+                                <p className="text-gray-700">
+                                    {data.dosen[0].nama}
+                                </p>
+                            )}
                             <p className="text-gray-500">
                                 {formatDate(data.created_at)}
                             </p>
@@ -54,7 +56,21 @@ const MainContent = ({ data }) => {
                 <p className="text-gray-700 mb-4">{data.description}</p>
                 <div className="mb-4">
                     <h2 className="text-lg font-bold mb-2">Penyelenggara</h2>
-                    <p className="text-gray-700">{data.lecturer_1}</p>
+                    <ol className="list-decimal pl-5">
+                        {data.dosen &&
+                            data.dosen.length > 0 &&
+                            data.dosen.map(
+                                (dosen, index) =>
+                                    dosen.nama && (
+                                        <li
+                                            key={index}
+                                            className="text-gray-700"
+                                        >
+                                            {dosen.nama}{" "}
+                                        </li>
+                                    )
+                            )}
+                    </ol>
                 </div>
             </div>
         </div>
