@@ -18,14 +18,13 @@ const LaporanAbdimas = ({
             <NavbarAdmin user={user} />
             <div class="pl-72 w-full">
                 <div class="container px-4 py-8 w-full">
-                    <h1 class="text-3xl font-bold text-black mb-6">
-                        Pusat Informasi
+                    <h1 class="text-3xl font-bold text-black mt-16 mb-6">
+                        Laporan Pengabdian Masyarakat
                     </h1>
                     <CardStatis
                         abdimasRegistrantsCount={abdimasRegistrantsCount}
                         abdimasRecipientsCount={abdimasRecipientsCount}
                     />
-
                     <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
                         <div class="flex items-center mb-4">
                             <button

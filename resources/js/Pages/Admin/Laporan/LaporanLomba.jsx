@@ -38,7 +38,7 @@ const LaporanLomba = ({
     registrant,
     rekapJuara,
     dataPendaftar,
-    dataPemenang
+    dataPemenang,
 }) => {
     const [tabValue, settabValue] = useState("Pemenang");
 
@@ -78,8 +78,8 @@ const LaporanLomba = ({
             <NavbarAdmin user={user} />
             <div class="pl-72 w-full">
                 <div class="container px-4 py-8 w-full">
-                    <h1 class="text-3xl font-bold text-black mb-6">
-                        Pusat Informasi
+                    <h1 class="text-3xl font-bold text-black mt-16 mb-6">
+                        Laporan Lomba
                     </h1>
                     <CardStatis
                         competitionAchievementsCount={
@@ -114,7 +114,7 @@ const LaporanLomba = ({
                     </div>
 
                     <div class="bg-white p-4 rounded-lg shadow-lg mt-6 mb-6 border-2 border-neutral-100">
-                    <div class="flex items-center mb-4">
+                        <div class="flex items-center mb-4">
                             <button
                                 onClick={() => {
                                     settabValue("Pemenang");
@@ -174,11 +174,13 @@ const LaporanLomba = ({
                             </div>
                         </div>
                         <div class="overflow-x-auto">
-                        {tabValue == "Pendaftar" ? (
-                            <TabelTabPartisipasi dataPendaftar={dataPendaftar} />
-                        ) : (
-                            <TabelTabPrestasi dataPemenang={dataPemenang} />
-                        )}
+                            {tabValue == "Pendaftar" ? (
+                                <TabelTabPartisipasi
+                                    dataPendaftar={dataPendaftar}
+                                />
+                            ) : (
+                                <TabelTabPrestasi dataPemenang={dataPemenang} />
+                            )}
                         </div>
                     </div>
 

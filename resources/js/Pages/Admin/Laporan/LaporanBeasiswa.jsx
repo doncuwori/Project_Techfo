@@ -17,8 +17,8 @@ const LaporanBeasiswa = ({
             <NavbarAdmin user={user} />
             <div class="pl-72 w-full">
                 <div class="container px-4 py-8 w-full">
-                    <h1 class="text-3xl font-bold text-black mb-6">
-                        Pusat Informasi
+                    <h1 class="text-3xl font-bold text-black mt-16 mb-6">
+                        Laporan Beasiswa
                     </h1>
                     <CardStatis
                         scholarshipRegistrantsCount={
@@ -86,29 +86,31 @@ const LaporanBeasiswa = ({
                                 </button>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="overflow-x-auto">
-                        {tabValue == "Penerima" ? (
-                            <TabelTabPenerima dataPenerima={dataPenerima} />
-                        ) : (
-                            <TabelTabPendaftar dataPendaftar={dataPendaftar} />
-                        )}
-                    </div>
-
-                    <div class="flex justify-between items-center mt-4">
-                        <p class="text-gray-500">Rows per page: 10</p>
-                        <div class="flex space-x-2 items-center">
-                            <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
-                                Prev
-                            </button>
-                            <p class="text-gray-500">1</p>
-                            <p class="text-gray-500">...</p>
-                            <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
-                                Next
-                            </button>
+                        <div class="overflow-x-auto">
+                            {tabValue == "Penerima" ? (
+                                <TabelTabPenerima dataPenerima={dataPenerima} />
+                            ) : (
+                                <TabelTabPendaftar
+                                    dataPendaftar={dataPendaftar}
+                                />
+                            )}
                         </div>
-                        <p class="text-gray-500">Total 1 - 10 of 130</p>
+
+                        <div class="flex justify-between items-center mt-4">
+                            <p class="text-gray-500">Rows per page: 10</p>
+                            <div class="flex space-x-2 items-center">
+                                <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
+                                    Prev
+                                </button>
+                                <p class="text-gray-500">1</p>
+                                <p class="text-gray-500">...</p>
+                                <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
+                                    Next
+                                </button>
+                            </div>
+                            <p class="text-gray-500">Total 1 - 10 of 130</p>
+                        </div>
                     </div>
                 </div>
             </div>

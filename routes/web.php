@@ -15,12 +15,12 @@ use App\Http\Controllers\LandingPage\LandingPageController;
 use App\Http\Controllers\CompetitionInformationController;
 use App\Http\Controllers\CompetitionRegistrantController;
 use App\Http\Controllers\CompetitionsAchievementController;
-use App\Http\Controllers\CompetitionAchievementController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResearchInformationController;
+use App\Http\Controllers\ResearchRegistrantController;
 use App\Http\Controllers\ScholarshipInformationController;
 use App\Http\Controllers\ScholarshipRecipientController;
 use App\Http\Controllers\ScholarshipRegistrantController;
@@ -35,6 +35,7 @@ use App\Models\Country;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Researchs\ResearchInformation;
+use App\Models\Researchs\MahasiswaRegistrant as ResearchMahasiswaRegistrant;
 use App\Models\Scholarships\MahasiswaRecipient;
 use App\Models\Scholarships\MahasiswaRegistrant as ScholarshipsMahasiswaRegistrant;
 use App\Models\Scholarships\ScholarshipInformation;
@@ -96,13 +97,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $pendaftarBeasiswa = ScholarshipsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRegistrant')->get();
         $penerimaBeasiswa = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRecipient')->get();
         $pendaftarAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->get();
+        $pendaftarPenelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->get();
 
         return Inertia::render('User/Profile',[
             'partisipasiLomba' => $partisipasiLomba,
             'prestasiLomba' => $prestasiLomba,
             'pendaftarBeasiswa' => $pendaftarBeasiswa,
             'penerimaBeasiswa' => $penerimaBeasiswa,
-            'pendaftarAbdimas' => $pendaftarAbdimas
+            'pendaftarAbdimas' => $pendaftarAbdimas,
+            'pendaftarPenelitian' => $pendaftarPenelitian,
         ]);
     })->name('profile');
 
@@ -205,11 +208,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render(component: 'User/Penelitian/DetailPenelitian');
     })->name('detailPenelitian');
 
-    Route::get('/daftarPenelitian', function () {
-        return Inertia::render('User/Penelitian/DaftarPenelitian');
+    Route::get('/daftarPenelitian/{id}', function (string $id) {
+        $data = ResearchInformation::with('dosen')->where('id', $id)->first();
+        return Inertia::render('User/Penelitian/DaftarPenelitian', [
+            'information' => $data
+        ]);
     })->name('daftarPenelitian');
 
     Route::resource('abdimas-registrant', AbdimasRegistrantController::class);
+    Route::resource('research-registrant', ResearchRegistrantController::class);
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {

@@ -1,11 +1,11 @@
 import { formatDate } from "@/lib/helper";
 import { Clock4 } from "lucide-react";
 
-const RiwayatKegiatan = ({ data, title }) => {
+const RiwayatAbdimas = ({ data }) => {
     return (
         <div className="py-6 px-8 mb-6">
             <h2 className="text-2xl font-semibold mb-6">
-                Riwayat Kegiatan {title}
+                Riwayat Abdimas
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.map((item, index) => {
@@ -30,7 +30,7 @@ const RiwayatKegiatan = ({ data, title }) => {
                                     className="w-full h-full object-cover rounded-xl"
                                 />
                                 <div className="absolute top-2 left-2 bg-yellow-500 text-white text-xs px-2 py-0.5 rounded-2xl">
-                                    {index === 2 ? "Penelitian" : "Abdimas"}
+                                    Abdimas
                                 </div>
                             </div>
                             <div className="flex flex-col justify-between gap-2 w-full">
@@ -58,4 +58,4 @@ const RiwayatKegiatan = ({ data, title }) => {
     );
 };
 
-export default RiwayatKegiatan;
+export default RiwayatAbdimas;

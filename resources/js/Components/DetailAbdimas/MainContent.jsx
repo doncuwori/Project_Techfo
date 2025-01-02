@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, CircleUserRound  } from "lucide-react";
 import { formatDate } from "@/lib/helper";
 import { Link } from "@inertiajs/react";
 
@@ -55,21 +55,46 @@ const MainContent = ({ data }) => {
                 </div>
                 <p className="text-gray-700 mb-4">{data.description}</p>
                 <div className="mb-4">
-                    <h2 className="text-lg font-bold mb-2">Penyelenggara</h2>
+                    <h2 className="text-lg font-bold mb-2">
+                        Mahasiswa Yang Dibutuhkan
+                    </h2>
+                    <div className="flex items-center">
+                        <CircleUserRound className="w-5 h-5 text-orange-600" />
+                        <p className="text-gray-700 ml-2">
+                            {data.total_students_required} Mahasiswa
+                        </p>
+                    </div>
+                </div>
+                <div className="mb-4">
+                    <h2 className="text-lg font-bold mb-2">
+                        Dosen Penyelenggara
+                    </h2>
                     <ol className="list-decimal pl-5">
-                        {data.dosen &&
-                            data.dosen.length > 0 &&
-                            data.dosen.map(
-                                (dosen, index) =>
-                                    dosen.nama && (
-                                        <li
-                                            key={index}
-                                            className="text-gray-700"
-                                        >
-                                            {dosen.nama}{" "}
-                                        </li>
-                                    )
-                            )}
+                        {data.dosen && data.dosen.length > 0 && (
+                            <>
+                                {data.leader?.dosen?.nama && (
+                                    <li className="text-gray-700">
+                                        {data.leader.dosen.nama} (Ketua)
+                                    </li>
+                                )}
+                                {data.dosen.map((dosen, index) => {
+                                    if (
+                                        dosen.nama &&
+                                        dosen.nama !== data.leader?.dosen?.nama
+                                    ) {
+                                        return (
+                                            <li
+                                                key={index}
+                                                className="text-gray-700"
+                                            >
+                                                {dosen.nama}
+                                            </li>
+                                        );
+                                    }
+                                    return null;
+                                })}
+                            </>
+                        )}
                     </ol>
                 </div>
             </div>

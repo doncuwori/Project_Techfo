@@ -1,11 +1,10 @@
 import React from "react";
 import { BiodataUser } from "@/Components/BiodataUser";
-import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
-import FormDaftarPenelitianAbdimas from "@/Components/FormDaftarPenelitianAbdimas";
+import FormDaftarPenelitian from "@/Components/Penelitian/FormDaftarPenelitian";
 
-const DaftarPenelitian = () => {
+const DaftarPenelitian = ({ information }) => {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center">
             <Navbar />
@@ -15,7 +14,7 @@ const DaftarPenelitian = () => {
                         Pendaftaran Penelitian
                     </h1>
                     <BiodataUser />
-                    <FormDaftarPenelitianAbdimas />
+                    <FormDaftarPenelitian information={information} />
                 </div>
             </main>
             <Footer />

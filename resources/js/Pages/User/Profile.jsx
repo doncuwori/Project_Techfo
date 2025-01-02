@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "@/Components/Navbar";
-import RiwayatKegiatan from "@/Components/Profile/RiwayatKegiatan";
 import RiwayatLomba from "@/Components/Profile/RiwayatLomba";
 import CatatanKeaktifan from "@/Components/Profile/CatatanKeaktifan";
 import ProfileSection from "@/Components/Profile/ProfileSection";
@@ -10,15 +9,18 @@ import { Toaster } from "react-hot-toast";
 import RiwayatPrestasiLomba from "@/Components/Profile/RiwayatPrestasiLomba";
 import RiwayatBeasiswa from "@/Components/Profile/RiwayatBeasiswa";
 import RiwayatPenerimaBeasiswa from "@/Components/Profile/RiwayatPenerimaBeasiswa";
+import RiwayatAbdimas from "@/Components/Profile/RiwayatAbdimas";
+import RiwayatPenelitian from "@/Components/Profile/RiwayatPenelitian";
 
 const Profile = ({
     partisipasiLomba,
     prestasiLomba,
     pendaftarBeasiswa,
     penerimaBeasiswa,
-    pendaftarAbdimas
+    pendaftarAbdimas,
+    pendaftarPenelitian
 }) => {
-    console.log(pendaftarAbdimas);
+    console.log(pendaftarAbdimas, pendaftarPenelitian);
     return (
         <div>
             <Navbar />
@@ -33,7 +35,8 @@ const Profile = ({
             <RiwayatPrestasiLomba data={prestasiLomba} />
             <RiwayatBeasiswa data={pendaftarBeasiswa} />
             <RiwayatPenerimaBeasiswa data={penerimaBeasiswa} />
-            <RiwayatKegiatan data={pendaftarAbdimas} title="Pengabdian Masyarakat" />
+            <RiwayatAbdimas data={pendaftarAbdimas} />
+            <RiwayatPenelitian data={pendaftarPenelitian} />
             <Footer />
             <ScrollUpButton />
             <Toaster position="top-right" />

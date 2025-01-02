@@ -1,10 +1,10 @@
 import React from "react";
-import PernyataanLegalitas from "./PernyataanLegalitas";
+import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 import { useForm, usePage } from "@inertiajs/react";
 
-const FormDaftarPenelitianAbdimas = ({ information }) => {
+const FormDaftarAbdimas = ({ information }) => {
 
-    const {auth } = usePage().props
+    const {auth} = usePage().props
 
     const { data, setData, post, processing, errors, reset } = useForm({
         id_abdimas_information: information.id,
@@ -151,4 +151,4 @@ const FormDaftarPenelitianAbdimas = ({ information }) => {
     );
 };
 
-export default FormDaftarPenelitianAbdimas;
+export default FormDaftarAbdimas;

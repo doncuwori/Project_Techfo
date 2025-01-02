@@ -1,6 +1,6 @@
 import React from "react";
 
-const TabelTabPenerima = ({data}) => {
+const TabelTabPenerima = ({ data }) => {
     return (
         <div>
             <table class="min-w-full divide-y divide-gray-200 ">

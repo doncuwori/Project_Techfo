@@ -8,15 +8,18 @@ const LaporanPenelitian = ({
     researchRegistrantsCount,
     researchRecipientsCount,
     user,
+    pendaftar,
+    penerima,
 }) => {
+    console.log(researchRegistrantsCount, researchRecipientsCount);
     const [tabValue, settabValue] = useState("Penerima");
     return (
         <body>
             <NavbarAdmin user={user} />
             <div class="pl-72 w-full">
                 <div class="container px-4 py-8 w-full">
-                    <h1 class="text-3xl font-bold text-black mb-6">
-                        Pusat Informasi
+                    <h1 class="text-3xl font-bold text-black mt-16 mb-6">
+                        Laporan Penelitian
                     </h1>
                     <CardStatis
                         researchRegistrantsCount={researchRegistrantsCount}
@@ -84,9 +87,9 @@ const LaporanPenelitian = ({
                         </div>
                         <div class="overflow-x-auto">
                             {tabValue == "Penerima" ? (
-                                <TabelTabPenerima />
+                                <TabelTabPenerima data={penerima} />
                             ) : (
-                                <TabelTabPendaftar />
+                                <TabelTabPendaftar data={pendaftar} />
                             )}
                         </div>
                         <div class="flex justify-between items-center mt-4">
