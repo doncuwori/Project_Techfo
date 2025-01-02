@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class AbdimasInformation extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
         'name',
         'event_time_start',
