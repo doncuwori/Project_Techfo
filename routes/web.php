@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbdimasInformationController;
+use App\Http\Controllers\AbdimasRegistrantController;
 use App\Http\Controllers\Admin\AdminCompetitionController;
 use App\Http\Controllers\Admin\AdminScholarshipController;
 use App\Http\Controllers\Admin\AdminAbdimasController;
@@ -24,6 +25,8 @@ use App\Http\Controllers\ScholarshipInformationController;
 use App\Http\Controllers\ScholarshipRecipientController;
 use App\Http\Controllers\ScholarshipRegistrantController;
 use App\Models\Abdimas\AbdimasInformation;
+use App\Models\Abdimas\AbdimasRegistrant;
+use App\Models\Abdimas\MahasiswaRegistrant as AbdimasMahasiswaRegistrant;
 use App\Models\Competitions\CompetitionInformation;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\MahasiswaAchievement;
@@ -92,12 +95,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $prestasiLomba = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)->with('competitionAchievement')->get();
         $pendaftarBeasiswa = ScholarshipsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRegistrant')->get();
         $penerimaBeasiswa = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRecipient')->get();
+        $pendaftarAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->get();
 
         return Inertia::render('User/Profile',[
             'partisipasiLomba' => $partisipasiLomba,
             'prestasiLomba' => $prestasiLomba,
             'pendaftarBeasiswa' => $pendaftarBeasiswa,
-            'penerimaBeasiswa' => $penerimaBeasiswa
+            'penerimaBeasiswa' => $penerimaBeasiswa,
+            'pendaftarAbdimas' => $pendaftarAbdimas
         ]);
     })->name('profile');
 
@@ -179,8 +184,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render(component: 'User/Abdimas/DetailAbdimas');
     })->name('detailAbdimas');
 
-    Route::get('/daftarAbdimas', function () {
-        return Inertia::render('User/Abdimas/DaftarAbdimas');
+    Route::get('/daftarAbdimas/{id}', function (string $id) {
+        $data = AbdimasInformation::with('dosen')->where('id', $id)->first();
+        return Inertia::render('User/Abdimas/DaftarAbdimas', [
+            'information' => $data
+        ]);
     })->name('daftarAbdimas');
 
 
@@ -200,6 +208,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/daftarPenelitian', function () {
         return Inertia::render('User/Penelitian/DaftarPenelitian');
     })->name('daftarPenelitian');
+
+    Route::resource('abdimas-registrant', AbdimasRegistrantController::class);
 });
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {

@@ -1,6 +1,6 @@
 import React from "react";
 
-const TabelTabPenerima = () => {
+const TabelTabPenerima = ({data}) => {
     return (
         <div>
             <table class="min-w-full divide-y divide-gray-200 ">
@@ -42,42 +42,46 @@ const TabelTabPenerima = () => {
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            1
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            1234567890
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            John Doe
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            {" "}
-                            S1 Teknik Informatika
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            2020
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            2110512055@mahasiswa.upnvj.ac.id
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            081906426113
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            KHS.pdf
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            CV.pdf
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            Portofolio.pdf
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            Foto.png
-                        </td>
-                    </tr>
+                    {data.map((item, index) => {
+                        return (
+                            <tr key={index}>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {index + 1}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.mahasiswa.nim}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.mahasiswa.nama}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {" "}
+                                    {item.mahasiswa.prodi.nama_prodi}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.mahasiswa.angkatan}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.mahasiswa.email}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.abdimas_registrant.telephone}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.khs}>Lihat File</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.cv}>Lihat File</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.portofolio}>Lihat File</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.foto}>Lihat File</a>
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

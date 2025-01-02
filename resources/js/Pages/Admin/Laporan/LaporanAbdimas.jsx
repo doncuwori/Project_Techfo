@@ -8,6 +8,8 @@ const LaporanAbdimas = ({
     abdimasRegistrantsCount,
     abdimasRecipientsCount,
     user,
+    pendaftar,
+    penerima,
 }) => {
     console.log(abdimasRegistrantsCount, abdimasRecipientsCount);
     const [tabValue, settabValue] = useState("Penerima");
@@ -86,9 +88,9 @@ const LaporanAbdimas = ({
                         </div>
                         <div class="overflow-x-auto">
                             {tabValue == "Penerima" ? (
-                                <TabelTabPenerima />
+                                <TabelTabPenerima data={penerima} />
                             ) : (
-                                <TabelTabPendaftar />
+                                <TabelTabPendaftar data={pendaftar} />
                             )}
                         </div>
                         <div class="flex justify-between items-center mt-4">

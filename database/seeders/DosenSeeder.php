@@ -101,7 +101,6 @@ class DosenSeeder extends Seeder
                         }
                     }
 
-
                     if ($exist) {
                         continue;
                     }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Researchs\MahasiswaRegistrant;
 use App\Models\Researchs\ResearchRegistrant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ResearchRegistrantController extends Controller
 {
@@ -15,35 +17,51 @@ class ResearchRegistrantController extends Controller
     {
         $user = Auth::user();
 
-        // Validasi data request
-        $request->validate([
-            'name' => 'required|string',
-            'telephone' => 'required|string|max:15',
-            'organizer' => 'required|string',
-            'khs' => 'required|file',
-            'cv' => 'required|file',
-            'portofolio' => 'required|file',
-            'foto' => 'required|file',
-        ]);
+        try{
+            DB::beginTransaction();
 
-        // Simpan data research registrant
-        $research = ResearchRegistrant::create([
-            'name' => $request->name,
-            'telephone' => $request->telephone,
-            'organizer' => $request->organizer,
-            'khs' => $request->khs->store('khs'),
-            'cv' => $request->cv->store('cv'),
-            'portofolio' => $request->portofolio->store('portofolio'),
-            'foto' => $request->foto->store('foto'),
-            'created_by' => $user->id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+            if($request->hasFile('khs') && $request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('foto')){
+                $fileKhs = $request->file('khs');
+                $filenameKhs = time() . '.' . $fileKhs->getClientOriginalExtension();
+                $fileKhs->move(public_path('images/'), $filenameKhs);
 
-        // Hubungkan research registrant dengan user yang membuatnya
-        $research->users()->attach($user->id);
+                $fileCv = $request->file('cv');
+                $filenameCv = time() . '.' . $fileCv->getClientOriginalExtension();
+                $fileCv->move(public_path('images/'), $filenameCv);
 
-        return redirect()->route('daftarPenelitian')->with('success', 'Penelitian berhasil didaftarkan.');
+                $filePortofolio = $request->file('portofolio'); 
+                $filenamePortofolio = time() . '.' . $filePortofolio->getClientOriginalExtension();
+                $filePortofolio->move(public_path('images/'), $filenamePortofolio);
+
+                $fileFoto = $request->file('foto');
+                $filenameFoto = time() . '.' . $fileFoto->getClientOriginalExtension();
+                $fileFoto->move(public_path('images/'), $filenameFoto);
+            }
+
+            $registrant = ResearchRegistrant::create([
+                'id_research_information' => $request->id_research_information,
+                'telephone' => $request->telephone,
+                'khs' => $filenameKhs,
+                'cv' => $filenameCv,
+                'portofolio' => $filenamePortofolio,
+                'foto' => $filenameFoto,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            MahasiswaRegistrant::create([
+                'id_research_registrant' => $registrant->id,
+                'id_mahasiswa' => $user->mahasiswa->id,
+            ]);
+
+
+            DB::commit();
+            return redirect()->route('profile')->with('success', 'Penelitian berhasil didaftarkan.');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->route('daftarPenelitian', $request->id_research_information)->with('error', 'Penelitian gagal didaftarkan.'. $e->getMessage());
+
+        }
     }
 
     /**

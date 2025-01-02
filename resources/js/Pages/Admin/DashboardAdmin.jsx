@@ -12,7 +12,13 @@ const DashboardAdmin = ({
     user,
     rekapJuara,
     rekapLomba,
-    rekapBeasiswa
+    rekapBeasiswa,
+    rekapAbdimas,
+    rekapResearch,
+    abdimasRegistrantsCount,
+    abdimasRecipientsCount,
+    researchRegistrantsCount,
+    researchRecipientsCount
 }) => {
     console.log(
         competitionRegistrantsCount,
@@ -58,6 +64,10 @@ const DashboardAdmin = ({
                         rekapJuara={rekapJuara}
                         rekapLomba={rekapLomba}
                         rekapBeasiswa={rekapBeasiswa}
+                        rekapAbdimas={rekapAbdimas}
+                        rekapResearch={rekapResearch}
+                        abdimasCount={`${abdimasRecipientsCount}/${abdimasRegistrantsCount}`}
+                        researchCount={`${researchRecipientsCount}/${researchRegistrantsCount}`}
                     />
                 </div>
             </main>

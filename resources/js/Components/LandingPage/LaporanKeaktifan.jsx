@@ -35,7 +35,9 @@ const LaporanKeaktifan = ({
     researchCount,
     rekapJuara,
     rekapLomba,
-    rekapBeasiswa
+    rekapBeasiswa,
+    rekapAbdimas,
+    rekapResearch,
 }) => {
     const pieData = {
         labels: Object.keys(rekapLomba),
@@ -79,6 +81,30 @@ const LaporanKeaktifan = ({
             {
                 label: "Program Studi",
                 data: Object.values(rekapBeasiswa),
+                backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
+                borderRadius: 10,
+            },
+        ],
+    };
+
+    const abdimasData = {
+        labels: Object.keys(rekapAbdimas),
+        datasets: [
+            {
+                label: "Program Studi",
+                data: Object.values(rekapAbdimas),
+                backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
+                borderRadius: 10,
+            },
+        ],
+    };
+
+    const researchData = {
+        labels: Object.keys(rekapResearch),
+        datasets: [
+            {
+                label: "Program Studi",
+                data: Object.values(rekapResearch),
                 backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
                 borderRadius: 10,
             },
@@ -268,7 +294,9 @@ const LaporanKeaktifan = ({
                                             data={item}
                                             options={barOptions}
                                         />
-                                        <h3 className="text-gray-700 text-lg font-medium leading-7">{Object.keys(rekapJuara)[index]}</h3>
+                                        <h3 className="text-gray-700 text-lg font-medium leading-7">
+                                            {Object.keys(rekapJuara)[index]}
+                                        </h3>
                                     </div>
                                 );
                             })}
@@ -306,10 +334,7 @@ const LaporanKeaktifan = ({
                             </h2>
                             <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
                                 <div className="w-full h-full flex justify-center items-center">
-                                    <Line
-                                        data={lineData}
-                                        options={lineOptions}
-                                    />
+                                <Bar data={researchData} options={barOptions} />
                                 </div>
                             </div>
                         </div>
@@ -320,10 +345,7 @@ const LaporanKeaktifan = ({
                             </h2>
                             <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
                                 <div className="w-full h-full flex justify-center items-center">
-                                    <Line
-                                        data={lineData}
-                                        options={lineOptions}
-                                    />
+                                    <Bar data={abdimasData} options={barOptions} />
                                 </div>
                             </div>
                         </div>

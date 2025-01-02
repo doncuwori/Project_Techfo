@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Abdimas\MahasiswaRegistrant;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\MahasiswaAchievement;
 use App\Models\Prodi;
+use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
 use App\Models\Scholarships\MahasiswaRecipient;
 use App\Models\Scholarships\ScholarshipRecipient;
 use App\Models\Scholarships\ScholarshipRegistrant;
@@ -21,6 +22,13 @@ class DashboardAdminController extends Controller
         $competitionAchievementsCount = CompetitionAchievement::count();
         $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
         $scholarshipRecipientsCount = ScholarshipRecipient::count();
+
+        $abdimasRegistrantsCount = MahasiswaRegistrant::where('accepted', false)->count();
+        $abdimasRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
+
+        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::where('accepted', false)->count();
+        $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
+
 
         $user = auth()->user();
 
@@ -74,6 +82,26 @@ class DashboardAdminController extends Controller
             })->count();
         }
 
+        $arrayAbdimas = [];
+
+        foreach($prodi as $p){
+            $arrayAbdimas[$p->nama_prodi] = MahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->count();
+        }
+
+        $arrayResearch = [];
+
+        foreach($prodi as $p){
+            $arrayResearch[$p->nama_prodi] = ResearchsMahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->count();
+        }
+
         return Inertia::render('Admin/DashboardAdmin', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
             'competitionAchievementsCount' => $competitionAchievementsCount,
@@ -82,7 +110,13 @@ class DashboardAdminController extends Controller
             'user' => $user,
             'rekapJuara' => $arrayJuara,
             'rekapLomba' => $arrayLomba,
-            'rekapBeasiswa' => $arrayBeasiswa
+            'rekapBeasiswa' => $arrayBeasiswa,
+            'rekapAbdimas' => $arrayAbdimas,
+            'rekapResearch' => $arrayResearch,
+            'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
+            'abdimasRecipientsCount' => $abdimasRecipientsCount,
+            'researchRegistrantsCount' => $researchRegistrantsCount,
+            'researchRecipientsCount' => $researchRecipientsCount
         ]);
 
     }

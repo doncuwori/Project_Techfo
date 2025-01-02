@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MahasiswaSeeder::class);
         $this->call(DosenSeeder::class);
 
+        $this->call(MahasiswaAccessSeeder::class);
+        $this->call(DosenAccessSeeder::class);
 
 
         // $this->call(CompetitionSeeder::class);    

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('event_time_end'); 
             $table->string('location'); 
             $table->integer('total_students_required'); 
+            $table->text('surat_tugas')->nullable();
             // $table->string("assignment_letter_url");
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps(); 

@@ -24,4 +24,11 @@ class AbdimasInformation extends Model
     {
         return $this->hasManyThrough(Dosen::class, DosenAbdimas::class, 'id_abdimas_information', 'id', null, 'id_dosen');
     }
+
+    public function getLeaderAttribute()
+    {
+        return DosenAbdimas::where('id_abdimas_information', $this->id)->where('is_leader', true)->with('dosen')->first();
+    }
+
+    protected $appends = ['leader'];
 }

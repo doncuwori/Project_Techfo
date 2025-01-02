@@ -2,6 +2,7 @@
 
 namespace App\Models\Researchs;
 
+use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,21 +12,24 @@ class ResearchRegistrant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'id_research_information',
         'telephone',
-        'organizer',
         'khs',
         'cv',
         'portofolio',
         'foto',
-        'created_by',
     ];
 
     /**
      * Relasi dengan tabel users melalui tabel pivot user_research_registrants.
      */
-    public function users()
+    public function mahasiswa()
     {
-        return $this->belongsToMany(User::class, 'user_research_registrants');
+        return $this->hasManyThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_research_registrant', 'id', null,'id_mahasiswa');
+    }
+
+    public function researchInformation()
+    {
+        return $this->belongsTo(ResearchInformation::class, 'id_research_information');
     }
 }

@@ -26,4 +26,11 @@ class ResearchInformation extends Model
     {
         return $this->hasManyThrough(Dosen::class, DosenResearch::class, 'id_research_information', 'id', null, 'id_dosen');
     }
+
+    public function getLeaderAttribute()
+    {
+        return DosenResearch::where('id_research_information', $this->id)->where('is_leader', true)->with('dosen')->first();
+    }
+
+    protected $appends = ['leader'];
 }

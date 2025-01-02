@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Abdimas\AbdimasRegistrant;
+use App\Models\Abdimas\MahasiswaRegistrant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AbdimasRegistrantController extends Controller
 {
@@ -15,35 +17,51 @@ class AbdimasRegistrantController extends Controller
     {
         $user = Auth::user();
 
-        // Validasi data request
-        $request->validate([
-            'name' => 'required|string',
-            'telephone' => 'required|string|max:15',
-            'organizer' => 'required|string',
-            'khs' => 'required|file',
-            'cv' => 'required|file',
-            'portofolio' => 'required|file',
-            'foto' => 'required|file',
-        ]);
+        try{
+            DB::beginTransaction();
 
-        // Simpan data abdimas registrant
-        $abdimas = AbdimasRegistrant::create([
-            'name' => $request->name,
-            'telephone' => $request->telephone,
-            'organizer' => $request->organizer,
-            'khs' => $request->khs->store('khs'),
-            'cv' => $request->cv->store('cv'),
-            'portofolio' => $request->portofolio->store('portofolio'),
-            'foto' => $request->foto->store('foto'),
-            'created_by' => $user->id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+            if($request->hasFile('khs') && $request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('foto')){
+                $fileKhs = $request->file('khs');
+                $filenameKhs = time() . '.' . $fileKhs->getClientOriginalExtension();
+                $fileKhs->move(public_path('images/'), $filenameKhs);
 
-        // Hubungkan abdimas registrant dengan user yang membuatnya
-        $abdimas->users()->attach($user->id);
+                $fileCv = $request->file('cv');
+                $filenameCv = time() . '.' . $fileCv->getClientOriginalExtension();
+                $fileCv->move(public_path('images/'), $filenameCv);
 
-        return redirect()->route('daftarAbdimas')->with('success', 'Abdimas berhasil didaftarkan.');
+                $filePortofolio = $request->file('portofolio'); 
+                $filenamePortofolio = time() . '.' . $filePortofolio->getClientOriginalExtension();
+                $filePortofolio->move(public_path('images/'), $filenamePortofolio);
+
+                $fileFoto = $request->file('foto');
+                $filenameFoto = time() . '.' . $fileFoto->getClientOriginalExtension();
+                $fileFoto->move(public_path('images/'), $filenameFoto);
+            }
+
+            $registrant = AbdimasRegistrant::create([
+                'id_abdimas_information' => $request->id_abdimas_information,
+                'telephone' => $request->telephone,
+                'khs' => $filenameKhs,
+                'cv' => $filenameCv,
+                'portofolio' => $filenamePortofolio,
+                'foto' => $filenameFoto,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            MahasiswaRegistrant::create([
+                'id_abdimas_registrant' => $registrant->id,
+                'id_mahasiswa' => $user->mahasiswa->id,
+            ]);
+
+
+            DB::commit();
+            return redirect()->route('profile')->with('success', 'Abdimas berhasil didaftarkan.');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->route('daftarAbdimas', $request->id_abdimas_information)->with('error', 'Abdimas gagal didaftarkan.'. $e->getMessage());
+
+        }
     }
 
     /**

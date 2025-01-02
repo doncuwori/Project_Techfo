@@ -16,7 +16,9 @@ const Profile = ({
     prestasiLomba,
     pendaftarBeasiswa,
     penerimaBeasiswa,
+    pendaftarAbdimas
 }) => {
+    console.log(pendaftarAbdimas);
     return (
         <div>
             <Navbar />
@@ -31,7 +33,7 @@ const Profile = ({
             <RiwayatPrestasiLomba data={prestasiLomba} />
             <RiwayatBeasiswa data={pendaftarBeasiswa} />
             <RiwayatPenerimaBeasiswa data={penerimaBeasiswa} />
-            <RiwayatKegiatan />
+            <RiwayatKegiatan data={pendaftarAbdimas} title="Pengabdian Masyarakat" />
             <Footer />
             <ScrollUpButton />
             <Toaster position="top-right" />

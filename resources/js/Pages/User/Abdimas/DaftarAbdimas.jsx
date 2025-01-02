@@ -5,7 +5,7 @@ import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import FormDaftarPenelitianAbdimas from "@/Components/FormDaftarPenelitianAbdimas";
 
-const DaftarAbdimas = () => {
+const DaftarAbdimas = ({information}) => {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center">
             <Navbar />
@@ -15,7 +15,7 @@ const DaftarAbdimas = () => {
                         Pendaftaran Pengabdian Masyarakat
                     </h1>
                     <BiodataUser />
-                    <FormDaftarPenelitianAbdimas />
+                    <FormDaftarPenelitianAbdimas information={information} />
                 </div>
             </main>
             <Footer />

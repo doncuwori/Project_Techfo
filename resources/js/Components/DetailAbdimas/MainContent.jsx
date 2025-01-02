@@ -20,7 +20,7 @@ const MainContent = ({ data }) => {
                             {/* CreatedBy */}
                             {data.dosen && data.dosen.length > 0 && (
                                 <p className="text-gray-700">
-                                    {data.dosen[0].nama}
+                                    {data.leader.dosen.nama}
                                 </p>
                             )}
                             <p className="text-gray-500">
@@ -30,7 +30,7 @@ const MainContent = ({ data }) => {
                     </div>
                 </div>
                 <div className="flex justify-start mb-4">
-                    <Link href={route("daftarAbdimas")}>
+                    <Link href={route("daftarAbdimas", data.id)}>
                         <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                             Daftar
                         </button>
