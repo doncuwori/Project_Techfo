@@ -52,7 +52,7 @@ const TabelTabPendaftar = ({ data }) => {
                                     {index + 1}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.name}
+                                    {item.research_registrant.research_information.name}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.mahasiswa.nim}
