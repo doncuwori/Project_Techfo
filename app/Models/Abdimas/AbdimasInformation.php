@@ -30,5 +30,10 @@ class AbdimasInformation extends Model
         return DosenAbdimas::where('id_abdimas_information', $this->id)->where('is_leader', true)->with('dosen')->first();
     }
 
+    public function abdimasRegistrant()
+    {
+        return $this->hasMany(AbdimasRegistrant::class, 'id_abdimas_information');
+    }
+
     protected $appends = ['leader'];
 }

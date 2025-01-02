@@ -1,9 +1,11 @@
 import React from "react";
-import { File, FilePenLine } from "lucide-react";
+import { EyeIcon, File, FilePenLine } from "lucide-react";
 import { Trash } from "lucide-react";
 import { formatDate, formatDatetimeToIndonesian } from "@/lib/helper";
+import { useForm } from "@inertiajs/react";
 
-const TabelPusatInformasi = ({ data }) => {
+const TabelPusatInformasi = ({ data, title }) => {
+
     return (
         <table className="w-full border-collapse text-sm">
             <thead>
@@ -18,12 +20,28 @@ const TabelPusatInformasi = ({ data }) => {
             <tbody>
                 {data.map((item, index) => (
                     <tr key={index} className="border-t hover:bg-gray-50">
-                        <td className="border p-2">{index+1}</td>
+                        <td className="border p-2">{index + 1}</td>
                         <td className="border p-2">{item.name}</td>
-                        <td className="border p-2">{formatDatetimeToIndonesian(item.created_at)}</td>
-                        <td className="border p-2">{formatDatetimeToIndonesian(item.event_time_end)}</td>
+                        <td className="border p-2">
+                            {formatDatetimeToIndonesian(item.created_at)}
+                        </td>
+                        <td className="border p-2">
+                            {formatDatetimeToIndonesian(item.event_time_end)}
+                        </td>
                         <td className="border p-2">
                             <div className="flex justify-center space-x-2 gap-8 ml-2">
+                                {title == "abdimas" ? (
+                                    <a
+                                        href={route(
+                                            "pusatAbdimas.show",
+                                            item.id
+                                        )}
+                                    >
+                                        <EyeIcon />
+                                    </a>
+                                ) : (
+                                    ""
+                                )}
                                 <button className="text-blue-500 hover:text-blue-600 transition">
                                     <FilePenLine />
                                 </button>

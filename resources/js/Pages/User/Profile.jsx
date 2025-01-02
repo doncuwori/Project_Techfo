@@ -27,27 +27,30 @@ const Profile = ({
     penerimaBeasiswa,
     pendaftarAbdimas,
     pendaftarPenelitian,
+    diterimaAbdimas,
+    diterimaPenelitian,
+    abdimas,
+    penelitian
 }) => {
     console.log(
-        pendaftarAbdimas,
-        pendaftarPenelitian,
+        competitionRegistrantsCount
     );
     return (
         <div>
             <Navbar />
             <ProfileSection />
             <CatatanKeaktifan
-                competitionCount={`${competitionAchievementsCount}/${competitionRegistrantsCount}`}
-                scholarshipCount={`${scholarshipRegistrantsCount}/${scholarshipRecipientsCount}`}
-                abdimasCount={`${abdimasRegistrantsCount}/${abdimasRecipientsCount}`}
-                researchCount={`${researchRegistrantsCount}/${researchRecipientsCount}`}
+                competitionCount={`${prestasiLomba.length}/${partisipasiLomba.length}`}
+                scholarshipCount={`${penerimaBeasiswa.length}/${pendaftarBeasiswa.length}`}
+                abdimasCount={`${diterimaAbdimas.length}/${pendaftarAbdimas.length}`}
+                researchCount={`${diterimaPenelitian.length}/${pendaftarPenelitian.length}`}
             />
             <RiwayatLomba data={partisipasiLomba} />
             <RiwayatPrestasiLomba data={prestasiLomba} />
             <RiwayatBeasiswa data={pendaftarBeasiswa} />
             <RiwayatPenerimaBeasiswa data={penerimaBeasiswa} />
-            <RiwayatAbdimas data={pendaftarAbdimas} />
-            <RiwayatPenelitian data={pendaftarPenelitian} />
+            <RiwayatAbdimas data={abdimas} />
+            <RiwayatPenelitian data={penelitian} />
             <Footer />
             <ScrollUpButton />
             <Toaster position="top-right" />

@@ -14,8 +14,11 @@ class RoleMiddleware
     {
         $user = Auth::user();
 
-        
-        if ($user && $user->role === $role) {
+        $role = str_ireplace('|', ',', $role);
+
+        $role = explode(',', $role);
+
+        if ($user && in_array($user->role, $role)) {
             return $next($request);
         }
 

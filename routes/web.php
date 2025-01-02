@@ -27,6 +27,7 @@ use App\Http\Controllers\ScholarshipRegistrantController;
 use App\Models\Abdimas\AbdimasInformation;
 use App\Models\Abdimas\AbdimasRegistrant;
 use App\Models\Abdimas\MahasiswaRegistrant as AbdimasMahasiswaRegistrant;
+use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\CompetitionInformation;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\MahasiswaAchievement;
@@ -39,6 +40,7 @@ use App\Models\Researchs\MahasiswaRegistrant as ResearchMahasiswaRegistrant;
 use App\Models\Scholarships\MahasiswaRecipient;
 use App\Models\Scholarships\MahasiswaRegistrant as ScholarshipsMahasiswaRegistrant;
 use App\Models\Scholarships\ScholarshipInformation;
+use App\Models\Scholarships\ScholarshipRegistrant;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -96,8 +98,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $prestasiLomba = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)->with('competitionAchievement')->get();
         $pendaftarBeasiswa = ScholarshipsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRegistrant')->get();
         $penerimaBeasiswa = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRecipient')->get();
-        $pendaftarAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->get();
-        $pendaftarPenelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->get();
+        $pendaftarAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->where('accepted', false)->get();
+        $diterimaAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->where('accepted', true)->get();
+
+
+        $pendaftarPenelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->where('accepted', false)->get();
+        $diterimaPenelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->where('accepted', true)->get();
+
+        $abdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->get();
+        $penelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->get();
 
         return Inertia::render('User/Profile',[
             'partisipasiLomba' => $partisipasiLomba,
@@ -105,7 +114,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'pendaftarBeasiswa' => $pendaftarBeasiswa,
             'penerimaBeasiswa' => $penerimaBeasiswa,
             'pendaftarAbdimas' => $pendaftarAbdimas,
+            'diterimaAbdimas' => $diterimaAbdimas,
             'pendaftarPenelitian' => $pendaftarPenelitian,
+            'diterimaPenelitian' => $diterimaPenelitian,
+            'abdimas' => $abdimas,
+            'penelitian' => $penelitian
         ]);
     })->name('profile');
 
@@ -219,7 +232,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('research-registrant', ResearchRegistrantController::class);
 });
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     // Dashboard
     Route::get('/dashboardAdmin', [DashboardAdminController::class, 'index'])->name('dashboardAdmin');
 
@@ -256,6 +269,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/pusatBeasiswa', [PusatInformasiBeasiswaController::class, 'index'])->name('pusatBeasiswa');
 
     Route::get('/pusatAbdimas', [PusatInformasiAbdimasController::class, 'index'])->name('pusatAbdimas');
+    Route::get('/pusatAbdimas/{id}', [PusatInformasiAbdimasController::class, 'show'])->name('pusatAbdimas.show');
+    Route::post('/pusatAbdimas/register', [PusatInformasiAbdimasController::class, 'register'])->name('pusatAbdimas.register');
+    Route::post('/pusatAbdimas/uploadSurat', [PusatInformasiAbdimasController::class, 'uploadSurat'])->name('pusatAbdimas.uploadSurat');
 
     Route::get('/pusatPenelitian', [PusatInformasiPenelitianController::class, 'index'])->name('pusatPenelitian');
 

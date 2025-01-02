@@ -31,7 +31,6 @@ class ProfileController extends Controller
         $researchRegistrantsCount = ResearchsMahasiswaRegistrant::where('accepted', false)->count();
         $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
 
-
         return Inertia::render('User/Profile', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
             'competitionAchievementsCount' => $competitionAchievementsCount,

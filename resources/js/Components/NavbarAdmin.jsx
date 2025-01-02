@@ -23,6 +23,7 @@ const NavbarAdmin = () => {
     const { post } = useForm();
     const { url } = usePage();
     const { user } = usePage().props;
+    const { wadek, kaprodi, ormawa } = usePage().props.auth;
 
     const toggleProfileDropdown = () => {
         setIsProfileDropdownOpen(!isProfileDropdownOpen);
@@ -147,84 +148,93 @@ const NavbarAdmin = () => {
                         </Link>
                     </li>
 
-                    {/* Laporan Menu */}
-                    <li key="laporan" className="mb-4">
-                        <button
-                            onClick={toggleLaporanDropdown}
-                            className={`${
-                                route().current("laporanLomba") ||
-                                route().current("laporanBeasiswa") ||
-                                route().current("laporanAbdimas") ||
-                                route().current("laporanPenelitian")
-                                    ? "text-white bg-orange-500 hover:font-bold"
-                                    : "text-gray-500 hover:text-orange-500"
-                            } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
-                        >
-                            <Briefcase
-                                className={`w-5 h-5 mr-2 ${
+                    {user.role === "admin" || wadek ? (
+                        <li key="laporan" className="mb-4">
+                            <button
+                                onClick={toggleLaporanDropdown}
+                                className={`${
                                     route().current("laporanLomba") ||
                                     route().current("laporanBeasiswa") ||
                                     route().current("laporanAbdimas") ||
                                     route().current("laporanPenelitian")
-                                        ? "text-white group-hover:scale-105"
-                                        : "group-hover:text-orange-500"
-                                }`}
-                            />
-                            <span>Laporan</span>
-                            <ChevronDown
-                                className={`ml-auto w-5 h-5 transform transition-transform duration-200 ${
-                                    isChevronLaporanRotated ? "rotate-180" : ""
-                                }`}
-                            />
-                        </button>
-                        {isLaporanDropdownOpen && (
-                            <ul className="pl-8 mt-2">
-                                {[
-                                    {
-                                        name: "Lomba",
-                                        route: "laporanLomba",
-                                    },
-                                    {
-                                        name: "Beasiswa",
-                                        route: "laporanBeasiswa",
-                                    },
-                                    {
-                                        name: "Pengabdian Masyarakat",
-                                        route: "laporanAbdimas",
-                                    },
-                                    {
-                                        name: "Penelitian",
-                                        route: "laporanPenelitian",
-                                    },
-                                ].map((subItem) => (
-                                    <li
-                                        key={subItem.name}
-                                        className="mb-2 flex items-center group"
-                                    >
-                                        <Link
-                                            href={route(subItem.route)}
-                                            className={`${
-                                                route().current(subItem.route)
-                                                    ? "text-orange-500 hover:font-bold"
-                                                    : "text-gray-500 group-hover:text-orange-500"
-                                            } flex items-center`}
+                                        ? "text-white bg-orange-500 hover:font-bold"
+                                        : "text-gray-500 hover:text-orange-500"
+                                } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
+                            >
+                                <Briefcase
+                                    className={`w-5 h-5 mr-2 ${
+                                        route().current("laporanLomba") ||
+                                        route().current("laporanBeasiswa") ||
+                                        route().current("laporanAbdimas") ||
+                                        route().current("laporanPenelitian")
+                                            ? "text-white group-hover:scale-105"
+                                            : "group-hover:text-orange-500"
+                                    }`}
+                                />
+                                <span>Laporan</span>
+                                <ChevronDown
+                                    className={`ml-auto w-5 h-5 transform transition-transform duration-200 ${
+                                        isChevronLaporanRotated
+                                            ? "rotate-180"
+                                            : ""
+                                    }`}
+                                />
+                            </button>
+                            {isLaporanDropdownOpen && (
+                                <ul className="pl-8 mt-2">
+                                    {[
+                                        {
+                                            name: "Lomba",
+                                            route: "laporanLomba",
+                                        },
+                                        {
+                                            name: "Beasiswa",
+                                            route: "laporanBeasiswa",
+                                        },
+                                        {
+                                            name: "Pengabdian Masyarakat",
+                                            route: "laporanAbdimas",
+                                        },
+                                        {
+                                            name: "Penelitian",
+                                            route: "laporanPenelitian",
+                                        },
+                                    ].map((subItem) => (
+                                        <li
+                                            key={subItem.name}
+                                            className="mb-2 flex items-center group"
                                         >
-                                            <NotepadText
-                                                className={`w-4 h-4 mr-2 ${
+                                            <Link
+                                                href={route(subItem.route)}
+                                                className={`${
                                                     route().current(
                                                         subItem.route
                                                     )
-                                                        ? "text-orange-500 group-hover:scale-105"
+                                                        ? "text-orange-500 hover:font-bold"
                                                         : "text-gray-500 group-hover:text-orange-500"
-                                                }`}
-                                            />
-                                            {subItem.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </li>
+                                                } flex items-center`}
+                                            >
+                                                <NotepadText
+                                                    className={`w-4 h-4 mr-2 ${
+                                                        route().current(
+                                                            subItem.route
+                                                        )
+                                                            ? "text-orange-500 group-hover:scale-105"
+                                                            : "text-gray-500 group-hover:text-orange-500"
+                                                    }`}
+                                                />
+                                                {subItem.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
+                    ) : (
+                        ""
+                    )}
+
+                    {/* Laporan Menu */}
 
                     {/* Pusat Informasi Menu */}
                     <li key="pusatInformasi" className="mb-4">
@@ -238,7 +248,8 @@ const NavbarAdmin = () => {
                                 route().current("tambahInfoLomba") ||
                                 route().current("tambahInfoBeasiswa") ||
                                 route().current("tambahInfoAbdimas") ||
-                                route().current("tambahInfoPenelitian") 
+                                route().current("pusatAbdimas.show") ||
+                                route().current("tambahInfoPenelitian")
                                     ? "text-white bg-orange-500 hover:font-bold"
                                     : "text-gray-500 hover:text-orange-500"
                             } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
@@ -252,7 +263,7 @@ const NavbarAdmin = () => {
                                     route().current("tambahInfoLomba") ||
                                     route().current("tambahInfoBeasiswa") ||
                                     route().current("tambahInfoAbdimas") ||
-                                    route().current("tambahInfoPenelitian") 
+                                    route().current("tambahInfoPenelitian")
                                         ? "text-white group-hover:scale-105"
                                         : "group-hover:text-orange-500"
                                 }`}

@@ -4,8 +4,6 @@ import { Link } from "@inertiajs/react";
 import TabelPusatInformasi from "@/Components/PusatInformasi/TabelPusatInformasi";
 
 const PusatAbdimas = ({ user, data }) => {
-    console.log(data)
-
     return (
         <div>
             <NavbarAdmin user={user} />
@@ -26,7 +24,7 @@ const PusatAbdimas = ({ user, data }) => {
                         </div>
 
                         {/* Tabel */}
-                        <TabelPusatInformasi data={data} />
+                        <TabelPusatInformasi data={data} title={'abdimas'}/>
 
                         {/* Pagination */}
                         <div className="flex justify-between items-center mt-4 text-gray-600">

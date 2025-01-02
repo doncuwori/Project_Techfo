@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -36,7 +37,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'mahasiswa' => $request->user() ? Mahasiswa::where('id_user', $request->user()->id)->with(['prodi', 'mahasiswaAccess'])->first() : null,
-                'dosen' => $request->user() ? Dosen::where('id_user', $request->user()->id)->with(['prodi', 'dosenAccess'])->first() : null
+                'dosen' => $request->user() ? Dosen::where('id_user', $request->user()->id)->with(['prodi', 'dosenAccess'])->first() : null,
+                'wadek' => Gate::check('wadek'),
+                'kaprodi' => Gate::check('kaprodi'),
+                'ormawa' => Gate::check('ormawa'),
             ],
         ];
     }

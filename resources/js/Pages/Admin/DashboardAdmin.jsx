@@ -20,12 +20,6 @@ const DashboardAdmin = ({
     researchRegistrantsCount,
     researchRecipientsCount
 }) => {
-    console.log(
-        competitionRegistrantsCount,
-        competitionAchievementsCount,
-        scholarshipRegistrantsCount,
-        scholarshipRecipientsCount
-    );
 
     return (
         <div>

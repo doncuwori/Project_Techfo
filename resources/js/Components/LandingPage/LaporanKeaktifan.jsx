@@ -283,7 +283,6 @@ const LaporanKeaktifan = ({
                         </h2>
                         <div className="p-4 bg-white rounded-lg border border-[#d1d3d8] grid grid-cols-2 gap-4">
                             {rekapData.map((item, index) => {
-                                console.log(item);
                                 return (
                                     <div className="flex flex-col items-center justify-center gap-4 border rounded-md p-4 shadow">
                                         <Bar

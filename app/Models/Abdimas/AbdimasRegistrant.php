@@ -25,11 +25,18 @@ class AbdimasRegistrant extends Model
      */
     public function mahasiswa()
     {
-        return $this->hasManyThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_abdimas_registrant', 'id', null,'id_mahasiswa');
+        return $this->hasOneThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_abdimas_registrant', 'id', null,'id_mahasiswa');
+    }
+
+    public function getStatusAttribute()
+    {
+        return MahasiswaRegistrant::where('id_abdimas_registrant', $this->id)->first()->accepted;
     }
 
     public function abdimasInformation()
     {
         return $this->belongsTo(AbdimasInformation::class, 'id_abdimas_information');
     }
+
+    protected $appends = ['status'];
 }
