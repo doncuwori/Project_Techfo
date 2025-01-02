@@ -115,7 +115,7 @@ const LoginForm = () => {
                         {/* Password Field */}
                         <div>
                             <label className="block text-zinc-950 text-base font-medium mb-2">
-                                Kata Sandi{" "}
+                                Password{" "}
                                 <span className="text-red-600">*</span>
                             </label>
                             <input

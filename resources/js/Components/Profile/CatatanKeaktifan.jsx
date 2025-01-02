@@ -1,28 +1,55 @@
-const CatatanKeaktifan = ({partisipasiLomba, prestasiLomba, pendaftarBeasiswa, penerimaBeasiswa}) => {
+const CatatanKeaktifan = ({
+    competitionCount,
+    scholarshipCount,
+    abdimasCount,
+    researchCount,
+}) => {
     return (
         <div className="py-6 px-8">
             <h2 className="text-2xl font-semibold mb-6">Catatan Keaktifan</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-4 gap-6">
                 {[
-                    { label: "LOMBA", icon: "🏆", count: `${partisipasiLomba.length}/${prestasiLomba.length}` },
-                    { label: "BEASISWA", icon: "📝", count: `${pendaftarBeasiswa.length}/${penerimaBeasiswa.length}` },
-                    { label: "ABDIMAS", icon: "👥", count: "36/50" },
-                    { label: "PENELITIAN", icon: "🔍", count: "36/50" },
-                ].map((item) => (
+                    {
+                        label: "LOMBA",
+                        icon: "🏆",
+                        count: competitionCount,
+                        status1: "Menang",
+                        status2: "Daftar",
+                    },
+                    {
+                        label: "BEASISWA",
+                        icon: "📝",
+                        count: scholarshipCount,
+                        status1: "Penerima",
+                        status2: "Daftar",
+                    },
+                    {
+                        label: "ABDIMAS",
+                        icon: "👥",
+                        count: abdimasCount,
+                        status1: "Lolos",
+                        status2: "Daftar",
+                    },
+                    {
+                        label: "PENELITIAN",
+                        icon: "🔍",
+                        count: researchCount,
+                        status1: "Lolos",
+                        status2: "Daftar",
+                    },
+                ].map(({ label, icon, count, status1, status2 }) => (
                     <div
-                        key={item.label}
-                        className="bg-orange-100 border border-neutral-200 rounded-lg p-4 flex items-center"
+                        key={label}
+                        className="bg-orange-100 border-2 border-neutral-200 rounded-lg p-6 flex items-center flex-col sm:flex-row"
                     >
-                        <div className="text-5xl ml-6">{item.icon}</div>
-                        <div className="ml-14">
-                            <p className="font-semibold text-lg">
-                                {item.label}
-                            </p>
+                        <div className="text-5xl ml-2">{icon}</div>
+                        <div className="ml-0 sm:ml-12 text-center">
+                            <p className="font-semibold">{label}</p>
                             <p className="text-[#2d3036] text-2xl font-medium leading-10">
-                                {item.count}
+                                {count}
                             </p>
-                            <p className="text-gray-600 text-xs mt-1">
-                                Daftar/Menang
+                            <p className="text-gray-600 text-xs">
+                                {status1}/{status2}
                             </p>
                         </div>
                     </div>

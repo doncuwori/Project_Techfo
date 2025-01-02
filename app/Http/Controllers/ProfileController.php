@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competitions\CompetitionRegistrant;
+use App\Models\Competitions\CompetitionAchievement;
+use App\Models\Scholarships\ScholarshipRecipient;
+use App\Models\Scholarships\ScholarshipRegistrant;
+use App\Models\Abdimas\MahasiswaRegistrant;
+use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -13,6 +19,31 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    public function index(){
+        $competitionRegistrantsCount = CompetitionRegistrant::count();
+        $competitionAchievementsCount = CompetitionAchievement::count();
+        $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
+        $scholarshipRecipientsCount = ScholarshipRecipient::count();
+
+        $abdimasRegistrantsCount = MahasiswaRegistrant::where('accepted', false)->count();
+        $abdimasRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
+
+        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::where('accepted', false)->count();
+        $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
+
+
+        return Inertia::render('User/Profile', [
+            'competitionRegistrantsCount' => $competitionRegistrantsCount,
+            'competitionAchievementsCount' => $competitionAchievementsCount,
+            'scholarshipRegistrantsCount' => $scholarshipRegistrantsCount,
+            'scholarshipRecipientsCount' => $scholarshipRecipientsCount,
+            'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
+            'abdimasRecipientsCount' => $abdimasRecipientsCount,
+            'researchRegistrantsCount' => $researchRegistrantsCount,
+            'researchRecipientsCount' => $researchRecipientsCount,
+        ]);
+    }
+
     /**
      * Display the user's profile form.
      */

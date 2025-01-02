@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Pie, Bar, Line } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -12,10 +12,7 @@ import {
     LineElement,
     Title,
 } from "chart.js";
-import axios from "axios";
-import { data } from "autoprefixer";
 
-// Registering the required Chart.js components
 ChartJS.register(
     ArcElement,
     Tooltip,

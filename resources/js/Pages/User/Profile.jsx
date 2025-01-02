@@ -13,23 +13,34 @@ import RiwayatAbdimas from "@/Components/Profile/RiwayatAbdimas";
 import RiwayatPenelitian from "@/Components/Profile/RiwayatPenelitian";
 
 const Profile = ({
+    competitionRegistrantsCount,
+    competitionAchievementsCount,
+    scholarshipRegistrantsCount,
+    scholarshipRecipientsCount,
+    abdimasRegistrantsCount,
+    abdimasRecipientsCount,
+    researchRegistrantsCount,
+    researchRecipientsCount,
     partisipasiLomba,
     prestasiLomba,
     pendaftarBeasiswa,
     penerimaBeasiswa,
     pendaftarAbdimas,
-    pendaftarPenelitian
+    pendaftarPenelitian,
 }) => {
-    console.log(pendaftarAbdimas, pendaftarPenelitian);
+    console.log(
+        pendaftarAbdimas,
+        pendaftarPenelitian,
+    );
     return (
         <div>
             <Navbar />
             <ProfileSection />
             <CatatanKeaktifan
-                partisipasiLomba={partisipasiLomba}
-                prestasiLomba={prestasiLomba}
-                pendaftarBeasiswa={pendaftarBeasiswa}
-                penerimaBeasiswa={penerimaBeasiswa}
+                competitionCount={`${competitionAchievementsCount}/${competitionRegistrantsCount}`}
+                scholarshipCount={`${scholarshipRegistrantsCount}/${scholarshipRecipientsCount}`}
+                abdimasCount={`${abdimasRegistrantsCount}/${abdimasRecipientsCount}`}
+                researchCount={`${researchRegistrantsCount}/${researchRecipientsCount}`}
             />
             <RiwayatLomba data={partisipasiLomba} />
             <RiwayatPrestasiLomba data={prestasiLomba} />

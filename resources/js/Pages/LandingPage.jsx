@@ -13,7 +13,13 @@ const LandingPage = ({
     abdimasRegistrantsCount,
     abdimasRecipientsCount,
     researchRegistrantsCount,
-    researchRecipientsCount
+    researchRecipientsCount,
+    user,
+    rekapJuara,
+    rekapLomba,
+    rekapBeasiswa,
+    rekapAbdimas,
+    rekapResearch,
 }) => {
     console.log(
         competitionRegistrantsCount,
@@ -38,10 +44,15 @@ const LandingPage = ({
                 />
             </div>
             <LaporanKeaktifan
-                competitionCount={`${competitionAchievementsCount}/${competitionRegistrantsCount}`}
-                scholarshipCount={`${scholarshipRegistrantsCount}/${scholarshipRecipientsCount}`}
-                abdimasCount={`${abdimasRegistrantsCount}/${abdimasRecipientsCount}`}
-                researchCount={`${researchRegistrantsCount}/${researchRecipientsCount}`}
+                competitionCount={`${competitionAchievementsCount}/${competitionRegistrantsCount} `}
+                scholarshipCount={`${scholarshipRecipientsCount}/${scholarshipRegistrantsCount}`}
+                rekapJuara={rekapJuara}
+                rekapLomba={rekapLomba}
+                rekapBeasiswa={rekapBeasiswa}
+                rekapAbdimas={rekapAbdimas}
+                rekapResearch={rekapResearch}
+                abdimasCount={`${abdimasRecipientsCount}/${abdimasRegistrantsCount}`}
+                researchCount={`${researchRecipientsCount}/${researchRegistrantsCount}`}
             />
             <Footer />
             <ScrollUpButton />

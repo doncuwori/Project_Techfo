@@ -3,39 +3,121 @@
 namespace App\Http\Controllers\LandingPage;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Abdimas\MahasiswaRegistrant;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
+use App\Models\Competitions\MahasiswaAchievement;
+use App\Models\Prodi;
+use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
+use App\Models\Scholarships\MahasiswaRecipient;
 use App\Models\Scholarships\ScholarshipRecipient;
 use App\Models\Scholarships\ScholarshipRegistrant;
-use App\Models\Abdimas\AbdimasRegistrant;
-use App\Models\Abdimas\AbdimasRecipient;
-use App\Models\Researchs\ResearchRegistrant;
-use App\Models\Researchs\ResearchRecipient;
 use Inertia\Inertia;
 
 class LandingPageController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $competitionRegistrantsCount = CompetitionRegistrant::count();
         $competitionAchievementsCount = CompetitionAchievement::count();
         $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
         $scholarshipRecipientsCount = ScholarshipRecipient::count();
-        $abdimasRegistrantsCount = AbdimasRegistrant::count();
-        $abdimasRecipientsCount = AbdimasRecipient::count();
-        $researchRegistrantsCount = ResearchRegistrant::count();
-        $researchRecipientsCount = ResearchRecipient::count();
 
+        $abdimasRegistrantsCount = MahasiswaRegistrant::where('accepted', false)->count();
+        $abdimasRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
+
+        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::where('accepted', false)->count();
+        $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
+
+
+        $user = auth()->user();
+
+        $kategoriJuara = [
+            'Juara Harapan I',
+            'Juara Harapan II',
+            'Juara Harapan III',
+            'Juara I',
+            'Juara II',
+            'Juara III',
+            'Medali Emas',
+            'Medali Perak',
+            'Medali Perunggu',
+            'Penerima Hibah',
+            'Terbaik',
+        ];
+
+        $prodi = Prodi::all();
+
+        $arrayJuara = [];
+
+        foreach($kategoriJuara as $k){
+            foreach($prodi as $p){
+                $arrayJuara[$k][$p->nama_prodi] = MahasiswaAchievement::whereHas('mahasiswa', function ($query) use ($p) {
+                    $query->whereHas('prodi', function ($query) use ($p) {
+                        $query->where('id', $p->id);
+                    });
+                })->whereHas('competitionAchievement', function ($query) use ($k) {
+                    $query->where('degree', $k);
+                })->count();
+            }
+        }
+
+        $arrayLomba = [];
+
+        foreach($prodi as $p){
+            $arrayLomba[$p->nama_prodi] = MahasiswaAchievement::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->count();
+        }
+
+        $arrayBeasiswa = [];
+
+        foreach($prodi as $p){
+            $arrayBeasiswa[$p->nama_prodi] = MahasiswaRecipient::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->count();
+        }
+
+        $arrayAbdimas = [];
+
+        foreach($prodi as $p){
+            $arrayAbdimas[$p->nama_prodi] = MahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->count();
+        }
+
+        $arrayResearch = [];
+
+        foreach($prodi as $p){
+            $arrayResearch[$p->nama_prodi] = ResearchsMahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->count();
+        }
 
         return Inertia::render('LandingPage', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
             'competitionAchievementsCount' => $competitionAchievementsCount,
             'scholarshipRegistrantsCount' => $scholarshipRegistrantsCount,
             'scholarshipRecipientsCount' => $scholarshipRecipientsCount,
+            'user' => $user,
+            'rekapJuara' => $arrayJuara,
+            'rekapLomba' => $arrayLomba,
+            'rekapBeasiswa' => $arrayBeasiswa,
+            'rekapAbdimas' => $arrayAbdimas,
+            'rekapResearch' => $arrayResearch,
             'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
             'abdimasRecipientsCount' => $abdimasRecipientsCount,
             'researchRegistrantsCount' => $researchRegistrantsCount,
-            'researchRecipientsCount' => $researchRecipientsCount,
+            'researchRecipientsCount' => $researchRecipientsCount
         ]);
+
     }
 }
