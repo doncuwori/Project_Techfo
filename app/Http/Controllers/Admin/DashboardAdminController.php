@@ -33,12 +33,12 @@ class DashboardAdminController extends Controller
         $user = auth()->user();
 
         $kategoriJuara = [
-            'Juara Harapan I',
-            'Juara Harapan II',
-            'Juara Harapan III',
             'Juara I',
             'Juara II',
             'Juara III',
+            'Juara Harapan I',
+            'Juara Harapan II',
+            'Juara Harapan III',
             'Medali Emas',
             'Medali Perak',
             'Medali Perunggu',

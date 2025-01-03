@@ -6,7 +6,6 @@ use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\MahasiswaAchievement;
 use App\Models\Mahasiswa;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;

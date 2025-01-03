@@ -10,6 +10,12 @@ const TabelTabPenerima = ({ data }) => {
                             No
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Nama Kegiatan
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Lokasi
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             NIM
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -47,6 +53,12 @@ const TabelTabPenerima = ({ data }) => {
                             <tr key={index}>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {index + 1}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.research_registrant.research_information.name}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.research_registrant.research_information.location}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.mahasiswa.nim}

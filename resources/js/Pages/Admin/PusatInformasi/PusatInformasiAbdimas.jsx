@@ -6,7 +6,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import { formatDate } from "@/lib/helper";
 import UploadSuratTugas from "@/Components/Laporan/Abdimas/UploadSuratTugas";
 
-const PusatInformasiAbdimas = ({user, abdimas}) => {
+const PusatInformasiAbdimas = ({ user, abdimas }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         id_abdimas_registrant: [],
     });
@@ -55,12 +55,18 @@ const PusatInformasiAbdimas = ({user, abdimas}) => {
 
                         <div class="mb-4">
                             <p>
-                                <strong>Lokasi Kegiatan:</strong> {abdimas.location}
+                                <strong>Lokasi Kegiatan:</strong>{" "}
+                                {abdimas.location}
                             </p>
                             <div class="mt-4">
                                 <p>
                                     <strong>Batas Pendaftaran:</strong>
-                                    <span class="text-red-500"> {formatDate(abdimas.event_time_start)} - {formatDate(abdimas.event_time_end)}
+                                    <span class="text-red-500">
+                                        {" "}
+                                        {formatDate(
+                                            abdimas.event_time_start
+                                        )} -{" "}
+                                        {formatDate(abdimas.event_time_end)}
                                     </span>
                                 </p>
                             </div>
@@ -72,21 +78,71 @@ const PusatInformasiAbdimas = ({user, abdimas}) => {
                                     Total Mahasiswa yang Dibutuhkan:
                                 </strong>
                             </p>
-                            <p>{abdimas.total_students_required} orang mahasiswa <b>(Tersisa {abdimas.total_students_required - abdimas.abdimas_registrant.filter((abdimasRegistrant) => abdimasRegistrant.status == true).length})</b></p>
+                            <p>
+                                {abdimas.total_students_required} Mahasiswa{" "}
+                                <b>
+                                    (Tersisa{" "}
+                                    {abdimas.total_students_required -
+                                        abdimas.abdimas_registrant.filter(
+                                            (abdimasRegistrant) =>
+                                                abdimasRegistrant.status == true
+                                        ).length}
+                                    )
+                                </b>
+                            </p>
                         </div>
 
                         <div class="mt-4">
                             <p>
                                 <strong>Anggota Tim:</strong>
                             </p>
-                            <ul class="list-disc ml-5">
-                                {
-                                    abdimas.dosen.map((dosen, index) => (
-                                        <li key={index}>
-                                            {dosen.nama} <b>{abdimas.leader.id_dosen == dosen.id ? "(Ketua)" : ""}</b>
-                                        </li>
-                                    ))
-                                }
+                            <ul className="list-disc pl-5">
+                                {abdimas.dosen && abdimas.dosen.length > 0 && (
+                                    <>
+                                        {/* Ketua */}
+                                        {abdimas.dosen.length === 1 ? (
+                                            // Jika hanya satu orang, dia otomatis menjadi ketua
+                                            <li key={`leader-0`}>
+                                                {abdimas.dosen[0].nama}{" "}
+                                                <b>(Ketua)</b>
+                                            </li>
+                                        ) : (
+                                            <>
+                                                {/* Ketua berdasarkan ID */}
+                                                {abdimas.dosen
+                                                    .filter(
+                                                        (dosen) =>
+                                                            dosen.id ===
+                                                            abdimas.leader
+                                                                .id_dosen
+                                                    )
+                                                    .map((dosen, index) => (
+                                                        <li
+                                                            key={`leader-${index}`}
+                                                        >
+                                                            {dosen.nama}{" "}
+                                                            <b>(Ketua)</b>
+                                                        </li>
+                                                    ))}
+                                                {/* Anggota */}
+                                                {abdimas.dosen
+                                                    .filter(
+                                                        (dosen) =>
+                                                            dosen.id !==
+                                                            abdimas.leader
+                                                                .id_dosen
+                                                    )
+                                                    .map((dosen, index) => (
+                                                        <li
+                                                            key={`member-${index}`}
+                                                        >
+                                                            {dosen.nama}
+                                                        </li>
+                                                    ))}
+                                            </>
+                                        )}
+                                    </>
+                                )}
                             </ul>
                         </div>
 
@@ -94,14 +150,10 @@ const PusatInformasiAbdimas = ({user, abdimas}) => {
                             <p>
                                 <strong>Detail Kegiatan:</strong>
                             </p>
-                            <p>
-                                {abdimas.description}
-                            </p>
+                            <p>{abdimas.description}</p>
                         </div>
 
                         <UploadSuratTugas abdimas={abdimas} />
-
-                        
                     </div>
 
                     <div class="mt-6 bg-white shadow-md rounded-lg p-6">
@@ -123,7 +175,10 @@ const PusatInformasiAbdimas = ({user, abdimas}) => {
                                 </label>
                             </div> */}
                         </div>
-                        <TabelPusatInfo data={abdimas.abdimas_registrant} handler={handleMahasiswaChange} />
+                        <TabelPusatInfo
+                            data={abdimas.abdimas_registrant}
+                            handler={handleMahasiswaChange}
+                        />
                         {/* <div class="flex justify-between items-center mt-4">
                             <p class="text-gray-500">Rows per page: 10</p>
                             <div class="flex space-x-2 items-center">
@@ -139,7 +194,10 @@ const PusatInformasiAbdimas = ({user, abdimas}) => {
                             <p class="text-gray-500">Total 1 - 10 of 130</p>
                         </div> */}
                         <div className="flex justify-end mt-4">
-                            <button onClick={handleSubmit} class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
+                            <button
+                                onClick={handleSubmit}
+                                class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+                            >
                                 Simpan
                             </button>
                         </div>

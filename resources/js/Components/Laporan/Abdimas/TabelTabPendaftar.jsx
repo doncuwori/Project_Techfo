@@ -13,6 +13,9 @@ const TabelTabPendaftar = ({ data }) => {
                             Nama Kegiatan
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Lokasi
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             NIM
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -53,6 +56,9 @@ const TabelTabPendaftar = ({ data }) => {
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.abdimas_registrant.abdimas_information.name}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.abdimas_registrant.abdimas_information.location}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.mahasiswa.nim}

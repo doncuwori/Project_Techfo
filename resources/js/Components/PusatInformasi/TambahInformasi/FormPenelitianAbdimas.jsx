@@ -141,12 +141,13 @@ const FormPenelitianAbdimas = ({ type, dosen }) => {
                         </label>
                         <input
                             value={data.total_students_required}
-                            onChange={(e) =>
-                                setData(
-                                    "total_students_required",
-                                    e.target.value
-                                )
-                            }
+                            onChange={(e) => {
+                                const value = Math.max(
+                                    0,
+                                    parseInt(e.target.value) || 0
+                                );
+                                setData("total_students_required", value);
+                            }}
                             type="number"
                             min="0"
                             className="w-full border rounded-lg p-3"
@@ -187,7 +188,11 @@ const FormPenelitianAbdimas = ({ type, dosen }) => {
 
                                 <input
                                     className="text-sm px-2.5 py-2 rounded-lg border-neutral-400 border-[1.5px] bg-gray-200"
-                                    value={index==0 ? "Ketua" : "Anggota " + (index)}
+                                    value={
+                                        index == 0
+                                            ? "Ketua"
+                                            : "Anggota " + index
+                                    }
                                     disabled={true}
                                 />
                                 {index != 0 ? (
