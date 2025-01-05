@@ -28,6 +28,11 @@ class ResearchRegistrant extends Model
         return $this->hasManyThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_research_registrant', 'id', null,'id_mahasiswa');
     }
 
+    public function getStatusAttribute()
+    {
+        return MahasiswaRegistrant::where('id_research_registrant', $this->id)->first()->accepted;
+    }
+
     public function researchInformation()
     {
         return $this->belongsTo(ResearchInformation::class, 'id_research_information');

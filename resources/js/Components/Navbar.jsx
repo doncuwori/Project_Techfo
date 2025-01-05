@@ -228,7 +228,7 @@ const Navbar = ({ data }) => {
                             href={route("profile")}
                             className={`block px-4 py-2 text-gray-700 transition duration-150 ${
                                 route().current("profile")
-                                    ? "bg-orange-50 text-[#fe634e] font-bold"
+                                    ? "bg-orange-50 text-[#fe631e] font-bold"
                                     : "hover:bg-orange-50 hover:text-[#fe632e] hover:font-bold"
                             }`}
                         >

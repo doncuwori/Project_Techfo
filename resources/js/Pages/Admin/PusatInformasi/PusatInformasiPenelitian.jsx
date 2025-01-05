@@ -21,7 +21,7 @@ const PusatInformasiPenelitian = ({ user, research }) => {
             onSuccess: (res) => {
                 console.log("success");
                 reset();
-                toast.success("Pendaftaran Penelitian Berhasil");
+                toast.success("Pendaftaran Penelitian Berhasil Dibuat");
             },
             onError: (errors) => {
                 toast.error("Gagal Mendaftar Penelitian");
@@ -65,8 +65,8 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                                         {" "}
                                         {formatDate(
                                             research.event_time_start
-                                        )} -{" "}
-                                        {formatDate(research.event_time_end)}
+                                        )}{" "}
+                                        - {formatDate(research.event_time_end)}
                                     </span>
                                 </p>
                             </div>
@@ -85,7 +85,8 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                                     {research.total_students_required -
                                         research.research_registrant.filter(
                                             (researchRegistrant) =>
-                                                researchRegistrant.status == true
+                                                researchRegistrant.status ==
+                                                true
                                         ).length}
                                     )
                                 </b>
@@ -97,52 +98,53 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                                 <strong>Dosen Penyelenggara:</strong>
                             </p>
                             <ul className="list-disc pl-5">
-                                {research.dosen && research.dosen.length > 0 && (
-                                    <>
-                                        {/* Ketua */}
-                                        {research.dosen.length === 1 ? (
-                                            // Jika hanya satu orang, dia otomatis menjadi ketua
-                                            <li key={`leader-0`}>
-                                                {research.dosen[0].nama}{" "}
-                                                <b>(Ketua)</b>
-                                            </li>
-                                        ) : (
-                                            <>
-                                                {/* Ketua berdasarkan ID */}
-                                                {research.dosen
-                                                    .filter(
-                                                        (dosen) =>
-                                                            dosen.id ===
-                                                            research.leader
-                                                                .id_dosen
-                                                    )
-                                                    .map((dosen, index) => (
-                                                        <li
-                                                            key={`leader-${index}`}
-                                                        >
-                                                            {dosen.nama}{" "}
-                                                            <b>(Ketua)</b>
-                                                        </li>
-                                                    ))}
-                                                {/* Anggota */}
-                                                {research.dosen
-                                                    .filter(
-                                                        (dosen) =>
-                                                            dosen.id !==
-                                                            research.leader
-                                                                .id_dosen
-                                                    )
-                                                    .map((dosen, index) => (
-                                                        <li
-                                                            key={`member-${index}`}
-                                                        >
-                                                            {dosen.nama}
-                                                        </li>
-                                                    ))}
-                                            </>
-                                        )}
-                                    </>
-                                )}
+                                {research.dosen &&
+                                    research.dosen.length > 0 && (
+                                        <>
+                                            {/* Ketua */}
+                                            {research.dosen.length === 1 ? (
+                                                // Jika hanya satu orang, dia otomatis menjadi ketua
+                                                <li key={`leader-0`}>
+                                                    {research.dosen[0].nama}{" "}
+                                                    <b>(Ketua)</b>
+                                                </li>
+                                            ) : (
+                                                <>
+                                                    {/* Ketua berdasarkan ID */}
+                                                    {research.dosen
+                                                        .filter(
+                                                            (dosen) =>
+                                                                dosen.id ===
+                                                                research.leader
+                                                                    .id_dosen
+                                                        )
+                                                        .map((dosen, index) => (
+                                                            <li
+                                                                key={`leader-${index}`}
+                                                            >
+                                                                {dosen.nama}{" "}
+                                                                <b>(Ketua)</b>
+                                                            </li>
+                                                        ))}
+                                                    {/* Anggota */}
+                                                    {research.dosen
+                                                        .filter(
+                                                            (dosen) =>
+                                                                dosen.id !==
+                                                                research.leader
+                                                                    .id_dosen
+                                                        )
+                                                        .map((dosen, index) => (
+                                                            <li
+                                                                key={`member-${index}`}
+                                                            >
+                                                                {dosen.nama}
+                                                            </li>
+                                                        ))}
+                                                </>
+                                            )}
+                                        </>
+                                    )}
                             </ul>
                         </div>
 
@@ -159,7 +161,7 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                     <div class="mt-6 bg-white shadow-md rounded-lg p-6">
                         <div class="flex justify-between items-center">
                             <h3 class="text-xl font-semibold">
-                                Pendaftar Pengabdian Masyarakat
+                                Pendaftar Penelitian
                             </h3>
                             {/* <div class="flex items-center">
                                 <span class="text-gray-700 text-center text-12 mr-3">
@@ -175,8 +177,10 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                                 </label>
                             </div> */}
                         </div>
-                        <TabelPusatInfo data={research.research_registrant}
-                            handler={handleMahasiswaChange}/>
+                        <TabelPusatInfo
+                            data={research.research_registrant}
+                            handler={handleMahasiswaChange}
+                        />
                         {/* <div class="flex justify-between items-center mt-4">
                             <p class="text-gray-500">Rows per page: 10</p>
                             <div class="flex space-x-2 items-center">

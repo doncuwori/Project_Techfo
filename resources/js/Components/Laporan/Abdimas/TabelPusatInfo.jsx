@@ -7,10 +7,10 @@ const TabelPusatInfo = ({ data, handler }) => {
         let id = Array.from(selected).map((input) => input.checked ? input.value : null);
         handler(id);
     };
-    
+
     return (
         <div class="overflow-x-auto mt-4 border">
-            <table class="min-w-full divide-y divide-gray-200 ">
+            <table class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">

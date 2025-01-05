@@ -42,7 +42,7 @@ class PusatInformasiPenelitianController extends Controller
 
     public function register(Request $request)
     {
-        $selected = $request->id_abdimas_registrant ?? [];
+        $selected = $request->id_research_registrant ?? [];
 
         foreach($selected as $id){
             MahasiswaRegistrant::where('id_research_registrant', $id)->update([

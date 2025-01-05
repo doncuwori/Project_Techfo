@@ -21,10 +21,10 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
             onSuccess: (res) => {
                 console.log("success");
                 reset();
-                toast.success("Prestasi Lomba Berhasil Dibuat");
+                toast.success("Pendaftaran Pengabdian Masyarakat Berhasil Dibuat");
             },
             onError: (errors) => {
-                toast.error("Gagal membuat prestasi lomba");
+                toast.error("Gagal Mendaftar Penelitian");
                 console.error(errors);
             },
         });

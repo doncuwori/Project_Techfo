@@ -98,6 +98,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $prestasiLomba = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)->with('competitionAchievement')->get();
         $pendaftarBeasiswa = ScholarshipsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRegistrant')->get();
         $penerimaBeasiswa = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRecipient')->get();
+
         $pendaftarAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->where('accepted', false)->get();
         $diterimaAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->where('accepted', true)->get();
 
@@ -276,7 +277,7 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     Route::get('/pusatPenelitian', [PusatInformasiPenelitianController::class, 'index'])->name('pusatPenelitian');
     Route::get('/pusatPenelitian/{id}', [PusatInformasiPenelitianController::class, 'show'])->name('pusatPenelitian.show');
     Route::post('/pusatPenelitian/register', [PusatInformasiPenelitianController::class, 'register'])->name('pusatPenelitian.register');
-    Route::post('/pusatPenelitian/uploadSurat', [PusatInformasiPenelitianController::class, 'uploadSuratF'])->name('pusatPenelitian.uploadSurat');
+    Route::post('/pusatPenelitian/uploadSurat', [PusatInformasiPenelitianController::class, 'uploadSurat'])->name('pusatPenelitian.uploadSurat');
 
     Route::get('/loginAdmin', function () {
         return Inertia::render('Admin/LoginAdmin');

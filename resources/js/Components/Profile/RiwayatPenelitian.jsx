@@ -12,7 +12,7 @@ const RiwayatPenelitian = ({ data }) => {
                     return (
                         <div
                             key={index}
-                            className="h-[159px] bg-white shadow-md rounded-lg border border-neutral-100 flex gap-4 p-4"
+                            className="h-[159px] bg-white shadow-md rounded-lg border border-neutral-100 flex gap-4 p-4 relative"
                         >
                             <div className="w-[125px] h-[127px] relative">
                                 <img
@@ -50,6 +50,18 @@ const RiwayatPenelitian = ({ data }) => {
                                     </div>
                                 </div>
                             </div>
+                            <p className={`absolute top-2 right-2 ${item.accepted ? "bg-green-500" : "bg-red-500"} text-white text-xs px-2 py-0.5 rounded-2xl`}>
+                                {item.accepted ? "Diterima" : "Menunggu"}
+                            </p>
+                            {
+                                item.research_registrant.research_information.surat_tugas ? 
+                                <a className="text-blue-500 text-xs font-medium absolute bottom-2 right-2 underline p-2" href={'/surat/' + item.research_registrant.research_information.surat_tugas} target={'_blank'}>
+                                    Download Surat Tugas
+                                </a>
+                                :
+                                ""
+
+                            }
                         </div>
                     );
                 })}
