@@ -1,26 +1,27 @@
 import React from "react";
 
 const TabelPusatInfo = ({ data, handler, handlerRejected }) => {
-
     const handleChange = (e) => {
         let arrayId = [];
 
         data.map((item) => {
-            let selected = document.querySelectorAll(`input[name="id_abdimas_registrant_${item.id}"]`);
-            let val = '';
+            let selected = document.querySelectorAll(
+                `input[name="id_abdimas_registrant_${item.id}"]`
+            );
+            let val = "";
             selected.forEach((input) => {
                 if (input.checked) {
                     val = input.value;
-                }else{
+                } else {
                     return;
                 }
             });
-            
+
             arrayId.push({
                 id: item.id,
-                value: val
+                value: val,
             });
-        })
+        });
         handler(arrayId);
     };
 
@@ -51,45 +52,43 @@ const TabelPusatInfo = ({ data, handler, handlerRejected }) => {
                         return (
                             <tr>
                                 <td class="py-2 text-center">{index + 1}</td>
-                                <td class="py-2 text-center">{item.mahasiswa.nama}</td>
                                 <td class="py-2 text-center">
-                                    {
-                                        !item.status && !item.rejected ?
-                                            'Menunggu'
-                                        :
-                                        (
-                                            item.status && !item.rejected ?
-                                                'Diterima'
-                                            :
-                                            'Ditolak'
-                                        )
-                                    }
+                                    {item.mahasiswa.nama}
                                 </td>
                                 <td class="py-2 text-center">
-                                    {
-                                        !item.status && !item.rejected ?
-                                            <input type="radio" value={`accepted`} name={`id_abdimas_registrant_${item.id}`} onChange={handleChange} />
-                                        :
-                                        (
-                                            item.status && !item.rejected ?
-                                                <input type="radio" checked disabled/>
-                                            :
-                                            ''
-                                        )
-                                    }
+                                    {!item.status && !item.rejected
+                                        ? "Menunggu"
+                                        : item.status && !item.rejected
+                                        ? "Diterima"
+                                        : "Ditolak"}
                                 </td>
                                 <td class="py-2 text-center">
-                                    {
-                                        !item.status && !item.rejected ?
-                                            <input type="radio" value={`rejected`} name={`id_abdimas_registrant_${item.id}`} onChange={handleChange} />
-                                        :
-                                        (
-                                            item.rejected && !item.status ?
-                                                <input type="radio" checked disabled/>
-                                            :
-                                            ''
-                                        )
-                                    }
+                                    {!item.status && !item.rejected ? (
+                                        <input
+                                            type="radio"
+                                            value={`accepted`}
+                                            name={`id_abdimas_registrant_${item.id}`}
+                                            onChange={handleChange}
+                                        />
+                                    ) : item.status && !item.rejected ? (
+                                        <input type="radio" checked disabled />
+                                    ) : (
+                                        ""
+                                    )}
+                                </td>
+                                <td class="py-2 text-center">
+                                    {!item.status && !item.rejected ? (
+                                        <input
+                                            type="radio"
+                                            value={`rejected`}
+                                            name={`id_abdimas_registrant_${item.id}`}
+                                            onChange={handleChange}
+                                        />
+                                    ) : item.rejected && !item.status ? (
+                                        <input type="radio" checked disabled />
+                                    ) : (
+                                        ""
+                                    )}
                                 </td>
                             </tr>
                         );

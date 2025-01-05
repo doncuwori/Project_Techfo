@@ -4,9 +4,7 @@ import { Clock4 } from "lucide-react";
 const RiwayatPenelitian = ({ data }) => {
     return (
         <div className="py-6 px-8 mb-6">
-            <h2 className="text-2xl font-semibold mb-6">
-                Riwayat Penelitian
-            </h2>
+            <h2 className="text-2xl font-semibold mb-6">Riwayat Penelitian</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.map((item, index) => {
                     return (
@@ -35,10 +33,16 @@ const RiwayatPenelitian = ({ data }) => {
                             </div>
                             <div className="flex flex-col justify-between gap-2 w-full">
                                 <div className="text-black text-lg font-medium">
-                                    {item.research_registrant.research_information.name}
+                                    {
+                                        item.research_registrant
+                                            .research_information.name
+                                    }
                                 </div>
                                 <div className="text-gray-500 text-sm font-normal leading-tight">
-                                    {item.research_registrant.research_information.description}
+                                    {
+                                        item.research_registrant
+                                            .research_information.description
+                                    }
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <Clock4
@@ -46,22 +50,45 @@ const RiwayatPenelitian = ({ data }) => {
                                         className="text-orange-500"
                                     />
                                     <div className="text-orange-500 text-xs font-medium">
-                                        {formatDate(item.research_registrant.research_information.event_time_end)}
+                                        {formatDate(
+                                            item.research_registrant
+                                                .research_information
+                                                .event_time_end
+                                        )}
                                     </div>
                                 </div>
                             </div>
-                            <p className={`absolute top-2 right-2 ${item.accepted ? "bg-green-500" : "bg-red-500"} text-white text-xs px-2 py-0.5 rounded-2xl`}>
-                                {item.accepted ? "Diterima" : "Menunggu"}
+                            <p
+                                className={`absolute top-2 right-2 ${
+                                    !item.status && !item.rejected
+                                        ? "bg-yellow-500"
+                                        : item.status && !item.rejected
+                                        ? "bg-green-500"
+                                        : "bg-red-500"
+                                } text-white text-xs px-2 py-0.5 rounded-2xl`}
+                            >
+                                {!item.status && !item.rejected
+                                    ? "Menunggu"
+                                    : item.status && !item.rejected
+                                    ? "Diterima"
+                                    : "Ditolak"}
                             </p>
-                            {
-                                item.research_registrant.research_information.surat_tugas ? 
-                                <a className="text-blue-500 text-xs font-medium absolute bottom-2 right-2 underline p-2" href={'/surat/' + item.research_registrant.research_information.surat_tugas} target={'_blank'}>
+                            {item.research_registrant.research_information
+                                .surat_tugas ? (
+                                <a
+                                    className="text-blue-500 text-xs font-medium absolute bottom-2 right-2 underline p-2"
+                                    href={
+                                        "/surat/" +
+                                        item.research_registrant
+                                            .research_information.surat_tugas
+                                    }
+                                    target={"_blank"}
+                                >
                                     Download Surat Tugas
                                 </a>
-                                :
+                            ) : (
                                 ""
-
-                            }
+                            )}
                         </div>
                     );
                 })}

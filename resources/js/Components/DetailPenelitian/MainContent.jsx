@@ -74,7 +74,7 @@ const MainContent = ({ data }) => {
                             <>
                                 {data.leader?.dosen?.nama && (
                                     <li className="text-gray-700">
-                                        {data.leader.dosen.nama} (Ketua)
+                                        {data.leader.dosen.nama} <b>(Ketua)</b>
                                     </li>
                                 )}
                                 {data.dosen.map((dosen, index) => {

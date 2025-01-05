@@ -1,11 +1,28 @@
 import React from "react";
 
 const TabelPusatInfo = ({ data, handler }) => {
-
     const handleChange = (e) => {
-        let selected = document.querySelectorAll('input[name="id_research_registrant[]"]');
-        let id = Array.from(selected).map((input) => input.checked ? input.value : null);
-        handler(id);
+        let arrayId = [];
+
+        data.map((item) => {
+            let selected = document.querySelectorAll(
+                `input[name="id_research_registrant_${item.id}"]`
+            );
+            let val = "";
+            selected.forEach((input) => {
+                if (input.checked) {
+                    val = input.value;
+                } else {
+                    return;
+                }
+            });
+
+            arrayId.push({
+                id: item.id,
+                value: val,
+            });
+        });
+        handler(arrayId);
     };
 
     return (
@@ -25,23 +42,53 @@ const TabelPusatInfo = ({ data, handler }) => {
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Penerimaan
                         </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Penolakan
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                {data.map((item, index) => {
-                    console.log(item);
+                    {data.map((item, index) => {
                         return (
                             <tr>
                                 <td class="py-2 text-center">{index + 1}</td>
-                                <td class="py-2 text-center">{item.mahasiswa.nama}</td>
-                                <td class="py-2 text-center">{item.status ? 'Diterima' : 'Menunggu'}</td>
                                 <td class="py-2 text-center">
-                                    {
-                                        item.status ? 
-                                        <input disabled type="checkbox" checked/>
-                                        :
-                                        <input type="checkbox" value={item.id} name="id_research_registrant[]" onChange={handleChange} />
-                                    }
+                                    {item.mahasiswa.nama}
+                                </td>
+                                <td class="py-2 text-center">
+                                    {!item.status && !item.rejected
+                                        ? "Menunggu"
+                                        : item.status && !item.rejected
+                                        ? "Diterima"
+                                        : "Ditolak"}
+                                </td>
+                                <td class="py-2 text-center">
+                                    {!item.status && !item.rejected ? (
+                                        <input
+                                            type="radio"
+                                            value={`accepted`}
+                                            name={`id_research_registrant_${item.id}`}
+                                            onChange={handleChange}
+                                        />
+                                    ) : item.status && !item.rejected ? (
+                                        <input type="radio" checked disabled />
+                                    ) : (
+                                        ""
+                                    )}
+                                </td>
+                                <td class="py-2 text-center">
+                                    {!item.status && !item.rejected ? (
+                                        <input
+                                            type="radio"
+                                            value={`rejected`}
+                                            name={`id_research_registrant_${item.id}`}
+                                            onChange={handleChange}
+                                        />
+                                    ) : item.rejected && !item.status ? (
+                                        <input type="radio" checked disabled />
+                                    ) : (
+                                        ""
+                                    )}
                                 </td>
                             </tr>
                         );
