@@ -29,6 +29,7 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
             },
         });
     };
+
     return (
         <body>
             <NavbarAdmin user={user} />
@@ -94,7 +95,7 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
 
                         <div class="mt-4">
                             <p>
-                                <strong>Anggota Tim:</strong>
+                                <strong>Dosen Penyelenggara:</strong>
                             </p>
                             <ul className="list-disc pl-5">
                                 {abdimas.dosen && abdimas.dosen.length > 0 && (

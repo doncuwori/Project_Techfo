@@ -11,7 +11,7 @@ const MainContent = ({ data }) => {
                     <h2 className="text-lg mb-2">Diunggah oleh</h2>
                     <div className="flex items-center">
                         <img
-                            src="/img/profile.png"
+                            src="/img/profiledefault.png"
                             className="w-10 h-10 rounded-full mr-2"
                             alt="Profile Picture"
                         />
@@ -46,13 +46,18 @@ const MainContent = ({ data }) => {
                         </button>
                     </a>
                 </div>
-                <div className="flex justify-start mb-4">
-                    <img
-                        src="/img/posterlomba.jpg"
-                        alt="Deskripsi gambar"
-                        className="w-full max-h-[300px] object-cover rounded-md"
-                    />
-                </div>
+                <div
+                    className="flex justify-start mb-4"
+                    style={{
+                        backgroundImage: `url(${
+                            data.poster_url ?? "/img/posterlomba.jpg"
+                        })`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        height: "300px",
+                        borderRadius: "0.375rem", // Sama dengan rounded-md
+                    }}
+                ></div>
                 <div className="mb-4">
                     <h2 className="text-lg font-bold mb-2">Waktu Acara</h2>
                     <div className="flex items-center">

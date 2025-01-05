@@ -18,6 +18,8 @@ return new class extends Migration
             $table->dateTime('event_time_start'); 
             $table->dateTime('event_time_end'); 
             $table->text('description'); 
+            $table->string('activity_link'); 
+            $table->string('guidebook_link'); 
             $table->string('poster_url')->nullable(); 
             $table->foreignId(column: 'created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps(); 

@@ -274,6 +274,9 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     Route::post('/pusatAbdimas/uploadSurat', [PusatInformasiAbdimasController::class, 'uploadSurat'])->name('pusatAbdimas.uploadSurat');
 
     Route::get('/pusatPenelitian', [PusatInformasiPenelitianController::class, 'index'])->name('pusatPenelitian');
+    Route::get('/pusatPenelitian/{id}', [PusatInformasiPenelitianController::class, 'show'])->name('pusatPenelitian.show');
+    Route::post('/pusatPenelitian/register', [PusatInformasiPenelitianController::class, 'register'])->name('pusatPenelitian.register');
+    Route::post('/pusatPenelitian/uploadSurat', [PusatInformasiPenelitianController::class, 'uploadSuratF'])->name('pusatPenelitian.uploadSurat');
 
     Route::get('/loginAdmin', function () {
         return Inertia::render('Admin/LoginAdmin');

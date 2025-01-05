@@ -100,7 +100,7 @@ const NavbarAdmin = () => {
                     >
                         <img
                             className="w-9 h-9 md:w-9 md:h-9 rounded-full cursor-pointer"
-                            src="/img/profile.png"
+                            src="/img/profiledefault.png"
                             alt="User Profile"
                         />
                         <div className="font-medium ml-2 hover:text-orange-600 cursor-pointer">
@@ -249,7 +249,8 @@ const NavbarAdmin = () => {
                                 route().current("tambahInfoBeasiswa") ||
                                 route().current("tambahInfoAbdimas") ||
                                 route().current("pusatAbdimas.show") ||
-                                route().current("tambahInfoPenelitian")
+                                route().current("tambahInfoPenelitian") ||
+                                route().current("pusatPenelitian.show")
                                     ? "text-white bg-orange-500 hover:font-bold"
                                     : "text-gray-500 hover:text-orange-500"
                             } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
@@ -263,7 +264,9 @@ const NavbarAdmin = () => {
                                     route().current("tambahInfoLomba") ||
                                     route().current("tambahInfoBeasiswa") ||
                                     route().current("tambahInfoAbdimas") ||
-                                    route().current("tambahInfoPenelitian")
+                                    route().current("pusatAbdimas.show") ||
+                                    route().current("tambahInfoPenelitian") ||
+                                    route().current("pusatPenelitian.show")
                                         ? "text-white group-hover:scale-105"
                                         : "group-hover:text-orange-500"
                                 }`}
@@ -284,21 +287,25 @@ const NavbarAdmin = () => {
                                         name: "Lomba",
                                         route1: "pusatLomba",
                                         route2: "tambahInfoLomba",
+                                        route3: "",
                                     },
                                     {
                                         name: "Beasiswa",
                                         route1: "pusatBeasiswa",
                                         route2: "tambahInfoBeasiswa",
+                                        route3: "",
                                     },
                                     {
                                         name: "Pengabdian Masyarakat",
                                         route1: "pusatAbdimas",
                                         route2: "tambahInfoAbdimas",
+                                        route3: "pusatAbdimas.show",
                                     },
                                     {
                                         name: "Penelitian",
                                         route1: "pusatPenelitian",
                                         route2: "tambahInfoPenelitian",
+                                        route3: "pusatPenelitian.show",
                                     },
                                 ].map((subItem) => (
                                     <li
@@ -311,7 +318,13 @@ const NavbarAdmin = () => {
                                                 route().current(
                                                     subItem.route1
                                                 ) ||
-                                                route().current(subItem.route2)
+                                                route().current(
+                                                    subItem.route2
+                                                ) ||
+                                                (subItem.route3 &&
+                                                    route().current(
+                                                        subItem.route3
+                                                    ))
                                                     ? "text-orange-500 hover:font-bold"
                                                     : "text-gray-500 group-hover:text-orange-500"
                                             } flex items-center`}
@@ -323,7 +336,11 @@ const NavbarAdmin = () => {
                                                     ) ||
                                                     route().current(
                                                         subItem.route2
-                                                    )
+                                                    ) ||
+                                                    (subItem.route3 &&
+                                                        route().current(
+                                                            subItem.route3
+                                                        ))
                                                         ? "text-orange-500 group-hover:scale-105"
                                                         : "text-gray-500 group-hover:text-orange-500"
                                                 }`}

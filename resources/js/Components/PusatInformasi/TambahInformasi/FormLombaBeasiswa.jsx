@@ -77,7 +77,7 @@ export const FormLombaBeasiswa = ({ type }) => {
                         value={data.name}
                         onChange={(e) => setData("name", e.target.value)}
                         className="w-full border rounded-lg p-2"
-                        placeholder="Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
+                        placeholder="Contoh: Kegiatan Karya Tulis Ilmiah Nasional Tahun 2017"
                     />
                 </div>
 
@@ -139,7 +139,7 @@ export const FormLombaBeasiswa = ({ type }) => {
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
                         className="w-full border rounded-lg p-2"
-                        placeholder="Write text here..."
+                        placeholder="Tuliskan deskripsi disini..."
                     ></textarea>
                 </div>
                 <div className="mb-4">

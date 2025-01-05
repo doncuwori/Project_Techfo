@@ -5,7 +5,6 @@ import { formatDate, formatDatetimeToIndonesian } from "@/lib/helper";
 import { useForm } from "@inertiajs/react";
 
 const TabelPusatInformasi = ({ data, title }) => {
-
     return (
         <table className="w-full border-collapse text-sm">
             <thead>
@@ -40,7 +39,14 @@ const TabelPusatInformasi = ({ data, title }) => {
                                         <EyeIcon />
                                     </a>
                                 ) : (
-                                    ""
+                                    <a
+                                        href={route(
+                                            "pusatPenelitian.show",
+                                            item.id
+                                        )}
+                                    >
+                                        <EyeIcon />
+                                    </a>
                                 )}
                                 <button className="text-blue-500 hover:text-blue-600 transition">
                                     <FilePenLine />

@@ -11,7 +11,7 @@ const MainContent = ({ data }) => {
                     <h2 className="text-lg mb-2">Diunggah oleh</h2>
                     <div className="flex items-center">
                         <img
-                            src="/img/profile.png"
+                            src="/img/profiledefault.png"
                             className="w-10 h-10 rounded-full mr-2"
                             alt="Profile Picture"
                         />
@@ -27,20 +27,37 @@ const MainContent = ({ data }) => {
                     </div>
                 </div>
                 <div className="flex justify-start mb-4">
-                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        Daftar
-                    </button>
-                    <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded ml-4">
-                        Buku Panduan
-                    </button>
+                    <a
+                        href={data.activity_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            Daftar
+                        </button>
+                    </a>
+                    <a
+                        href={data.guidebook_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded ml-4">
+                            Buku Panduan
+                        </button>
+                    </a>
                 </div>
-                <div className="flex justify-start mb-4">
-                    <img
-                        src="/img/posterbeasiswa.jpg"
-                        alt="Deskripsi gambar"
-                        className="w-full max-h-[300px] object-cover rounded-md"
-                    />
-                </div>
+                <div
+                    className="flex justify-start mb-4"
+                    style={{
+                        backgroundImage: `url(${
+                            data.poster_url ?? "/img/posterlomba.jpg"
+                        })`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        height: "300px",
+                        borderRadius: "0.375rem", // Sama dengan rounded-md
+                    }}
+                ></div>
                 <div className="mb-4">
                     <h2 className="text-lg font-bold mb-2">
                         Batas Pendaftaran

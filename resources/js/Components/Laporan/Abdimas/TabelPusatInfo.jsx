@@ -7,6 +7,7 @@ const TabelPusatInfo = ({ data, handler }) => {
         let id = Array.from(selected).map((input) => input.checked ? input.value : null);
         handler(id);
     };
+    
     return (
         <div class="overflow-x-auto mt-4 border">
             <table class="min-w-full divide-y divide-gray-200 ">

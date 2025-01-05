@@ -1,12 +1,39 @@
-import NavbarAdmin from "@/Components/NavbarAdmin";
 import React from "react";
 import { FilePenLine } from "lucide-react";
+import { formatDate } from "@/lib/helper";
+import { useForm, usePage } from "@inertiajs/react";
+import NavbarAdmin from "@/Components/NavbarAdmin";
 import TabelPusatInfo from "@/Components/Laporan/Penelitian/TabelPusatInfo";
+import UploadSuratTugas from "@/Components/Laporan/Penelitian/UploadSuratTugas";
 
-const PusatInformasiPenelitian = () => {
+const PusatInformasiPenelitian = ({ user, research }) => {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        id_research_registrant: [],
+    });
+
+    const handleMahasiswaChange = (value) => {
+        setData("id_research_registrant", value);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route("pusatPenelitian.register"), {
+            onSuccess: (res) => {
+                console.log("success");
+                reset();
+                toast.success("Pendaftaran Penelitian Berhasil");
+            },
+            onError: (errors) => {
+                toast.error("Gagal Mendaftar Penelitian");
+                console.error(errors);
+            },
+        });
+    };
+
     return (
         <body>
-            <NavbarAdmin />
+            <NavbarAdmin user={user} />
+
             <div class="pl-72 w-full">
                 <div class="container px-4 py-8 w-full">
                     <h1 class="text-3xl font-bold text-black">
@@ -17,8 +44,7 @@ const PusatInformasiPenelitian = () => {
                     <div class="bg-white shadow-md rounded-lg p-6">
                         <div class="flex justify-between items-center">
                             <h3 class="text-xl font-semibold mb-4">
-                                Optimalisasi Aplikasi E-Commerce sebagai Upaya
-                                untuk Meningkatkan Promosi Batik Paoman
+                                {research.name}
                             </h3>
                             <a
                                 href={route("dashboardAdmin")}
@@ -29,14 +55,18 @@ const PusatInformasiPenelitian = () => {
                         </div>
                         <div class="mb-4">
                             <p>
-                                <strong>Lokasi Kegiatan:</strong> Desa Pabean
-                                Udik, Indramayu, Indonesia
+                                <strong>Lokasi Kegiatan:</strong>
+                                {research.location}
                             </p>
                             <div class="mt-4">
                                 <p>
                                     <strong>Batas Pendaftaran:</strong>
                                     <span class="text-red-500">
-                                        1 Juni 2024 - 31 Juni 2024
+                                        {" "}
+                                        {formatDate(
+                                            research.event_time_start
+                                        )} -{" "}
+                                        {formatDate(research.event_time_end)}
                                     </span>
                                 </p>
                             </div>
@@ -48,16 +78,71 @@ const PusatInformasiPenelitian = () => {
                                     Total Mahasiswa yang Dibutuhkan:
                                 </strong>
                             </p>
-                            <p>4 orang mahasiswa</p>
+                            <p>
+                                {research.total_students_required} Mahasiswa{" "}
+                                <b>
+                                    (Tersisa{" "}
+                                    {research.total_students_required -
+                                        research.research_registrant.filter(
+                                            (researchRegistrant) =>
+                                                researchRegistrant.status == true
+                                        ).length}
+                                    )
+                                </b>
+                            </p>
                         </div>
 
                         <div class="mt-4">
                             <p>
-                                <strong>Anggota Tim:</strong>
+                                <strong>Dosen Penyelenggara:</strong>
                             </p>
-                            <ul class="list-disc ml-5">
-                                <li>Eriy Krisnanik S.Kom, M.M.</li>
-                                <li>Ika Nurilali, S.Kom, M.Sc.</li>
+                            <ul className="list-disc pl-5">
+                                {research.dosen && research.dosen.length > 0 && (
+                                    <>
+                                        {/* Ketua */}
+                                        {research.dosen.length === 1 ? (
+                                            // Jika hanya satu orang, dia otomatis menjadi ketua
+                                            <li key={`leader-0`}>
+                                                {research.dosen[0].nama}{" "}
+                                                <b>(Ketua)</b>
+                                            </li>
+                                        ) : (
+                                            <>
+                                                {/* Ketua berdasarkan ID */}
+                                                {research.dosen
+                                                    .filter(
+                                                        (dosen) =>
+                                                            dosen.id ===
+                                                            research.leader
+                                                                .id_dosen
+                                                    )
+                                                    .map((dosen, index) => (
+                                                        <li
+                                                            key={`leader-${index}`}
+                                                        >
+                                                            {dosen.nama}{" "}
+                                                            <b>(Ketua)</b>
+                                                        </li>
+                                                    ))}
+                                                {/* Anggota */}
+                                                {research.dosen
+                                                    .filter(
+                                                        (dosen) =>
+                                                            dosen.id !==
+                                                            research.leader
+                                                                .id_dosen
+                                                    )
+                                                    .map((dosen, index) => (
+                                                        <li
+                                                            key={`member-${index}`}
+                                                        >
+                                                            {dosen.nama}
+                                                        </li>
+                                                    ))}
+                                            </>
+                                        )}
+                                    </>
+                                )}
                             </ul>
                         </div>
 
@@ -65,19 +150,10 @@ const PusatInformasiPenelitian = () => {
                             <p>
                                 <strong>Detail Kegiatan:</strong>
                             </p>
-                            <p>
-                                Pada kegiatan penelitian ini, mahasiswa akan
-                                turut serta membantu para dosen dalam melakukan
-                                risetnya di Desa Pabean Udik, Indramayu dalam
-                                menggunakan aplikasi E-Commerce...
-                            </p>
+                            <p>{research.description}</p>
                         </div>
 
-                        <div class="flex justify-end mt-4">
-                            <button class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
-                                + Surat Tugas
-                            </button>
-                        </div>
+                        <UploadSuratTugas research={research} />
                     </div>
 
                     <div class="mt-6 bg-white shadow-md rounded-lg p-6">
@@ -85,7 +161,7 @@ const PusatInformasiPenelitian = () => {
                             <h3 class="text-xl font-semibold">
                                 Pendaftar Pengabdian Masyarakat
                             </h3>
-                            <div class="flex items-center">
+                            {/* <div class="flex items-center">
                                 <span class="text-gray-700 text-center text-12 mr-3">
                                     Masih merekrut?
                                 </span>
@@ -97,10 +173,11 @@ const PusatInformasiPenelitian = () => {
                                     <div class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 transition-colors"></div>
                                     <div class="absolute top-1 left-1 w-4 h-4 bg-white border rounded-full transition-transform peer-checked:translate-x-5"></div>
                                 </label>
-                            </div>
+                            </div> */}
                         </div>
-                        <TabelPusatInfo />
-                        <div class="flex justify-between items-center mt-4">
+                        <TabelPusatInfo data={research.research_registrant}
+                            handler={handleMahasiswaChange}/>
+                        {/* <div class="flex justify-between items-center mt-4">
                             <p class="text-gray-500">Rows per page: 10</p>
                             <div class="flex space-x-2 items-center">
                                 <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
@@ -113,6 +190,14 @@ const PusatInformasiPenelitian = () => {
                                 </button>
                             </div>
                             <p class="text-gray-500">Total 1 - 10 of 130</p>
+                        </div> */}
+                        <div className="flex justify-end mt-4">
+                            <button
+                                onClick={handleSubmit}
+                                class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+                            >
+                                Simpan
+                            </button>
                         </div>
                     </div>
                 </div>

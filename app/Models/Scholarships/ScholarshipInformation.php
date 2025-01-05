@@ -16,6 +16,8 @@ class ScholarshipInformation extends Model
         'event_time_start',
         'event_time_end',
         'description',
+        'activity_link', 
+        'guidebook_link', 
         'poster_url',
         'created_by',
     ];

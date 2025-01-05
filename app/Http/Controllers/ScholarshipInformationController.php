@@ -11,7 +11,7 @@ class ScholarshipInformationController extends Controller
 {
     public function index()
     {
-        // return view('competition-information');
+        // return view('scholarship-information');
         $user = auth()->user();
 
         return Inertia::render('Admin/PusatInformasi/TambahInfoBeasiswa', [
@@ -41,12 +41,14 @@ class ScholarshipInformationController extends Controller
         ]);
 
         // Create a new scholarship information record
-        $competition = ScholarshipInformation::create([
+        $scholarship = ScholarshipInformation::create([
             'name' => $request->name,
             'organizer' => $request->organizer,
             'event_time_start' => $request->event_time_start,
             'event_time_end' => $request->event_time_end,
             'description' => $request->description,
+            'activity_link' => $request->activity_link,
+            'guidebook_link' => $request->guidebook_link,
             'poster_url' => $filename,
             'created_by' => $user->id,
             'created_at' => now(),
