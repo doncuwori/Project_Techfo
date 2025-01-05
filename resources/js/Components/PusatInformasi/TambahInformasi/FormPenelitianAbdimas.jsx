@@ -63,17 +63,19 @@ const FormPenelitianAbdimas = ({ type, edit, dosen, previous }) => {
 
         e.preventDefault();
         post(routeName(), {
-            onSuccess: (res) => {
+            onSuccess: () => {
+                toast.success(
+                    type === "abdimas"
+                        ? "Informasi Abdimas berhasil ditambahkan"
+                        : "Informasi Penelitian berhasil ditambahkan"
+                );
                 reset();
-                type === "penelitian"
-                    ? toast.success("Berhasil menambahkan informasi penelitian")
-                    : toast.success("Berhasil menambahkan informasi abdimas");
+                setSelectedFile(null);
             },
             onError: (errors) => {
-                type === "penelitian"
-                    ? toast.error("Gagal menambahkan informasi penelitian")
-                    : toast.error("Gagal menambahkan informasi abdimas");
-
+                type === "abdimas"
+                    ? toast.error("Gagal menambahkan informasi abdimas")
+                    : toast.error("Gagal menambahkan informasi penelitian");
                 console.error(errors);
             },
         });

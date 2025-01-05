@@ -19,7 +19,6 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
     });
     
 
-
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         
@@ -69,7 +68,9 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
             },
             onError: (errors) => {
                 console.error(errors);
-                toast.error("Terjadi kesalahan, periksa kembali form Anda.");
+                type === "lomba"
+                    ? toast.error("Gagal menambahkan informasi lomba")
+                    : toast.error("Gagal menambahkan informasi beasiswa");
             },
         });
     };
