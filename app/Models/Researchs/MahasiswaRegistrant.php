@@ -16,6 +16,7 @@ class MahasiswaRegistrant extends Model
         'id_mahasiswa',
         'id_research_registrant',
         'accepted',
+        'rejected'
     ];
 
 

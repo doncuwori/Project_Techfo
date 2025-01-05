@@ -51,16 +51,21 @@ const RiwayatAbdimas = ({ data }) => {
                                 </div>
                             </div>
                             <p className={`absolute top-2 right-2 ${item.accepted ? "bg-green-500" : "bg-red-500"} text-white text-xs px-2 py-0.5 rounded-2xl`}>
-                                {item.accepted ? "Diterima" : "Menunggu"}
+                                {
+                                    !item.status && !item.rejected ?
+                                        "Menunggu" :
+                                        (
+                                            item.status && !item.rejected ? "Diterima" : "Ditolak"
+                                        )
+                                }
                             </p>
                             {
-                                item.abdimas_registrant.abdimas_information.surat_tugas ? 
+                                item.abdimas_registrant.abdimas_information.surat_tugas && !item.rejected ? 
                                 <a className="text-blue-500 text-xs font-medium absolute bottom-2 right-2 underline p-2" href={'/surat/' + item.abdimas_registrant.abdimas_information.surat_tugas} target={'_blank'}>
                                     Download Surat Tugas
                                 </a>
                                 :
                                 ""
-
                             }
                         </div>
                     );

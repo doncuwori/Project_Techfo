@@ -46,9 +46,19 @@ class PusatInformasiAbdimasController extends Controller
         $selected = $request->id_abdimas_registrant ?? [];
 
         foreach($selected as $id){
-            MahasiswaRegistrant::where('id_abdimas_registrant', $id)->update([
-                'accepted' => true
-            ]);
+            if($id['value'] == null){
+                continue;
+            }
+
+            if($id['value'] == 'accepted'){
+                MahasiswaRegistrant::where('id_abdimas_registrant', $id)->update([
+                    'accepted' => true
+                ]);
+            }elseif($id['value'] == 'rejected'){
+                MahasiswaRegistrant::where('id_abdimas_registrant', $id)->update([
+                    'rejected' => true
+                ]);
+            }
         }
 
         return redirect()->route('pusatAbdimas')->with('success', 'Penerimaan berhasil');

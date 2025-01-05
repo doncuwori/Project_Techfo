@@ -45,9 +45,19 @@ class PusatInformasiPenelitianController extends Controller
         $selected = $request->id_research_registrant ?? [];
 
         foreach($selected as $id){
-            MahasiswaRegistrant::where('id_research_registrant', $id)->update([
-                'accepted' => true
-            ]);
+            if($id['value'] == null){
+                continue;
+            }
+
+            if($id['value'] == 'accepted'){
+                MahasiswaRegistrant::where('id_research_registrant', $id)->update([
+                    'accepted' => true
+                ]);
+            }elseif($id['value'] == 'rejected'){
+                MahasiswaRegistrant::where('id_research_registrant', $id)->update([
+                    'rejected' => true
+                ]);
+            }
         }
 
         return redirect()->route('pusatPenelitian')->with('success', 'Penerimaan berhasil');

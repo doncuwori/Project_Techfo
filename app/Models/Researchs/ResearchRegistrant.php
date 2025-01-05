@@ -25,7 +25,7 @@ class ResearchRegistrant extends Model
      */
     public function mahasiswa()
     {
-        return $this->hasManyThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_research_registrant', 'id', null,'id_mahasiswa');
+        return $this->hasOneThrough(Mahasiswa::class, MahasiswaRegistrant::class, 'id_research_registrant', 'id', null,'id_mahasiswa');
     }
 
     public function getStatusAttribute()
@@ -33,8 +33,15 @@ class ResearchRegistrant extends Model
         return MahasiswaRegistrant::where('id_research_registrant', $this->id)->first()->accepted;
     }
 
+    public function getRejectedAttribute()
+    {
+        return MahasiswaRegistrant::where('id_research_registrant', $this->id)->first()->rejected;
+    }
+
     public function researchInformation()
     {
         return $this->belongsTo(ResearchInformation::class, 'id_research_information');
     }
+    
+    protected $appends = ['status', 'rejected'];
 }

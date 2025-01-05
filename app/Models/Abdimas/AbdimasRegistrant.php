@@ -33,10 +33,15 @@ class AbdimasRegistrant extends Model
         return MahasiswaRegistrant::where('id_abdimas_registrant', $this->id)->first()->accepted;
     }
 
+    public function getRejectedAttribute()
+    {
+        return MahasiswaRegistrant::where('id_abdimas_registrant', $this->id)->first()->rejected;
+    }
+
     public function abdimasInformation()
     {
         return $this->belongsTo(AbdimasInformation::class, 'id_abdimas_information');
     }
 
-    protected $appends = ['status'];
+    protected $appends = ['status', 'rejected'];
 }

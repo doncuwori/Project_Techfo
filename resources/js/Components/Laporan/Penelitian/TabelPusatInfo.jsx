@@ -29,6 +29,7 @@ const TabelPusatInfo = ({ data, handler }) => {
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                 {data.map((item, index) => {
+                    console.log(item);
                         return (
                             <tr>
                                 <td class="py-2 text-center">{index + 1}</td>

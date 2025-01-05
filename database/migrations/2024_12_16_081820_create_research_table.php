@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');
             $table->foreignId('id_research_registrant')->constrained('research_registrants')->onDelete('cascade');
             $table->boolean('accepted')->default(false);
+            $table->boolean('rejected')->default(false);
             $table->timestamps();
         });
 
