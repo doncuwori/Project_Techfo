@@ -240,14 +240,26 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     Route::post('/pusatInformasi/tambahInfoLomba', [CompetitionInformationController::class, 'store'])
         ->name('competitionInformation.store');
 
+    Route::post('/pusatInformasi/tambahInfoLomba/{id}', [CompetitionInformationController::class, 'update'])
+        ->name('competitionInformation.update');
+
     Route::post('/pusatInformasi/tambahInfoBeasiswa', [ScholarshipInformationController::class, 'store'])
         ->name('scholarshipInformation.store');
+
+    Route::post('/pusatInformasi/tambahInfoBeasiswa/{id}', [ScholarshipInformationController::class, 'update'])
+        ->name('scholarshipInformation.update');
 
     Route::post('/pusatInformasi/tambahInfoAbdimas', [AbdimasInformationController::class, 'store'])
         ->name('abdimasInformation.store');
 
+    Route::post('/pusatInformasi/tambahInfoAbdimas/{id}', [AbdimasInformationController::class, 'update'])
+        ->name('abdimasInformation.update');
+
     Route::post('/pusatInformasi/tambahInfoPenelitian', [ResearchInformationController::class, 'store'])
         ->name('researchInformation.store');
+
+    Route::post('/pusatInformasi/tambahInfoPenelitian/{id}', [ResearchInformationController::class, 'update'])
+        ->name('researchInformation.update');
 
     Route::get('/laporanLomba', [AdminCompetitionController::class, 'index'])->name('laporanLomba');
 
@@ -258,12 +270,20 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     Route::get('/laporanPenelitian', [AdminResearchController::class, 'index'])->name('laporanPenelitian');
 
     Route::get('/pusatInformasi/tambahInfoLomba', [CompetitionInformationController::class, 'index'])->name('tambahInfoLomba');
+    Route::get('/pusatInformasi/editInfoLomba/{id}', [CompetitionInformationController::class, 'edit'])->name('editInfoLomba');
+    Route::get('/pusatInformasi/deleteInfoLomba/{id}', [CompetitionInformationController::class, 'destroy'])->name('hapusInfoLomba');
 
     Route::get('/pusatInformasi/tambahInfoBeasiswa', [ScholarshipInformationController::class, 'index'])->name('tambahInfoBeasiswa');
+    Route::get('/pusatInformasi/editInfoBeasiswa/{id}', [ScholarshipInformationController::class, 'edit'])->name('editInfoBeasiswa');
+    Route::get('/pusatInformasi/deleteInfoBeasiswa/{id}', [ScholarshipInformationController::class, 'destroy'])->name('hapusInfoBeasiswa');
 
     Route::get('/pusatInformasi/tambahInfoAbdimas', [AbdimasInformationController::class, 'index'])->name('tambahInfoAbdimas');
+    Route::get('/pusatInformasi/editInfoAbdimas/{id}', [AbdimasInformationController::class, 'edit'])->name('editInfoAbdimas');
+    Route::get('/pusatInformasi/deleteInfoAbdimas/{id}', [AbdimasInformationController::class, 'destroy'])->name('hapusInfoAbdimas');
 
     Route::get('/pusatInformasi/tambahInfoPenelitian', [ResearchInformationController::class, 'index'])->name('tambahInfoPenelitian');
+    Route::get('/pusatInformasi/editInfoPenelitian/{id}', [ResearchInformationController::class, 'edit'])->name('editInfoPenelitian');
+    Route::get('/pusatInformasi/deleteInfoPenelitian/{id}', [ResearchInformationController::class, 'destroy'])->name('hapusInfoPenelitian');
 
     Route::get('/pusatLomba', [PusatInformasiLombaController::class, 'index'])->name('pusatLomba');
 

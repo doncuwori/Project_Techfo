@@ -25,7 +25,7 @@ const PusatLomba = ({ user, data }) => {
                         </div>
 
                         {/* Tabel */}
-                        <TabelPusatInformasi data={data} />
+                        <TabelPusatInformasi title={'lomba'} data={data} />
 
                         {/* Pagination */}
                         <div className="flex justify-between items-center mt-4 text-gray-600">

@@ -26,7 +26,7 @@ const PusatPenelitian = ({ user, data }) => {
                         </div>
 
                         {/* Tabel */}
-                        <TabelPusatInformasi data={data} />
+                        <TabelPusatInformasi title={'penelitian'} data={data} />
 
                         {/* Pagination */}
                         <div className="flex justify-between items-center mt-4 text-gray-600">

@@ -60,21 +60,21 @@ const RiwayatPenelitian = ({ data }) => {
                             </div>
                             <p
                                 className={`absolute top-2 right-2 ${
-                                    !item.status && !item.rejected
+                                    !item.accepted && !item.rejected
                                         ? "bg-yellow-500"
-                                        : item.status && !item.rejected
+                                        : item.accepted && !item.rejected
                                         ? "bg-green-500"
                                         : "bg-red-500"
                                 } text-white text-xs px-2 py-0.5 rounded-2xl`}
                             >
-                                {!item.status && !item.rejected
+                                {!item.accepted && !item.rejected
                                     ? "Menunggu"
-                                    : item.status && !item.rejected
+                                    : item.accepted && !item.rejected
                                     ? "Diterima"
                                     : "Ditolak"}
                             </p>
                             {item.research_registrant.research_information
-                                .surat_tugas ? (
+                                .surat_tugas && item.accepted ? (
                                 <a
                                     className="text-blue-500 text-xs font-medium absolute bottom-2 right-2 underline p-2"
                                     href={

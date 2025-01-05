@@ -2,19 +2,22 @@ import { useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-export const FormLombaBeasiswa = ({ type }) => {
-    const [selectedFile, setSelectedFile] = useState(null);
+export const FormLombaBeasiswa = ({ type, previous, edit }) => {
+    const [selectedFile, setSelectedFile] = useState(previous?.poster_url ? {
+        name: previous?.poster_url ?? "",
+    } : null);
 
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        organizer: "",
-        event_time_start: "",
-        event_time_end: "",
-        description: "",
-        poster_url: "",
-        activity_link: "",
-        guidebook_link: "",
+        name: previous?.name ?? "",
+        organizer: previous?.organizer ?? "",
+        event_time_start: previous?.event_time_start ? new Date(previous.event_time_start).toISOString().split('T')[0] : "",
+        event_time_end: previous?.event_time_end ? new Date(previous.event_time_end).toISOString().split('T')[0] : "",
+        description: previous?.description ?? "",
+        poster_url: previous?.poster_url ?? "",
+        activity_link: previous?.activity_link ?? "",
+        guidebook_link: previous?.guidebook_link ?? "",
     });
+    
 
 
     const handleFileChange = (event) => {
@@ -24,8 +27,6 @@ export const FormLombaBeasiswa = ({ type }) => {
             toast.error("Ukuran file maksimal 1MB.");
             return;
         }
-
-        console.log(file);
         setSelectedFile(file);
 
         setData("poster_url", file);
@@ -40,11 +41,23 @@ export const FormLombaBeasiswa = ({ type }) => {
         e.preventDefault();
 
         const routeName =
-            type === "lomba"
-                ? "competitionInformation.store"
-                : "scholarshipInformation.store";
 
-        post(route(routeName), {
+        function routeName() {
+            console.log(type, edit);
+            if (type === "lomba" && !edit) {
+                return route("competitionInformation.store");
+            } else if (type === "lomba" && edit) {
+                return route("competitionInformation.update", previous.id);
+            } else if (type === "beasiswa" && !edit) {
+                return route("scholarshipInformation.store");
+            } else if (type === "beasiswa" && edit) {
+                return route("scholarshipInformation.update", previous.id);
+            }
+        }
+
+        console.log(routeName());
+
+        post(routeName(), {
             onSuccess: () => {
                 toast.success(
                     type === "lomba"

@@ -4,18 +4,19 @@ import { Plus, Trash } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-const FormPenelitianAbdimas = ({ type, dosen }) => {
+const FormPenelitianAbdimas = ({ type, edit, dosen, previous }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: "",
-        dosens: [],
-        description: "",
-        registration_deadline: "",
-        location: "",
-        total_students_required: "",
-        assignment_letter_url: "",
+        name: previous?.name ?? "",
+        dosens: previous?.dosen.map((dosen) => dosen.id) ?? [],
+        description: previous?.description ?? "",
+        event_time_end: previous?.event_time_end ? new Date(previous.event_time_end).toISOString().split('T')[0] : "",
+        event_time_start: previous?.event_time_start ? new Date(previous.event_time_start).toISOString().split('T')[0] : "",
+        location: previous?.location ?? "",
+        total_students_required: previous?.total_students_required ?? "",
+        assignment_letter_url: previous?.assignment_letter_url ?? "",
     });
 
-    const [fields, setFields] = useState([{ value: "" }]);
+    const [fields, setFields] = useState(previous?.dosen.map((dosen) => ({ value: dosen.id })) ?? [{ value: "" }]);
 
     const addField = () => {
         setFields([...fields, { value: "" }]);
@@ -48,13 +49,20 @@ const FormPenelitianAbdimas = ({ type, dosen }) => {
     });
 
     const handleSubmit = (e) => {
-        const routeName =
-            type === "penelitian"
-                ? "researchInformation.store"
-                : "abdimasInformation.store";
+        function routeName() {
+            if (type === "penelitian" && !edit) {
+                return route("researchInformation.store");
+            } else if (type === "penelitian" && edit) {
+                return route("researchInformation.update", previous.id);
+            } else if (type === "abdimas" && !edit) {
+                return route("abdimasInformation.store");
+            } else if (type === "abdimas" && edit) {
+                return route("abdimasInformation.update", previous.id);
+            }
+        }
 
         e.preventDefault();
-        post(route(routeName), {
+        post(routeName(), {
             onSuccess: (res) => {
                 reset();
                 type === "penelitian"
@@ -180,6 +188,7 @@ const FormPenelitianAbdimas = ({ type, dosen }) => {
                                 <div className="w-full">
                                     <SearchableSelect
                                         name={"dosens[]"}
+                                        selected={field}
                                         onChange={handleDosens}
                                         options={dosenOption}
                                         placeholder={"- Pilih Dosen -"}

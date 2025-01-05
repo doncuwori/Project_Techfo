@@ -77,19 +77,19 @@ const TabelTabPenerima = ({ data }) => {
                                     {item.mahasiswa.email}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.abdimas_registrant.telephone}
+                                    {item.research_registrant.telephone}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.khs}>Lihat File</a>
+                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.research_registrant.khs}>Lihat File</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.cv}>Lihat File</a>
+                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.research_registrant.cv}>Lihat File</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.portofolio}>Lihat File</a>
+                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.research_registrant.portofolio}>Lihat File</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.foto}>Lihat File</a>
+                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.research_registrant.foto}>Lihat File</a>
                                 </td>
                             </tr>
                         );

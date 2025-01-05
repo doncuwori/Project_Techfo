@@ -29,30 +29,111 @@ const TabelPusatInformasi = ({ data, title }) => {
                         </td>
                         <td className="border p-2">
                             <div className="flex justify-center space-x-2 gap-8 ml-2">
-                                {title == "abdimas" ? (
-                                    <a
-                                        href={route(
-                                            "pusatAbdimas.show",
-                                            item.id
-                                        )}
-                                    >
-                                        <EyeIcon />
-                                    </a>
+                                {title == "abdimas" || title == "penelitian" ? (
+                                    title == "abdimas" ? (
+                                        <a
+                                            href={route(
+                                                "pusatAbdimas.show",
+                                                item.id
+                                            )}
+                                        >
+                                            <EyeIcon />
+                                        </a>
+                                    ) : (
+                                        <a
+                                            href={route(
+                                                "pusatPenelitian.show",
+                                                item.id
+                                            )}
+                                        >
+                                            <EyeIcon />
+                                        </a>
+                                    )
                                 ) : (
-                                    <a
-                                        href={route(
-                                            "pusatPenelitian.show",
-                                            item.id
-                                        )}
-                                    >
-                                        <EyeIcon />
-                                    </a>
+                                    ""
                                 )}
+
                                 <button className="text-blue-500 hover:text-blue-600 transition">
-                                    <FilePenLine />
+                                    {title == "abdimas" ? (
+                                        <a
+                                            href={route(
+                                                "editInfoAbdimas",
+                                                item.id
+                                            )}
+                                        >
+                                            <FilePenLine />
+                                        </a>
+                                    ) : title == "penelitian" ? (
+                                        <a
+                                            href={route(
+                                                "editInfoPenelitian",
+                                                item.id
+                                            )}
+                                        >
+                                            <FilePenLine />
+                                        </a>
+                                    ) : title == "lomba" ? (
+                                        <a
+                                            href={route(
+                                                "editInfoLomba",
+                                                item.id
+                                            )}
+                                        >
+                                            <FilePenLine />
+                                        </a>
+                                    ) : title == "beasiswa" ? (
+                                        <a
+                                            href={route(
+                                                "editInfoBeasiswa",
+                                                item.id
+                                            )}
+                                        >
+                                            <FilePenLine />
+                                        </a>
+                                    ) : (
+                                        ""
+                                    )}
                                 </button>
                                 <button className="text-red-500 hover:text-red-600 transition">
-                                    <Trash />
+                                    {title == "abdimas" ? (
+                                        <a
+                                            href={route(
+                                                "hapusInfoAbdimas",
+                                                item.id
+                                            )}
+                                        >
+                                            <Trash />
+                                        </a>
+                                    ) : title == "penelitian" ? (
+                                        <a
+                                            href={route(
+                                                "hapusInfoPenelitian",
+                                                item.id
+                                            )}
+                                        >
+                                            <Trash />
+                                        </a>
+                                    ) : title == "lomba" ? (
+                                        <a
+                                            href={route(
+                                                "hapusInfoLomba",
+                                                item.id
+                                            )}
+                                        >
+                                            <Trash />
+                                        </a>
+                                    ) : title == "beasiswa" ? (
+                                        <a
+                                            href={route(
+                                                "hapusInfoBeasiswa",
+                                                item.id
+                                            )}
+                                        >
+                                            <Trash />
+                                        </a>
+                                    ) : (
+                                        ""
+                                    )}
                                 </button>
                             </div>
                         </td>

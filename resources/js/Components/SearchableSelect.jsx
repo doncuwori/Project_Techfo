@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-const SearchableSelect = ({ options, placeholder, onChange, name }) => {
+const SearchableSelect = ({ options, placeholder, onChange, name, selected }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
-  const [realValue, setRealValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(options.find((option) => option.value === selected.value)?.label || "");
+  const [realValue, setRealValue] = useState(selected.value);
 
   const filteredOptions = options.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase())

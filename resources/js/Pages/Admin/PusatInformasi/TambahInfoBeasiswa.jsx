@@ -15,7 +15,7 @@ const TambahInfoBeasiswa = ({ user }) => {
                         <h1 className="text-center text-2xl font-bold mb-6">
                             Tambah Informasi Beasiswa
                         </h1>
-                        <FormLombaBeasiswa />
+                        <FormLombaBeasiswa type="beasiswa" />
                     </div>
                 </main>
             </div>

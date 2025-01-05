@@ -26,6 +26,20 @@ class ResearchInformationController extends Controller
         ]);
     }
 
+    public function edit(string $id)
+    {
+        
+        $user = auth()->user();
+        $dosen = Dosen::all();
+        $data = ResearchInformation::with('dosen')->where('id', $id)->first();
+
+        return Inertia::render('Admin/PusatInformasi/EditInfoPenelitian', [
+            'user' => $user,
+            'dosen' => $dosen,
+            'data' => $data
+        ]);
+    }
+
     public function store(Request $request)
     {
         $user = Auth::user();
@@ -65,6 +79,58 @@ class ResearchInformationController extends Controller
         return redirect()->route('pusatPenelitian')->with('success', 'Informasi penelitian berhasil ditambahkan');
     }
 
+    public function update(string $id, Request $request){
+        $research = ResearchInformation::where('id', $id)->first();
+        $user = Auth::user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'event_time_start' => 'required|date',
+            'event_time_end' => 'required|date',
+            'location' => 'required|string|max:255',
+            'total_students_required' => 'required|integer',
+            'description' => 'required|string'
+        ]);
+        
+        
+        $research->update([
+            'name' => $request->name,
+            'event_time_start' => $request->event_time_start,
+            'event_time_end' => $request->event_time_end,
+            'location' => $request->location,
+            'total_students_required' => $request->total_students_required,
+            'description' => $request->description,
+        ]);
+
+        $current = DosenResearch::where('id_research_information', $research->id)->get();
+        $requested = $request->dosens;
+
+        foreach($current as $c){
+            if(!in_array($c->id_dosen, $requested)){
+                DosenResearch::where('id_dosen', $c->id_dosen)->where('id_research_information', $research->id)->delete();
+            }
+        }
+
+        foreach($request->dosens as  $index => $d) {
+            
+            $exist = DosenResearch::where('id_dosen', $d)->where('id_research_information', $research->id)->first();
+
+            if($exist){
+                continue;
+            }
+
+            if($d!= null){
+                DosenResearch::create([
+                    'id_dosen' => $d,
+                    'id_research_information' => $research->id,
+                    'is_leader' => $index == 0 ? true : false
+                ]);
+            }
+        }
+
+        return redirect()->route('pusatPenelitian')->with('success', 'Informasi penelitian berhasil diubah');
+    }
+
     public function show(string $postId) {
 
         $postId = ResearchInformation::with('dosen')->where('id', $postId)->first();
@@ -72,5 +138,14 @@ class ResearchInformationController extends Controller
         return Inertia::render('User/Penelitian/DetailPenelitian', [
             'data' => $postId
         ]);
+    }
+
+    
+    public function destroy(string $id) {
+        $research = ResearchInformation::where('id', $id)->first();
+        DosenResearch::where('id_research_information', $research->id)->delete();
+        $research->delete();
+
+        return redirect()->route('pusatPenelitian')->with('success', 'Informasi penelitian berhasil dihapus');
     }
 }
