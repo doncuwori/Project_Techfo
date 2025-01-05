@@ -23,10 +23,10 @@ class DashboardAdminController extends Controller
         $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
         $scholarshipRecipientsCount = ScholarshipRecipient::count();
 
-        $abdimasRegistrantsCount = MahasiswaRegistrant::where('accepted', false)->count();
+        $abdimasRegistrantsCount = MahasiswaRegistrant::count();
         $abdimasRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
 
-        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::where('accepted', false)->count();
+        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::count();
         $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
 
 

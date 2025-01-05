@@ -47,6 +47,14 @@ class MahasiswaAccessSeeder extends Seeder
                 'nama_akses' => 'ormawa',
                 'nim' => '2110511015'
             ],
+            [
+                'nama_akses' => 'ormawa',
+                'nim' => '2210501035'
+            ],
+            [
+                'nama_akses' => 'ormawa',
+                'nim' => '2110511065'
+            ]
         ];
 
         foreach ($access as $key => $value) {

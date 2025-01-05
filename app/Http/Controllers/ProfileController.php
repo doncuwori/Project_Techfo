@@ -9,6 +9,11 @@ use App\Models\Scholarships\ScholarshipRegistrant;
 use App\Models\Abdimas\MahasiswaRegistrant;
 use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Competitions\MahasiswaAchievement;
+use App\Models\Mahasiswa;
+use App\Models\Scholarships\MahasiswaRegistrant as ScholarshipsMahasiswaRegistrant;
+use App\Models\Competitions\MahasiswaRegistrant as CompetitionMahasiswaRegistrant;
+use App\Models\Scholarships\MahasiswaRecipient;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,16 +25,18 @@ use Inertia\Response;
 class ProfileController extends Controller
 {
     public function index(){
-        $competitionRegistrantsCount = CompetitionRegistrant::count();
-        $competitionAchievementsCount = CompetitionAchievement::count();
-        $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
-        $scholarshipRecipientsCount = ScholarshipRecipient::count();
+        $idMahasiswa = Mahasiswa::where('id_user', Auth::user()->id)->first()->id;
 
-        $abdimasRegistrantsCount = MahasiswaRegistrant::where('accepted', false)->count();
-        $abdimasRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
+        $competitionRegistrantsCount = CompetitionMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->count();
+        $competitionAchievementsCount = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)->count();
+        $scholarshipRegistrantsCount = ScholarshipsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->count();
+        $scholarshipRecipientsCount = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)->count();
 
-        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::where('accepted', false)->count();
-        $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
+        $abdimasRegistrantsCount = MahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->count();
+        $abdimasRecipientsCount = MahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->where('accepted', true)->count();
+
+        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->count();
+        $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->where('accepted', true)->count();
 
         return Inertia::render('User/Profile', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,

@@ -70,6 +70,54 @@ const NavbarAdmin = () => {
         );
     }, [url]);
 
+    const [pusatInformasiMenu, setPusatInformasiMenu] = useState([
+        {
+            name: "Lomba",
+            route1: "pusatLomba",
+            route2: "tambahInfoLomba",
+            route3: "",
+        },
+        {
+            name: "Beasiswa",
+            route1: "pusatBeasiswa",
+            route2: "tambahInfoBeasiswa",
+            route3: "",
+        },
+        {
+            name: "Pengabdian Masyarakat",
+            route1: "pusatAbdimas",
+            route2: "tambahInfoAbdimas",
+            route3: "pusatAbdimas.show",
+        },
+        {
+            name: "Penelitian",
+            route1: "pusatPenelitian",
+            route2: "tambahInfoPenelitian",
+            route3: "pusatPenelitian.show",
+        },
+    ]);
+
+    useEffect(() => {
+        if (ormawa) {
+            setPusatInformasiMenu([
+                {
+                    name: "Lomba",
+                    route1: "pusatLomba",
+                    route2: "tambahInfoLomba",
+                    route3: "",
+                },
+                {
+                    name: "Beasiswa",
+                    route1: "pusatBeasiswa",
+                    route2: "tambahInfoBeasiswa",
+                    route3: "",
+                },
+            ]);
+        }
+    }, [ormawa]);
+    
+
+
     return (
         <div>
             <div className="w-full h-18 px-4 md:px-10 py-4 bg-white shadow-md flex items-center justify-between fixed top-0 left-0 z-20">
@@ -282,32 +330,7 @@ const NavbarAdmin = () => {
                         </button>
                         {isPusatInformasiDropdownOpen && (
                             <ul className="pl-8 mt-2">
-                                {[
-                                    {
-                                        name: "Lomba",
-                                        route1: "pusatLomba",
-                                        route2: "tambahInfoLomba",
-                                        route3: "",
-                                    },
-                                    {
-                                        name: "Beasiswa",
-                                        route1: "pusatBeasiswa",
-                                        route2: "tambahInfoBeasiswa",
-                                        route3: "",
-                                    },
-                                    {
-                                        name: "Pengabdian Masyarakat",
-                                        route1: "pusatAbdimas",
-                                        route2: "tambahInfoAbdimas",
-                                        route3: "pusatAbdimas.show",
-                                    },
-                                    {
-                                        name: "Penelitian",
-                                        route1: "pusatPenelitian",
-                                        route2: "tambahInfoPenelitian",
-                                        route3: "pusatPenelitian.show",
-                                    },
-                                ].map((subItem) => (
+                                {pusatInformasiMenu.map((subItem) => (
                                     <li
                                         key={subItem.name}
                                         className="mb-2 flex items-center group"

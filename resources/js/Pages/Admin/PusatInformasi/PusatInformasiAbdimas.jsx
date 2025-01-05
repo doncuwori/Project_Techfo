@@ -47,7 +47,7 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
                                 {abdimas.name}
                             </h3>
                             <a
-                                href={route("dashboardAdmin")}
+                                href={route("editInfoAbdimas", abdimas.id)}
                                 className="hover:scale-110 transform transition-transform flex items-center gap-3"
                             >
                                 <FilePenLine className="ml-4 mb-12 text-black w-6 h-6 hover:text-orange-500" />
