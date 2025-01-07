@@ -24,10 +24,10 @@ const RiwayatBeasiswa = ({ data }) => {
                             </div>
                         </div>
                         <div className="flex flex-col justify-between gap-2 w-full">
-                            <div className="text-black text-lg font-medium">
+                            <div className="text-black text-lg font-medium line-clamp-2">
                                 {d.scholarship_registrant.name}
                             </div>
-                            <div className="text-gray-500 text-sm font-normal leading-tight">
+                            <div className="text-gray-500 text-sm font-normal leading-tight line-clamp-2">
                                 {d.scholarship_registrant.description}
                             </div>
                             <div className="flex items-center gap-2">

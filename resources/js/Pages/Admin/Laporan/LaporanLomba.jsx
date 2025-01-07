@@ -42,36 +42,36 @@ const LaporanLomba = ({
 }) => {
     const [tabValue, settabValue] = useState("Pemenang");
 
-    const rekapData = Object.keys(rekapJuara).map((key) => ({
-        labels: Object.keys(rekapJuara[key]),
-        datasets: [
-            {
-                label: "Jumlah Juara",
-                data: Object.values(rekapJuara[key]),
-                backgroundColor: ["#356a33", "#58b055", "#81cd7d", "#b6e2b4"],
-                hoverOffset: 4,
-            },
-        ],
-    }));
+    // const rekapData = Object.keys(rekapJuara).map((key) => ({
+    //     labels: Object.keys(rekapJuara[key]),
+    //     datasets: [
+    //         {
+    //             label: "Jumlah Juara",
+    //             data: Object.values(rekapJuara[key]),
+    //             backgroundColor: ["#356a33", "#58b055", "#81cd7d", "#b6e2b4"],
+    //             hoverOffset: 4,
+    //         },
+    //     ],
+    // }));
 
-    const barOptions = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: "top",
-                labels: { boxWidth: 0, padding: 10 },
-            },
-            tooltip: {
-                callbacks: {
-                    label: ({ label, raw }) => `${label}: ${raw} Mahasiswa`,
-                },
-            },
-        },
-        scales: {
-            x: { ticks: { font: { size: 12 } } },
-            y: { beginAtZero: true, ticks: { stepSize: 5 } },
-        },
-    };
+    // const barOptions = {
+    //     responsive: true,
+    //     plugins: {
+    //         legend: {
+    //             position: "top",
+    //             labels: { boxWidth: 0, padding: 10 },
+    //         },
+    //         tooltip: {
+    //             callbacks: {
+    //                 label: ({ label, raw }) => `${label}: ${raw} Mahasiswa`,
+    //             },
+    //         },
+    //     },
+    //     scales: {
+    //         x: { ticks: { font: { size: 12 } } },
+    //         y: { beginAtZero: true, ticks: { stepSize: 5 } },
+    //     },
+    // };
 
     return (
         <body>
@@ -89,7 +89,7 @@ const LaporanLomba = ({
                             competitionRegistrantsCount
                         }
                     />
-                    <div class="self-stretch p-6 bg-white rounded-lg border-2 border-neutral-100 flex-col justify-start items-start gap-8 flex">
+                    {/* <div class="self-stretch p-6 bg-white rounded-lg border-2 border-neutral-100 flex-col justify-start items-start gap-8 flex">
                         <div class="justify-start items-start gap-3 inline-flex">
                             <div class="text-[#2d3036] text-xl font-semibold leading-7">
                                 REKAP JUARA
@@ -111,7 +111,7 @@ const LaporanLomba = ({
                                 );
                             })}
                         </div>
-                    </div>
+                    </div> */}
 
                     <div class="bg-white p-4 rounded-lg shadow-lg mt-6 mb-6 border-2 border-neutral-100">
                         <div class="flex items-center mb-4">

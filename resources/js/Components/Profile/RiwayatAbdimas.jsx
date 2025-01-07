@@ -32,13 +32,13 @@ const RiwayatAbdimas = ({ data }) => {
                                 </div>
                             </div>
                             <div className="flex flex-col justify-between gap-2 w-full">
-                                <div className="text-black text-lg font-medium">
+                                <div className="text-black text-lg font-medium line-clamp-2">
                                     {
                                         item.abdimas_registrant
                                             .abdimas_information.name
                                     }
                                 </div>
-                                <div className="text-gray-500 text-sm font-normal leading-tight">
+                                <div className="text-gray-500 text-sm font-normal leading-tight line-clamp-2">
                                     {
                                         item.abdimas_registrant
                                             .abdimas_information.description

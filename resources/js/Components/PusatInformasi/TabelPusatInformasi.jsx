@@ -10,7 +10,17 @@ const TabelPusatInformasi = ({ data, title }) => {
             <thead>
                 <tr className="bg-gray-100 text-left text-gray-700 text-center">
                     <th className="border p-2">NO</th>
-                    <th className="border p-2">NAMA PROKER</th>
+                    <th className="border p-2">
+                        {title === "abdimas"
+                            ? "NAMA ABDIMAS"
+                            : title === "penelitian"
+                            ? "NAMA PENELITIAN"
+                            : title === "lomba"
+                            ? "NAMA LOMBA"
+                            : title === "beasiswa"
+                            ? "NAMA BEASISWA"
+                            : ""}
+                    </th>
                     <th className="border p-2">HARI & TANGGAL UPLOAD</th>
                     <th className="border p-2">DEADLINE KEGIATAN</th>
                     <th className="border p-2">AKSI</th>

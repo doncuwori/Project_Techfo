@@ -11,13 +11,13 @@ const TabelTabPrestasi = ({ dataPemenang }) => {
                             No
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nama Kegiatan
+                            Partisipan
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Predikat Kemenangan
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Partisipan
+                            Nama Kegiatan
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Delegasi Ormawa
@@ -59,18 +59,17 @@ const TabelTabPrestasi = ({ dataPemenang }) => {
                                     {index + 1}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.activity_name}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.degree}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center">
                                     <ol className="list-decimal">
                                         {item.mahasiswa.map(
                                             (partisipan, index) => (
                                                 <li className="text-left">
                                                     {partisipan.nim} -{" "}
-                                                    {partisipan.nama}
+                                                    {partisipan.nama} -{" "}
+                                                    {
+                                                        partisipan.prodi
+                                                            .nama_prodi
+                                                    }{" "}
+                                                    - {partisipan.angkatan}
                                                     {item.leader.mahasiswa
                                                         .nim ==
                                                     partisipan.nim ? (
@@ -82,6 +81,12 @@ const TabelTabPrestasi = ({ dataPemenang }) => {
                                             )
                                         )}
                                     </ol>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.degree}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.activity_name}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.ormawa_delegation}

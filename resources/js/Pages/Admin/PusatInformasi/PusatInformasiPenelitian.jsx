@@ -47,7 +47,7 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                                 {research.name}
                             </h3>
                             <a
-                                href={route("editInfoPenelitian", abdimas.id)}
+                                href={route("editInfoPenelitian", research.id)}
                                 className="hover:scale-110 transform transition-transform flex items-center gap-3"
                             >
                                 <FilePenLine className="ml-4 mb-12 text-black w-6 h-6 hover:text-orange-500" />
@@ -55,7 +55,7 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                         </div>
                         <div class="mb-4">
                             <p>
-                                <strong>Lokasi Kegiatan:</strong>
+                                <strong>Lokasi Kegiatan:</strong>{" "}
                                 {research.location}
                             </p>
                             <div class="mt-4">

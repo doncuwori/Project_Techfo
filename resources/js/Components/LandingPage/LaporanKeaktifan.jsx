@@ -324,24 +324,23 @@ const LaporanKeaktifan = ({
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-8 mt-6">
-                        <div className="w-full">
+                    <div className="w-full">
                             <h2 className="text-xl font-semibold text-left mb-4">
-                                Mahasiswa Penelitian
-                            </h2>
-                            <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
-                                <div className="w-full h-full flex justify-center items-center">
-                                <Bar data={researchData} options={barOptions} />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="w-full">
-                            <h2 className="text-xl font-semibold text-left mb-4">
-                                Mahasiswa Pengabdian Masyarakat
+                                Mahasiswa Mendaftar Pengabdian Masyarakat
                             </h2>
                             <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
                                 <div className="w-full h-full flex justify-center items-center">
                                     <Bar data={abdimasData} options={barOptions} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full">
+                            <h2 className="text-xl font-semibold text-left mb-4">
+                                Mahasiswa Mendaftar Penelitian
+                            </h2>
+                            <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
+                                <div className="w-full h-full flex justify-center items-center">
+                                <Bar data={researchData} options={barOptions} />
                                 </div>
                             </div>
                         </div>

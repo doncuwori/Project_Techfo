@@ -17,7 +17,17 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+    
+        // Pastikan semua mahasiswa memiliki status
+        const finalData = data.id_abdimas_registrant.map((item) => {
+            return {
+                ...item,
+                value: item.value || "rejected", // Default value is "rejected"
+            };
+        });
+    
         post(route("pusatAbdimas.register"), {
+            data: { id_abdimas_registrant: finalData },
             onSuccess: (res) => {
                 console.log("success");
                 reset();
@@ -29,6 +39,7 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
             },
         });
     };
+    
 
     return (
         <body>
