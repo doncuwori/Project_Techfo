@@ -2,6 +2,7 @@ import CardStatis from "@/Components/Laporan/Abdimas/CardStatis";
 import TabelTabPendaftar from "@/Components/Laporan/Abdimas/TabelTabPendaftar";
 import TabelTabPenerima from "@/Components/Laporan/Abdimas/TabelTabPenerima";
 import NavbarAdmin from "@/Components/NavbarAdmin";
+import { getFiveYears } from "@/lib/helper";
 import React, { useState } from "react";
 
 const LaporanAbdimas = ({
@@ -10,9 +11,43 @@ const LaporanAbdimas = ({
     user,
     pendaftar,
     penerima,
+    prodi,
+    angkatan
 }) => {
-    console.log(abdimasRegistrantsCount, abdimasRecipientsCount);
     const [tabValue, settabValue] = useState("Penerima");
+
+    const [exportPendaftar, setExportPendaftar] = useState(false);
+        const [exportPenerima, setExportPenerima] = useState(false);
+    
+        const [filters, setFilters] = useState({
+            prodi: "",
+            angkatan: "",
+            nama: "",
+            tahun: "",
+        });
+    
+        const handleFilterChange = (event) => {
+            const { name, value } = event.target;
+            setFilters((prevFilters) => ({
+                ...prevFilters,
+                [name]: value,
+            }));
+        };
+    
+        const handleExport = (val) => {
+            if (val === "Penerima") {
+                setExportPenerima(true);
+                setTimeout(() => {
+                    setExportPenerima(false);
+                }, 100);
+            } else {
+                setExportPendaftar(true);
+                setTimeout(() => {
+                    setExportPendaftar(false);
+                }, 100);
+            }
+        }
+
     return (
         <body>
             <NavbarAdmin user={user} />
@@ -25,6 +60,7 @@ const LaporanAbdimas = ({
                         abdimasRegistrantsCount={abdimasRegistrantsCount}
                         abdimasRecipientsCount={abdimasRecipientsCount}
                     />
+
                     <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
                         <div class="flex items-center mb-4">
                             <button
@@ -56,6 +92,8 @@ const LaporanAbdimas = ({
                             <div class="flex items-center justify-between mb-4">
                                 <div class="relative w-full">
                                     <input
+                                        name="nama"
+                                        onChange={(e) => handleFilterChange(e)}
                                         type="text"
                                         placeholder="Search"
                                         class="pl-10 py-2 rounded-lg border w-full border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -77,19 +115,64 @@ const LaporanAbdimas = ({
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button class="bg-white text-green-500 px-4 py-1 border border-green-500 rounded-md font-semibold">
-                                    Filter
-                                </button>
-                                <button class="bg-green-500 text-white px-4 py-1 rounded-md font-semibold">
-                                    <p>Unduh</p>
+                                <select
+                                    name="prodi"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">Semua Prodi</option>
+                                    {prodi.map((item, index) => {
+                                        return (
+                                            <option
+                                                value={item.nama_prodi}
+                                                key={index}
+                                            >
+                                                {item.nama_prodi}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <select
+                                    name="angkatan"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">Semua Angkatan</option>
+                                    {angkatan.map((item, index) => {
+                                        return (
+                                            <option value={item} key={index}>
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <select
+                                    name="tahun"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">Semua Tahun</option>
+                                    {getFiveYears().map((item, index) => {
+                                        return (
+                                            <option value={item} key={index}>
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <button
+                                    onClick={(e) => handleExport(tabValue)}
+                                    className="bg-green-500 text-white px-4 py-2 rounded-md font-semibold"
+                                >
+                                    Unduh
                                 </button>
                             </div>
                         </div>
                         <div class="overflow-x-auto">
                             {tabValue == "Penerima" ? (
-                                <TabelTabPenerima data={penerima} />
+                                <TabelTabPenerima data={penerima} filters={filters} refs={exportPenerima} />
                             ) : (
-                                <TabelTabPendaftar data={pendaftar} />
+                                <TabelTabPendaftar data={pendaftar} filters={filters} refs={exportPendaftar} />
                             )}
                         </div>
                         <div class="flex justify-between items-center mt-4">

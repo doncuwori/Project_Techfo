@@ -1,20 +1,78 @@
 import { formatDate } from "@/lib/helper";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDownloadExcel } from "react-export-table-to-excel";
 
-const TabelTabPartisipasi = ({ dataPendaftar }) => {
+const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
+    const tableRef = useRef(null);
+    const { onDownload } = useDownloadExcel({
+        currentTableRef: tableRef.current,
+        filename: 'Pendaftar Lomba Export',
+        sheet: 'Pendaftar'
+    })
+
+    const [filtered, setFiltered] = useState(dataPendaftar);
+
+    useEffect(() => {
+        let nama = filters.nama;
+        let prodi = filters.prodi;
+        let angkatan = filters.angkatan;
+        let tahun = filters.tahun;
+
+        let temp = dataPendaftar;
+        if (nama) {
+            temp = temp.filter((item) =>
+                item.mahasiswa.nama.toLowerCase().includes(nama.toLowerCase())
+            );
+        }
+
+        if (prodi) {
+            temp = temp.filter((item) =>
+                item.mahasiswa.prodi.nama_prodi
+                    .toLowerCase()
+                    .includes(prodi.toLowerCase())
+            );
+        }
+
+        if (angkatan) {
+            temp = temp.filter((item) => item.mahasiswa.angkatan == angkatan);
+        }
+
+        if (tahun) {
+            temp = temp.filter((item) => item.created_at.includes(tahun));
+        }
+
+        setFiltered(temp);
+
+        if(refs){
+            onDownload()
+        }
+    }, [filters, refs]);
+
     return (
         <div>
-            <table class="min-w-full divide-y divide-gray-200 ">
+            <table ref={tableRef} class="min-w-full divide-y divide-gray-200 ">
                 <thead>
                     <tr>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             No
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Nama Kegiatan
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Partisipan
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nama Kegiatan
+                            NIM
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Program Studi
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Angkatan
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Status
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Delegasi Ormawa
@@ -46,73 +104,78 @@ const TabelTabPartisipasi = ({ dataPendaftar }) => {
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    {dataPendaftar.map((item, index) => {
-                        console.log(item);
-                        console.log(item.mahasiswa.prodi);
+                    {filtered.map((item, index) => {
                         return (
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {index + 1}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <ol className="list-decimal">
-                                        {item.mahasiswa.map(
-                                            (partisipan, index) => (
-                                                <li className="text-left">
-                                                    {partisipan.nim} -{" "}
-                                                    {partisipan.nama} -{" "}
-                                                    {
-                                                        partisipan.prodi
-                                                            .nama_prodi
-                                                    }{" "}
-                                                    - {partisipan.angkatan}
-                                                    {item.leader.mahasiswa
-                                                        .nim ==
-                                                    partisipan.nim ? (
-                                                        <b> (Ketua)</b>
-                                                    ) : (
-                                                        ""
-                                                    )}
-                                                </li>
-                                            )
-                                        )}
-                                    </ol>
+                                    {item.competition_registrant.activity_name}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.activity_name}
+                                    {item.mahasiswa.nama}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.ormawa_delegation}
+                                    {item.mahasiswa.nim}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.dosen.nama}
+                                    {item.mahasiswa.prodi.nama_prodi}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.field}
+                                    {item.mahasiswa.angkatan}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.organizer}
+                                    {item.is_group == true
+                                        ? "Regu"
+                                        : "Individu"}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.country.country_name}
+                                    {
+                                        item.competition_registrant
+                                            .ormawa_delegation
+                                    }
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.location}
+                                    {item.competition_registrant.dosen.nama}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {formatDate(item.activity_date_start)} -{" "}
-                                    {formatDate(item.activity_date_end)}
+                                    {item.competition_registrant.field}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.description}
+                                    {item.competition_registrant.organizer}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.poster_url == null ? (
+                                    {
+                                        item.competition_registrant.country
+                                            .country_name
+                                    }
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.competition_registrant.location}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {formatDate(
+                                        item.competition_registrant
+                                            .activity_date_start
+                                    )}{" "}
+                                    -{" "}
+                                    {formatDate(
+                                        item.competition_registrant
+                                            .activity_date_end
+                                    )}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.competition_registrant.description}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.competition_registrant.poster_url ==
+                                    null ? (
                                         "-"
                                     ) : (
                                         <a
                                             className="text-blue-600 underline"
-                                            href={`/images/${item.poster_url}`}
+                                            href={window.location.origin + `/images/${item.competition_registrant.poster_url}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >

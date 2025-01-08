@@ -190,7 +190,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Abdimas
     Route::get('/abdimas', function () {
-        $data = AbdimasInformation::orderBy('created_at', 'desc')->get();
+        $data = AbdimasInformation::orderBy('created_at', 'desc')
+        ->whereDate('event_time_end', '>=', date('Y-m-d'))
+        ->get();
 
         return Inertia::render('User/Abdimas/Abdimas', [
             'data' => $data
@@ -211,7 +213,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Penelitian
     Route::get('/penelitian', function () {
-        $data = ResearchInformation::orderBy('created_at', 'desc')->get();
+        $data = ResearchInformation::orderBy('created_at', 'desc')
+        ->whereDate('event_time_end', '>=', date('Y-m-d'))
+        ->get();
 
         return Inertia::render('User/Penelitian/Penelitian', [
             'data' => $data

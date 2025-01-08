@@ -15,6 +15,8 @@ const DashboardAdmin = ({
     rekapBeasiswa,
     rekapAbdimas,
     rekapResearch,
+    rekapAbdimasLolos,
+    rekapResearchLolos,
     abdimasRegistrantsCount,
     abdimasRecipientsCount,
     researchRegistrantsCount,
@@ -60,6 +62,8 @@ const DashboardAdmin = ({
                         rekapBeasiswa={rekapBeasiswa}
                         rekapAbdimas={rekapAbdimas}
                         rekapResearch={rekapResearch}
+                        rekapAbdimasLolos={rekapAbdimasLolos}
+                        rekapResearchLolos={rekapResearchLolos}
                         abdimasCount={`${abdimasRecipientsCount}/${abdimasRegistrantsCount}`}
                         researchCount={`${researchRecipientsCount}/${researchRegistrantsCount}`}
                     />

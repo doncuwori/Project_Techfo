@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\MahasiswaAchievement;
+use App\Models\Competitions\MahasiswaRegistrant;
 use App\Models\Mahasiswa;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
@@ -52,8 +53,12 @@ class AdminCompetitionController extends Controller
         //     }
         // }
 
-        $dataPendaftar = CompetitionRegistrant::with(['mahasiswa.prodi', 'dosen', 'country'])->orderBy('created_at', 'desc')->get();
-        $dataPemenang = CompetitionAchievement::with(['mahasiswa.prodi', 'dosen', 'country'])->orderBy('created_at', 'desc')->get();
+        $dataPendaftar = MahasiswaRegistrant::with(['mahasiswa.prodi', 'competitionRegistrant.dosen', 'competitionRegistrant.country'])->orderBy('created_at', 'desc')->get();
+
+        $dataPemenang = MahasiswaAchievement::with(['mahasiswa.prodi', 'competitionAchievement.dosen', 'competitionAchievement.country'])->orderBy('created_at', 'desc')->get();
+
+        $prodi = Prodi::all();
+        $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
 
         return Inertia::render('Admin/Laporan/LaporanLomba', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
@@ -63,7 +68,9 @@ class AdminCompetitionController extends Controller
             // 'rekapJuara' => $arrayJuara,
             'totalMahasiswa' => $totalMahasiswa,
             'dataPendaftar' => $dataPendaftar,
-            'dataPemenang' => $dataPemenang
+            'dataPemenang' => $dataPemenang,
+            'prodi' => $prodi,
+            'angkatan' => $angkatan
         ]);
     }
 }

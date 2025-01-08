@@ -22,6 +22,18 @@ class MahasiswaRegistrant extends Model
         return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
     }
 
+    public function getIsGroupAttribute()
+    {
+        $count = MahasiswaRegistrant::where('id_competition_registrant', $this->id_competition_registrant)->count();
+
+        if($count == 1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    protected $appends = ['is_group'];
+
     public function competitionRegistrant()
     {
         return $this->belongsTo(CompetitionRegistrant::class, 'id_competition_registrant');

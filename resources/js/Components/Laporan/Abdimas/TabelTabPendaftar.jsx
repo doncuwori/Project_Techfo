@@ -1,9 +1,56 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDownloadExcel } from "react-export-table-to-excel";
 
-const TabelTabPendaftar = ({ data }) => {
+const TabelTabPendaftar = ({ data, filters, refs }) => {
+    const tableRef = useRef(null);
+
+    const { onDownload } = useDownloadExcel({
+        currentTableRef: tableRef.current,
+        filename: "Pendaftar Abdimas Export",
+        sheet: "Pendaftar",
+    });
+
+    const [filtered, setFiltered] = useState(data);
+
+    useEffect(() => {
+        let nama = filters.nama;
+        let prodi = filters.prodi;
+        let angkatan = filters.angkatan;
+        let tahun = filters.tahun;
+
+        let temp = data;
+        if (nama) {
+            temp = temp.filter((item) =>
+                item.mahasiswa.nama.toLowerCase().includes(nama.toLowerCase())
+            );
+        }
+
+        if (prodi) {
+            temp = temp.filter((item) =>
+                item.mahasiswa.prodi.nama_prodi
+                    .toLowerCase()
+                    .includes(prodi.toLowerCase())
+            );
+        }
+
+        if (angkatan) {
+            temp = temp.filter((item) => item.mahasiswa.angkatan == angkatan);
+        }
+
+        if (tahun) {
+            temp = temp.filter((item) => item.created_at.includes(tahun));
+        }
+
+        setFiltered(temp);
+
+        if (refs) {
+            onDownload();
+        }
+    }, [filters, refs]);
+
     return (
         <div>
-            <table class="min-w-full divide-y divide-gray-200 ">
+            <table ref={tableRef} class="min-w-full divide-y divide-gray-200 ">
                 <thead>
                     <tr>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -48,17 +95,23 @@ const TabelTabPendaftar = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    {data.map((item, index) => {
+                    {filtered.map((item, index) => {
                         return (
                             <tr key={index}>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {index + 1}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.abdimas_registrant.abdimas_information.name}
+                                    {
+                                        item.abdimas_registrant
+                                            .abdimas_information.name
+                                    }
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.abdimas_registrant.abdimas_information.location}
+                                    {
+                                        item.abdimas_registrant
+                                            .abdimas_information.location
+                                    }
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.mahasiswa.nim}
@@ -80,16 +133,54 @@ const TabelTabPendaftar = ({ data }) => {
                                     {item.abdimas_registrant.telephone}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.khs}>Lihat File</a>
+                                    <a
+                                        className="underline text-blue-500"
+                                        target="_blank"
+                                        href={
+                                            window.location.origin +
+                                            "/images/" +
+                                            item.abdimas_registrant.khs
+                                        }
+                                    >
+                                        Lihat File
+                                    </a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.cv}>Lihat File</a>
+                                    <a
+                                        className="underline text-blue-500"
+                                        target="_blank"
+                                        href={
+                                            window.location.origin +
+                                            "/images/" +
+                                            item.abdimas_registrant.cv
+                                        }
+                                    >
+                                        Lihat File
+                                    </a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.portofolio}>Lihat File</a>
+                                    <a
+                                        className="underline text-blue-500"
+                                        target="_blank"
+                                        href={
+                                            "/images/" +
+                                            item.abdimas_registrant.portofolio
+                                        }
+                                    >
+                                        Lihat File
+                                    </a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    <a className="underline text-blue-500" target="_blank" href={'/images/'+item.abdimas_registrant.foto}>Lihat File</a>
+                                    <a
+                                        className="underline text-blue-500"
+                                        target="_blank"
+                                        href={
+                                            "/images/" +
+                                            item.abdimas_registrant.foto
+                                        }
+                                    >
+                                        Lihat File
+                                    </a>
                                 </td>
                             </tr>
                         );

@@ -35,5 +35,12 @@ class AbdimasInformation extends Model
         return $this->hasMany(AbdimasRegistrant::class, 'id_abdimas_information');
     }
 
-    protected $appends = ['leader'];
+    public function getClosedAttribute()
+    {
+        return MahasiswaRegistrant::whereHas('abdimasRegistrant', function ($query) {
+            $query->where('id_abdimas_information', $this->id);
+        })->where('accepted', true)->count();
+    }
+
+    protected $appends = ['leader', 'closed'];
 }

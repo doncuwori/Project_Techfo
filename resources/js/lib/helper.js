@@ -22,4 +22,10 @@ export const formatDatetimeToIndonesian = (datetime) => {
 
     // Format string tanggal dan waktu Indonesia
     return `${day} ${month} ${year}, ${hours}:${minutes} WIB`;
-};
+}
+
+export const getFiveYears = () => {
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({ length: 5 }, (_, index) => currentYear - index);
+    return years;
+}

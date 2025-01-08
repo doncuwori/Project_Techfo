@@ -35,6 +35,8 @@ const LaporanKeaktifan = ({
     rekapBeasiswa,
     rekapAbdimas,
     rekapResearch,
+    rekapAbdimasLolos,
+    rekapResearchLolos,
 }) => {
     const pieData = {
         labels: Object.keys(rekapLomba),
@@ -96,12 +98,36 @@ const LaporanKeaktifan = ({
         ],
     };
 
+    const abdimasLolos = {
+        labels: Object.keys(rekapAbdimasLolos),
+        datasets: [
+            {
+                label: "Program Studi",
+                data: Object.values(rekapAbdimasLolos),
+                backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
+                borderRadius: 10,
+            },
+        ],
+    };
+
     const researchData = {
         labels: Object.keys(rekapResearch),
         datasets: [
             {
                 label: "Program Studi",
                 data: Object.values(rekapResearch),
+                backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
+                borderRadius: 10,
+            },
+        ],
+    };
+
+    const researchLolos = {
+        labels: Object.keys(rekapResearchLolos),
+        datasets: [
+            {
+                label: "Program Studi",
+                data: Object.values(rekapResearchLolos),
                 backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
                 borderRadius: 10,
             },
@@ -324,13 +350,16 @@ const LaporanKeaktifan = ({
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-8 mt-6">
-                    <div className="w-full">
+                        <div className="w-full">
                             <h2 className="text-xl font-semibold text-left mb-4">
                                 Mahasiswa Mendaftar Pengabdian Masyarakat
                             </h2>
                             <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
                                 <div className="w-full h-full flex justify-center items-center">
-                                    <Bar data={abdimasData} options={barOptions} />
+                                    <Bar
+                                        data={abdimasData}
+                                        options={barOptions}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -340,7 +369,38 @@ const LaporanKeaktifan = ({
                             </h2>
                             <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
                                 <div className="w-full h-full flex justify-center items-center">
-                                <Bar data={researchData} options={barOptions} />
+                                    <Bar
+                                        data={researchData}
+                                        options={barOptions}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-8 mt-6">
+                        <div className="w-full">
+                            <h2 className="text-xl font-semibold text-left mb-4">
+                                Mahasiswa Lolos Pengabdian Masyarakat
+                            </h2>
+                            <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <Bar
+                                        data={abdimasLolos}
+                                        options={barOptions}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full">
+                            <h2 className="text-xl font-semibold text-left mb-4">
+                                Mahasiswa Lolos Penelitian
+                            </h2>
+                            <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <Bar
+                                        data={researchLolos}
+                                        options={barOptions}
+                                    />
                                 </div>
                             </div>
                         </div>

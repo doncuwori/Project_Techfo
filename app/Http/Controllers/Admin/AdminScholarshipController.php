@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mahasiswa;
+use App\Models\Prodi;
 use App\Models\Scholarships\ScholarshipRecipient;
 use App\Models\Scholarships\ScholarshipRegistrant;
 use Illuminate\Http\Request;
@@ -20,12 +22,17 @@ class AdminScholarshipController extends Controller
 
         $dataPenerima = ScholarshipRecipient::with('mahasiswa.prodi')->orderBy('created_at', 'desc')->get();
 
+        $prodi = Prodi::all();
+        $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
+
         return Inertia::render('Admin/Laporan/LaporanBeasiswa', [
             'scholarshipRegistrantsCount' => $scholarshipRegistrantsCount,
             'scholarshipRecipientsCount' => $scholarshipRecipientsCount,
             'user' => $user,
             'dataPendaftar' => $dataPendaftar,
-            'dataPenerima' => $dataPenerima
+            'dataPenerima' => $dataPenerima,
+            'prodi' => $prodi,
+            'angkatan' => $angkatan
         ]);
     }
 }
