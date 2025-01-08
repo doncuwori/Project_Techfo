@@ -42,7 +42,7 @@ class ScholarshipRegistrantController extends Controller
             'id_mahasiswa' => $idMahasiswa,
         ]);
 
-        return redirect()->route('pendataanBeasiswa')->with('success', 'Beasiswa berhasil ditambahkan');
+        return redirect()->route('profile')->with('success', 'Beasiswa berhasil ditambahkan');
     }
 
     /**

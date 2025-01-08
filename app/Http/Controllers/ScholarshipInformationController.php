@@ -109,7 +109,7 @@ class ScholarshipInformationController extends Controller
         ]);
 
         // Return a response
-        return redirect()->route('tambahInfoBeasiswa')->with('success', 'Informasi beasiswa berhasil ditambahkan');
+        return redirect()->route('pusatBeasiswa')->with('success', 'Informasi beasiswa berhasil ditambahkan');
     }
 
     public function show(ScholarshipInformation $postId)

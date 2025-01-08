@@ -37,6 +37,7 @@ const LaporanLomba = ({
     user,
     registrant,
     rekapJuara,
+    totalMahasiswa,
     dataPendaftar,
     dataPemenang,
 }) => {
@@ -88,6 +89,7 @@ const LaporanLomba = ({
                         competitionRegistrantsCount={
                             competitionRegistrantsCount
                         }
+                        totalMahasiswa={totalMahasiswa}
                     />
                     {/* <div class="self-stretch p-6 bg-white rounded-lg border-2 border-neutral-100 flex-col justify-start items-start gap-8 flex">
                         <div class="justify-start items-start gap-3 inline-flex">

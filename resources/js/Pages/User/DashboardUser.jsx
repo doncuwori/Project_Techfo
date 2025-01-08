@@ -20,7 +20,7 @@ const Dashboard = ({
         <div>
             <Navbar />
             <HeaderSection />
-            <SearchBox />
+            {/* <SearchBox /> */}
             <ProcedureCards />
             <CardLomba data={competitions_information} />
             <CardBeasiswa data={scholarships_information} />

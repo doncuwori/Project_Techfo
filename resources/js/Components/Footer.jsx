@@ -1,5 +1,15 @@
 import React from "react";
-import { University, MapPinned, PhoneCall, Mail, UserRound, Instagram, Facebook, Youtube, Twitter } from "lucide-react";
+import {
+    University,
+    MapPinned,
+    PhoneCall,
+    Mail,
+    UserRound,
+    Instagram,
+    Facebook,
+    Youtube,
+    Twitter,
+} from "lucide-react";
 
 const Footer = () => {
     return (
@@ -8,7 +18,11 @@ const Footer = () => {
                 {/* Faculty Info Section */}
                 <div className="flex flex-col gap-8 lg:max-w-[363px]">
                     <div className="flex items-center gap-4">
-                        <img className="w-14 h-14" src="img/upn.png" alt="Faculty Logo" />
+                        <img
+                            className="w-14 h-14"
+                            src="img/upn.png"
+                            alt="Faculty Logo"
+                        />
                         <div className="text-[#fe632e] font-bold text-lg">
                             FAKULTAS ILMU KOMPUTER
                             <br />
@@ -34,24 +48,29 @@ const Footer = () => {
                             className="hover:text-orange-500 flex items-center gap-3"
                         >
                             <MapPinned className="w-6 h-6 text-orange-500" />
-                            Jl. RS. Fatmawati, Pondok Labu, Jakarta Selatan, DKI Jakarta. 12450.
+                            Jl. RS. Fatmawati, Pondok Labu, Jakarta Selatan, DKI
+                            Jakarta. 12450.
                         </a>
                         <br />
                         <a
                             href="tel:(021)7656971"
                             className="hover:text-orange-500 flex items-center gap-3"
                         >
-                            <PhoneCall className="w-5 h-5 text-orange-500" /> (021)7656971
+                            <PhoneCall className="w-5 h-5 text-orange-500" />{" "}
+                            (021)7656971
                         </a>
                         <br />
                         <a
                             href="mailto:upnvj@upnvj.ac.id"
                             className="hover:text-orange-500 flex items-center gap-3"
                         >
-                            <Mail className="w-5 h-5 text-orange-500" /> upnvj@upnvj.ac.id
+                            <Mail className="w-5 h-5 text-orange-500" />{" "}
+                            upnvj@upnvj.ac.id
                         </a>
 
-                        <div className="mt-6 text-lg font-bold">Media Sosial</div>
+                        <div className="mt-6 text-lg font-bold">
+                            Media Sosial
+                        </div>
                         <div className="flex mt-2 gap-4">
                             <a
                                 href="https://www.instagram.com/fikupnvj/"
@@ -105,12 +124,21 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="text-base font-bold mt-5">Project Akhir Mahasiswa</div>
-                    <div className="text-base font-normal leading-snug">
-                        Website yang memuat informasi seputar lomba, beasiswa, pengabdian masyarakat, dan penelitian oleh dosen.
+                    <div className="text-base font-bold mt-5">
+                        Project Akhir Mahasiswa
                     </div>
-                    <div className="text-base font-semibold">Project Akhir Mahasiswa FIK 2021</div>
+                    <div className="text-base font-normal leading-snug">
+                        Website yang memuat informasi seputar lomba, beasiswa,
+                        pengabdian masyarakat, dan penelitian oleh dosen.
+                    </div>
+                    <div className="text-base font-semibold">
+                        Project Akhir Mahasiswa FIK 2021
+                    </div>
                     <div className="text-base font-normal">
+                        <div className="flex items-center gap-3">
+                            <UserRound className="w-5 h-5" />
+                            Andi Setiawan - 2110512083
+                        </div>
                         <div className="flex items-center gap-3">
                             <UserRound className="w-5 h-5" />
                             Khaliza Fania - 2110512020
@@ -119,12 +147,10 @@ const Footer = () => {
                             <UserRound className="w-5 h-5" />
                             Elmira Ardelia - 2110512046
                         </div>
-                        <div className="flex items-center gap-3">
-                            <UserRound className="w-5 h-5" />
-                            Andi Setiawan - 2110512083
-                        </div>
                     </div>
-                    <div className="text-base font-semibold">Dosen Pembimbing</div>
+                    <div className="text-base font-semibold">
+                        Dosen Pembimbing
+                    </div>
                     <div className="text-base font-normal">
                         <div className="flex items-center gap-3">
                             <UserRound className="w-5 h-5" />
@@ -139,7 +165,9 @@ const Footer = () => {
 
                 {/* Student Project Section */}
                 <div className="flex flex-col gap-12 mt-3 lg:max-w-[282px]">
-                    <div className="text-xl font-bold text-white">Temukan Kami Disini</div>
+                    <div className="text-xl font-bold text-white">
+                        Temukan Kami Disini
+                    </div>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.598723401264!2d106.7934897592435!3d-6.316324941843607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ee3e065d4f6b%3A0xe176f81a31564166!2sUniversitas%20Pembangunan%20Nasional%20Veteran%20Jakarta!5e0!3m2!1sen!2sid!4v1730907281576!5m2!1sen!2sid"
                         width="100%"
@@ -154,7 +182,7 @@ const Footer = () => {
 
             {/* Footer Section */}
             <div className="text-sm text-center mt-14">
-                Copyright ©2024 Fakultas Ilmu Komputer UPN "Veteran" Jakarta
+                Copyright ©2025 Fakultas Ilmu Komputer UPN "Veteran" Jakarta
             </div>
         </div>
     );

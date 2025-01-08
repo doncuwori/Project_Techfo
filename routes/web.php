@@ -99,11 +99,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $pendaftarBeasiswa = ScholarshipsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRegistrant')->get();
         $penerimaBeasiswa = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)->with('scholarshipRecipient')->get();
 
-        $pendaftarAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->where('accepted', false)->get();
+        $pendaftarAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->get();
         $diterimaAbdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->where('accepted', true)->get();
 
 
-        $pendaftarPenelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->where('accepted', false)->get();
+        $pendaftarPenelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->get();
         $diterimaPenelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->where('accepted', true)->get();
 
         $abdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->get();

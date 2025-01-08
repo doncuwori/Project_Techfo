@@ -3,25 +3,18 @@ import React from "react";
 const TabelPusatInfo = ({ data, handler }) => {
     const handleChange = (e) => {
         let arrayId = [];
-
-        data.map((item) => {
-            let selected = document.querySelectorAll(
-                `input[name="id_research_registrant_${item.id}"]`
+    
+        data.forEach((item) => {
+            let selected = document.querySelector(
+                `input[name="id_research_registrant_${item.id}"]:checked`
             );
-            let val = "";
-            selected.forEach((input) => {
-                if (input.checked) {
-                    val = input.value;
-                } else {
-                    return;
-                }
-            });
-
+    
             arrayId.push({
                 id: item.id,
-                value: val,
+                value: selected ? selected.value : "rejected", // Default to "rejected" if nothing is selected
             });
         });
+    
         handler(arrayId);
     };
 

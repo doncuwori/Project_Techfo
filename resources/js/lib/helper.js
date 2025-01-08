@@ -11,13 +11,15 @@ export const formatDatetimeToIndonesian = (datetime) => {
     ];
 
     const date = new Date(datetime);
-    
-    const day = date.getUTCDate(); // Get day of the month
-    const month = months[date.getUTCMonth()]; // Get month name
-    const year = date.getUTCFullYear(); // Get year
 
-    const hours = String(date.getUTCHours()).padStart(2, '0'); // Format hours
-    const minutes = String(date.getUTCMinutes()).padStart(2, '0'); // Format minutes
+    // Ambil data lokal
+    const day = date.getDate(); // Hari dalam bulan
+    const month = months[date.getMonth()]; // Nama bulan
+    const year = date.getFullYear(); // Tahun
 
+    const hours = String(date.getHours()).padStart(2, '0'); // Format jam lokal
+    const minutes = String(date.getMinutes()).padStart(2, '0'); // Format menit lokal
+
+    // Format string tanggal dan waktu Indonesia
     return `${day} ${month} ${year}, ${hours}:${minutes} WIB`;
-}
+};

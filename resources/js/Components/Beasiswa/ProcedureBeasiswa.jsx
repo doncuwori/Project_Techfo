@@ -15,7 +15,7 @@ const ProcedureBeasiswa = () => {
             imgSrc: "img/prosedurbeasiswa.png",
             imgAlt: "Prosedur Pendataan Beasiswa",
             title: "Prosedur Pendataan Penerima Beasiswa",
-            description: "Pelajari prosedur beasiswa agar setiap langkah menuju prestasimu selalu tercatat!",
+            description: "Pelajari prosedur beasiswa agar setiap langkahmu selalu tercatat!",
         },
     ];
 

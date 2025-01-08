@@ -4,10 +4,10 @@ import { CircularProgressbar } from "react-circular-progressbar";
 const CardStatis = ({
     competitionAchievementsCount,
     competitionRegistrantsCount,
+    totalMahasiswa,
 }) => {
-    const maxValue = 365;
-    const value = Math.min(competitionAchievementsCount, maxValue);
-    const percentage = (value / maxValue) * 100;
+    const value = Math.min(competitionAchievementsCount, totalMahasiswa);
+    const percentage = (value / totalMahasiswa) * 100;
 
     return (
         <div class="flex flex-wrap -mx-4 mb-6">
@@ -18,14 +18,14 @@ const CardStatis = ({
                             <CircularProgressbar
                                 className="h-24 w-24"
                                 value={value}
-                                maxValue={maxValue}
+                                maxValue={totalMahasiswa}
                                 text={`${percentage.toFixed(2)}%`}
                             />
                         </div>
                     </div>
                     <div class="flex-col justify-center items-center gap-1 inline-flex">
                         <div class="text-center text-[#2d3036] text-lg font-semibold leading-7 ml-8">
-                            Prestasi Mahasiswa
+                            Presentase Prestasi Mahasiswa
                         </div>
                     </div>
                 </div>

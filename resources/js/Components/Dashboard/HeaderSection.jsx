@@ -13,7 +13,7 @@ const HeaderSection = () => {
             </div>
 
             {/* Text Section */}
-            <div className="relative w-full px-6 md:px-12 pt-20 pb-6 text-center">
+            <div className="relative w-full px-6 md:px-12 pt-28 pb-6 text-center">
                 <h1 className="text-black text-4xl font-medium leading-tight mb-6">
                     Eksplor Informasi{' '}
                     <span className="text-[#fe632e]">Lomba, Beasiswa, Pengabdian Masyarakat, </span>

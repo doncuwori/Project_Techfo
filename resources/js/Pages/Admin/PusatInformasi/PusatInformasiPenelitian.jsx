@@ -17,11 +17,23 @@ const PusatInformasiPenelitian = ({ user, research }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Pastikan semua mahasiswa memiliki status
+        const finalData = data.id_research_registrant.map((item) => {
+            return {
+                ...item,
+                value: item.value || "rejected", // Default value is "rejected"
+            };
+        });
+
         post(route("pusatPenelitian.register"), {
+            data: { id_research_registrant: finalData },
             onSuccess: (res) => {
                 console.log("success");
                 reset();
-                toast.success("Pendaftaran Penelitian Berhasil Dibuat");
+                toast.success(
+                    "Pendaftaran Pengabdian Masyarakat Berhasil Dibuat"
+                );
             },
             onError: (errors) => {
                 toast.error("Gagal Mendaftar Penelitian");
@@ -82,12 +94,15 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                                 {research.total_students_required} Mahasiswa{" "}
                                 <b>
                                     (Tersisa{" "}
-                                    {research.total_students_required -
-                                        research.research_registrant.filter(
-                                            (researchRegistrant) =>
-                                                researchRegistrant.status ==
-                                                true
-                                        ).length}
+                                    {Math.max(
+                                        0,
+                                        research.total_students_required -
+                                            research.research_registrant.filter(
+                                                (researchRegistrant) =>
+                                                    researchRegistrant.status ===
+                                                    true
+                                            ).length
+                                    )}
                                     )
                                 </b>
                             </p>

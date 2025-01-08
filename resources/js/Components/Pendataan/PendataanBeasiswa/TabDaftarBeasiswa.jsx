@@ -41,10 +41,10 @@ export const TabDaftarBeasiswa = ({ country }) => {
         post(route("scholarshipRegistrant.store"), {
             onSuccess: (res) => {
                 reset();
-                toast.success("Berhasil Membuat Data Lolos Beasiswa");
+                toast.success("Pendataan Pendaftar Beasiswa Berhasil Dibuat!");
             },
             onError: (errors) => {
-                toast.error("Gagal Membuat Data Lolos Beasiswa");
+                toast.error("Pendataan Pendaftar Beasiswa Gagal Dibuat!");
                 console.error(errors);
             },
         });

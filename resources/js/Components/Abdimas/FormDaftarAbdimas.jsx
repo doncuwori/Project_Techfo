@@ -42,10 +42,10 @@ const FormDaftarAbdimas = ({ information }) => {
             onSuccess: (res) => {
                 console.log("success");
                 reset();
-                toast.success("Prestasi Lomba Berhasil Dibuat");
+                toast.success("Pendaftaran Abdimas Berhasil!");
             },
             onError: (errors) => {
-                toast.error("Gagal membuat prestasi lomba");
+                toast.error("Pendaftaran Abdimas Gagal!");
                 console.error(errors);
             },
         });
@@ -57,7 +57,7 @@ const FormDaftarAbdimas = ({ information }) => {
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Alamat E-mail
+                            Alamat E-mail<span className="text-red-600">*</span>
                         </label>
                         <input
                             type="text"
@@ -70,7 +70,7 @@ const FormDaftarAbdimas = ({ information }) => {
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Nomor Telepon (Whatsapp)
+                            Nomor Telepon (Whatsapp)<span className="text-red-600">*</span>
                         </label>
                         <input
                             type="number"
@@ -81,7 +81,7 @@ const FormDaftarAbdimas = ({ information }) => {
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            KHS
+                            KHS<span className="text-red-600">*</span>
                         </label>
                         <input
                             type="file"
@@ -96,7 +96,7 @@ const FormDaftarAbdimas = ({ information }) => {
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            CV
+                            CV<span className="text-red-600">*</span>
                         </label>
                         <input
                             type="file"
@@ -111,7 +111,7 @@ const FormDaftarAbdimas = ({ information }) => {
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Portofolio
+                            Portofolio<span className="text-red-600">*</span>
                         </label>
                         <input
                             type="file"
@@ -126,7 +126,7 @@ const FormDaftarAbdimas = ({ information }) => {
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Foto 3x4
+                            Foto 3x4<span className="text-red-600">*</span>
                         </label>
                         <input
                             type="file"

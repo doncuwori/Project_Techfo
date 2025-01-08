@@ -70,7 +70,7 @@ class CompetitionRegistrantController extends Controller
             }
         }
 
-        return redirect()->route('pendataanLomba')->with('success', 'Kompetisi berhasil ditambahkan');
+        return redirect()->route('profile')->with('success', value: 'Kompetisi berhasil ditambahkan');
     }
 
     /**

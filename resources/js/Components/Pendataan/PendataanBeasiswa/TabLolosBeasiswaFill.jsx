@@ -43,10 +43,10 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
             onSuccess: (res) => {
                 console.log("success");
                 reset();
-                toast.success("Berhasil Membuat Data Penerima Beasiswa");
+                toast.success("Pendataan Penerima Beasiswa Berhasil Dibuat!");
             },
             onError: (errors) => {
-                toast.error("Gagal Membuat Data Penerima Beasiswa");
+                toast.error("Pendataan Penerima Beasiswa Gagal Dibuat!");
                 console.error(errors);
             },
         });
@@ -158,7 +158,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
 
             <section className="mb-8">
                 <h2 className="text-xl font-bold mb-4">
-                    Bukti Dokumen<span className="text-red-600">*</span>
+                    Bukti Dokumen
                 </h2>
                 {/* Scan Bukti */}
                 <div className="mb-4">

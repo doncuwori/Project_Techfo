@@ -119,10 +119,10 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
             onSuccess: (res) => {
                 console.log("success");
                 reset();
-                toast.success("Prestasi Lomba Berhasil Dibuat");
+                toast.success("Pendataan Prestasi Lomba Berhasil Dibuat!");
             },
             onError: (errors) => {
-                toast.error("Gagal membuat prestasi lomba");
+                toast.error("Pendataan Prestasi Lomba Gagal DIbuat!");
                 console.error(errors);
             },
         });
@@ -498,7 +498,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                 </div>
             </section>
             <section className="mb-8">
-                <h2 className="text-xl font-bold mb-4">Bukti Dokumen<span className="text-red-600">*</span></h2>
+                <h2 className="text-xl font-bold mb-4">Bukti Dokumen</h2>
 
                 {/* Upload Scan Bukti */}
                 <div className="mb-4">

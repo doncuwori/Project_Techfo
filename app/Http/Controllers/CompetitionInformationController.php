@@ -107,8 +107,7 @@ class CompetitionInformationController extends Controller
             'updated_at' => now(),
         ]);
 
-        // Return a response
-        return redirect()->route('tambahInfoLomba')->with('success', 'Informasi lomba berhasil ditambahkan');
+        return redirect()->route('pusatLomba')->with('success', 'Informasi lomba berhasil ditambahkan');
     }
 
     public function show(CompetitionInformation $postId)

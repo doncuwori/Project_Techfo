@@ -8,7 +8,7 @@ const ProcedureLomba = () => {
             imgSrc: "img/prosedurlomba.png",
             imgAlt: "Prosedur Pendaftaran Lomba",
             title: "Prosedur Pendaftaran Lomba",
-            description: "Pelajari prosedur lomba agar setiap langkah pencapaianmu selalu tercatat!",
+            description: "Pelajari prosedur pendaftaran lomba agar setiap langkah pencapaianmu selalu tercatat!",
         },
         {
             href: route("faq"),

@@ -17,7 +17,7 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+
         // Pastikan semua mahasiswa memiliki status
         const finalData = data.id_abdimas_registrant.map((item) => {
             return {
@@ -25,13 +25,15 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
                 value: item.value || "rejected", // Default value is "rejected"
             };
         });
-    
+
         post(route("pusatAbdimas.register"), {
             data: { id_abdimas_registrant: finalData },
             onSuccess: (res) => {
                 console.log("success");
                 reset();
-                toast.success("Pendaftaran Pengabdian Masyarakat Berhasil Dibuat");
+                toast.success(
+                    "Pendaftaran Pengabdian Masyarakat Berhasil Dibuat"
+                );
             },
             onError: (errors) => {
                 toast.error("Gagal Mendaftar Penelitian");
@@ -39,7 +41,6 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
             },
         });
     };
-    
 
     return (
         <body>
@@ -94,11 +95,15 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
                                 {abdimas.total_students_required} Mahasiswa{" "}
                                 <b>
                                     (Tersisa{" "}
-                                    {abdimas.total_students_required -
-                                        abdimas.abdimas_registrant.filter(
-                                            (abdimasRegistrant) =>
-                                                abdimasRegistrant.status == true
-                                        ).length}
+                                    {Math.max(
+                                        0,
+                                        abdimas.total_students_required -
+                                            abdimas.abdimas_registrant.filter(
+                                                (abdimasRegistrant) =>
+                                                    abdimasRegistrant.status ===
+                                                    true
+                                            ).length
+                                    )}
                                     )
                                 </b>
                             </p>
