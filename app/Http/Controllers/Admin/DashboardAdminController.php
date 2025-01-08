@@ -18,8 +18,8 @@ class DashboardAdminController extends Controller
 {
     public function index()
     {
-        $competitionRegistrantsCount = CompetitionRegistrant::count();
-        $competitionAchievementsCount = CompetitionAchievement::count();
+        $competitionRegistrantsCount = \App\Models\Competitions\MahasiswaRegistrant::count();
+        $competitionAchievementsCount = MahasiswaAchievement::count();
         $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
         $scholarshipRecipientsCount = ScholarshipRecipient::count();
 
@@ -92,6 +92,16 @@ class DashboardAdminController extends Controller
             })->count();
         }
 
+        $abdimasLolos = [];
+
+        foreach($prodi as $p){
+            $abdimasLolos[$p->nama_prodi] = MahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->where('accepted', true)->count();
+        }
+
         $arrayResearch = [];
 
         foreach($prodi as $p){
@@ -100,6 +110,16 @@ class DashboardAdminController extends Controller
                     $query->where('id', $p->id);
                 });
             })->count();
+        }
+
+        $researchLolos = [];
+
+        foreach($prodi as $p){
+            $researchLolos[$p->nama_prodi] = ResearchsMahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->where('accepted', true)->count();
         }
 
         return Inertia::render('Admin/DashboardAdmin', [
@@ -113,6 +133,8 @@ class DashboardAdminController extends Controller
             'rekapBeasiswa' => $arrayBeasiswa,
             'rekapAbdimas' => $arrayAbdimas,
             'rekapResearch' => $arrayResearch,
+            'rekapAbdimasLolos' => $abdimasLolos,
+            'rekapResearchLolos' => $researchLolos,
             'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
             'abdimasRecipientsCount' => $abdimasRecipientsCount,
             'researchRegistrantsCount' => $researchRegistrantsCount,

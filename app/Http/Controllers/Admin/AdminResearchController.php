@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mahasiswa;
+use App\Models\Prodi;
 use App\Models\Researchs\MahasiswaRegistrant;
 use App\Models\Researchs\ResearchRegistrant;
 use App\Models\Researchs\ResearchRecipient;
@@ -17,16 +19,21 @@ class AdminResearchController extends Controller
 
         $user = auth()->user();
 
-        $pendaftar = MahasiswaRegistrant::where('accepted', false)->with(['researchRegistrant.researchInformation', 'mahasiswa.prodi'])->get();
+        $pendaftar = MahasiswaRegistrant::with(['researchRegistrant.researchInformation', 'mahasiswa.prodi'])->get();
 
         $penerima = MahasiswaRegistrant::where('accepted', true)->with(['researchRegistrant.researchInformation', 'mahasiswa.prodi'])->get();
+
+        $prodi = Prodi::all();
+        $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
 
         return Inertia::render('Admin/Laporan/LaporanPenelitian', [
             'researchRegistrantsCount' => $researchRegistrantsCount,
             'researchRecipientsCount' => $researchRecipientsCount,
             'user' => $user,
             'pendaftar' => $pendaftar,
-            'penerima' => $penerima
+            'penerima' => $penerima,
+            'prodi' => $prodi,
+            'angkatan' => $angkatan
         ]);
     }
 }

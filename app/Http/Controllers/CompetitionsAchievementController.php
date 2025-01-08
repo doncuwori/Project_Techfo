@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\MahasiswaAchievement;
+use App\Models\Competitions\MahasiswaRegistrant;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,25 @@ class CompetitionsAchievementController extends Controller
             ]
         );
 
+        $registrant = CompetitionRegistrant::create(
+            [
+                'id_dosen' => $request->id_dosen,
+                'id_country' => $request->id_country,
+                'ormawa_delegation' => $request->ormawa_delegation,
+                'activity_name' => $request->activity_name,
+                'scope' => $request->scope,
+                'field' => $request->field,
+                'organizer' => $request->organizer,
+                'location' => $request->location,
+                'activity_date_start' => $request->activity_date_start,
+                'activity_date_end' => $request->activity_date_end,
+                'description' => $request->description,
+                'poster_url' => $event_photo_url,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
+
         MahasiswaAchievement::create([
             'id_competition_achievement' => $competition->id,
             'id_mahasiswa' => $idMahasiswa,
@@ -68,6 +88,28 @@ class CompetitionsAchievementController extends Controller
                 };
                 MahasiswaAchievement::create([
                     'id_competition_achievement' => $competition->id,
+                    'id_mahasiswa' => $memberData,
+                    'is_leader' => false
+                ]);
+            }
+        }
+
+        MahasiswaRegistrant::create([
+            'id_competition_registrant' => $registrant->id,
+            'id_mahasiswa' => $idMahasiswa,
+            'is_leader' => true
+        ]);
+
+        if ($request->is_group == true) {
+
+            $members = $request->members;
+
+            foreach ($members as $memberData) {
+                if($memberData == null) {
+                    continue;
+                };
+                MahasiswaRegistrant::create([
+                    'id_competition_registrant' => $registrant->id,
                     'id_mahasiswa' => $memberData,
                     'is_leader' => false
                 ]);

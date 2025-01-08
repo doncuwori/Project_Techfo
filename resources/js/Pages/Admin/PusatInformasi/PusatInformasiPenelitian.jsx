@@ -195,14 +195,18 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                             </div>
                             <p class="text-gray-500">Total 1 - 10 of 130</p>
                         </div> */}
-                        <div className="flex justify-end mt-4">
-                            <button
-                                onClick={handleSubmit}
-                                class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-                            >
-                                Simpan
-                            </button>
-                        </div>
+                        {research.closed ? (
+                            ""
+                        ) : (
+                            <div className="flex justify-end mt-4">
+                                <button
+                                    onClick={handleSubmit}
+                                    class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+                                >
+                                    Simpan
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

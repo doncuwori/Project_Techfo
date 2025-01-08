@@ -37,5 +37,12 @@ class ResearchInformation extends Model
         return $this->hasMany(ResearchRegistrant::class, 'id_research_information');
     }
 
-    protected $appends = ['leader'];
+    public function getClosedAttribute()
+    {
+        return MahasiswaRegistrant::whereHas('researchRegistrant', function ($query) {
+            $query->where('id_research_information', $this->id);
+        })->where('accepted', true)->count();
+    }
+
+    protected $appends = ['leader', 'closed'];
 }

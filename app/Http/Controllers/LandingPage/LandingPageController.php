@@ -92,6 +92,16 @@ class LandingPageController extends Controller
             })->count();
         }
 
+        $abdimasLolos = [];
+
+        foreach($prodi as $p){
+            $abdimasLolos[$p->nama_prodi] = MahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->where('accepted', true)->count();
+        }
+
         $arrayResearch = [];
 
         foreach($prodi as $p){
@@ -100,6 +110,16 @@ class LandingPageController extends Controller
                     $query->where('id', $p->id);
                 });
             })->count();
+        }
+
+        $researchLolos = [];
+
+        foreach($prodi as $p){
+            $researchLolos[$p->nama_prodi] = ResearchsMahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
+                $query->whereHas('prodi', function ($query) use ($p) {
+                    $query->where('id', $p->id);
+                });
+            })->where('accepted', true)->count();
         }
 
         return Inertia::render('LandingPage', [
@@ -113,6 +133,8 @@ class LandingPageController extends Controller
             'rekapBeasiswa' => $arrayBeasiswa,
             'rekapAbdimas' => $arrayAbdimas,
             'rekapResearch' => $arrayResearch,
+            'rekapAbdimasLolos' => $abdimasLolos,
+            'rekapResearchLolos' => $researchLolos,
             'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
             'abdimasRecipientsCount' => $abdimasRecipientsCount,
             'researchRegistrantsCount' => $researchRegistrantsCount,
