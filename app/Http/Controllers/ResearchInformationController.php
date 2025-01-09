@@ -133,7 +133,7 @@ class ResearchInformationController extends Controller
 
     public function show(string $postId) {
 
-        $postId = ResearchInformation::with('dosen')->where('id', $postId)->first();
+        $postId = ResearchInformation::with(['dosen', 'user'])->where('id', $postId)->first();
 
         return Inertia::render('User/Penelitian/DetailPenelitian', [
             'data' => $postId

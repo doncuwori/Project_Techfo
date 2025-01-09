@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarDays, CircleUserRound  } from "lucide-react";
+import { CalendarDays, CircleUserRound } from "lucide-react";
 import { formatDate } from "@/lib/helper";
 import { Link } from "@inertiajs/react";
 
@@ -30,11 +30,25 @@ const MainContent = ({ data }) => {
                     </div>
                 </div>
                 <div className="flex justify-start mb-4">
-                    <Link href={route("daftarPenelitian", data.id)}>
-                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                            Daftar
+                    {data.exist_enroll == true &&
+                    data.already_enroll == false ? (
+                        <button className="bg-green-200 text-white font-bold py-2 px-4 rounded">
+                            Masih ada registrasi menunggu
                         </button>
-                    </Link>
+                    ) : (data.exist_enroll == true &&
+                          data.already_enroll == true) ||
+                      (data.exist_enroll == false &&
+                          data.already_enroll == true) ? (
+                        <button className="bg-green-200 text-white font-bold py-2 px-4 rounded">
+                            Sudah Daftar
+                        </button>
+                    ) : (
+                        <Link href={route("daftarPenelitian", data.id)}>
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Daftar
+                            </button>
+                        </Link>
+                    )}
                     <Link href={route("faq")}>
                         <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded ml-4">
                             Buku Panduan

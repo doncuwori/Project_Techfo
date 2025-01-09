@@ -10,8 +10,8 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: previous?.name ?? "",
         organizer: previous?.organizer ?? "",
-        event_time_start: previous?.event_time_start ? new Date(previous.event_time_start).toISOString().split('T')[0] : "",
-        event_time_end: previous?.event_time_end ? new Date(previous.event_time_end).toISOString().split('T')[0] : "",
+        event_time_start: previous?.event_time_start ? new Date(Date.parse(previous.event_time_start) + 1000 * 60 * 60 * 24).toISOString().split('T')[0] : "",
+        event_time_end: previous?.event_time_end ? new Date(Date.parse(previous.event_time_end) + 1000 * 60 * 60 * 24).toISOString().split('T')[0] : "",
         description: previous?.description ?? "",
         poster_url: previous?.poster_url ?? "",
         activity_link: previous?.activity_link ?? "",

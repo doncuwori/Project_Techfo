@@ -127,7 +127,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Lomba 
     Route::get('/lomba', function () {
 
-        $data = CompetitionInformation::orderBy('created_at', 'desc')->get();
+        $data = CompetitionInformation::orderBy('created_at', 'desc')->with('user')->get();
 
         return Inertia::render('User/Lomba/Lomba', [
             'data' => $data
@@ -161,7 +161,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Beasiswa
     Route::get('/beasiswa', function () {
 
-        $data = ScholarshipInformation::orderBy('created_at', 'desc')->get();
+        $data = ScholarshipInformation::orderBy('created_at', 'desc')->with('user')->get();
 
         return Inertia::render('User/Beasiswa/Beasiswa', [
             'data' => $data

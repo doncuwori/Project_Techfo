@@ -18,7 +18,7 @@ const MainContent = ({ data }) => {
                         <div>
                             {/* CreatedBy */}
                             <p className="text-gray-700 font-bold">
-                                {data.organizer}
+                                {data.user.name}
                             </p>
                             <p className="text-gray-500">
                                 {formatDate(data.created_at)}
