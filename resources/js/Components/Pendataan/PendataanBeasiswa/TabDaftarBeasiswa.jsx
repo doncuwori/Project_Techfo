@@ -13,14 +13,14 @@ export const TabDaftarBeasiswa = ({ country }) => {
         event_date_start: "",
         event_date_end: "",
         description: "",
-        poster_url: "", 
+        poster_url: "",
     });
 
     const countryOption = country.map((val) => {
         return { value: val.id, label: val.country_name };
     });
 
-    const [posterKegiatan, setPosterKegiatan] = useState(null); 
+    const [posterKegiatan, setPosterKegiatan] = useState(null);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -58,7 +58,9 @@ export const TabDaftarBeasiswa = ({ country }) => {
         <form onSubmit={handleSubmit}>
             {/* Section Data Pendaftar Beasiswa */}
             <section className="mb-8">
-                <h2 className="text-xl font-bold mb-4">Data Pendaftar Beasiswa</h2>
+                <h2 className="text-xl font-bold mb-4">
+                    Data Pendaftar Beasiswa
+                </h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
                         Nama Beasiswa<span className="text-red-600">*</span>
@@ -68,11 +70,14 @@ export const TabDaftarBeasiswa = ({ country }) => {
                         onChange={(e) => setData("name", e.target.value)}
                         type="text"
                         className="w-full border rounded-lg px-4"
-                        placeholder="Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
+                        placeholder="Contoh: Beasiswa Cipta Pelita Indonesia 2024"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
+                    <label
+                        htmlFor="type"
+                        className="block text-gray-700 font-bold mb-2"
+                    >
                         Jenis Beasiswa<span className="text-red-600">*</span>
                     </label>
                     <select
@@ -90,7 +95,9 @@ export const TabDaftarBeasiswa = ({ country }) => {
                     </select>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">Penyelenggara<span className="text-red-600">*</span></label>
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Penyelenggara<span className="text-red-600">*</span>
+                    </label>
                     <input
                         value={data.organizer}
                         onChange={(e) => setData("organizer", e.target.value)}
@@ -100,8 +107,12 @@ export const TabDaftarBeasiswa = ({ country }) => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="host_country" className="block text-gray-700 font-bold mb-2">
-                        Negara Penyelenggara<span className="text-red-600">*</span>
+                    <label
+                        htmlFor="host_country"
+                        className="block text-gray-700 font-bold mb-2"
+                    >
+                        Negara Penyelenggara
+                        <span className="text-red-600">*</span>
                     </label>
                     <SearchableSelect
                         onChange={handleCountry}
@@ -120,39 +131,55 @@ export const TabDaftarBeasiswa = ({ country }) => {
                     </select> */}
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="event_date_start" className="block text-gray-700 font-bold mb-2">
-                        Waktu Pelaksanaan Dimulai<span className="text-red-600">*</span>
+                    <label
+                        htmlFor="event_date_start"
+                        className="block text-gray-700 font-bold mb-2"
+                    >
+                        Waktu Pelaksanaan Dimulai
+                        <span className="text-red-600">*</span>
                     </label>
                     <input
                         type="date"
                         value={data.event_date_start}
-                        onChange={(e) => setData("event_date_start", e.target.value)}
+                        onChange={(e) =>
+                            setData("event_date_start", e.target.value)
+                        }
                         id="event_date_start"
                         className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="event_date_end" className="block text-gray-700 font-bold mb-2">
-                        Waktu Pelaksanaan Berakhir<span className="text-red-600">*</span>
+                    <label
+                        htmlFor="event_date_end"
+                        className="block text-gray-700 font-bold mb-2"
+                    >
+                        Waktu Pelaksanaan Berakhir
+                        <span className="text-red-600">*</span>
                     </label>
                     <input
                         type="date"
                         value={data.event_date_end}
-                        onChange={(e) => setData("event_date_end", e.target.value)}
+                        onChange={(e) =>
+                            setData("event_date_end", e.target.value)
+                        }
                         id="event_date_end"
                         className="w-full border rounded-lg px-4"
                     />
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="description" className="block text-gray-700 font-bold mb-2">
-                        Deskripsi Kegiatan<span className="text-red-600">*</span>
+                    <label
+                        htmlFor="description"
+                        className="block text-gray-700 font-bold mb-2"
+                    >
+                        Deskripsi Kegiatan
+                        <span className="text-red-600">*</span>
                     </label>
                     <textarea
                         id="description"
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
                         className="w-full border rounded-lg px-4"
-                        placeholder="Write text here..."
+                        placeholder="Tulis teks disini..."
                     ></textarea>
                 </div>
             </section>
@@ -161,7 +188,9 @@ export const TabDaftarBeasiswa = ({ country }) => {
             <section className="mb-8">
                 <h2 className="text-xl font-bold mb-4">Dokumen Pendukung</h2>
                 <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">Poster Kegiatan</label>
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Poster Kegiatan
+                    </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
                         <p className="text-gray-500">Max. file size: 10MB</p>
@@ -198,8 +227,14 @@ export const TabDaftarBeasiswa = ({ country }) => {
                         Ketentuan file Poster Kegiatan yang diunggah:
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
-                        <li>Poster beasiswa yang diikuti, menunjukkan nama beasiswa;</li>
-                        <li>Tipe file yang dapat diunggah antara lain: .jpg, .jpeg, .png;</li>
+                        <li>
+                            Poster beasiswa yang diikuti, menunjukkan nama
+                            beasiswa.
+                        </li>
+                        <li>
+                            Berkas yang diunggah dalam format: .jpg, .jpeg,
+                            .png.
+                        </li>
                         <li>Ukuran file maksimal 1MB.</li>
                     </ul>
                 </div>

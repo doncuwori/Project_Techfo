@@ -1,9 +1,10 @@
+import React, { useState } from "react";
+import { Search } from "lucide-react";
+import { getFiveYears } from "@/lib/helper";
+import NavbarAdmin from "@/Components/NavbarAdmin";
 import CardStatis from "@/Components/Laporan/Abdimas/CardStatis";
 import TabelTabPendaftar from "@/Components/Laporan/Abdimas/TabelTabPendaftar";
 import TabelTabPenerima from "@/Components/Laporan/Abdimas/TabelTabPenerima";
-import NavbarAdmin from "@/Components/NavbarAdmin";
-import { getFiveYears } from "@/lib/helper";
-import React, { useState } from "react";
 
 const LaporanAbdimas = ({
     abdimasRegistrantsCount,
@@ -12,41 +13,41 @@ const LaporanAbdimas = ({
     pendaftar,
     penerima,
     prodi,
-    angkatan
+    angkatan,
 }) => {
     const [tabValue, settabValue] = useState("Penerima");
 
     const [exportPendaftar, setExportPendaftar] = useState(false);
-        const [exportPenerima, setExportPenerima] = useState(false);
-    
-        const [filters, setFilters] = useState({
-            prodi: "",
-            angkatan: "",
-            nama: "",
-            tahun: "",
-        });
-    
-        const handleFilterChange = (event) => {
-            const { name, value } = event.target;
-            setFilters((prevFilters) => ({
-                ...prevFilters,
-                [name]: value,
-            }));
-        };
-    
-        const handleExport = (val) => {
-            if (val === "Penerima") {
-                setExportPenerima(true);
-                setTimeout(() => {
-                    setExportPenerima(false);
-                }, 100);
-            } else {
-                setExportPendaftar(true);
-                setTimeout(() => {
-                    setExportPendaftar(false);
-                }, 100);
-            }
+    const [exportPenerima, setExportPenerima] = useState(false);
+
+    const [filters, setFilters] = useState({
+        prodi: "",
+        angkatan: "",
+        nama: "",
+        tahun: "",
+    });
+
+    const handleFilterChange = (event) => {
+        const { name, value } = event.target;
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            [name]: value,
+        }));
+    };
+
+    const handleExport = (val) => {
+        if (val === "Penerima") {
+            setExportPenerima(true);
+            setTimeout(() => {
+                setExportPenerima(false);
+            }, 100);
+        } else {
+            setExportPendaftar(true);
+            setTimeout(() => {
+                setExportPendaftar(false);
+            }, 100);
         }
+    };
 
     return (
         <body>
@@ -60,7 +61,6 @@ const LaporanAbdimas = ({
                         abdimasRegistrantsCount={abdimasRegistrantsCount}
                         abdimasRecipientsCount={abdimasRecipientsCount}
                     />
-
                     <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
                         <div class="flex items-center mb-4">
                             <button
@@ -73,7 +73,7 @@ const LaporanAbdimas = ({
                                         : "bg-gray-200 text-gray-700"
                                 } py-1.5 px-2 w-[140px] rounded-l-md duration-300`}
                             >
-                                Penerima
+                                Lolos
                             </button>
                             <button
                                 onClick={() => {
@@ -98,20 +98,7 @@ const LaporanAbdimas = ({
                                         placeholder="Search"
                                         class="pl-10 py-2 rounded-lg border w-full border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                     />
-                                    <svg
-                                        class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                        ></path>
-                                    </svg>
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                                 </div>
                             </div>
                             <div class="flex space-x-2">
@@ -170,9 +157,17 @@ const LaporanAbdimas = ({
                         </div>
                         <div class="overflow-x-auto">
                             {tabValue == "Penerima" ? (
-                                <TabelTabPenerima data={penerima} filters={filters} refs={exportPenerima} />
+                                <TabelTabPenerima
+                                    data={penerima}
+                                    filters={filters}
+                                    refs={exportPenerima}
+                                />
                             ) : (
-                                <TabelTabPendaftar data={pendaftar} filters={filters} refs={exportPendaftar} />
+                                <TabelTabPendaftar
+                                    data={pendaftar}
+                                    filters={filters}
+                                    refs={exportPendaftar}
+                                />
                             )}
                         </div>
                         <div class="flex justify-between items-center mt-4">

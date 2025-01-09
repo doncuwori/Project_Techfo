@@ -15,8 +15,8 @@ use Inertia\Inertia;
 class AdminCompetitionController extends Controller
 {
     public function index(){
-        $competitionRegistrantsCount = CompetitionRegistrant::count();
-        $competitionAchievementsCount = CompetitionAchievement::count();
+        $competitionRegistrantsCount = MahasiswaRegistrant::count();
+        $competitionAchievementsCount = MahasiswaAchievement::count();
         $totalMahasiswa = Mahasiswa::count();
 
         $user = auth()->user();

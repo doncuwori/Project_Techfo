@@ -47,6 +47,7 @@ const TabelTabPenerima = ({ data, filters, refs }) => {
             onDownload();
         }
     }, [filters, refs]);
+    
     return (
         <div>
             <table ref={tableRef} class="min-w-full divide-y divide-gray-200 ">

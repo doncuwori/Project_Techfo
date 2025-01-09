@@ -55,7 +55,7 @@ const MainContent = ({ data }) => {
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         height: "300px",
-                        borderRadius: "0.375rem", // Sama dengan rounded-md
+                        borderRadius: "0.375rem",
                     }}
                 ></div>
                 <div className="mb-4">

@@ -1,5 +1,5 @@
-import { useForm } from "@inertiajs/react";
 import React from "react";
+import { useForm } from "@inertiajs/react";
 
 const UploadSuratTugas = ({ research }) => {
     const { data, setData, post, processing, errors, reset } = useForm({

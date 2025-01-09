@@ -1,6 +1,6 @@
-import NavbarAdmin from "@/Components/NavbarAdmin";
 import React from "react";
 import { Link } from "@inertiajs/react";
+import NavbarAdmin from "@/Components/NavbarAdmin";
 import TabelPusatInformasi from "@/Components/PusatInformasi/TabelPusatInformasi";
 
 const PusatLomba = ({ user, data }) => {
@@ -11,7 +11,6 @@ const PusatLomba = ({ user, data }) => {
             <main className="pl-72 w-full z-0">
                 <div className="container px-4 py-8 w-full">
                     <div className="bg-white p-6 mt-14 rounded shadow-lg">
-                        {/* Header dan Search */}
                         <div className="flex justify-between items-center mb-4">
                             <div></div>
                             <div className="flex space-x-2">
@@ -24,7 +23,6 @@ const PusatLomba = ({ user, data }) => {
                             </div>
                         </div>
 
-                        {/* Tabel */}
                         <TabelPusatInformasi title={'lomba'} data={data} />
 
                         {/* Pagination */}

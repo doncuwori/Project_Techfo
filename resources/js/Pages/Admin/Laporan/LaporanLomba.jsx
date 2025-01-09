@@ -1,13 +1,6 @@
-import React, { useRef, useState } from "react";
-import "react-circular-progressbar/dist/styles.css";
-import NavbarAdmin from "@/Components/NavbarAdmin";
-import {
-    formatDate,
-    formatDatetimeToIndonesian,
-    getFiveYears,
-} from "@/lib/helper";
-import CardStatis from "@/Components/Laporan/Lomba/CardStatis";
-import { Bar } from "react-chartjs-2";
+import React, { useState } from "react";
+import { Search } from "lucide-react";
+import { getFiveYears } from "@/lib/helper";
 import {
     Chart as ChartJS,
     ArcElement,
@@ -20,9 +13,11 @@ import {
     LineElement,
     Title,
 } from "chart.js";
+import "react-circular-progressbar/dist/styles.css";
+import NavbarAdmin from "@/Components/NavbarAdmin";
+import CardStatis from "@/Components/Laporan/Lomba/CardStatis";
 import TabelTabPartisipasi from "@/Components/Laporan/Lomba/TabelTabPartisipasi";
 import TabelTabPrestasi from "@/Components/Laporan/Lomba/TabelTabPrestasi";
-import { DownloadTableExcel } from "react-export-table-to-excel";
 
 ChartJS.register(
     ArcElement,
@@ -48,7 +43,6 @@ const LaporanLomba = ({
     prodi,
     angkatan,
 }) => {
-
     const [tabValue, settabValue] = useState("Pemenang");
     const [exportPendaftar, setExportPendaftar] = useState(false);
     const [exportPemenang, setExportPemenang] = useState(false);
@@ -80,7 +74,7 @@ const LaporanLomba = ({
                 setExportPendaftar(false);
             }, 100);
         }
-    }
+    };
 
     return (
         <body>
@@ -147,7 +141,7 @@ const LaporanLomba = ({
                                         : "bg-gray-200 text-gray-700"
                                 } py-1.5 px-2 w-[140px] rounded-r-md duration-300`}
                             >
-                                Pendaftar
+                                Partisipan
                             </button>
                         </div>
                         <div class="flex justify-between items-center relative w-full">
@@ -160,20 +154,7 @@ const LaporanLomba = ({
                                         placeholder="Search"
                                         class="pl-10 py-2 rounded-lg border w-full border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                     />
-                                    <svg
-                                        class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                                        ></path>
-                                    </svg>
+                                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                                 </div>
                             </div>
                             <div class="flex space-x-2">
@@ -222,7 +203,10 @@ const LaporanLomba = ({
                                         );
                                     })}
                                 </select>
-                                <button onClick={(e) => handleExport(tabValue)} className="bg-green-500 text-white px-4 py-2 rounded-md font-semibold">
+                                <button
+                                    onClick={(e) => handleExport(tabValue)}
+                                    className="bg-green-500 text-white px-4 py-2 rounded-md font-semibold"
+                                >
                                     Unduh
                                 </button>
                             </div>
@@ -236,8 +220,8 @@ const LaporanLomba = ({
                                 />
                             ) : (
                                 <TabelTabPrestasi
-                                    filters={filters}
                                     dataPemenang={dataPemenang}
+                                    filters={filters}
                                     refs={exportPemenang}
                                 />
                             )}

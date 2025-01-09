@@ -13,7 +13,7 @@ const CardStatis = ({
                         <h2 class="text-xl font-semibold text-black mb-4">
                             Penerima Beasiswa
                         </h2>
-                        <div class="text-4xl font-bold text-black">{`${scholarshipRegistrantsCount}`}</div>
+                        <div class="text-4xl font-bold text-black">{`${scholarshipRecipientsCount}`}</div>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@ const CardStatis = ({
                         <h2 class="text-xl font-semibold text-black mb-4">
                             Pendaftar Beasiswa
                         </h2>
-                        <div class="text-4xl font-bold text-black">{`${scholarshipRecipientsCount}`}</div>
+                        <div class="text-4xl font-bold text-black">{`${scholarshipRegistrantsCount}`}</div>
                     </div>
                 </div>
             </div>

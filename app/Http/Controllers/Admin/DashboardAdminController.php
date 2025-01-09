@@ -127,6 +127,10 @@ class DashboardAdminController extends Controller
             'competitionAchievementsCount' => $competitionAchievementsCount,
             'scholarshipRegistrantsCount' => $scholarshipRegistrantsCount,
             'scholarshipRecipientsCount' => $scholarshipRecipientsCount,
+            'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
+            'abdimasRecipientsCount' => $abdimasRecipientsCount,
+            'researchRegistrantsCount' => $researchRegistrantsCount,
+            'researchRecipientsCount' => $researchRecipientsCount,
             'user' => $user,
             'rekapJuara' => $arrayJuara,
             'rekapLomba' => $arrayLomba,
@@ -135,10 +139,6 @@ class DashboardAdminController extends Controller
             'rekapResearch' => $arrayResearch,
             'rekapAbdimasLolos' => $abdimasLolos,
             'rekapResearchLolos' => $researchLolos,
-            'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
-            'abdimasRecipientsCount' => $abdimasRecipientsCount,
-            'researchRegistrantsCount' => $researchRegistrantsCount,
-            'researchRecipientsCount' => $researchRecipientsCount
         ]);
 
     }

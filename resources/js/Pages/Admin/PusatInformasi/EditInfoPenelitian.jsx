@@ -1,9 +1,7 @@
-import Footer from "@/Components/Footer";
-import Navbar from "@/Components/Navbar";
-import NavbarAdmin from "@/Components/NavbarAdmin";
-import FormPenelitianAbdimas from "@/Components/PusatInformasi/TambahInformasi/FormPenelitianAbdimas";
 import React from "react";
 import { Toaster } from "react-hot-toast";
+import NavbarAdmin from "@/Components/NavbarAdmin";
+import FormPenelitianAbdimas from "@/Components/PusatInformasi/TambahInformasi/FormPenelitianAbdimas";
 
 const EditInfoPenelitian = ({ user, dosen, data }) => {
     return (

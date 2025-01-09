@@ -1,16 +1,16 @@
 import React from "react";
+import { Toaster } from "react-hot-toast";
 import Navbar from "@/Components/Navbar";
 import RiwayatLomba from "@/Components/Profile/RiwayatLomba";
 import CatatanKeaktifan from "@/Components/Profile/CatatanKeaktifan";
 import ProfileSection from "@/Components/Profile/ProfileSection";
-import Footer from "@/Components/Footer";
-import ScrollUpButton from "@/Components/ScrollUpButton";
-import { Toaster } from "react-hot-toast";
 import RiwayatPrestasiLomba from "@/Components/Profile/RiwayatPrestasiLomba";
 import RiwayatBeasiswa from "@/Components/Profile/RiwayatBeasiswa";
 import RiwayatPenerimaBeasiswa from "@/Components/Profile/RiwayatPenerimaBeasiswa";
 import RiwayatAbdimas from "@/Components/Profile/RiwayatAbdimas";
 import RiwayatPenelitian from "@/Components/Profile/RiwayatPenelitian";
+import Footer from "@/Components/Footer";
+import ScrollUpButton from "@/Components/ScrollUpButton";
 
 const Profile = ({
     competitionRegistrantsCount,
@@ -30,11 +30,9 @@ const Profile = ({
     diterimaAbdimas,
     diterimaPenelitian,
     abdimas,
-    penelitian
+    penelitian,
 }) => {
-    console.log(
-        competitionRegistrantsCount
-    );
+    console.log(competitionRegistrantsCount);
     return (
         <div>
             <Navbar />

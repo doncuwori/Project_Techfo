@@ -1,9 +1,7 @@
-import Footer from "@/Components/Footer";
-import Navbar from "@/Components/Navbar";
-import NavbarAdmin from "@/Components/NavbarAdmin";
-import FormPenelitianAbdimas from "@/Components/PusatInformasi/TambahInformasi/FormPenelitianAbdimas";
 import React from "react";
 import { Toaster } from "react-hot-toast";
+import NavbarAdmin from "@/Components/NavbarAdmin";
+import FormPenelitianAbdimas from "@/Components/PusatInformasi/TambahInformasi/FormPenelitianAbdimas";
 
 const EditInfoAbdimas = ({ user, dosen, data }) => {
     return (
@@ -15,13 +13,16 @@ const EditInfoAbdimas = ({ user, dosen, data }) => {
                         <h1 className="text-center text-2xl font-bold mb-6">
                             Edit Informasi Pengabdian Masyarakat
                         </h1>
-                        <FormPenelitianAbdimas edit={true} type="abdimas" previous={data} dosen={dosen} />
+                        <FormPenelitianAbdimas
+                            edit={true}
+                            type="abdimas"
+                            previous={data}
+                            dosen={dosen}
+                        />
                     </div>
                 </main>
             </div>
-            <Toaster
-                position="top-right"
-            />
+            <Toaster position="top-right" />
         </div>
     );
 };

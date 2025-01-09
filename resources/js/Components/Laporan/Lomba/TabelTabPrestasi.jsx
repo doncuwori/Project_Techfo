@@ -1,5 +1,5 @@
-import { formatDate } from "@/lib/helper";
 import React, { useEffect, useRef, useState } from "react";
+import { formatDate } from "@/lib/helper";
 import { useDownloadExcel } from "react-export-table-to-excel";
 
 const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
@@ -50,7 +50,7 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
 
     return (
         <div>
-            <table ref={tableRef} class="min-w-full divide-y divide-gray-200 ">
+            <table ref={tableRef} class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">

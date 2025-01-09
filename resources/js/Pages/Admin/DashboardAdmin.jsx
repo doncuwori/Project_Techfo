@@ -1,14 +1,18 @@
 import React from "react";
-import LaporanKeaktifan from "@/Components/LandingPage/LaporanKeaktifan";
-import NavbarAdmin from "@/Components/NavbarAdmin";
 import { House } from "lucide-react";
 import { Link } from "@inertiajs/react";
+import NavbarAdmin from "@/Components/NavbarAdmin";
+import LaporanKeaktifan from "@/Components/LandingPage/LaporanKeaktifan";
 
 const DashboardAdmin = ({
     competitionRegistrantsCount,
     competitionAchievementsCount,
     scholarshipRegistrantsCount,
     scholarshipRecipientsCount,
+    abdimasRegistrantsCount,
+    abdimasRecipientsCount,
+    researchRegistrantsCount,
+    researchRecipientsCount,
     user,
     rekapJuara,
     rekapLomba,
@@ -17,26 +21,18 @@ const DashboardAdmin = ({
     rekapResearch,
     rekapAbdimasLolos,
     rekapResearchLolos,
-    abdimasRegistrantsCount,
-    abdimasRecipientsCount,
-    researchRegistrantsCount,
-    researchRecipientsCount
 }) => {
-
     return (
         <div>
-            <NavbarAdmin user={user}/>
+            <NavbarAdmin user={user} />
             <main className="pl-72 w-full z-0">
                 <div className="container px-4 py-8 w-full">
                     <div className="min-h-20 px-4 mt-14 flex flex-col justify-start items-start gap-3">
-                        {/* Title Section */}
                         <div className="flex justify-center items-center">
                             <h1 className="text-[#2d3036] text-2xl font-semibold font-inter leading-loose">
                                 Dashboard
                             </h1>
                         </div>
-
-                        {/* Subheader Section */}
                         <div className="w-full rounded-md flex justify-start items-center gap-2">
                             <House className="w-5 h-5" />
                             <div className="flex justify-center items-center">

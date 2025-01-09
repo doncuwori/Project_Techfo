@@ -1,8 +1,7 @@
-import Footer from "@/Components/Footer";
-import NavbarAdmin from "@/Components/NavbarAdmin";
-import { FormLombaBeasiswa } from "@/Components/PusatInformasi/TambahInformasi/FormLombaBeasiswa";
 import React from "react";
 import { Toaster } from "react-hot-toast";
+import NavbarAdmin from "@/Components/NavbarAdmin";
+import { FormLombaBeasiswa } from "@/Components/PusatInformasi/TambahInformasi/FormLombaBeasiswa";
 
 const EditInfoLomba = ({ user, data }) => {
     return (

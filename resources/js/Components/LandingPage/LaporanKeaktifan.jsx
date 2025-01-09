@@ -339,7 +339,7 @@ const LaporanKeaktifan = ({
 
                         <div className="w-full">
                             <h2 className="text-xl font-semibold text-left mb-4">
-                                Penerima Beasiswa
+                                Mahasiswa Penerima Beasiswa
                             </h2>
                             <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
                                 <div className="w-full h-full flex justify-center items-center">

@@ -1,6 +1,6 @@
-import NavbarAdmin from "@/Components/NavbarAdmin";
 import React from "react";
 import { Link } from "@inertiajs/react";
+import NavbarAdmin from "@/Components/NavbarAdmin";
 import TabelPusatInformasi from "@/Components/PusatInformasi/TabelPusatInformasi";
 
 const PusatBeasiswa = ({ user, data }) => {

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import Navbar from "@/Components/Navbar";
 import { BiodataUser } from "@/components/BiodataUser";
 import { TabDaftarBeasiswa } from "@/Components/Pendataan/PendataanBeasiswa/TabDaftarBeasiswa";
 import { TabLolosBeasiswa } from "@/Components/Pendataan/PendataanBeasiswa/TabLolosBeasiswa";
 import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
-import { Toaster } from "react-hot-toast";
 
 const PendataanBeasiswa = ({ country }) => {
     const [tabValue, settabValue] = useState("Daftar");
@@ -45,9 +45,9 @@ const PendataanBeasiswa = ({ country }) => {
                     </div>
                     <BiodataUser />
                     {tabValue === "Daftar" ? (
-                        <TabDaftarBeasiswa country={country}/>
+                        <TabDaftarBeasiswa country={country} />
                     ) : (
-                        <TabLolosBeasiswa country={country}/>
+                        <TabLolosBeasiswa country={country} />
                     )}
                 </div>
             </main>

@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "@/Components/Navbar";
-import Sidebar from "@/Components/DetailAbdimas/Sidebar";
 import MainContent from "@/Components/DetailAbdimas/MainContent";
 
 const DetailAbdimas = ({ data }) => {

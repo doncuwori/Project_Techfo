@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import { Toaster } from "react-hot-toast";
 import Navbar from "@/Components/Navbar";
 import { BiodataUser } from "@/components/BiodataUser";
-import { TabPrestasiLomba } from "@/Components/Pendataan/PendataanLomba/TabPrestasiLomba";
-import { TabPartisipasiLomba } from "@/Components/Pendataan/PendataanLomba/TabPartisipasiLomba";
 import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
-import { Toaster } from "react-hot-toast";
 import { TabPrestasiLombaFill } from "@/Components/Pendataan/PendataanLomba/TabPrestasiLombaFill";
 
 const PendataanLombaFill = ({ data }) => {
-
     return (
         <div className="min-h-screen flex flex-col items-center">
             <Navbar />
@@ -19,7 +16,7 @@ const PendataanLombaFill = ({ data }) => {
                         Pendataan Prestasi Lomba
                     </h1>
                     <BiodataUser />
-                    <TabPrestasiLombaFill dataFill={data}/>
+                    <TabPrestasiLombaFill dataFill={data} />
                 </div>
             </main>
             <Footer />

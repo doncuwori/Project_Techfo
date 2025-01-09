@@ -43,7 +43,6 @@ const NavbarAdmin = () => {
         setIsChevronPusatInformasiRotated(!isChevronPusatInformasiRotated);
     };
 
-    // Use useEffect to keep dropdown open if the current route is part of that dropdown
     useEffect(() => {
         const laporanRoutes = [
             "laporanLomba",
@@ -196,6 +195,7 @@ const NavbarAdmin = () => {
                         </Link>
                     </li>
 
+                    {/* Laporan Menu */}
                     {user.role === "admin" || wadek ? (
                         <li key="laporan" className="mb-4">
                             <button
@@ -281,8 +281,6 @@ const NavbarAdmin = () => {
                     ) : (
                         ""
                     )}
-
-                    {/* Laporan Menu */}
 
                     {/* Pusat Informasi Menu */}
                     <li key="pusatInformasi" className="mb-4">

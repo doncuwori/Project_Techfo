@@ -18,27 +18,27 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        $competitionRegistrantsCount = CompetitionRegistrant::count();
-        $competitionAchievementsCount = CompetitionAchievement::count();
+        $competitionRegistrantsCount = \App\Models\Competitions\MahasiswaRegistrant::count();
+        $competitionAchievementsCount = MahasiswaAchievement::count();
         $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
         $scholarshipRecipientsCount = ScholarshipRecipient::count();
 
-        $abdimasRegistrantsCount = MahasiswaRegistrant::where('accepted', false)->count();
+        $abdimasRegistrantsCount = MahasiswaRegistrant::count();
         $abdimasRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
 
-        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::where('accepted', false)->count();
+        $researchRegistrantsCount = ResearchsMahasiswaRegistrant::count();
         $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
 
 
         $user = auth()->user();
 
         $kategoriJuara = [
-            'Juara Harapan I',
-            'Juara Harapan II',
-            'Juara Harapan III',
             'Juara I',
             'Juara II',
             'Juara III',
+            'Juara Harapan I',
+            'Juara Harapan II',
+            'Juara Harapan III',
             'Medali Emas',
             'Medali Perak',
             'Medali Perunggu',
@@ -50,8 +50,8 @@ class LandingPageController extends Controller
 
         $arrayJuara = [];
 
-        foreach($kategoriJuara as $k){
-            foreach($prodi as $p){
+        foreach ($kategoriJuara as $k) {
+            foreach ($prodi as $p) {
                 $arrayJuara[$k][$p->nama_prodi] = MahasiswaAchievement::whereHas('mahasiswa', function ($query) use ($p) {
                     $query->whereHas('prodi', function ($query) use ($p) {
                         $query->where('id', $p->id);
@@ -64,7 +64,7 @@ class LandingPageController extends Controller
 
         $arrayLomba = [];
 
-        foreach($prodi as $p){
+        foreach ($prodi as $p) {
             $arrayLomba[$p->nama_prodi] = MahasiswaAchievement::whereHas('mahasiswa', function ($query) use ($p) {
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
@@ -74,7 +74,7 @@ class LandingPageController extends Controller
 
         $arrayBeasiswa = [];
 
-        foreach($prodi as $p){
+        foreach ($prodi as $p) {
             $arrayBeasiswa[$p->nama_prodi] = MahasiswaRecipient::whereHas('mahasiswa', function ($query) use ($p) {
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
@@ -84,7 +84,7 @@ class LandingPageController extends Controller
 
         $arrayAbdimas = [];
 
-        foreach($prodi as $p){
+        foreach ($prodi as $p) {
             $arrayAbdimas[$p->nama_prodi] = MahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
@@ -94,7 +94,7 @@ class LandingPageController extends Controller
 
         $abdimasLolos = [];
 
-        foreach($prodi as $p){
+        foreach ($prodi as $p) {
             $abdimasLolos[$p->nama_prodi] = MahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
@@ -104,7 +104,7 @@ class LandingPageController extends Controller
 
         $arrayResearch = [];
 
-        foreach($prodi as $p){
+        foreach ($prodi as $p) {
             $arrayResearch[$p->nama_prodi] = ResearchsMahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
@@ -114,7 +114,7 @@ class LandingPageController extends Controller
 
         $researchLolos = [];
 
-        foreach($prodi as $p){
+        foreach ($prodi as $p) {
             $researchLolos[$p->nama_prodi] = ResearchsMahasiswaRegistrant::whereHas('mahasiswa', function ($query) use ($p) {
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
@@ -127,6 +127,10 @@ class LandingPageController extends Controller
             'competitionAchievementsCount' => $competitionAchievementsCount,
             'scholarshipRegistrantsCount' => $scholarshipRegistrantsCount,
             'scholarshipRecipientsCount' => $scholarshipRecipientsCount,
+            'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
+            'abdimasRecipientsCount' => $abdimasRecipientsCount,
+            'researchRegistrantsCount' => $researchRegistrantsCount,
+            'researchRecipientsCount' => $researchRecipientsCount,
             'user' => $user,
             'rekapJuara' => $arrayJuara,
             'rekapLomba' => $arrayLomba,
@@ -135,11 +139,6 @@ class LandingPageController extends Controller
             'rekapResearch' => $arrayResearch,
             'rekapAbdimasLolos' => $abdimasLolos,
             'rekapResearchLolos' => $researchLolos,
-            'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
-            'abdimasRecipientsCount' => $abdimasRecipientsCount,
-            'researchRegistrantsCount' => $researchRegistrantsCount,
-            'researchRecipientsCount' => $researchRecipientsCount
         ]);
-
     }
 }

@@ -3,12 +3,11 @@ import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 import { useForm, usePage } from "@inertiajs/react";
 
 const FormDaftarPenelitian = ({ information }) => {
-
-    const {auth} = usePage().props
+    const { auth } = usePage().props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         id_research_information: information.id,
-        telephone: "", 
+        telephone: "",
         khs: "",
         cv: "",
         portofolio: "",
@@ -57,6 +56,17 @@ const FormDaftarPenelitian = ({ information }) => {
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
+                            Nama Penelitian
+                        </label>
+                        <input
+                            type="text"
+                            className="w-full border rounded-lg p-2 bg-gray-100"
+                            value={information.name}
+                            disabled
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-2">
                             Alamat E-mail<span className="text-red-600">*</span>
                         </label>
                         <input
@@ -70,13 +80,16 @@ const FormDaftarPenelitian = ({ information }) => {
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Nomor Telepon (Whatsapp)<span className="text-red-600">*</span>
+                            Nomor Telepon (Whatsapp)
+                            <span className="text-red-600">*</span>
                         </label>
                         <input
                             type="number"
                             className="w-full border rounded-lg p-2"
                             placeholder="Masukkan Nomor Telepon Anda"
-                            onChange={(e) => setData("telephone", e.target.value)}
+                            onChange={(e) =>
+                                setData("telephone", e.target.value)
+                            }
                         />
                     </div>
                     <div className="mb-4">
@@ -132,16 +145,19 @@ const FormDaftarPenelitian = ({ information }) => {
                             type="file"
                             className="w-full border rounded-lg p-2"
                             onChange={handleFotoChange}
-                            accept=".jpg, .png"
+                            accept=".jpg,.jpeg,.png"
                         />
                         <p className="text-gray-500 text-sm mt-2">
-                            Tipe file yang dapat diunggah adalah .jpg dan .png, dengan
-                            ukuran file maksimal 1MB.
+                            Tipe file yang dapat diunggah adalah .jpg, .jpeg, dan .png,
+                            dengan ukuran file maksimal 1MB.
                         </p>
                     </div>
                     <PernyataanLegalitas />
                     <div className="flex justify-end w-full">
-                        <button type="submit" className="mt-2 bg-orange-500 text-white py-1 px-4 rounded-lg">
+                        <button
+                            type="submit"
+                            className="mt-2 bg-orange-500 text-white py-1 px-4 rounded-lg"
+                        >
                             Submit
                         </button>
                     </div>

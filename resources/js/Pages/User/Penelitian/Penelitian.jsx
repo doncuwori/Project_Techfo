@@ -27,7 +27,7 @@ const Penelitian = ({ data }) => {
                     className="w-full max-h-[500px] rounded-md"
                 />
             </div>
-            <CardPenelitian data={data}/>
+            <CardPenelitian data={data} />
             <Footer />
             <ScrollUpButton />
         </div>

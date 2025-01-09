@@ -14,7 +14,7 @@ use Inertia\Inertia;
 class AdminResearchController extends Controller
 {
     public function index(){
-        $researchRegistrantsCount = MahasiswaRegistrant::where('accepted', false)->count();
+        $researchRegistrantsCount = ResearchRegistrant::count();
         $researchRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
 
         $user = auth()->user();

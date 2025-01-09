@@ -83,7 +83,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                         type="text"
                         id="name"
                         className="w-full border rounded-lg px-4"
-                        placeholder="Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
+                        placeholder="Contoh: Beasiswa Cipta Pelita Indonesia 2024"
                     />
                 </div>
                 <div className="mb-4">
@@ -158,7 +158,9 @@ export const TabLolosBeasiswa = ({ country }) => {
                     </label>
                     <input
                         type="date"
-                        onChange={(e) => setData("event_date_start", e.target.value)}
+                        onChange={(e) =>
+                            setData("event_date_start", e.target.value)
+                        }
                         value={data.event_date_start}
                         id="event_date_start"
                         className="w-full border rounded-lg px-4"
@@ -175,7 +177,9 @@ export const TabLolosBeasiswa = ({ country }) => {
                     </label>
                     <input
                         type="date"
-                        onChange={(e) => setData("event_date_end", e.target.value)}
+                        onChange={(e) =>
+                            setData("event_date_end", e.target.value)
+                        }
                         value={data.event_date_end}
                         id="event_date_end"
                         className="w-full border rounded-lg px-4"
@@ -195,15 +199,13 @@ export const TabLolosBeasiswa = ({ country }) => {
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
                         className="w-full border rounded-lg px-4"
-                        placeholder="Write text here..."
+                        placeholder="Tulis teks disini..."
                     ></textarea>
                 </div>
             </section>
 
             <section className="mb-8">
-                <h2 className="text-xl font-bold mb-4">
-                    Bukti Dokumen
-                </h2>
+                <h2 className="text-xl font-bold mb-4">Bukti Dokumen</h2>
                 {/* Scan Bukti */}
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
@@ -250,7 +252,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                             beasiswa.
                         </li>
                         <li>
-                            Tipe file yang dapat diunggah antara lain: .jpg,
+                            Berkas yang diunggah dalam format: .pdf, .jpg,
                             .jpeg, .png;
                         </li>
                         <li>Ukuran file maksimal 1MB.</li>
@@ -267,7 +269,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                         <p className="text-gray-500">Max. file size: 10MB</p>
                         <input
                             type="file"
-                            accept=".jpg,.jpeg,.png,.pdf"
+                            accept=".jpg,.jpeg,.png"
                             className="hidden"
                             id="poster-kegiatan"
                             onChange={handlePosterKegiatanChange}
@@ -303,8 +305,8 @@ export const TabLolosBeasiswa = ({ country }) => {
                             beasiswa;
                         </li>
                         <li>
-                            Tipe file yang dapat diunggah antara lain: .jpg,
-                            .jpeg, .png;
+                            Berkas yang diunggah dalam format: .jpg, .jpeg,
+                            .png;
                         </li>
                         <li>Ukuran file maksimal 1MB.</li>
                     </ul>

@@ -493,7 +493,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                         }}
                         value={data.description}
                         className="w-full border rounded-lg px-4"
-                        placeholder="Write text here..."
+                        placeholder="Tulis teks disini..."
                     ></textarea>
                 </div>
             </section>
@@ -542,14 +542,14 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
-                            Detail scan berupa Piagam/Sertifikat/Penghargaan
-                            atau dokumen hasil prestasi.
+                            Detail scan bukti berupa Piagam/Sertifikat/Penghargaan
+                            atau Dokumen hasil prestasi.
                         </li>
                         <li>
-                            Berkas yang diunggah dalam format: .pdf, .jpeg,
+                            Berkas yang diunggah dalam format: .pdf, .jpg, .jpeg,
                             .png.
                         </li>
-                        <li>Ukuran maksimal setiap file adalah 10MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
                     </ul>
                 </div>
 
@@ -595,9 +595,9 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
-                            Berkas yang diunggah dalam format file: .jpeg, .png.
+                            Berkas yang diunggah dalam format: .jpg, .jpeg, .png.
                         </li>
-                        <li>Ukuran maksimal setiap file adalah 10MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
                     </ul>
                 </div>
             </section>

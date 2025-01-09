@@ -14,24 +14,14 @@ const LandingPage = ({
     abdimasRecipientsCount,
     researchRegistrantsCount,
     researchRecipientsCount,
-    user,
     rekapJuara,
     rekapLomba,
     rekapBeasiswa,
     rekapAbdimas,
     rekapResearch,
+    rekapAbdimasLolos,
+    rekapResearchLolos,
 }) => {
-    console.log(
-        competitionRegistrantsCount,
-        competitionAchievementsCount,
-        scholarshipRegistrantsCount,
-        scholarshipRecipientsCount,
-        abdimasRegistrantsCount,
-        abdimasRecipientsCount,
-        researchRegistrantsCount,
-        researchRecipientsCount,
-    );
-    
     return (
         <div>
             <Header />
@@ -51,6 +41,8 @@ const LandingPage = ({
                 rekapBeasiswa={rekapBeasiswa}
                 rekapAbdimas={rekapAbdimas}
                 rekapResearch={rekapResearch}
+                rekapAbdimasLolos={rekapAbdimasLolos}
+                rekapResearchLolos={rekapResearchLolos}
                 abdimasCount={`${abdimasRecipientsCount}/${abdimasRegistrantsCount}`}
                 researchCount={`${researchRecipientsCount}/${researchRegistrantsCount}`}
             />

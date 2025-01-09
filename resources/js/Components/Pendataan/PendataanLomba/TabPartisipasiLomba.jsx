@@ -451,7 +451,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                         }}
                         value={data.description}
                         className="w-full border rounded-lg px-4"
-                        placeholder="Write text here..."
+                        placeholder="Tulis teks disini..."
                     ></textarea>
                 </div>
             </section>
@@ -494,16 +494,16 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                         )}
                     </div>
                     <p className="text-gray-500 mt-2">
-                        Ketentuan file Poster Kegiatan yang diunggah:
+                        Ketentuan file poster kegiatan yang diunggah:
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
-                            Poster Kegiatan lomba yang diikuti, menunjukkan nama
-                            lomba;
+                            Poster kegiatan lomba yang diikuti, menunjukkan nama
+                            lomba.
                         </li>
                         <li>
-                            Tipe file yang dapat diunggah antara lain: .jpg,
-                            .jpeg, .png;
+                            Berkas yang diunggah dalam format: .jpg, .jpeg,
+                            .png.
                         </li>
                         <li>Ukuran file maksimal 1MB.</li>
                     </ul>

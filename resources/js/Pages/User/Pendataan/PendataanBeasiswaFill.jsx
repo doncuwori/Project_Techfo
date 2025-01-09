@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { Toaster } from "react-hot-toast";
 import Navbar from "@/Components/Navbar";
 import { BiodataUser } from "@/components/BiodataUser";
-import { TabDaftarBeasiswa } from "@/Components/Pendataan/PendataanBeasiswa/TabDaftarBeasiswa";
-import { TabLolosBeasiswa } from "@/Components/Pendataan/PendataanBeasiswa/TabLolosBeasiswa";
 import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
-import { Toaster } from "react-hot-toast";
 import { TabLolosBeasiswaFill } from "@/Components/Pendataan/PendataanBeasiswa/TabLolosBeasiswaFill";
 
 const PendataanBeasiswa = ({ data }) => {

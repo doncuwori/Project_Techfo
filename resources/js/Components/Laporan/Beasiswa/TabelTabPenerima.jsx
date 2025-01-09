@@ -1,10 +1,56 @@
+import React, { useEffect, useRef, useState } from "react";
 import { formatDate } from "@/lib/helper";
-import React from "react";
+import { useDownloadExcel } from "react-export-table-to-excel";
 
-const TabelTabPenerima = ({ dataPenerima }) => {
+const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
+    const tableRef = useRef(null);
+
+    const { onDownload } = useDownloadExcel({
+        currentTableRef: tableRef.current,
+        filename: "Penerima Beasiswa Export",
+        sheet: "Penerima",
+    });
+
+    const [filtered, setFiltered] = useState(dataPenerima);
+
+    useEffect(() => {
+        let nama = filters.nama;
+        let prodi = filters.prodi;
+        let angkatan = filters.angkatan;
+        let tahun = filters.tahun;
+
+        let temp = dataPenerima;
+        if (nama) {
+            temp = temp.filter((item) =>
+                item.mahasiswa.nama.toLowerCase().includes(nama.toLowerCase())
+            );
+        }
+
+        if (prodi) {
+            temp = temp.filter((item) =>
+                item.mahasiswa.prodi.nama_prodi
+                    .toLowerCase()
+                    .includes(prodi.toLowerCase())
+            );
+        }
+
+        if (angkatan) {
+            temp = temp.filter((item) => item.mahasiswa.angkatan == angkatan);
+        }
+
+        if (tahun) {
+            temp = temp.filter((item) => item.created_at.includes(tahun));
+        }
+        setFiltered(temp);
+
+        if (refs) {
+            onDownload();
+        }
+    }, [filters, refs]);
+
     return (
         <div>
-            <table class="min-w-full divide-y divide-gray-200 ">
+            <table ref={tableRef} class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -43,7 +89,7 @@ const TabelTabPenerima = ({ dataPenerima }) => {
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    {dataPenerima.map((item, index) => {
+                    {filtered.map((item, index) => {
                         return (
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
