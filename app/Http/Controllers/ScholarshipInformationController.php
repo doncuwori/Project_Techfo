@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Scholarships\ScholarshipInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class ScholarshipInformationController extends Controller
@@ -104,6 +105,7 @@ class ScholarshipInformationController extends Controller
             'guidebook_link' => $request->guidebook_link,
             'poster_url' => $filename,
             'created_by' => $user->id,
+            'is_valid' => Gate::check('ormawa') ? false : true,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -124,5 +126,14 @@ class ScholarshipInformationController extends Controller
     {
         ScholarshipInformation::where('id', $id)->delete();
         return redirect()->route('pusatBeasiswa')->with('success', 'Informasi beasiswa berhasil dihapus');
+    }
+
+    public function validate(string $id)
+    {
+        $information = ScholarshipInformation::find($id);
+        $information->update([
+            'is_valid' => true
+        ]);
+        return redirect()->back();
     }
 }

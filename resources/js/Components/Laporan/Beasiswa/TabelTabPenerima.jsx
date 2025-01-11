@@ -48,6 +48,13 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
         }
     }, [filters, refs]);
 
+    const handleValidate = (item) => {
+        axios.get(route("laporanBeasiswa.validate", item)).then((response) => {
+            alert("Berhasil Validasi");
+            window.location.reload();
+        });
+    };
+
     return (
         <div>
             <table ref={tableRef} class="min-w-full divide-y divide-gray-200">
@@ -89,10 +96,14 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Scan Bukti
                         </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Validasi
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     {filtered.map((item, index) => {
+                        console.log(item);
                         return (
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -122,8 +133,7 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {
-                                        item.scholarship_recipient.country
-                                            .country_name
+                                        item.country.country_name
                                     }
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -145,6 +155,22 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                                         </a>
                                     ) : (
                                         "-"
+                                    )}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.is_validated == true ? (
+                                        "Sudah Valid"
+                                    ) : (
+                                        <button
+                                            className="bg-blue-500 text-sm text-white px-2 py-1 rounded"
+                                            onClick={() =>
+                                                handleValidate(
+                                                    item.id
+                                                )
+                                            }
+                                        >
+                                            Validasi
+                                        </button>
                                     )}
                                 </td>
                             </tr>

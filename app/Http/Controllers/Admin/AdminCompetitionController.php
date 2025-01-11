@@ -59,7 +59,16 @@ class AdminCompetitionController extends Controller
 
         $prodi = Prodi::all();
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
-        $tingkat = CompetitionRegistrant::distinct('scope')->pluck('scope');
+        $tingkat = [
+            'International',
+            'Nasional',
+            'Regional',
+            'Wilayah',
+            'Daerah/Provinsi',
+            'Kabupaten/Kota',
+            'Kecamatan',
+            'UPN "Veteran" Jakarta',
+        ];
 
         return Inertia::render('Admin/Laporan/LaporanLomba', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
@@ -74,5 +83,14 @@ class AdminCompetitionController extends Controller
             'angkatan' => $angkatan,
             'tingkat' => $tingkat,
         ]);
+    }
+
+    public function validate(string $id)
+    {
+        $competitionRegistrant = CompetitionAchievement::find($id);
+        $competitionRegistrant->update([
+            'is_validated' => true
+        ]);
+        return redirect()->back();
     }
 }

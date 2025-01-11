@@ -21,6 +21,7 @@ class ScholarshipRegistrant extends Model
         'event_date_end',
         'description',
         'poster_url',
+        'phone'
     ];
 
     public function mahasiswa()

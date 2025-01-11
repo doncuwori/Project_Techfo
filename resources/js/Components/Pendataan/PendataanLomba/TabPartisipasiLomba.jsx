@@ -21,6 +21,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
         activity_date_end: "",
         description: "",
         poster_url: "",
+        phone: "",
         members: [],
     });
 
@@ -33,7 +34,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
     });
 
     const dosenOption = dosen.map((val) => {
-        return { value: val.id, label: `${val.nama} - ${val.nidn}` };
+        return { value: val.id, label: `${val.nama} - ${val.nidn} - Kuota : ${val.max_dosen_competition}/3` };
     });
 
     const countryOption = country.map((val) => {
@@ -243,7 +244,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                         type="number"
                         className="w-full border rounded-lg p-2"
                         placeholder="Masukkan Nomor Telepon Anda"
-                        onChange={(e) => setData("telephone", e.target.value)}
+                        onChange={(e) => setData("phone", e.target.value)}
                     />
                 </div>
                 <div className="mb-4">

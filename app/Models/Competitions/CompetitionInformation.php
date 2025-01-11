@@ -21,6 +21,7 @@ class CompetitionInformation extends Model
         'guidebook_link', 
         'poster_url',
         'created_by',
+        'is_valid'
     ];
     public function user()
     {

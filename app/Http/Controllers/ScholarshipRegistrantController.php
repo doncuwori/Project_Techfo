@@ -33,6 +33,7 @@ class ScholarshipRegistrantController extends Controller
             'event_date_end' => $request->event_date_end,
             'description' => $request->description,
             'poster_url' => $filename,
+            'phone' => $request->phone,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

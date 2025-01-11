@@ -17,7 +17,7 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
         let prodi = filters.prodi;
         let angkatan = filters.angkatan;
         let tahun = filters.tahun;
-        let scope = filters.scope; // Tambahkan scope di sini
+        let tingkat = filters.tingkat; // Tambahkan scope di sini
     
         let temp = dataPendaftar;
     
@@ -43,11 +43,11 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
             temp = temp.filter((item) => item.created_at.includes(tahun));
         }
     
-        if (scope) {
+        if (tingkat) {
             temp = temp.filter((item) =>
                 item.competition_registrant.scope
                     .toLowerCase()
-                    .includes(scope.toLowerCase())
+                    .includes(tingkat.toLowerCase())
             );
         }
     

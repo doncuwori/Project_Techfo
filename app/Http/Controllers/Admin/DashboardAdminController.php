@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Abdimas\AbdimasInformation;
 use App\Models\Abdimas\MahasiswaRegistrant;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
@@ -122,6 +123,18 @@ class DashboardAdminController extends Controller
             })->where('accepted', true)->count();
         }
 
+        $funding = [
+            'Hibah PKM',
+            'Hibah Pemerintah',
+            'Mandiri'
+        ];
+
+        $arrayFunding = [];
+
+        foreach($funding as $f){
+            $arrayFunding[$f] = AbdimasInformation::where('funding', $f)->count();
+        }
+
         return Inertia::render('Admin/DashboardAdmin', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
             'competitionAchievementsCount' => $competitionAchievementsCount,
@@ -139,6 +152,7 @@ class DashboardAdminController extends Controller
             'rekapResearch' => $arrayResearch,
             'rekapAbdimasLolos' => $abdimasLolos,
             'rekapResearchLolos' => $researchLolos,
+            'arrayFunding' => $arrayFunding
         ]);
 
     }

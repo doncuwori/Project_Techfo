@@ -25,6 +25,8 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
         description: "",
         proof_scan_url: "",
         event_photo_url: "",
+        report_url: "",
+        phone: "",
         members: [],
     });
 
@@ -37,7 +39,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
     });
 
     const dosenOption = dosen.map((val) => {
-        return { value: val.id, label: `${val.nama} - ${val.nidn}` };
+        return { value: val.id, label: `${val.nama} - ${val.nidn} - Kuota : ${val.max_dosen_competition}/3` };
     });
 
     const countryOption = country.map((val) => {
@@ -104,7 +106,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
     const handleFileLaporanChange = (event) => {
         const file = event.target.files[0];
         setLaporanFile(file);
-        setData("event_photo_url", file);
+        setData("report_url", file);
     };
 
     const handleRemoveScanBuktiFile = () => {
@@ -273,7 +275,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                         type="number"
                         className="w-full border rounded-lg p-2"
                         placeholder="Masukkan Nomor Telepon Anda"
-                        onChange={(e) => setData("telephone", e.target.value)}
+                        onChange={(e) => setData("phone", e.target.value)}
                     />
                 </div>
                 <div className="mb-4">

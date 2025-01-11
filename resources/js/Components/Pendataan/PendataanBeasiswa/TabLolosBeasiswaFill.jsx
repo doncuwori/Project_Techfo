@@ -63,9 +63,10 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                     </label>
                     <input
                         type="number"
-                        className="w-full border rounded-lg p-2"
+                        className="w-full border rounded-lg p-2 bg-gray-100"
                         placeholder="Masukkan Nomor Telepon Anda"
-                        onChange={(e) => setData("telephone", e.target.value)}
+                        value={dataFill.phone}
+                        disabled
                     />
                 </div>
                 <div className="mb-4">

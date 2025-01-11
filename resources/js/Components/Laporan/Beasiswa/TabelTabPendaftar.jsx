@@ -122,8 +122,7 @@ const TabelTabPendaftar = ({ dataPendaftar, filters, refs }) => {
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {
-                                        item.scholarship_registrant.country
-                                            .country_name
+                                        item.country.country_name
                                     }
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">

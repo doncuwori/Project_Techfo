@@ -23,6 +23,7 @@ class AbdimasInformation extends Model
         'total_students_required',
         'created_by',
         'description',
+        'funding'
     ];
 
     public function dosen()

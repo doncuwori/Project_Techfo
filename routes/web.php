@@ -127,7 +127,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Lomba 
     Route::get('/lomba', function () {
 
-        $data = CompetitionInformation::orderBy('created_at', 'desc')->with('user')->get();
+        $data = CompetitionInformation::orderBy('created_at', 'desc')->where('is_valid', '1')->with('user')->get();
 
         return Inertia::render('User/Lomba/Lomba', [
             'data' => $data
@@ -143,6 +143,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $mahasiswa = Mahasiswa::all();
         $dosen = Dosen::all();
         $country = Country::all();
+
+        $dosen->filter(function ($dosen) {
+            return $dosen->max_dosen_competition < 3;
+        });
 
         return Inertia::render('User/Pendataan/PendataanLomba', [
             'mahasiswa' => $mahasiswa,
@@ -161,7 +165,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Beasiswa
     Route::get('/beasiswa', function () {
 
-        $data = ScholarshipInformation::orderBy('created_at', 'desc')->with('user')->get();
+        $data = ScholarshipInformation::orderBy('created_at', 'desc')->where('is_valid', '1')->with('user')->get();
 
         return Inertia::render('User/Beasiswa/Beasiswa', [
             'data' => $data
@@ -243,12 +247,14 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
 
     Route::post('/pusatInformasi/tambahInfoLomba', [CompetitionInformationController::class, 'store'])
         ->name('competitionInformation.store');
+    Route::get('/pusatInformasi/lomba/validate/{id}', [CompetitionInformationController::class, 'validate'])->name('lombaValidate');
 
     Route::post('/pusatInformasi/tambahInfoLomba/{id}', [CompetitionInformationController::class, 'update'])
         ->name('competitionInformation.update');
 
     Route::post('/pusatInformasi/tambahInfoBeasiswa', [ScholarshipInformationController::class, 'store'])
         ->name('scholarshipInformation.store');
+    Route::get('/pusatInformasi/beasiswa/validate/{id}', [ScholarshipInformationController::class, 'validate'])->name('beasiswaValidate');
 
     Route::post('/pusatInformasi/tambahInfoBeasiswa/{id}', [ScholarshipInformationController::class, 'update'])
         ->name('scholarshipInformation.update');
@@ -266,8 +272,10 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
         ->name('researchInformation.update');
 
     Route::get('/laporanLomba', [AdminCompetitionController::class, 'index'])->name('laporanLomba');
+    Route::get('/laporanLomba/validate/{id}', [AdminCompetitionController::class, 'validate'])->name('laporanLomba.validate');
 
     Route::get('/laporanBeasiswa', [AdminScholarshipController::class, 'index'])->name('laporanBeasiswa');
+    Route::get('/laporanBeasiswa/validate/{id}', [AdminScholarshipController::class, 'validate'])->name('laporanBeasiswa.validate');
 
     Route::get('/laporanAbdimas', [AdminAbdimasController::class, 'index'])->name('laporanAbdimas');
 

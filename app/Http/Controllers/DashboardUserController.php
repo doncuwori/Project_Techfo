@@ -12,8 +12,8 @@ use Inertia\Inertia;
 class DashboardUserController extends Controller
 {
     public function index(){
-        $competitionsInformation = CompetitionInformation::latest()->take(8)->get();
-        $scholarshipsInformation = ScholarshipInformation::latest()->take(8)->get();
+        $competitionsInformation = CompetitionInformation::where('is_valid', '1')->latest()->take(8)->get();
+        $scholarshipsInformation = ScholarshipInformation::where('is_valid', '1')->latest()->take(8)->get();
         $abdimasInformation = AbdimasInformation::latest()->take(8)->get();
         $researchInformation = ResearchInformation::latest()->take(8)->get();
     

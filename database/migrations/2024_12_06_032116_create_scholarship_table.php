@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('event_date_end');
             $table->text('description');
             $table->string('poster_url')->nullable();
+            $table->string('phone'); 
             $table->timestamps();
         });
 
@@ -43,6 +44,10 @@ return new class extends Migration
             $table->text('description');
             $table->string('proof_scan_url');
             $table->string('poster_url');
+            $table->string('phone'); 
+            
+            // VALIDATION
+            $table->boolean('is_validated')->default(false);
             $table->timestamps();
         });
         

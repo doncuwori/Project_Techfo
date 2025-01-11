@@ -40,6 +40,7 @@ const LaporanKeaktifan = ({
     rekapResearch,
     rekapAbdimasLolos,
     rekapResearchLolos,
+    arrayFunding
 }) => {
     const pieData = {
         labels: Object.keys(rekapLomba),
@@ -121,6 +122,18 @@ const LaporanKeaktifan = ({
         ],
     };
 
+    const abdimasFunding = {
+        labels: Object.keys(arrayFunding),
+        datasets: [
+            {
+                label: "Jenis Pendanaan",
+                data: Object.values(arrayFunding),
+                backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
+                borderRadius: 10,
+            },
+        ],
+    };
+
     const researchData = {
         labels: Object.keys(rekapResearch),
         datasets: [
@@ -155,6 +168,35 @@ const LaporanKeaktifan = ({
             tooltip: {
                 callbacks: {
                     label: ({ label, raw }) => `${label}: ${raw} Mahasiswa`,
+                },
+            },
+            datalabels: {
+                display: true,
+                color: "#000",
+                anchor: "end",
+                align: "top",
+                formatter: (value) => value,
+                font: {
+                    size: 12,
+                },
+            },
+        },
+        scales: {
+            x: { ticks: { font: { size: 12 } } },
+            y: { beginAtZero: true, ticks: { stepSize: 5 } },
+        },
+    };
+
+    const fundingOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top",
+                labels: { boxWidth: 0, padding: 10 },
+            },
+            tooltip: {
+                callbacks: {
+                    label: ({ label, raw }) => `${label}: ${raw} Program`,
                 },
             },
             datalabels: {
@@ -421,6 +463,20 @@ const LaporanKeaktifan = ({
                                     <Bar
                                         data={researchLolos}
                                         options={barOptions}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div><div className="flex flex-col md:flex-row gap-8 mt-6">
+                        <div className="w-full">
+                            <h2 className="text-xl font-semibold text-left mb-4">
+                                Grafik Pendanaan Pengabdian Masyarakat
+                            </h2>
+                            <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <Bar
+                                        data={abdimasFunding}
+                                        options={fundingOptions}
                                     />
                                 </div>
                             </div>

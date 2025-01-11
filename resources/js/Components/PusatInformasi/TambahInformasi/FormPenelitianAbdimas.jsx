@@ -24,6 +24,7 @@ const FormPenelitianAbdimas = ({ type, edit, dosen, previous }) => {
                   .split("T")[0]
             : "",
         location: previous?.location ?? "",
+        funding: previous?.funding ?? "",
         total_students_required: previous?.total_students_required ?? "",
         assignment_letter_url: previous?.assignment_letter_url ?? "",
     });
@@ -178,6 +179,29 @@ const FormPenelitianAbdimas = ({ type, edit, dosen, previous }) => {
                             placeholder="Masukkan Total Mahasiswa yang Dibutuhkan"
                         />
                     </div>
+
+                    {type == "abdimas" ? (
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-bold mb-2">
+                                Pendanaan
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <select
+                                value={data.funding}
+                                onChange={(e) => {
+                                    setData("funding", e.target.value);
+                                }}
+                                className="w-full border rounded-lg px-4"
+                            >
+                                <option>-- Pilih Pendanaan --</option>
+                                <option value='Hibah PKM'>Hibah PKM</option>
+                                <option value='Hibah Pemerintah'>Hibah Pemerintah</option>
+                                <option value='Mandiri'>Mandiri</option>
+                            </select>
+                        </div>
+                    ) : (
+                        ""
+                    )}
 
                     <div className="flex flex-col gap-2">
                         <label className="block text-gray-700 font-bold mb-2">

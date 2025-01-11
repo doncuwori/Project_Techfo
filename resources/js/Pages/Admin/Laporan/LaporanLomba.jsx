@@ -147,7 +147,7 @@ const LaporanLomba = ({
                             </button>
                         </div>
                         <div class="flex justify-between items-center relative w-full">
-                            <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center justify-between">
                                 <div class="relative w-full">
                                     <input
                                         name="nama"

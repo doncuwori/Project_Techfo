@@ -26,6 +26,7 @@ return new class extends Migration
             $table->date('activity_date_end'); // Tanggal selesai
             $table->text('description'); // Deskripsi kegiatan
             $table->string('poster_url')->nullable(); // URL poster
+            $table->string('phone'); 
             $table->timestamps();
         });
         
@@ -51,12 +52,17 @@ return new class extends Migration
             $table->date('activity_date_start'); // Tanggal mulai
             $table->date('activity_date_end'); // Tanggal selesai
             $table->text('description'); // Deskripsi kegiatan
+            $table->string('phone'); 
 
             // PEMENANG LOMBA
 
             $table->string('degree'); // Gelar lomba
+            $table->string('report_url'); // Gelar lomba
             $table->string('proof_scan_url'); // URL bukti scan
             $table->string('event_photo_url'); // URL poster
+
+            // VALIDATION
+            $table->boolean('is_validated')->default(false);
             $table->timestamps();
         });
         

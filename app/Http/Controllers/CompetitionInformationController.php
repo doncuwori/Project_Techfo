@@ -6,6 +6,7 @@ use App\Models\Competitions\CompetitionInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class CompetitionInformationController extends Controller
@@ -103,6 +104,7 @@ class CompetitionInformationController extends Controller
             'activity_link' => $request->activity_link,
             'guidebook_link' => $request->guidebook_link,
             'created_by' => $user->id,
+            'is_valid' => Gate::check('ormawa') ? false : true,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -123,5 +125,14 @@ class CompetitionInformationController extends Controller
         $competition = CompetitionInformation::where('id', $id)->first();
         $competition->delete();
         return redirect()->route('pusatLomba')->with('success', 'Informasi lomba berhasil dihapus');
+    }
+
+    public function validate(string $id)
+    {
+        $information = CompetitionInformation::find($id);
+        $information->update([
+            'is_valid' => true
+        ]);
+        return redirect()->back();
     }
 }

@@ -18,9 +18,9 @@ class AdminScholarshipController extends Controller
 
         $user = auth()->user();
 
-        $dataPendaftar = ScholarshipRegistrant::with('mahasiswa.prodi')->orderBy('created_at', 'desc')->get();
+        $dataPendaftar = ScholarshipRegistrant::with(['mahasiswa.prodi', 'country'])->orderBy('created_at', 'desc')->get();
 
-        $dataPenerima = ScholarshipRecipient::with('mahasiswa.prodi')->orderBy('created_at', 'desc')->get();
+        $dataPenerima = ScholarshipRecipient::with(['mahasiswa.prodi', 'country'])->orderBy('created_at', 'desc')->get();
 
         $prodi = Prodi::all();
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
@@ -34,5 +34,14 @@ class AdminScholarshipController extends Controller
             'prodi' => $prodi,
             'angkatan' => $angkatan
         ]);
+    }
+
+    public function validate(string $id)
+    {
+        $scholarshipRegistrant = ScholarshipRecipient::find($id);
+        $scholarshipRegistrant->update([
+            'is_validated' => true
+        ]);
+        return redirect()->back();
     }
 }

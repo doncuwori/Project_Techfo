@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('guidebook_link'); 
             $table->string('poster_url')->nullable(); 
             $table->foreignId(column: 'created_by')->constrained('users')->onDelete('cascade');
+            // VALID
+            $table->boolean('is_valid')->default(true);
             $table->timestamps(); 
         });    
     }

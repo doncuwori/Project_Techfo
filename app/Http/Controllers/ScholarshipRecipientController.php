@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use App\Models\Scholarships\MahasiswaRecipient;
+use App\Models\Scholarships\MahasiswaRegistrant;
 use App\Models\Scholarships\ScholarshipRecipient;
 use App\Models\Scholarships\ScholarshipRegistrant;
 use Illuminate\Http\Request;
@@ -41,12 +42,32 @@ class ScholarshipRecipientController extends Controller
             'description' => $request->description,
             'proof_scan_url' => $proof_scan_url,
             'poster_url' => $poster_url,
+            'phone' => $request->phone,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         MahasiswaRecipient::create([
             'id_scholarship_recipient' => $scholarship->id,
+            'id_mahasiswa' => $idMahasiswa,
+        ]);
+
+        $registrant = ScholarshipRegistrant::create([
+            'id_country' => $request->id_country,
+            'name' => $request->name,
+            'type' => $request->type,
+            'organizer' => $request->organizer,
+            'event_date_start' => $request->event_date_start,
+            'event_date_end' => $request->event_date_end,
+            'description' => $request->description,
+            'phone' => $request->phone,
+            'poster_url' => $poster_url,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        MahasiswaRegistrant::create([
+            'id_scholarship_registrant' => $registrant->id,
             'id_mahasiswa' => $idMahasiswa,
         ]);
 
@@ -91,6 +112,7 @@ class ScholarshipRecipientController extends Controller
                 'description' => $data->description,
                 'proof_scan_url' => $proof_scan_url,
                 'poster_url' => $poster_url,
+                'phone' => $data->phone,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

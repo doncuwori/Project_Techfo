@@ -14,6 +14,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
         event_date_end: "",
         description: "",
         poster_url: "",
+        phone: "",
     });
 
     const countryOption = country.map((val) => {
@@ -70,7 +71,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
                         type="number"
                         className="w-full border rounded-lg p-2"
                         placeholder="Masukkan Nomor Telepon Anda"
-                        onChange={(e) => setData("telephone", e.target.value)}
+                        onChange={(e) => setData("phone", e.target.value)}
                     />
                 </div>
                 <div className="mb-4">

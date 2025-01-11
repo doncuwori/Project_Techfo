@@ -1,10 +1,17 @@
 import React from "react";
-import { EyeIcon, File, FilePenLine } from "lucide-react";
+import {
+    CheckCircle2Icon,
+    CheckCircleIcon,
+    EyeIcon,
+    File,
+    FilePenLine,
+} from "lucide-react";
 import { Trash } from "lucide-react";
 import { formatDate, formatDatetimeToIndonesian } from "@/lib/helper";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 
 const TabelPusatInformasi = ({ data, title }) => {
+    const {user} = usePage().props;
     return (
         <table className="w-full border-collapse text-sm">
             <thead>
@@ -59,6 +66,33 @@ const TabelPusatInformasi = ({ data, title }) => {
                                             <EyeIcon />
                                         </a>
                                     )
+                                ) : (
+                                    ""
+                                )}
+                                {(title == "lomba" || title == "beasiswa") && (user?.role == "admin" || user?.role == "dosen") && !item.is_valid ? (
+                                    <button className="text-green-500 hover:text-blue-600 transition">
+                                        {title == "lomba" ? (
+                                            <a
+                                                href={route(
+                                                    "lombaValidate",
+                                                    item.id
+                                                )}
+                                            >
+                                                <CheckCircleIcon />
+                                            </a>
+                                        ) : title == "beasiswa" ? (
+                                            <a
+                                                href={route(
+                                                    "beasiswaValidate",
+                                                    item.id
+                                                )}
+                                            >
+                                                <CheckCircleIcon />
+                                            </a>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </button>
                                 ) : (
                                     ""
                                 )}

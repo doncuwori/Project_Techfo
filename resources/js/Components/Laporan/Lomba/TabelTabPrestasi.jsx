@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { formatDate } from "@/lib/helper";
 import { useDownloadExcel } from "react-export-table-to-excel";
+import axios from "axios";
 
 const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
     const tableRef = useRef(null);
@@ -18,7 +19,7 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
         let prodi = filters.prodi;
         let angkatan = filters.angkatan;
         let tahun = filters.tahun;
-        let scope = filters.scope;
+        let tingkat = filters.tingkat;
 
         let temp = dataPemenang;
 
@@ -44,11 +45,11 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
             temp = temp.filter((item) => item.created_at.includes(tahun));
         }
 
-        if (scope) {
+        if (tingkat) {
             temp = temp.filter((item) =>
                 item.competition_achievement.scope
                     .toLowerCase()
-                    .includes(scope.toLowerCase())
+                    .includes(tingkat.toLowerCase())
             );
         }
 
@@ -58,6 +59,15 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
             onDownload();
         }
     }, [filters, refs]);
+
+    const handleValidate = (item) => {
+        axios
+            .get(route("laporanLomba.validate", item))
+            .then((response) => {
+                alert('Berhasil Validasi');
+                window.location.reload();
+            })
+    };
 
     return (
         <div>
@@ -123,6 +133,12 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
                         </th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Foto Kegiatan
+                        </th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Laporan Kegiatan
+                        </th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Validasi
                         </th>
                     </tr>
                 </thead>
@@ -210,6 +226,23 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
                                 >
                                     Lihat File
                                 </a>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-center">
+                                <a
+                                    className="text-blue-600 underline"
+                                    href={`${window.location.origin}/images/${item.competition_achievement.report_url}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Lihat File
+                                </a>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-center">
+                                {
+                                    item.competition_achievement.is_validated == true ? 
+                                    'Sudah Valid' : 
+                                    <button className="bg-blue-500 text-sm text-white px-2 py-1 rounded" onClick={() => handleValidate(item.competition_achievement.id)}>Validasi</button>
+                                }
                             </td>
                         </tr>
                     ))}

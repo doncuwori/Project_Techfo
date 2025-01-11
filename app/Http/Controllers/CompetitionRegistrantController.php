@@ -43,6 +43,7 @@ class CompetitionRegistrantController extends Controller
                 'activity_date_end' => $request->activity_date_end,
                 'description' => $request->description,
                 'poster_url' => $filename,
+                'phone' => $request->phone,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

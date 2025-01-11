@@ -32,6 +32,13 @@ class CompetitionsAchievementController extends Controller
             $file->move(public_path('images/'), $event_photo_url);
         }
 
+        $report_url = null;
+        if($request->hasFile('report_url')) {
+            $file = $request->file('report_url');
+            $report_url = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/'), $report_url);
+        }
+
         $competition = CompetitionAchievement::create(
             [
                 'id_dosen' => $request->id_dosen,
@@ -48,6 +55,8 @@ class CompetitionsAchievementController extends Controller
                 'degree' => $request->degree,
                 'proof_scan_url' => $proof_scan_url,
                 'event_photo_url' => $event_photo_url,
+                'report_url' => $report_url,
+                'phone' => $request->phone,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
@@ -67,6 +76,7 @@ class CompetitionsAchievementController extends Controller
                 'activity_date_end' => $request->activity_date_end,
                 'description' => $request->description,
                 'poster_url' => $event_photo_url,
+                'phone' => $request->phone,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
@@ -146,6 +156,13 @@ class CompetitionsAchievementController extends Controller
             $file->move(public_path('images/'), $event_photo_url);
         }
 
+        $report_url = null;
+        if($request->hasFile('report_url')) {
+            $file = $request->file('report_url');
+            $report_url = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images/'), $report_url);
+        }
+
         $competition = CompetitionAchievement::create(
             [
                 'id_dosen' => $data->id_dosen,
@@ -162,6 +179,8 @@ class CompetitionsAchievementController extends Controller
                 'degree' => $request->degree,
                 'proof_scan_url' => $proof_scan_url,
                 'event_photo_url' => $event_photo_url,
+                'report_url' => $report_url,
+                'phone' => $data->phone,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

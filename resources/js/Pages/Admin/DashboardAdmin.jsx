@@ -21,6 +21,7 @@ const DashboardAdmin = ({
     rekapResearch,
     rekapAbdimasLolos,
     rekapResearchLolos,
+    arrayFunding
 }) => {
     return (
         <div>
@@ -62,6 +63,7 @@ const DashboardAdmin = ({
                         rekapResearchLolos={rekapResearchLolos}
                         abdimasCount={`${abdimasRecipientsCount}/${abdimasRegistrantsCount}`}
                         researchCount={`${researchRecipientsCount}/${researchRegistrantsCount}`}
+                        arrayFunding={arrayFunding}
                     />
                 </div>
             </main>

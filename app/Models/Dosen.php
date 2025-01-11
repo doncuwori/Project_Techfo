@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Competitions\CompetitionRegistrant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,4 +31,15 @@ class Dosen extends Model
     {
         return $this->hasMany(DosenAccess::class, 'id_dosen');
     }
+
+    public function getMaxDosenCompetitionAttribute()
+    {
+        $count = CompetitionRegistrant::where('id_dosen', $this->id)->count();
+
+        return $count;
+    }
+
+    protected $appends = [
+        'max_dosen_competition',
+    ];
 }

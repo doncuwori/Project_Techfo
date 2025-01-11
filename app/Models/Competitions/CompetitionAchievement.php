@@ -28,6 +28,9 @@ class CompetitionAchievement extends Model
         'achievement_level',
         'proof_scan_url',
         'event_photo_url',
+        'report_url',
+        'phone',
+        'is_validated'
     ];
 
     public function mahasiswa()

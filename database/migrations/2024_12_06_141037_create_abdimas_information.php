@@ -22,6 +22,9 @@ return new class extends Migration
             $table->text('surat_tugas')->nullable();
             // $table->string("assignment_letter_url");
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+
+            // FUNDING
+            $table->enum('funding', ['Hibah PKM', 'Hibah Pemerintah', 'Mandiri']);
             $table->timestamps(); 
         });
 

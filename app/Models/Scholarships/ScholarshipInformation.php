@@ -22,6 +22,7 @@ class ScholarshipInformation extends Model
         'guidebook_link', 
         'poster_url',
         'created_by',
+        'is_valid'
     ];
 
     

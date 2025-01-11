@@ -26,6 +26,7 @@ class CompetitionRegistrant extends Model
         'activity_date_end',
         'description',
         'poster_url',
+        'phone'
     ];
     
     public function mahasiswa()
