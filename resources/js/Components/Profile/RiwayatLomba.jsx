@@ -39,7 +39,7 @@ const RiwayatLomba = ({ data }) => {
                         </div>
                         {
                             d.competition_registrant.exist ? 
-                            <div className="absolute bottom-4 right-4 bg-green-500 p-2 px-4 rounded-md text-white hover:shadow-lg">
+                            <div className="absolute bottom-4 right-4 bg-green-500 p-1 px-4 rounded-md text-white hover:shadow-lg">
                                 Sudah Mengisi
                             </div>
                             :

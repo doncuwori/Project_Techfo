@@ -76,7 +76,7 @@ const CardPenelitian = ({ data }) => {
                         <Link
                             href={"/penelitian/" + research.id}
                             key={index}
-                            className="w-[343px] min-w-[280px] h-[208px] p-4 bg-white rounded-xl border border-neutral-200 shadow-md flex flex-col gap-2"
+                            className="w-[343px] min-w-[280px] h-[235px] p-4 bg-white rounded-xl border border-neutral-200 shadow-md flex flex-col gap-2"
                         >
                             {/* Image Section */}
                             <div className="bg-purple-500 text-white text-xs px-2 py-0.5 mb-6 rounded-2xl w-max">
@@ -85,7 +85,7 @@ const CardPenelitian = ({ data }) => {
 
                             {/* Content Section */}
                             <div className="flex flex-col gap-2">
-                                <h2 className="text-black text-lg font-medium line-clamp-1">
+                                <h2 className="text-black text-lg font-medium line-clamp-2">
                                     {research.name}
                                 </h2>
                                 <p className="text-gray-500 text-sm line-clamp-3">

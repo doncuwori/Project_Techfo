@@ -42,6 +42,7 @@ const LaporanLomba = ({
     dataPemenang,
     prodi,
     angkatan,
+    tingkat,
 }) => {
     const [tabValue, settabValue] = useState("Pemenang");
     const [exportPendaftar, setExportPendaftar] = useState(false);
@@ -52,6 +53,7 @@ const LaporanLomba = ({
         angkatan: "",
         nama: "",
         tahun: "",
+        tingkat: "",
     });
 
     const handleFilterChange = (event) => {
@@ -182,6 +184,20 @@ const LaporanLomba = ({
                                 >
                                     <option value="">Semua Angkatan</option>
                                     {angkatan.map((item, index) => {
+                                        return (
+                                            <option value={item} key={index}>
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <select
+                                    name="tingkat"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">Semua Tingkat Prestasi</option>
+                                    {tingkat.map((item, index) => {
                                         return (
                                             <option value={item} key={index}>
                                                 {item}

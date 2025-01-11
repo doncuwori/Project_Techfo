@@ -13,6 +13,8 @@ import {
     Title,
 } from "chart.js";
 
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
 ChartJS.register(
     ArcElement,
     Tooltip,
@@ -22,7 +24,8 @@ ChartJS.register(
     BarElement,
     PointElement,
     LineElement,
-    Title
+    Title,
+    ChartDataLabels
 );
 
 const LaporanKeaktifan = ({
@@ -59,8 +62,16 @@ const LaporanKeaktifan = ({
                     label: ({ label, raw }) => `${label}: ${raw}`,
                 },
             },
+            datalabels: {
+                display: true,
+                color: "#000", // Warna teks
+                formatter: (value) => value, // Menampilkan nilai langsung
+                font: {
+                    weight: "bold",
+                },
+            },
         },
-    };
+    };    
 
     const rekapData = Object.keys(rekapJuara).map((key) => ({
         labels: Object.keys(rekapJuara[key]),
@@ -146,13 +157,23 @@ const LaporanKeaktifan = ({
                     label: ({ label, raw }) => `${label}: ${raw} Mahasiswa`,
                 },
             },
+            datalabels: {
+                display: true,
+                color: "#000",
+                anchor: "end",
+                align: "top",
+                formatter: (value) => value,
+                font: {
+                    size: 12,
+                },
+            },
         },
         scales: {
             x: { ticks: { font: { size: 12 } } },
             y: { beginAtZero: true, ticks: { stepSize: 5 } },
         },
     };
-
+    
     const lineData = {
         labels: [
             "S-1 Informatika",

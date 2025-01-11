@@ -73,20 +73,38 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                 <h2 className="text-xl font-bold mb-4">
                     Data Prestasi Mahasiswa
                 </h2>
+                <div className="mb-4"></div>
                 <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Nomor Telepon (WhatsApp)
+                        <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        className="w-full border rounded-lg p-2"
+                        placeholder="Masukkan Nomor Telepon Anda"
+                        onChange={(e) => setData("telephone", e.target.value)}
+                    />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
                         Delegasi ORMAWA<span className="text-red-600">*</span>
                     </label>
-                    <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.ormawa_delegation}/>
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.ormawa_delegation}
+                    />
                 </div>
-
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
                         Nama Kegiatan<span className="text-red-600">*</span>
                     </label>
-                    <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.activity_name}/>
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.activity_name}
+                    />
                 </div>
 
                 <div className="flex gap-4">
@@ -96,7 +114,11 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                                 Tingkat Prestasi
                                 <span className="text-red-600">*</span>
                             </label>
-                            <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.scope}/>
+                            <input
+                                disabled
+                                className="w-full border rounded-lg px-4 bg-gray-100"
+                                value={dataFill.scope}
+                            />
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
@@ -129,14 +151,22 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             <label className="block text-gray-700 font-bold mb-2">
                                 Bidang<span className="text-red-600">*</span>
                             </label>
-                            <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.field}/>
+                            <input
+                                disabled
+                                className="w-full border rounded-lg px-4 bg-gray-100"
+                                value={dataFill.field}
+                            />
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
                                 Dosen Pembimbing/Pendamping
                                 <span className="text-red-600">*</span>
                             </label>
-                            <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.dosen.nama}/>
+                            <input
+                                disabled
+                                className="w-full border rounded-lg px-4 bg-gray-100"
+                                value={dataFill.dosen.nama}
+                            />
                             {/* <input
                                 type="text"
                                 onChange={(e) => {
@@ -154,21 +184,33 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     <label className="block text-gray-700 font-bold mb-2">
                         Penyelenggara<span className="text-red-600">*</span>
                     </label>
-                    <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.organizer}/>
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.organizer}
+                    />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
                         Negara Penyelenggara
                         <span className="text-red-600">*</span>
                     </label>
-                    <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.country.country_name}/>
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.country.country_name}
+                    />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
                         Tempat Pelaksanaan
                         <span className="text-red-600">*</span>
                     </label>
-                    <input disabled className="w-full border rounded-lg px-4 bg-gray-100" value={dataFill.location}/>
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.location}
+                    />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
@@ -178,7 +220,8 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     <input
                         value={dataFill.activity_date_start}
                         type="date"
-                        disabled className="w-full border rounded-lg px-4 bg-gray-100"
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
                     />
                 </div>
                 <div className="mb-4">
@@ -189,7 +232,8 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     <input
                         value={dataFill.activity_date_end}
                         type="date"
-                        disabled className="w-full border rounded-lg px-4 bg-gray-100"
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
                     />
                 </div>
                 <div className="mb-4">
@@ -199,7 +243,8 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     </label>
                     <textarea
                         value={dataFill.description}
-                        disabled className="w-full border rounded-lg px-4 bg-gray-100"
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
                         placeholder="Write text here..."
                     ></textarea>
                 </div>
@@ -214,7 +259,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 10MB</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png,.pdf"
@@ -253,10 +298,10 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             atau dokumen hasil prestasi.
                         </li>
                         <li>
-                            Berkas yang diunggah dalam format: .pdf, .jpeg,
-                            .png.
+                            Berkas yang diunggah dalam format: .pdf, .jpg,
+                            .jpeg, .png.
                         </li>
-                        <li>Ukuran maksimal setiap file adalah 10MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
                     </ul>
                 </div>
 
@@ -267,7 +312,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 10MB</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -302,9 +347,10 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
-                            Berkas yang diunggah dalam format file: .jpeg, .png.
+                            Berkas yang diunggah dalam format: .jpg, .jpeg,
+                            .png.
                         </li>
-                        <li>Ukuran maksimal setiap file adalah 10MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
                     </ul>
                 </div>
             </section>

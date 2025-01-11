@@ -34,7 +34,7 @@ const RiwayatPenerimaBeasiswa = ({ data }) => {
                             <div className="text-black text-lg font-medium">
                                 {d.scholarship_recipient.name}
                             </div>
-                            <div className="text-gray-500 text-sm font-normal leading-tight">
+                            <div className="text-gray-500 text-sm font-normal leading-tight line-clamp-2">
                                 {d.scholarship_recipient.description}
                             </div>
                             <div className="flex items-center gap-2">
@@ -44,7 +44,7 @@ const RiwayatPenerimaBeasiswa = ({ data }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="absolute bottom-4 right-4 bg-green-500 p-2 px-4 rounded-md text-white hover:shadow-lg">
+                        <div className="absolute bottom-4 right-4 bg-green-500 p-1 px-4 rounded-md text-white hover:shadow-lg">
                             Berhasil
                         </div>
                     </div>

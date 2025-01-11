@@ -17,14 +17,16 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
         let prodi = filters.prodi;
         let angkatan = filters.angkatan;
         let tahun = filters.tahun;
-
+        let scope = filters.scope; // Tambahkan scope di sini
+    
         let temp = dataPendaftar;
+    
         if (nama) {
             temp = temp.filter((item) =>
                 item.mahasiswa.nama.toLowerCase().includes(nama.toLowerCase())
             );
         }
-
+    
         if (prodi) {
             temp = temp.filter((item) =>
                 item.mahasiswa.prodi.nama_prodi
@@ -32,21 +34,30 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
                     .includes(prodi.toLowerCase())
             );
         }
-
+    
         if (angkatan) {
             temp = temp.filter((item) => item.mahasiswa.angkatan == angkatan);
         }
-
+    
         if (tahun) {
             temp = temp.filter((item) => item.created_at.includes(tahun));
         }
-
+    
+        if (scope) {
+            temp = temp.filter((item) =>
+                item.competition_registrant.scope
+                    .toLowerCase()
+                    .includes(scope.toLowerCase())
+            );
+        }
+    
         setFiltered(temp);
-
-        if(refs){
-            onDownload()
+    
+        if (refs) {
+            onDownload();
         }
     }, [filters, refs]);
+    
 
     return (
         <div>
@@ -78,10 +89,13 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
                             Delegasi Ormawa
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Dosen Pembimbing/Pendamping
+                            Tingkat Prestasi
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Bidang
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Dosen Pembimbing/Pendamping
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Penyelenggara
@@ -135,12 +149,15 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
                                         item.competition_registrant
                                             .ormawa_delegation
                                     }
-                                </td>
+                                </td>                              
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.competition_registrant.dosen.nama}
+                                    {item.competition_registrant.scope}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.competition_registrant.field}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.competition_registrant.dosen.nama}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.competition_registrant.organizer}

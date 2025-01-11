@@ -71,12 +71,14 @@ const TabelTabPendaftar = ({ dataPendaftar, filters, refs }) => {
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Angkatan
                         </th>
-
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Jenis Beasiswa
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Penyelenggara
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Negara Penyelenggara
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Waktu Pelaksanaan
@@ -117,6 +119,12 @@ const TabelTabPendaftar = ({ dataPendaftar, filters, refs }) => {
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.organizer}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {
+                                        item.scholarship_registrant.country
+                                            .country_name
+                                    }
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {formatDate(item.event_date_start)} -{" "}

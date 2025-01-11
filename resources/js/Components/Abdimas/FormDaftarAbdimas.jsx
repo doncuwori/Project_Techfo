@@ -77,10 +77,9 @@ const FormDaftarAbdimas = ({ information }) => {
                             value={auth.mahasiswa.email}
                         />
                     </div>
-
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Nomor Telepon (Whatsapp)
+                            Nomor Telepon (WhatsApp)
                             <span className="text-red-600">*</span>
                         </label>
                         <input

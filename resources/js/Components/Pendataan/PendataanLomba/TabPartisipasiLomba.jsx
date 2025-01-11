@@ -236,6 +236,18 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
+                        Nomor Telepon (WhatsApp)
+                        <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        className="w-full border rounded-lg p-2"
+                        placeholder="Masukkan Nomor Telepon Anda"
+                        onChange={(e) => setData("telephone", e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
                         Delegasi ORMAWA<span className="text-red-600">*</span>
                     </label>
                     <select
@@ -459,11 +471,11 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                 <h2 className="text-xl font-bold mb-4">Dokumen Pendukung</h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
-                        Poster Kegiatan
+                        Poster Kegiatan<span className="text-red-600">*</span>
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 10MB</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"

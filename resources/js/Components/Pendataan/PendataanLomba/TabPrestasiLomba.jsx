@@ -87,6 +87,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
 
     const [scanBuktiFile, setScanBuktiFile] = useState(null);
     const [kegiatanFile, setKegiatanFile] = useState(null);
+    const [laporanFile, setLaporanFile] = useState(null);
 
     const handleFileScanBuktiChange = (event) => {
         const file = event.target.files[0];
@@ -100,6 +101,12 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
         setData("event_photo_url", file);
     };
 
+    const handleFileLaporanChange = (event) => {
+        const file = event.target.files[0];
+        setLaporanFile(file);
+        setData("event_photo_url", file);
+    };
+
     const handleRemoveScanBuktiFile = () => {
         setScanBuktiFile(null);
         // Clear the file input field for scan bukti
@@ -109,7 +116,13 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
     const handleRemoveKegiatanFile = () => {
         setKegiatanFile(null);
         // Clear the file input field for file kegiatan
-        document.getElementById("kegiatanInput").value = null;
+        document.getElementById("fotoKegiatanInput").value = null;
+    };
+
+    const handleRemoveLaporanFile = () => {
+        setLaporanFile(null);
+        // Clear the file input field for file laporan
+        document.getElementById("laporanInput").value = null;
     };
 
     const handleSubmit = (e) => {
@@ -250,6 +263,18 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             <div></div>
                         </div>
                     )}
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Nomor Telepon (WhatsApp)
+                        <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        className="w-full border rounded-lg p-2"
+                        placeholder="Masukkan Nomor Telepon Anda"
+                        onChange={(e) => setData("telephone", e.target.value)}
+                    />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
@@ -507,7 +532,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 10MB</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png,.pdf"
@@ -560,7 +585,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 10MB</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -596,6 +621,54 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
                             Berkas yang diunggah dalam format: .jpg, .jpeg, .png.
+                        </li>
+                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
+                    </ul>
+                </div>
+
+                {/* Upload Laporan Lomba */}
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Laporan Lomba<span className="text-red-600">*</span>
+                    </label>
+                    <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
+                    <p>Click to upload or drag and drop</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <input
+                            type="file"
+                            accept=".pdf"
+                            className="hidden"
+                            id="laporanInput"
+                            onChange={handleFileLaporanChange}
+                        />
+                        <label
+                            htmlFor="laporanInput"
+                            className="mt-2 bg-green-500 text-white py-1 px-4 rounded-lg cursor-pointer inline-block"
+                        >
+                            Browse File
+                        </label>
+                        {laporanFile && (
+                            <div className="mt-4 flex items-center justify-center">
+                                <p className="text-green-500 mr-2">
+                                    {laporanFile.name}
+                                </p>
+                                <button
+                                    type="button"
+                                    className="text-red-500 hover:text-red-700"
+                                    onClick={handleRemoveLaporanFile}
+                                    aria-label="Remove file"
+                                >
+                                    &times;
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    <p className="text-gray-500 mt-2">
+                        Ketentuan file laporan lomba yang diunggah:
+                    </p>
+                    <ul className="text-gray-500 list-disc list-inside">
+                        <li>
+                            Berkas yang diunggah dalam format: .pdf
                         </li>
                         <li>Ukuran maksimal setiap file adalah 1MB.</li>
                     </ul>

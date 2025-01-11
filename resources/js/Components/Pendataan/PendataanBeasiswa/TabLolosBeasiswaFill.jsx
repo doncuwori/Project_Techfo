@@ -57,6 +57,18 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
             <section className="mb-8">
                 <h2 className="text-xl font-bold mb-4">Data Lolos Beasiswa</h2>
                 <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Nomor Telepon (WhatsApp)
+                        <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        className="w-full border rounded-lg p-2"
+                        placeholder="Masukkan Nomor Telepon Anda"
+                        onChange={(e) => setData("telephone", e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
                     <label
                         htmlFor="name"
                         className="block text-gray-700 font-bold mb-2"
@@ -157,9 +169,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
             </section>
 
             <section className="mb-8">
-                <h2 className="text-xl font-bold mb-4">
-                    Bukti Dokumen
-                </h2>
+                <h2 className="text-xl font-bold mb-4">Bukti Dokumen</h2>
                 {/* Scan Bukti */}
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
@@ -167,7 +177,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 10MB</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png,.pdf"
@@ -206,7 +216,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                             beasiswa.
                         </li>
                         <li>
-                            Tipe file yang dapat diunggah antara lain: .jpg,
+                            Berkas yang diunggah dalam format: .pdf, .jpg,
                             .jpeg, .png;
                         </li>
                         <li>Ukuran file maksimal 1MB.</li>
@@ -220,7 +230,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 10MB</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -259,8 +269,8 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                             beasiswa;
                         </li>
                         <li>
-                            Tipe file yang dapat diunggah antara lain: .jpg,
-                            .jpeg, .png;
+                            Berkas yang diunggah dalam format: .jpg, .jpeg,
+                            .png;
                         </li>
                         <li>Ukuran file maksimal 1MB.</li>
                     </ul>

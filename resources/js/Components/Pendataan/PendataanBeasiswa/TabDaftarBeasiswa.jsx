@@ -63,6 +63,18 @@ export const TabDaftarBeasiswa = ({ country }) => {
                 </h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
+                        Nomor Telepon (WhatsApp)
+                        <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        className="w-full border rounded-lg p-2"
+                        placeholder="Masukkan Nomor Telepon Anda"
+                        onChange={(e) => setData("telephone", e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
                         Nama Beasiswa<span className="text-red-600">*</span>
                     </label>
                     <input
@@ -193,7 +205,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
                     </label>
                     <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
                         <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 10MB</p>
+                        <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png,.pdf"

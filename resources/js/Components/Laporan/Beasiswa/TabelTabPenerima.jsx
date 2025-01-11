@@ -57,6 +57,9 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                             No
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Nama Beasiswa
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             NIM
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -69,13 +72,13 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                             Angkatan
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nama Beasiswa
-                        </th>
-                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Jenis Beasiswa
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Penyelenggara
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Negara Penyelenggara
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Waktu Pelaksanaan
@@ -96,6 +99,9 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                                     {index + 1}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.name}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.mahasiswa.nim}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
@@ -109,13 +115,16 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                                     {item.mahasiswa.angkatan}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.name}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.type}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.organizer}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {
+                                        item.scholarship_recipient.country
+                                            .country_name
+                                    }
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {formatDate(item.event_date_start)} -{" "}

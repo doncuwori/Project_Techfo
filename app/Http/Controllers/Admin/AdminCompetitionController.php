@@ -59,6 +59,7 @@ class AdminCompetitionController extends Controller
 
         $prodi = Prodi::all();
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
+        $tingkat = CompetitionRegistrant::distinct('scope')->pluck('scope');
 
         return Inertia::render('Admin/Laporan/LaporanLomba', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
@@ -70,7 +71,8 @@ class AdminCompetitionController extends Controller
             'dataPendaftar' => $dataPendaftar,
             'dataPemenang' => $dataPemenang,
             'prodi' => $prodi,
-            'angkatan' => $angkatan
+            'angkatan' => $angkatan,
+            'tingkat' => $tingkat,
         ]);
     }
 }

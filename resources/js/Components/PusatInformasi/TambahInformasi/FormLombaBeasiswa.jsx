@@ -3,25 +3,40 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export const FormLombaBeasiswa = ({ type, previous, edit }) => {
-    const [selectedFile, setSelectedFile] = useState(previous?.poster_url ? {
-        name: previous?.poster_url ?? "",
-    } : null);
+    const [selectedFile, setSelectedFile] = useState(
+        previous?.poster_url
+            ? {
+                  name: previous?.poster_url ?? "",
+              }
+            : null
+    );
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: previous?.name ?? "",
         organizer: previous?.organizer ?? "",
-        event_time_start: previous?.event_time_start ? new Date(Date.parse(previous.event_time_start) + 1000 * 60 * 60 * 24).toISOString().split('T')[0] : "",
-        event_time_end: previous?.event_time_end ? new Date(Date.parse(previous.event_time_end) + 1000 * 60 * 60 * 24).toISOString().split('T')[0] : "",
+        event_time_start: previous?.event_time_start
+            ? new Date(
+                  Date.parse(previous.event_time_start) + 1000 * 60 * 60 * 24
+              )
+                  .toISOString()
+                  .split("T")[0]
+            : "",
+        event_time_end: previous?.event_time_end
+            ? new Date(
+                  Date.parse(previous.event_time_end) + 1000 * 60 * 60 * 24
+              )
+                  .toISOString()
+                  .split("T")[0]
+            : "",
         description: previous?.description ?? "",
         poster_url: previous?.poster_url ?? "",
         activity_link: previous?.activity_link ?? "",
         guidebook_link: previous?.guidebook_link ?? "",
     });
-    
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        
+
         if (file && file.size > 1048576) {
             toast.error("Ukuran file maksimal 1MB.");
             return;
@@ -39,9 +54,7 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const routeName =
-
-        function routeName() {
+        const routeName = function routeName() {
             console.log(type, edit);
             if (type === "lomba" && !edit) {
                 return route("competitionInformation.store");
@@ -52,7 +65,7 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
             } else if (type === "beasiswa" && edit) {
                 return route("scholarshipInformation.update", previous.id);
             }
-        }
+        };
 
         console.log(routeName());
 
@@ -91,10 +104,13 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         value={data.name}
                         onChange={(e) => setData("name", e.target.value)}
                         className="w-full border rounded-lg p-2"
-                        placeholder="Contoh: Kegiatan Karya Tulis Ilmiah Nasional Tahun 2017"
+                        placeholder={
+                            type === "lomba"
+                                ? "Contoh: Lomba Karya Tulis Ilmiah Nasional Tahun 2017"
+                                : "Contoh: Beasiswa Cipta Pelita Indonesia 2024"
+                        }
                     />
                 </div>
-
                 <div className="mb-4">
                     <label
                         htmlFor="organizer"
@@ -122,7 +138,9 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         id="event_time_start"
                         type="date"
                         value={data.event_time_start}
-                        onChange={(e) => setData("event_time_start", e.target.value)}
+                        onChange={(e) =>
+                            setData("event_time_start", e.target.value)
+                        }
                         className="w-full border rounded-lg p-2"
                     />
                 </div>
@@ -137,7 +155,9 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         id="event_time_end"
                         type="date"
                         value={data.event_time_end}
-                        onChange={(e) => setData("event_time_end", e.target.value)}
+                        onChange={(e) =>
+                            setData("event_time_end", e.target.value)
+                        }
                         className="w-full border rounded-lg p-2"
                     />
                 </div>
@@ -146,7 +166,8 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         htmlFor="description"
                         className="block text-gray-700 font-bold mb-2"
                     >
-                        Deskripsi Kegiatan<span className="text-red-600">*</span>
+                        Deskripsi Kegiatan
+                        <span className="text-red-600">*</span>
                     </label>
                     <textarea
                         id="description"
@@ -167,7 +188,9 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         type="url"
                         id="activity_link"
                         value={data.activity_link}
-                        onChange={(e) => setData("activity_link", e.target.value)}
+                        onChange={(e) =>
+                            setData("activity_link", e.target.value)
+                        }
                         className="w-full border rounded-lg p-2"
                         placeholder="Masukkan tautan terkait kegiatan..."
                     />
@@ -177,13 +200,16 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         htmlFor="guidebook_link"
                         className="block text-gray-700 font-bold mb-2"
                     >
-                        Tautan Buku Panduan<span className="text-red-600">*</span>
+                        Tautan Buku Panduan
+                        <span className="text-red-600">*</span>
                     </label>
                     <input
                         type="url"
                         id="guidebook_link"
                         value={data.guidebook_link}
-                        onChange={(e) => setData("guidebook_link", e.target.value)}
+                        onChange={(e) =>
+                            setData("guidebook_link", e.target.value)
+                        }
                         className="w-full border rounded-lg p-2"
                         placeholder="Masukkan tautan buku panduan..."
                     />

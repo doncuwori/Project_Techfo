@@ -9,14 +9,28 @@ const FormPenelitianAbdimas = ({ type, edit, dosen, previous }) => {
         name: previous?.name ?? "",
         dosens: previous?.dosen.map((dosen) => dosen.id) ?? [],
         description: previous?.description ?? "",
-        event_time_end: previous?.event_time_end ? new Date(Date.parse(previous.event_time_end) + 1000 * 60 * 60 * 24).toISOString().split('T')[0] : "",
-        event_time_start: previous?.event_time_start ? new Date(Date.parse(previous.event_time_start) + 1000 * 60 * 60 * 24).toISOString().split('T')[0] : "",
+        event_time_end: previous?.event_time_end
+            ? new Date(
+                  Date.parse(previous.event_time_end) + 1000 * 60 * 60 * 24
+              )
+                  .toISOString()
+                  .split("T")[0]
+            : "",
+        event_time_start: previous?.event_time_start
+            ? new Date(
+                  Date.parse(previous.event_time_start) + 1000 * 60 * 60 * 24
+              )
+                  .toISOString()
+                  .split("T")[0]
+            : "",
         location: previous?.location ?? "",
         total_students_required: previous?.total_students_required ?? "",
         assignment_letter_url: previous?.assignment_letter_url ?? "",
     });
 
-    const [fields, setFields] = useState(previous?.dosen.map((dosen) => ({ value: dosen.id })) ?? [{ value: "" }]);
+    const [fields, setFields] = useState(
+        previous?.dosen.map((dosen) => ({ value: dosen.id })) ?? [{ value: "" }]
+    );
 
     const addField = () => {
         setFields([...fields, { value: "" }]);

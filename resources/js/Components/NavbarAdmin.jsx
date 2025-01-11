@@ -196,7 +196,7 @@ const NavbarAdmin = () => {
                     </li>
 
                     {/* Laporan Menu */}
-                    {user.role === "admin" || wadek ? (
+                    {user.role === "admin" || wadek || kaprodi ? (
                         <li key="laporan" className="mb-4">
                             <button
                                 onClick={toggleLaporanDropdown}
