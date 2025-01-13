@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
+import { Upload } from "lucide-react";
 import toast from "react-hot-toast";
 import SearchableSelect from "@/Components/SearchableSelect";
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
@@ -22,6 +23,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
     });
 
     const [posterKegiatan, setPosterKegiatan] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -29,11 +31,30 @@ export const TabDaftarBeasiswa = ({ country }) => {
         setPosterKegiatan(file);
     };
 
+    const handleDropFile = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+
+        if (
+            file &&
+            file.size <= 1 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            setData("poster_url", file);
+            setPosterKegiatan(file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+        }
+    };
+
     const handleRemoveFile = () => {
         setPosterKegiatan(null);
-        // Clear the file input field
         setData("poster_url", null);
         document.getElementById("fileInput").value = null;
+    };
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
     };
 
     const handleSubmit = (e) => {
@@ -204,12 +225,19 @@ export const TabDaftarBeasiswa = ({ country }) => {
                     <label className="block text-gray-700 font-bold mb-2">
                         Poster Kegiatan
                     </label>
-                    <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
-                        <p>Click to upload or drag and drop</p>
+                    <div
+                        className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center"
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={handleDropFile}
+                    >
+                        <div className="flex flex-col items-center justify-center">
+                            <Upload className="text-gray-500 w-6 h-6 mb-2" />
+                            <p>Click to upload or drag and drop</p>
+                        </div>
                         <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
-                            accept=".jpg,.jpeg,.png,.pdf"
+                            accept=".jpg,.jpeg,.png"
                             className="hidden"
                             id="poster-kegiatan"
                             onChange={handleFileChange}
@@ -253,17 +281,21 @@ export const TabDaftarBeasiswa = ({ country }) => {
                 </div>
             </section>
 
-            {/* Pernyataan Legalitas */}
-            <PernyataanLegalitas />
-
-            {/* Submit Button */}
+            <PernyataanLegalitas
+                isChecked={isChecked}
+                onCheckboxChange={handleCheckboxChange}
+            />
             <div className="flex justify-end w-full">
                 <button
                     type="submit"
-                    className="mt-2 bg-orange-500 text-white py-1 px-4 rounded-lg"
-                    disabled={processing} // Menonaktifkan tombol saat sedang diproses
+                    className={`mt-2 ${
+                        processing || !isChecked
+                            ? "bg-gray-400"
+                            : "bg-orange-500"
+                    } text-white py-1 px-4 rounded-lg`}
+                    disabled={processing || !isChecked}
                 >
-                    Submit
+                    {processing ? "Submitting..." : "Submit"}
                 </button>
             </div>
         </form>

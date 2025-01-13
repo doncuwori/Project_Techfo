@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarDays, CircleUserRound } from "lucide-react";
+import { CalendarDays, CircleUserRound, HandCoins } from "lucide-react";
 import { formatDate } from "@/lib/helper";
 import { Link } from "@inertiajs/react";
 
@@ -80,6 +80,17 @@ const MainContent = ({ data }) => {
                         <CircleUserRound className="w-5 h-5 text-orange-600" />
                         <p className="text-gray-700 ml-2">
                             {data.total_students_required} Mahasiswa
+                        </p>
+                    </div>
+                </div>
+                <div className="mb-4">
+                    <h2 className="text-lg font-bold mb-2">
+                        Jenis Pendanaan
+                    </h2>
+                    <div className="flex items-center">
+                        <HandCoins className="w-5 h-5 text-orange-600" />
+                        <p className="text-gray-700 ml-2">
+                            {data.funding}
                         </p>
                     </div>
                 </div>

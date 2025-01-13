@@ -63,6 +63,9 @@ const TabelTabPenerima = ({ data, filters, refs }) => {
                             Lokasi
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Pendanaan
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             NIM
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -111,6 +114,12 @@ const TabelTabPenerima = ({ data, filters, refs }) => {
                                     {
                                         item.research_registrant
                                             .research_information.location
+                                    }
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {
+                                        item.research_registrant
+                                            .research_information.funding
                                     }
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">

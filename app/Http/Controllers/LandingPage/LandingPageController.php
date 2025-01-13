@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\LandingPage;
 
 use App\Http\Controllers\Controller;
+use App\Models\Abdimas\AbdimasInformation;
 use App\Models\Abdimas\MahasiswaRegistrant;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\MahasiswaAchievement;
 use App\Models\Prodi;
 use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
+use App\Models\Researchs\ResearchInformation;
 use App\Models\Scholarships\MahasiswaRecipient;
 use App\Models\Scholarships\ScholarshipRecipient;
 use App\Models\Scholarships\ScholarshipRegistrant;
@@ -122,6 +124,24 @@ class LandingPageController extends Controller
             })->where('accepted', true)->count();
         }
 
+        $funding = [
+            'Hibah Instansi Pemerintah',
+            'Hibah Instansi Swasta',
+            'Mandiri'
+        ];
+
+        $arrayFundingAbdimas = [];
+
+        foreach($funding as $f){
+            $arrayFundingAbdimas[$f] = AbdimasInformation::where('funding', $f)->count();
+        }
+
+        $arrayFundingPenelitian = [];
+
+        foreach($funding as $f){
+            $arrayFundingPenelitian[$f] = ResearchInformation::where('funding', $f)->count();
+        }
+
         return Inertia::render('LandingPage', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
             'competitionAchievementsCount' => $competitionAchievementsCount,
@@ -139,6 +159,8 @@ class LandingPageController extends Controller
             'rekapResearch' => $arrayResearch,
             'rekapAbdimasLolos' => $abdimasLolos,
             'rekapResearchLolos' => $researchLolos,
+            'arrayFundingAbdimas' => $arrayFundingAbdimas,
+            'arrayFundingPenelitian' => $arrayFundingPenelitian,
         ]);
     }
 }

@@ -40,7 +40,8 @@ const LaporanKeaktifan = ({
     rekapResearch,
     rekapAbdimasLolos,
     rekapResearchLolos,
-    arrayFunding
+    arrayFundingAbdimas,
+    arrayFundingPenelitian,
 }) => {
     const pieData = {
         labels: Object.keys(rekapLomba),
@@ -72,7 +73,7 @@ const LaporanKeaktifan = ({
                 },
             },
         },
-    };    
+    };
 
     const rekapData = Object.keys(rekapJuara).map((key) => ({
         labels: Object.keys(rekapJuara[key]),
@@ -123,11 +124,23 @@ const LaporanKeaktifan = ({
     };
 
     const abdimasFunding = {
-        labels: Object.keys(arrayFunding),
+        labels: Object.keys(arrayFundingAbdimas),
         datasets: [
             {
                 label: "Jenis Pendanaan",
-                data: Object.values(arrayFunding),
+                data: Object.values(arrayFundingAbdimas),
+                backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
+                borderRadius: 10,
+            },
+        ],
+    };
+
+    const penelitianFunding = {
+        labels: Object.keys(arrayFundingPenelitian),
+        datasets: [
+            {
+                label: "Jenis Pendanaan",
+                data: Object.values(arrayFundingPenelitian),
                 backgroundColor: ["#356a33", "#58b055", "#95d592", "#ceeccd"],
                 borderRadius: 10,
             },
@@ -215,7 +228,7 @@ const LaporanKeaktifan = ({
             y: { beginAtZero: true, ticks: { stepSize: 5 } },
         },
     };
-    
+
     const lineData = {
         labels: [
             "S-1 Informatika",
@@ -467,7 +480,8 @@ const LaporanKeaktifan = ({
                                 </div>
                             </div>
                         </div>
-                    </div><div className="flex flex-col md:flex-row gap-8 mt-6">
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-8 mt-6">
                         <div className="w-full">
                             <h2 className="text-xl font-semibold text-left mb-4">
                                 Grafik Pendanaan Pengabdian Masyarakat
@@ -476,6 +490,19 @@ const LaporanKeaktifan = ({
                                 <div className="w-full h-full flex justify-center items-center">
                                     <Bar
                                         data={abdimasFunding}
+                                        options={fundingOptions}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full">
+                            <h2 className="text-xl font-semibold text-left mb-4">
+                                Grafik Pendanaan Penelitian
+                            </h2>
+                            <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <Bar
+                                        data={penelitianFunding}
                                         options={fundingOptions}
                                     />
                                 </div>

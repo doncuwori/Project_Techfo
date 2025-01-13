@@ -21,6 +21,8 @@ const LandingPage = ({
     rekapResearch,
     rekapAbdimasLolos,
     rekapResearchLolos,
+    arrayFundingAbdimas,
+    arrayFundingPenelitian,
 }) => {
     return (
         <div>
@@ -36,6 +38,8 @@ const LandingPage = ({
             <LaporanKeaktifan
                 competitionCount={`${competitionAchievementsCount}/${competitionRegistrantsCount} `}
                 scholarshipCount={`${scholarshipRecipientsCount}/${scholarshipRegistrantsCount}`}
+                abdimasCount={`${abdimasRecipientsCount}/${abdimasRegistrantsCount}`}
+                researchCount={`${researchRecipientsCount}/${researchRegistrantsCount}`}
                 rekapJuara={rekapJuara}
                 rekapLomba={rekapLomba}
                 rekapBeasiswa={rekapBeasiswa}
@@ -43,8 +47,8 @@ const LandingPage = ({
                 rekapResearch={rekapResearch}
                 rekapAbdimasLolos={rekapAbdimasLolos}
                 rekapResearchLolos={rekapResearchLolos}
-                abdimasCount={`${abdimasRecipientsCount}/${abdimasRegistrantsCount}`}
-                researchCount={`${researchRecipientsCount}/${researchRegistrantsCount}`}
+                arrayFundingAbdimas={arrayFundingAbdimas}
+                arrayFundingPenelitian={arrayFundingPenelitian}
             />
             <Footer />
             <ScrollUpButton />

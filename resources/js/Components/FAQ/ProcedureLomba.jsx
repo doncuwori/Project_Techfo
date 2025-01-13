@@ -64,32 +64,51 @@ const ProcedureLomba = () => {
                     />
                 </Dropdown>
 
-                {/* <Dropdown title="Prosedur Pengajuan Reward Fakultas">
+                <Dropdown title="Prosedur Klaim Hadiah Prestasi dari Universitas">
                     <Step
                         stepNumber="1"
-                        title="Pilih lomba yang ingin diikuti"
-                        description="Pilih lomba sesuai minat dan bakat Anda. Untuk informasi lomba terbaru, klik"
-                        linkText="di sini"
-                        linkUrl="#"
+                        title="Buat Laporan Pertanggung Jawaban (LPJ) Kegiatan"
+                        description={
+                            <>
+                                Siapkan laporan pertanggung jawaban kegiatan
+                                sesuai dengan format yang telah ditentukan. Anda
+                                dapat mengunduh format LPJ{" "}
+                                <a
+                                    href="https://docs.google.com/document/d/1_ZemBsFWiwQ7EWc6J5oI3FC_cDtwlKEA/edit?usp=sharing&ouid=102283645336565718024&rtpof=true&sd=true"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-500 underline"
+                                >
+                                    di sini
+                                </a>{" "}
+                                dan contoh penyusunan LPJ lihat {" "}
+                                <a
+                                    href="https://drive.google.com/file/d/1gVZcW6n81Neiyqts_mEFYTSCDbwOqF-g/view?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-500 underline"
+                                >
+                                    di sini.
+                                </a>
+                            </>
+                        }
                     />
                     <Step
                         stepNumber="2"
-                        title="Pilih dan hubungi dosen pembimbing"
-                        description="Hubungi dosen sesuai dengan topik lomba. Lihat informasi dosen pembimbing"
-                        linkText="di sini"
-                        linkUrl="#"
+                        title="Unggah Laporan ke Form Pendataan Prestasi"
+                        description="Unggah LPJ Anda melalui form pendataan prestasi yang disediakan. Pastikan semua dokumen telah diisi dan dilampirkan dengan benar."
                     />
                     <Step
                         stepNumber="3"
-                        title="Daftarkan diri ke lomba"
-                        description="Daftarkan diri atau tim ke lomba yang diinginkan. Semangat dan semoga berhasil!"
+                        title="Hubungi Staf Administrasi Mahasiswa Fakultas Ilmu Komputer"
+                        description="Setelah mengunggah laporan, hubungi staf Pengadministrasian Kemahasiswaan Fakultas Ilmu Komputer UPNVJ untuk mengonfirmasi pengajuan klaim hadiah Anda."
                     />
                     <Step
                         stepNumber="4"
-                        title="Melakukan pendataan fakultas"
-                        description="Setelah data prestasi diisi, klik Submit untuk menyelesaikan pendataan. Data ini akan menambah poin keaktifan Anda."
+                        title="Tunggu Proses Klaim Hadiah"
+                        description="Setelah semua langkah selesai, tunggu proses verifikasi dan pencairan hadiah dari universitas."
                     />
-                </Dropdown> */}
+                </Dropdown>
             </div>
         </div>
     );

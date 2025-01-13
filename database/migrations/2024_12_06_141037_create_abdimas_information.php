@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
 
             // FUNDING
-            $table->enum('funding', ['Hibah PKM', 'Hibah Pemerintah', 'Mandiri']);
+            $table->enum('funding', ['Hibah Instansi Pemerintah', 'Hibah Instansi Swasta', 'Mandiri']);
             $table->timestamps(); 
         });
 

@@ -95,8 +95,8 @@ class AbdimasInformationController extends Controller
             'event_time_start' => $request->event_time_start,
             'event_time_end' => $request->event_time_end,
             'location' => $request->location,
-            'funding' => $request->funding,
             'total_students_required' => $request->total_students_required,
+            'funding' => $request->funding,
             'description' => $request->description,
         ]);
 

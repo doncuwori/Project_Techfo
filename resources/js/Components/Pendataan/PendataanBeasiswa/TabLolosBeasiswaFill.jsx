@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
+import { Upload } from "lucide-react";
 import toast from "react-hot-toast";
 import SearchableSelect from "@/Components/SearchableSelect";
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
@@ -13,6 +14,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
 
     const [scanBuktiFile, setScanBuktiFile] = useState(null);
     const [posterKegiatan, setPosterKegiatan] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleFileScanBuktiChange = (event) => {
         const file = event.target.files[0];
@@ -26,6 +28,36 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
         setData("poster_url", file);
     };
 
+    const handleDropScanBuktiFile = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (
+            file &&
+            file.size <= 1 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
+        ) {
+            setScanBuktiFile(file);
+            setData("proof_scan_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+        }
+    };
+
+    const handleDropPosterKegiatanFile = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (
+            file &&
+            file.size <= 1 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            setPosterKegiatan(file);
+            setData("poster_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+        }
+    };
+
     const handleRemoveScanBuktiFile = () => {
         setScanBuktiFile(null);
         document.getElementById("scanBuktiInput").value = null;
@@ -34,6 +66,10 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
     const handleRemovePosterKegiatan = () => {
         setPosterKegiatan(null);
         document.getElementById("posterInput").value = null;
+    };
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
     };
 
     const handleSubmit = (e) => {
@@ -171,13 +207,21 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
 
             <section className="mb-8">
                 <h2 className="text-xl font-bold mb-4">Bukti Dokumen</h2>
+
                 {/* Scan Bukti */}
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
                         Scan Bukti<span className="text-red-600">*</span>
                     </label>
-                    <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
-                        <p>Click to upload or drag and drop</p>
+                    <div
+                        className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center"
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={handleDropScanBuktiFile}
+                    >
+                        <div className="flex flex-col items-center justify-center">
+                            <Upload className="text-gray-500 w-6 h-6 mb-2" />
+                            <p>Click to upload or drag and drop</p>
+                        </div>
                         <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
@@ -209,12 +253,12 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                         )}
                     </div>
                     <p className="text-gray-500 mt-2">
-                        Ketentuan file Poster Kegiatan yang diunggah:
+                        Ketentuan file Bukti Scan yang diunggah:
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
                             Detail scan berupa bukti atau dokumen penerima
-                            beasiswa.
+                            beasiswa yang telah disahkan dengan stempel basah;
                         </li>
                         <li>
                             Berkas yang diunggah dalam format: .pdf, .jpg,
@@ -229,8 +273,15 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                     <label className="block text-gray-700 font-bold mb-2">
                         Poster Kegiatan<span className="text-red-600">*</span>
                     </label>
-                    <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
-                        <p>Click to upload or drag and drop</p>
+                    <div
+                        className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center"
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={handleDropPosterKegiatanFile}
+                    >
+                        <div className="flex flex-col items-center justify-center">
+                            <Upload className="text-gray-500 w-6 h-6 mb-2" />
+                            <p>Click to upload or drag and drop</p>
+                        </div>
                         <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
@@ -266,8 +317,8 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
-                            Poster beasiswa yang diikuti, menunjukkan nama
-                            beasiswa;
+                            Poster kegiatan yang diikuti, menunjukkan nama
+                            lomba;
                         </li>
                         <li>
                             Berkas yang diunggah dalam format: .jpg, .jpeg,
@@ -278,13 +329,19 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                 </div>
             </section>
 
-            <PernyataanLegalitas />
-
+            <PernyataanLegalitas
+                isChecked={isChecked}
+                onCheckboxChange={handleCheckboxChange}
+            />
             <div className="flex justify-end w-full">
                 <button
                     type="submit"
-                    className="mt-2 bg-orange-500 text-white py-1 px-4 rounded-lg"
-                    disabled={processing}
+                    className={`mt-2 ${
+                        processing || !isChecked
+                            ? "bg-gray-400"
+                            : "bg-orange-500"
+                    } text-white py-1 px-4 rounded-lg`}
+                    disabled={processing || !isChecked}
                 >
                     {processing ? "Submitting..." : "Submit"}
                 </button>

@@ -62,6 +62,7 @@ class ResearchInformationController extends Controller
             'total_students_required' => $request->total_students_required,
             'created_by' => $user->id,
             'description' => $request->description,
+            'funding' => $request->funding,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -92,13 +93,13 @@ class ResearchInformationController extends Controller
             'description' => 'required|string'
         ]);
         
-        
         $research->update([
             'name' => $request->name,
             'event_time_start' => $request->event_time_start,
             'event_time_end' => $request->event_time_end,
             'location' => $request->location,
             'total_students_required' => $request->total_students_required,
+            'funding' => $request->funding,
             'description' => $request->description,
         ]);
 

@@ -1,5 +1,5 @@
 import { useForm, usePage } from "@inertiajs/react";
-import { Minus, Plus, Trash, X } from "lucide-react";
+import { Minus, Plus, Trash, Upload } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import SearchableSelect from "@/Components/SearchableSelect";
@@ -34,7 +34,10 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
     });
 
     const dosenOption = dosen.map((val) => {
-        return { value: val.id, label: `${val.nama} - ${val.nidn} - Kuota : ${val.max_dosen_competition}/3` };
+        return {
+            value: val.id,
+            label: `${val.nama} - ${val.nidn} - Kuota : ${val.max_dosen_competition}/3`,
+        };
     });
 
     const countryOption = country.map((val) => {
@@ -83,6 +86,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
     };
 
     const [selectedFile, setSelectedFile] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -90,11 +94,31 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
         setSelectedFile(file);
     };
 
+    const handleDropFile = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+
+        if (
+            file &&
+            file.size <= 1 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            setData("poster_url", file);
+            setSelectedFile(file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+        }
+    };
+
     const handleRemoveFile = () => {
         setSelectedFile(null);
         // Clear the file input field
         setData("poster_url", null);
         document.getElementById("fileInput").value = null;
+    };
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
     };
 
     const handleSubmit = (e) => {
@@ -474,8 +498,15 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                     <label className="block text-gray-700 font-bold mb-2">
                         Poster Kegiatan<span className="text-red-600">*</span>
                     </label>
-                    <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
-                        <p>Click to upload or drag and drop</p>
+                    <div
+                        className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center"
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={handleDropFile}
+                    >
+                        <div className="flex flex-col items-center justify-center">
+                            <Upload className="text-gray-500 w-7 h-7 mb-2" />
+                            <p>Click to upload or drag and drop</p>
+                        </div>
                         <p className="text-gray-500">Max. file size: 1MB</p>
                         <input
                             type="file"
@@ -512,25 +543,32 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                     <ul className="text-gray-500 list-disc list-inside">
                         <li>
                             Poster kegiatan lomba yang diikuti, menunjukkan nama
-                            lomba.
+                            lomba;
                         </li>
                         <li>
                             Berkas yang diunggah dalam format: .jpg, .jpeg,
-                            .png.
+                            .png;
                         </li>
                         <li>Ukuran file maksimal 1MB.</li>
                     </ul>
                 </div>
             </section>
-            <PernyataanLegalitas />
+
+            <PernyataanLegalitas
+                isChecked={isChecked}
+                onCheckboxChange={handleCheckboxChange}
+            />
             <div className="flex justify-end w-full">
                 <button
                     type="submit"
                     className={`mt-2 ${
-                        processing ? "bg-gray-400" : "bg-orange-500"
-                    }  text-white py-1 px-4 rounded-lg`}
+                        processing || !isChecked
+                            ? "bg-gray-400"
+                            : "bg-orange-500"
+                    } text-white py-1 px-4 rounded-lg`}
+                    disabled={processing || !isChecked}
                 >
-                    {processing ? "Loading..." : "Submit"}
+                    {processing ? "Submitting..." : "Submit"}
                 </button>
             </div>
         </form>

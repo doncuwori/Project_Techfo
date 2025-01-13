@@ -10,6 +10,7 @@ use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\MahasiswaAchievement;
 use App\Models\Prodi;
 use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
+use App\Models\Researchs\ResearchInformation;
 use App\Models\Scholarships\MahasiswaRecipient;
 use App\Models\Scholarships\ScholarshipRecipient;
 use App\Models\Scholarships\ScholarshipRegistrant;
@@ -124,15 +125,21 @@ class DashboardAdminController extends Controller
         }
 
         $funding = [
-            'Hibah PKM',
-            'Hibah Pemerintah',
+            'Hibah Instansi Pemerintah',
+            'Hibah Instansi Swasta',
             'Mandiri'
         ];
 
-        $arrayFunding = [];
+        $arrayFundingAbdimas = [];
 
         foreach($funding as $f){
-            $arrayFunding[$f] = AbdimasInformation::where('funding', $f)->count();
+            $arrayFundingAbdimas[$f] = AbdimasInformation::where('funding', $f)->count();
+        }
+
+        $arrayFundingPenelitian = [];
+
+        foreach($funding as $f){
+            $arrayFundingPenelitian[$f] = ResearchInformation::where('funding', $f)->count();
         }
 
         return Inertia::render('Admin/DashboardAdmin', [
@@ -152,7 +159,8 @@ class DashboardAdminController extends Controller
             'rekapResearch' => $arrayResearch,
             'rekapAbdimasLolos' => $abdimasLolos,
             'rekapResearchLolos' => $researchLolos,
-            'arrayFunding' => $arrayFunding
+            'arrayFundingAbdimas' => $arrayFundingAbdimas,
+            'arrayFundingPenelitian' => $arrayFundingPenelitian,
         ]);
 
     }

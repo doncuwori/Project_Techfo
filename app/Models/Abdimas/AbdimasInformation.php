@@ -21,9 +21,9 @@ class AbdimasInformation extends Model
         'event_time_end',
         'location',
         'total_students_required',
+        'funding',
         'created_by',
         'description',
-        'funding'
     ];
 
     public function dosen()

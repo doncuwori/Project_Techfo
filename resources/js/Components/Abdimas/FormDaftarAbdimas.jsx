@@ -14,6 +14,8 @@ const FormDaftarAbdimas = ({ information }) => {
         foto: "",
     });
 
+    const [isChecked, setIsChecked] = useState(false);
+
     const handleKhsChange = (event) => {
         const file = event.target.files[0];
         setData("khs", file);
@@ -32,6 +34,10 @@ const FormDaftarAbdimas = ({ information }) => {
     const handleFotoChange = (event) => {
         const file = event.target.files[0];
         setData("foto", file);
+    };
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
     };
 
     const handleSubmit = (e) => {
@@ -147,17 +153,25 @@ const FormDaftarAbdimas = ({ information }) => {
                             accept=".jpg,.jpeg,.png"
                         />
                         <p className="text-gray-500 text-sm mt-2">
-                            Tipe file yang dapat diunggah adalah .jpg, .jpeg, dan .png,
-                            dengan ukuran file maksimal 1MB.
+                            Tipe file yang dapat diunggah adalah .jpg, .jpeg,
+                            dan .png, dengan ukuran file maksimal 1MB.
                         </p>
                     </div>
-                    <PernyataanLegalitas />
+                    <PernyataanLegalitas
+                        isChecked={isChecked}
+                        onCheckboxChange={handleCheckboxChange}
+                    />
                     <div className="flex justify-end w-full">
                         <button
                             type="submit"
-                            className="mt-2 bg-orange-500 text-white py-1 px-4 rounded-lg"
+                            className={`mt-2 ${
+                                processing || !isChecked
+                                    ? "bg-gray-400"
+                                    : "bg-orange-500"
+                            } text-white py-1 px-4 rounded-lg`}
+                            disabled={processing || !isChecked}
                         >
-                            Submit
+                            {processing ? "Submitting..." : "Submit"}
                         </button>
                     </div>
                 </form>
