@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mahasiswa_accesses', function (Blueprint $table) {
             $table->id();
             $table->string('nama_akses');
+            $table->string('instansi');
             $table->foreignId('id_mahasiswa')->constrained('mahasiswas');
             $table->timestamps();
         });

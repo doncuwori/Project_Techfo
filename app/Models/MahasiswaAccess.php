@@ -12,6 +12,7 @@ class MahasiswaAccess extends Model
     protected $fillable = [
         'nama_akses',
         'id_mahasiswa',
+        'instansi'
     ];
 
     public function mahasiswa()

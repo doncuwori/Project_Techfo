@@ -1,11 +1,23 @@
-import React from "react";
-import { Toaster } from "react-hot-toast";
+import React, { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import NavbarAdmin from "@/Components/NavbarAdmin";
 import FormPenelitianAbdimas from "@/Components/PusatInformasi/TambahInformasi/FormPenelitianAbdimas";
+import { usePage } from "@inertiajs/react";
 
 const EditInfoPenelitian = ({ user, dosen, data }) => {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        toast.dismiss();
+        if (flash.success) {
+            toast.success(flash.success);
+        } else if (flash.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
     return (
         <div className="min-h-screen flex flex-col items-center bg-gray-100">
+            <Toaster position="top-right" />
             <NavbarAdmin user={user} />
             <div className="flex w-full ml-[256px] mt-8">
                 <main className=" flex grow   items-center justify-center py-14 px-4 ">
@@ -13,13 +25,15 @@ const EditInfoPenelitian = ({ user, dosen, data }) => {
                         <h1 className="text-center text-2xl font-bold mb-6">
                             Edit Informasi Penelitian
                         </h1>
-                        <FormPenelitianAbdimas edit={true} type="penelitian" previous={data} dosen={dosen} />
+                        <FormPenelitianAbdimas
+                            edit={true}
+                            type="penelitian"
+                            previous={data}
+                            dosen={dosen}
+                        />
                     </div>
                 </main>
             </div>
-            <Toaster
-                position="top-right"
-            />
         </div>
     );
 };

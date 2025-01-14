@@ -58,6 +58,6 @@ class Mahasiswa extends Model
     
     public function mahasiswaAccess()
     {
-        return $this->hasMany(MahasiswaAccess::class, 'id_mahasiswa');
+        return $this->hasOne(MahasiswaAccess::class, 'id_mahasiswa');
     }
 }
