@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, usePage } from "@inertiajs/react";
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 

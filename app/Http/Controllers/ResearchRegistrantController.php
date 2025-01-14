@@ -59,7 +59,7 @@ class ResearchRegistrantController extends Controller
             return redirect()->route('profile')->with('success', 'Penelitian berhasil didaftarkan.');
         }catch(\Exception $e){
             DB::rollBack();
-            return redirect()->route('daftarPenelitian', $request->id_research_information)->with('error', 'Penelitian gagal didaftarkan.'. $e->getMessage());
+            return redirect()->route('daftarPenelitian', $request->id_research_information)->with('error', 'Penelitian gagal didaftarkan!');
 
         }
     }

@@ -9,6 +9,7 @@ use App\Models\Mahasiswa;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class CompetitionRegistrantController extends Controller
 {
@@ -18,60 +19,64 @@ class CompetitionRegistrantController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $idMahasiswa = Mahasiswa::where('id_user', $user->id)->first()->id;
+            $idMahasiswa = Mahasiswa::where('id_user', $user->id)->first()->id;
 
-        $filename = null;
-        if($request->hasFile('poster_url')) {
-            $file = $request->file('poster_url');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images/'), $filename);
-        }
-
-        $competition = CompetitionRegistrant::create(
-            [
-                'id_dosen' => $request->id_dosen,
-                'id_country' => $request->id_country,
-                'ormawa_delegation' => $request->ormawa_delegation,
-                'activity_name' => $request->activity_name,
-                'scope' => $request->scope,
-                'field' => $request->field,
-                'organizer' => $request->organizer,
-                'location' => $request->location,
-                'activity_date_start' => $request->activity_date_start,
-                'activity_date_end' => $request->activity_date_end,
-                'description' => $request->description,
-                'poster_url' => $filename,
-                'phone' => $request->phone,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-        );
-
-        MahasiswaRegistrant::create([
-            'id_competition_registrant' => $competition->id,
-            'id_mahasiswa' => $idMahasiswa,
-            'is_leader' => true
-        ]);
-
-        if ($request->is_group == true) {
-
-            $members = $request->members;
-
-            foreach ($members as $memberData) {
-                if($memberData == null) {
-                    continue;
-                };
-                MahasiswaRegistrant::create([
-                    'id_competition_registrant' => $competition->id,
-                    'id_mahasiswa' => $memberData,
-                    'is_leader' => false
-                ]);
+            $filename = null;
+            if ($request->hasFile('poster_url')) {
+                $file = $request->file('poster_url');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/'), $filename);
             }
-        }
 
-        return redirect()->route('profile')->with('success', value: 'Kompetisi berhasil ditambahkan');
+            $competition = CompetitionRegistrant::create(
+                [
+                    'id_dosen' => $request->id_dosen,
+                    'id_country' => $request->id_country,
+                    'ormawa_delegation' => $request->ormawa_delegation,
+                    'activity_name' => $request->activity_name,
+                    'scope' => $request->scope,
+                    'field' => $request->field,
+                    'organizer' => $request->organizer,
+                    'location' => $request->location,
+                    'activity_date_start' => $request->activity_date_start,
+                    'activity_date_end' => $request->activity_date_end,
+                    'description' => $request->description,
+                    'poster_url' => $filename,
+                    'phone' => $request->phone,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
+
+            MahasiswaRegistrant::create([
+                'id_competition_registrant' => $competition->id,
+                'id_mahasiswa' => $idMahasiswa,
+                'is_leader' => true
+            ]);
+
+            if ($request->is_group == true) {
+
+                $members = $request->members;
+
+                foreach ($members as $memberData) {
+                    if ($memberData == null) {
+                        continue;
+                    };
+                    MahasiswaRegistrant::create([
+                        'id_competition_registrant' => $competition->id,
+                        'id_mahasiswa' => $memberData,
+                        'is_leader' => false
+                    ]);
+                }
+            }
+
+            return redirect()->route('profile')->with('success', value: 'Pendataan partisipasi lomba berhasil ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Pendataan partisipasi lomba gagal ditambahkan!');
+        }
     }
 
     /**

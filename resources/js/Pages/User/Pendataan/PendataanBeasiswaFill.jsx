@@ -1,5 +1,6 @@
-import React from "react";
-import { Toaster } from "react-hot-toast";
+import React, { useEffect } from "react";
+import { usePage } from "@inertiajs/react";
+import toast, { Toaster } from "react-hot-toast";
 import Navbar from "@/Components/Navbar";
 import { BiodataUser } from "@/components/BiodataUser";
 import Footer from "@/Components/Footer";
@@ -7,6 +8,17 @@ import ScrollUpButton from "@/Components/ScrollUpButton";
 import { TabLolosBeasiswaFill } from "@/Components/Pendataan/PendataanBeasiswa/TabLolosBeasiswaFill";
 
 const PendataanBeasiswa = ({ data }) => {
+
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        toast.dismiss();
+        if (flash.success) {
+            toast.success(flash.success);
+        }else if (flash.error) {
+            toast.error(flash.error);
+        }
+    }, [flash])
     
     return (
         <div className="min-h-screen flex flex-col items-center">
@@ -21,7 +33,7 @@ const PendataanBeasiswa = ({ data }) => {
                 </div>
             </main>
             <Footer />
-            <Toaster position="top-right" />
+            <Toaster position="top-right" reverseOrder={false} />
             <ScrollUpButton />
         </div>
     );

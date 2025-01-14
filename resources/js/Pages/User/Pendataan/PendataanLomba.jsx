@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import React, { useState, useEffect } from "react";
+import { usePage } from "@inertiajs/react";
+import toast, { Toaster } from "react-hot-toast";
 import Navbar from "@/Components/Navbar";
 import { BiodataUser } from "@/components/BiodataUser";
 import { TabPrestasiLomba } from "@/Components/Pendataan/PendataanLomba/TabPrestasiLomba";
@@ -8,8 +9,18 @@ import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
 
 const PendataanLomba = ({ mahasiswa, dosen, country }) => {
-
     const [tabValue, settabValue] = useState("Partisipasi");
+
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        toast.dismiss();
+        if (flash.success) {
+            toast.success(flash.success);
+        } else if (flash.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
 
     return (
         <div className="min-h-screen flex flex-col items-center">
@@ -47,14 +58,22 @@ const PendataanLomba = ({ mahasiswa, dosen, country }) => {
                     </div>
                     <BiodataUser />
                     {tabValue === "Partisipasi" ? (
-                        <TabPartisipasiLomba mahasiswa={mahasiswa} dosen={dosen} country={country}/>
+                        <TabPartisipasiLomba
+                            mahasiswa={mahasiswa}
+                            dosen={dosen}
+                            country={country}
+                        />
                     ) : (
-                        <TabPrestasiLomba mahasiswa={mahasiswa} dosen={dosen} country={country}/>
+                        <TabPrestasiLomba
+                            mahasiswa={mahasiswa}
+                            dosen={dosen}
+                            country={country}
+                        />
                     )}
                 </div>
             </main>
             <Footer />
-            <Toaster position="top-right" />
+            <Toaster position="top-right" reverseOrder={false} />
             <ScrollUpButton />
         </div>
     );
