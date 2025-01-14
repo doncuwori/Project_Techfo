@@ -16,7 +16,7 @@ class PusatInformasiPenelitianController extends Controller
     {
         $user = auth()->user();
 
-        $data = ResearchInformation::orderBy('created_at', 'desc')->with(['researchRegistrant.mahasiswa', 'user'])->get();
+        $data = ResearchInformation::orderBy('created_at', 'desc')->with(['researchRegistrant.mahasiswa', 'user.mahasiswa.mahasiswaAccess'])->get();
 
         if (Gate::check('dosen') && !Gate::check('wadek')) {
             $data = $data->filter(function ($query) use ($user) {
