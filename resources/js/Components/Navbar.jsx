@@ -1,33 +1,33 @@
 import React, { useState } from "react";
-
 import { Link, useForm } from "@inertiajs/react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
 import { ChevronDown, Menu, X } from "lucide-react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
 
-const Navbar = ({ data }) => {
+const Navbar = () => {
+    // State untuk dropdown dan menu navigasi
     const [isPendataanDropdownOpen, setIsPendataanDropdownOpen] =
         useState(false);
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobilePendataanDropdownOpen, setIsMobilePendataanDropdownOpen] =
         useState(false);
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
+    // Fungsi untuk mengontrol interaksi dropdown Pendataan
     const handlePendataanMouseEnter = () => {
         setIsPendataanDropdownOpen(true);
     };
-
     const handlePendataanMouseLeave = () => {
         setIsPendataanDropdownOpen(false);
     };
-
     const togglePendataanDropdown = () => {
         setIsPendataanDropdownOpen((prev) => !prev);
     };
 
+    // Fungsi untuk mengontrol interaksi dropdown Profil
     const handleProfileMouseLeave = () => {
         setIsProfileDropdownOpen(false);
     };
-
     const toggleProfileDropdown = () => {
         setIsProfileDropdownOpen((prev) => !prev);
         if (isPendataanDropdownOpen) {
@@ -35,23 +35,32 @@ const Navbar = ({ data }) => {
         }
     };
 
+    // Fungsi untuk mengontrol tampilan menu Mobile
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen((prev) => !prev);
     };
-
     const toggleMobilePendataanDropdown = () => {
         setIsMobilePendataanDropdownOpen((prev) => !prev);
     };
 
-    // Form handling for logout
+    // Fungsi untuk logout
     const { post } = useForm();
 
     const handleLogout = () => {
         post(route("logout"));
     };
 
+    const toggleLogoutModal = () => {
+        setIsLogoutModalOpen((prev) => !prev);
+    };
+
+    const handleCloseModal = () => {
+        setIsLogoutModalOpen(false);
+    };
+
     return (
         <header className="w-full h-16 px-4 md:px-10 py-4 bg-white shadow-md flex items-center justify-between">
+            {/* Logo dan judul aplikasi */}
             <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2 md:gap-4">
                     <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center overflow-hidden">
@@ -235,7 +244,7 @@ const Navbar = ({ data }) => {
                             Profil Saya
                         </Link>
                         <button
-                            onClick={handleLogout}
+                            onClick={toggleLogoutModal}
                             className="block w-full text-left px-4 py-2 text-gray-700 transition duration-150 hover:bg-orange-50 hover:text-[#fe632e] hover:font-bold hover:rounded-b-md"
                         >
                             Keluar
@@ -350,13 +359,41 @@ const Navbar = ({ data }) => {
                         </div>
                         <div className="w-full hover:bg-orange-50 transition duration-150">
                             <button
-                                onClick={handleLogout}
+                                onClick={toggleLogoutModal}
                                 className="px-4 py-2 text-gray-900 text-lg font-medium transition duration-150 hover:text-[#fe632e] hover:font-bold w-full block text-center"
                             >
                                 Keluar
                             </button>
                         </div>
                     </nav>
+                </div>
+            )}
+
+            {/* Modal Popup for Logout Confirmation */}
+            {isLogoutModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
+                        <h2 className="text-lg font-semibold text-gray-800">
+                            Konfirmasi Keluar
+                        </h2>
+                        <p className="mt-2 text-gray-600">
+                            Apakah Anda yakin ingin keluar?
+                        </p>
+                        <div className="mt-4 flex justify-end gap-4">
+                            <button
+                                onClick={handleCloseModal}
+                                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                onClick={handleLogout}
+                                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                            >
+                                Keluar
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
         </header>

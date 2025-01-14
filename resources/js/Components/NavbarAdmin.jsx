@@ -11,6 +11,7 @@ import {
 import ApplicationLogo from "@/Components/ApplicationLogo";
 
 const NavbarAdmin = () => {
+    // State management untuk dropdown menu
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isLaporanDropdownOpen, setIsLaporanDropdownOpen] = useState(false);
     const [isPusatInformasiDropdownOpen, setIsPusatInformasiDropdownOpen] =
@@ -20,11 +21,13 @@ const NavbarAdmin = () => {
     const [isChevronPusatInformasiRotated, setIsChevronPusatInformasiRotated] =
         useState(false);
 
+    // Hooks dan data dari halaman
     const { post } = useForm();
     const { url } = usePage();
     const { user } = usePage().props;
     const { wadek, kaprodi, ormawa } = usePage().props.auth;
 
+    // Fungsi toggle untuk dropdown profil
     const toggleProfileDropdown = () => {
         setIsProfileDropdownOpen(!isProfileDropdownOpen);
     };
@@ -33,16 +36,19 @@ const NavbarAdmin = () => {
         setIsProfileDropdownOpen(false);
     };
 
+    // Fungsi toggle untuk dropdown laporan
     const toggleLaporanDropdown = () => {
         setIsLaporanDropdownOpen(!isLaporanDropdownOpen);
         setIsChevronLaporanRotated(!isChevronLaporanRotated);
     };
 
+    // Fungsi toggle untuk dropdown pusat informasi
     const togglePusatInformasiDropdown = () => {
         setIsPusatInformasiDropdownOpen(!isPusatInformasiDropdownOpen);
         setIsChevronPusatInformasiRotated(!isChevronPusatInformasiRotated);
     };
 
+    // useEffect untuk mendeteksi URL aktif dan mengatur state dropdown
     useEffect(() => {
         const laporanRoutes = [
             "laporanLomba",
@@ -69,6 +75,7 @@ const NavbarAdmin = () => {
         );
     }, [url]);
 
+    // Data menu pusat informasi
     const [pusatInformasiMenu, setPusatInformasiMenu] = useState([
         {
             name: "Lomba",
@@ -96,6 +103,7 @@ const NavbarAdmin = () => {
         },
     ]);
 
+    // Update menu jika user adalah ormawa
     useEffect(() => {
         if (ormawa) {
             setPusatInformasiMenu([
@@ -114,11 +122,22 @@ const NavbarAdmin = () => {
             ]);
         }
     }, [ormawa]);
-    
 
+    // State untuk kontrol modal
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+    // Fungsi untuk membuka dan menutup modal
+    const openLogoutModal = () => setIsLogoutModalOpen(true);
+    const closeLogoutModal = () => setIsLogoutModalOpen(false);
+
+    // Fungsi untuk menangani logout
+    const handleLogout = () => {
+        post(route("logout"));
+    };
 
     return (
         <div>
+            {/* Header */}
             <div className="w-full h-18 px-4 md:px-10 py-4 bg-white shadow-md flex items-center justify-between fixed top-0 left-0 z-20">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2 md:gap-4">
@@ -140,6 +159,7 @@ const NavbarAdmin = () => {
                     </div>
                 </div>
 
+                {/* Dropdown profil */}
                 <div className="relative flex items-center ml-auto">
                     <button
                         onClick={toggleProfileDropdown}
@@ -161,7 +181,7 @@ const NavbarAdmin = () => {
                             onMouseLeave={handleProfileMouseLeave}
                         >
                             <button
-                                onClick={() => post(route("logout"))}
+                                onClick={openLogoutModal}
                                 className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50 hover:font-bold hover:text-orange-600"
                             >
                                 Keluar
@@ -375,10 +395,11 @@ const NavbarAdmin = () => {
                     </li>
                 </ul>
 
+                {/* Logout */}
                 <div className="mt-auto mb-20">
                     <div>
                         <button
-                            onClick={() => post(route("logout"))}
+                            onClick={openLogoutModal}
                             className="w-full px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-orange-700 flex items-center justify-center gap-2"
                         >
                             <span>Keluar</span>
@@ -387,6 +408,34 @@ const NavbarAdmin = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Modal Popup Logout */}
+            {isLogoutModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
+                        <h2 className="text-lg font-semibold text-gray-800">
+                            Konfirmasi Keluar
+                        </h2>
+                        <p className="mt-2 text-gray-600">
+                            Apakah Anda yakin ingin keluar?
+                        </p>
+                        <div className="mt-4 flex justify-end gap-4">
+                            <button
+                                onClick={closeLogoutModal}
+                                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                onClick={handleLogout}
+                                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                            >
+                                Keluar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

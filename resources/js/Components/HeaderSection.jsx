@@ -1,16 +1,18 @@
 import React from "react";
 
+// HeaderSection component that displays the header for different pages
 const HeaderSection = ({ pageType }) => {
+    // Function to determine the page title based on the pageType prop
     const pageTitle = () => {
         switch (pageType) {
             case "beasiswa":
-                return "Beasiswa";
+                return "Beasiswa"; 
             case "abdimas":
-                return "Pengabdian Masyarakat";
+                return "Pengabdian Masyarakat"; 
             case "penelitian":
-                return "Penelitian";
+                return "Penelitian"; 
             default:
-                return "Lomba";
+                return "Lomba"; 
         }
     };
 
@@ -21,7 +23,7 @@ const HeaderSection = ({ pageType }) => {
                     Eksplor Informasi{" "}
                 </span>
                 <span className="text-[#fe632e] text-4xl font-medium leading-10">
-                    {pageTitle()}{" "}
+                    {pageTitle()}{" "} {/* Display the determined page title */}
                 </span>
             </div>
         </div>

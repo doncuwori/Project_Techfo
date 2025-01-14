@@ -163,7 +163,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Student Project Section */}
+                {/* Location Project Section */}
                 <div className="flex flex-col gap-12 mt-3 lg:max-w-[282px]">
                     <div className="text-xl font-bold text-white">
                         Temukan Kami Disini
