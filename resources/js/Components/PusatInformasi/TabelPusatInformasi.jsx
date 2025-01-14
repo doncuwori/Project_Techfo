@@ -11,7 +11,8 @@ import { formatDate, formatDatetimeToIndonesian } from "@/lib/helper";
 import { useForm, usePage } from "@inertiajs/react";
 
 const TabelPusatInformasi = ({ data, title }) => {
-    const {user} = usePage().props;
+    const { user } = usePage().props;
+    const { mahasiswa } = usePage().props.auth;
     return (
         <table className="w-full border-collapse text-sm">
             <thead>
@@ -28,6 +29,7 @@ const TabelPusatInformasi = ({ data, title }) => {
                             ? "NAMA BEASISWA"
                             : ""}
                     </th>
+                    <th className="border p-2">PENGUNGGAH</th>
                     <th className="border p-2">HARI & TANGGAL UPLOAD</th>
                     <th className="border p-2">DEADLINE KEGIATAN</th>
                     <th className="border p-2">AKSI</th>
@@ -38,6 +40,7 @@ const TabelPusatInformasi = ({ data, title }) => {
                     <tr key={index} className="border-t hover:bg-gray-50">
                         <td className="border p-2">{index + 1}</td>
                         <td className="border p-2">{item.name}</td>
+                        <td className="border p-2">{item.user.name}</td>
                         <td className="border p-2">
                             {formatDatetimeToIndonesian(item.created_at)}
                         </td>
@@ -69,7 +72,10 @@ const TabelPusatInformasi = ({ data, title }) => {
                                 ) : (
                                     ""
                                 )}
-                                {(title == "lomba" || title == "beasiswa") && (user?.role == "admin" || user?.role == "dosen") && !item.is_valid ? (
+                                {(title == "lomba" || title == "beasiswa") &&
+                                (user?.role == "admin" ||
+                                    user?.role == "dosen") &&
+                                !item.is_valid ? (
                                     <button className="text-green-500 hover:text-blue-600 transition">
                                         {title == "lomba" ? (
                                             <a

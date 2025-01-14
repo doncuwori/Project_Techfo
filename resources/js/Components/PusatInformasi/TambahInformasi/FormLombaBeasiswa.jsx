@@ -258,10 +258,7 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         Ketentuan file Poster Kegiatan yang diunggah:
                     </p>
                     <ul className="text-gray-500 list-disc list-inside">
-                        <li>
-                            Poster Kegiatan lomba yang diikuti, menunjukkan nama
-                            lomba;
-                        </li>
+                        <li>Poster Kegiatan menunjukkan nama kegiatan;</li>
                         <li>
                             Tipe file yang dapat diunggah antara lain: .jpg,
                             .jpeg, .png;

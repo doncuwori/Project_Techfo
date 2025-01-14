@@ -8,10 +8,11 @@ use Inertia\Inertia;
 
 class PusatInformasiLombaController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $user = auth()->user();
 
-        $data = CompetitionInformation::orderBy('created_at', 'desc')->get();
+        $data = CompetitionInformation::orderBy('created_at', 'desc')->with('user')->get();
 
         return Inertia::render('Admin/PusatInformasi/PusatLomba', [
             'user' => $user,

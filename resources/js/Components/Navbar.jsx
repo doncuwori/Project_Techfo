@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useForm } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 
@@ -12,6 +12,8 @@ const Navbar = () => {
     const [isMobilePendataanDropdownOpen, setIsMobilePendataanDropdownOpen] =
         useState(false);
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+    const { ormawa } = usePage().props.auth;
 
     // Fungsi untuk mengontrol interaksi dropdown Pendataan
     const handlePendataanMouseEnter = () => {
@@ -243,6 +245,20 @@ const Navbar = () => {
                         >
                             Profil Saya
                         </Link>
+                        {ormawa ? (
+                            <Link
+                                href={route("dashboardAdmin")}
+                                className={`block px-4 py-2 text-gray-700 transition duration-150 ${
+                                    route().current("profile")
+                                        ? "bg-orange-50 text-[#fe631e] font-bold"
+                                        : "hover:bg-orange-50 hover:text-[#fe632e] hover:font-bold"
+                                }`}
+                            >
+                                Dashboard Admin
+                            </Link>
+                        ) : (
+                            ""
+                        )}
                         <button
                             onClick={toggleLogoutModal}
                             className="block w-full text-left px-4 py-2 text-gray-700 transition duration-150 hover:bg-orange-50 hover:text-[#fe632e] hover:font-bold hover:rounded-b-md"
@@ -357,6 +373,18 @@ const Navbar = () => {
                                 Profil Saya
                             </Link>
                         </div>
+                        {ormawa ? (
+                            <div className="w-full hover:bg-orange-50 transition duration-150">
+                                <Link
+                                    href={route("dashboardAdmin")}
+                                    className="px-4 py-2 text-gray-900 text-lg font-medium transition duration-150 hover:text-[#fe632e] hover:font-bold w-full block text-center"
+                                >
+                                    DashboardAdmin
+                                </Link>
+                            </div>
+                        ) : (
+                            ""
+                        )}
                         <div className="w-full hover:bg-orange-50 transition duration-150">
                             <button
                                 onClick={toggleLogoutModal}

@@ -11,7 +11,7 @@ class PusatInformasiBeasiswaController extends Controller
     public function index(){
         $user = auth()->user();
 
-        $data = ScholarshipInformation::orderBy('created_at', 'desc')->get();
+        $data = ScholarshipInformation::orderBy('created_at', 'desc')->with('user')->get();
 
         return Inertia::render('Admin/PusatInformasi/PusatBeasiswa', [
             'user' => $user,

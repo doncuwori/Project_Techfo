@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { usePage } from "@inertiajs/react";
 import NavbarAdmin from "@/Components/NavbarAdmin";
 import FormPenelitianAbdimas from "@/Components/PusatInformasi/TambahInformasi/FormPenelitianAbdimas";
 

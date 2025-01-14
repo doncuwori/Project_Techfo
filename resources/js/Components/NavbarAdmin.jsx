@@ -7,6 +7,7 @@ import {
     ChevronDown,
     NotepadText,
     ChartBar,
+    UsersRound,
 } from "lucide-react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 
@@ -66,6 +67,10 @@ const NavbarAdmin = () => {
             "tambahInfoBeasiswa",
             "tambahInfoAbdimas",
             "tambahInfoPenelitian",
+            "editInfoLomba",
+            "editInfoBeasiswa",
+            "editInfoAbdimas",
+            "editInfoPenelitian",
         ];
 
         setIsLaporanDropdownOpen(
@@ -83,24 +88,28 @@ const NavbarAdmin = () => {
             route1: "pusatLomba",
             route2: "tambahInfoLomba",
             route3: "",
+            route4: "editInfoLomba",
         },
         {
             name: "Beasiswa",
             route1: "pusatBeasiswa",
             route2: "tambahInfoBeasiswa",
             route3: "",
+            route4: "editInfoBeasiswa",
         },
         {
             name: "Pengabdian Masyarakat",
             route1: "pusatAbdimas",
             route2: "tambahInfoAbdimas",
             route3: "pusatAbdimas.show",
+            route4: "editInfoAbdimas",
         },
         {
             name: "Penelitian",
             route1: "pusatPenelitian",
             route2: "tambahInfoPenelitian",
             route3: "pusatPenelitian.show",
+            route4: "editInfoPenelitian",
         },
     ]);
 
@@ -123,6 +132,12 @@ const NavbarAdmin = () => {
             ]);
         }
     }, [ormawa]);
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleRoleSwitch = () => {
+        setShowModal(false);
+    };
 
     // State untuk kontrol modal
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -172,11 +187,9 @@ const NavbarAdmin = () => {
                             alt="User Profile"
                         />
                         <div className="font-medium ml-2 hover:text-orange-600 cursor-pointer">
-                            {
-                                mahasiswa ?
-                                mahasiswa.mahasiswa_access.instansi :
-                                user.name
-                            }
+                            {mahasiswa
+                                ? mahasiswa.mahasiswa_access.instansi
+                                : user.name}
                         </div>
                     </button>
 
@@ -321,7 +334,11 @@ const NavbarAdmin = () => {
                                 route().current("tambahInfoAbdimas") ||
                                 route().current("pusatAbdimas.show") ||
                                 route().current("tambahInfoPenelitian") ||
-                                route().current("pusatPenelitian.show")
+                                route().current("pusatPenelitian.show") ||
+                                route().current("editInfoLomba") ||
+                                route().current("editInfoBeasiswa") ||
+                                route().current("editInfoAbdimas") ||
+                                route().current("editInfoPenelitian")
                                     ? "text-white bg-orange-500 hover:font-bold"
                                     : "text-gray-500 hover:text-orange-500"
                             } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
@@ -337,7 +354,11 @@ const NavbarAdmin = () => {
                                     route().current("tambahInfoAbdimas") ||
                                     route().current("pusatAbdimas.show") ||
                                     route().current("tambahInfoPenelitian") ||
-                                    route().current("pusatPenelitian.show")
+                                    route().current("pusatPenelitian.show") ||
+                                    route().current("editInfoLomba") ||
+                                    route().current("editInfoBeasiswa") ||
+                                    route().current("editInfoAbdimas") ||
+                                    route().current("editInfoPenelitian")
                                         ? "text-white group-hover:scale-105"
                                         : "group-hover:text-orange-500"
                                 }`}
@@ -370,6 +391,10 @@ const NavbarAdmin = () => {
                                                 (subItem.route3 &&
                                                     route().current(
                                                         subItem.route3
+                                                    )) ||
+                                                (subItem.route4 &&
+                                                    route().current(
+                                                        subItem.route4
                                                     ))
                                                     ? "text-orange-500 hover:font-bold"
                                                     : "text-gray-500 group-hover:text-orange-500"
@@ -386,6 +411,10 @@ const NavbarAdmin = () => {
                                                     (subItem.route3 &&
                                                         route().current(
                                                             subItem.route3
+                                                        )) ||
+                                                    (subItem.route4 &&
+                                                        route().current(
+                                                            subItem.route4
                                                         ))
                                                         ? "text-orange-500 group-hover:scale-105"
                                                         : "text-gray-500 group-hover:text-orange-500"
@@ -398,6 +427,31 @@ const NavbarAdmin = () => {
                             </ul>
                         )}
                     </li>
+
+                    {/* Role Switching Menu*/}
+                    {ormawa ? (
+                        <li key="roleSwitch" className="mb-4">
+                            <button
+                                onClick={() => setShowModal(true)}
+                                className={`${
+                                    route().current("dashboardUser")
+                                        ? "text-white bg-orange-500 hover:font-bold"
+                                        : "text-gray-500 hover:text-orange-500"
+                                } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
+                            >
+                                <UsersRound
+                                    className={`w-5 h-5 mr-2 ${
+                                        route().current("dashboardUser")
+                                            ? "text-white group-hover:scale-105"
+                                            : "group-hover:text-orange-500"
+                                    }`}
+                                />
+                                <span>Dashboard User</span>
+                            </button>
+                        </li>
+                    ) : (
+                        ""
+                    )}
                 </ul>
 
                 {/* Logout */}
@@ -413,6 +467,36 @@ const NavbarAdmin = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Modal Konfirmasi */}
+            {showModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white w-96 p-6 rounded-lg shadow-lg">
+                        <h2 className="text-lg font-semibold text-gray-800 mb-4">
+                            Konfirmasi Perpindahan
+                        </h2>
+                        <p className="text-gray-600 mb-6">
+                            Anda akan berpindah ke dashboard user. Apakah Anda
+                            yakin?
+                        </p>
+                        <div className="flex justify-end gap-4">
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                            >
+                                Batal
+                            </button>
+                            <Link
+                                href={route("dashboardUser")}
+                                onClick={handleRoleSwitch}
+                                className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+                            >
+                                Pindah
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Modal Popup Logout */}
             {isLogoutModalOpen && (

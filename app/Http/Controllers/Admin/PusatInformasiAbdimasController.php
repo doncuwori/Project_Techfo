@@ -13,13 +13,17 @@ use Inertia\Inertia;
 
 class PusatInformasiAbdimasController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $user = Auth::user();
 
-        $data = AbdimasInformation::orderBy('created_at', 'desc')->with(['abdimasRegistrant.mahasiswa'])->get();
+        $data = AbdimasInformation::orderBy('created_at', 'desc')
+            ->with(['abdimasRegistrant.mahasiswa', 'user'])
+            ->get();
 
-        if(Gate::check('dosen') && !Gate::check('wadek')){
-            $data = $data->filter(function($query) use ($user){
+
+        if (Gate::check('dosen') && !Gate::check('wadek')) {
+            $data = $data->filter(function ($query) use ($user) {
                 return $query->leader->id_dosen == $user->dosen->id;
             });
         }
@@ -45,16 +49,16 @@ class PusatInformasiAbdimasController extends Controller
     {
         $selected = $request->id_abdimas_registrant ?? [];
 
-        foreach($selected as $id){
-            if($id['value'] == null){
+        foreach ($selected as $id) {
+            if ($id['value'] == null) {
                 continue;
             }
 
-            if($id['value'] == 'accepted'){
+            if ($id['value'] == 'accepted') {
                 MahasiswaRegistrant::where('id_abdimas_registrant', $id)->update([
                     'accepted' => true
                 ]);
-            }elseif($id['value'] == 'rejected'){
+            } elseif ($id['value'] == 'rejected') {
                 MahasiswaRegistrant::where('id_abdimas_registrant', $id)->update([
                     'rejected' => true
                 ]);
@@ -66,7 +70,7 @@ class PusatInformasiAbdimasController extends Controller
 
     public function uploadSurat(Request $request)
     {
-        if($request->hasFile('surat_tugas')) {
+        if ($request->hasFile('surat_tugas')) {
             $file = $request->file('surat_tugas');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('surat/'), $filename);
@@ -76,7 +80,7 @@ class PusatInformasiAbdimasController extends Controller
             ]);
 
             return redirect()->route('pusatAbdimas')->with('success', 'Surat tugas berhasil diupload');
-        }else{
+        } else {
             return redirect()->route('pusatAbdimas')->with('error', 'Surat tugas gagal diupload');
         }
     }
