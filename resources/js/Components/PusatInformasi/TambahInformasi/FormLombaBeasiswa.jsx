@@ -1,6 +1,8 @@
 import { useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export const FormLombaBeasiswa = ({ type, previous, edit }) => {
     const [selectedFile, setSelectedFile] = useState(
@@ -169,13 +171,13 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         Deskripsi Kegiatan
                         <span className="text-red-600">*</span>
                     </label>
-                    <textarea
-                        id="description"
-                        value={data.description}
-                        onChange={(e) => setData("description", e.target.value)}
-                        className="w-full border rounded-lg p-2"
+                    <ReactQuill
                         placeholder="Tuliskan deskripsi disini..."
-                    ></textarea>
+                        className="w-full border rounded-lg"
+                        theme="snow"
+                        value={data.description}
+                        onChange={(e) => setData("description", e)}
+                    />
                 </div>
                 <div className="mb-4">
                     <label

@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FilePenLine } from "lucide-react";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { formatDate } from "@/lib/helper";
 import NavbarAdmin from "@/Components/NavbarAdmin";
 import TabelPusatInfo from "@/Components/Laporan/Abdimas/TabelPusatInfo";
 import UploadSuratTugas from "@/Components/Laporan/Abdimas/UploadSuratTugas";
+import toast, { Toaster } from "react-hot-toast";
 
 const PusatInformasiAbdimas = ({ user, abdimas }) => {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        toast.dismiss();
+        if (flash.success) {
+            toast.success(flash.success);
+        } else if (flash.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         id_abdimas_registrant: [],
     });
@@ -44,6 +56,7 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
 
     return (
         <body>
+            <Toaster position="top-right" reverseOrder={false} />
             <NavbarAdmin user={user} />
 
             <div class="pl-72 w-full">

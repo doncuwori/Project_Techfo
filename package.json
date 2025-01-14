@@ -26,6 +26,7 @@
         "react-circular-progressbar": "^2.1.0",
         "react-export-table-to-excel": "^1.0.6",
         "react-hot-toast": "^2.4.1",
+        "react-quill": "^2.0.0",
         "react-router-dom": "^7.0.2",
         "react-toastify": "^10.0.6"
     }

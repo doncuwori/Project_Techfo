@@ -35,83 +35,92 @@ class ScholarshipInformationController extends Controller
     
     public function update(string $id, Request $request)
     {
-
-        $scholarship = ScholarshipInformation::where('id', $id)->first();
-        $user = Auth::user();
-
-        if ($request->hasFile('poster_url')) {
-            $file = $request->file('poster_url');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images/'), $filename);
-            $filename = '/images/' . $filename;
+        try{
+            $scholarship = ScholarshipInformation::where('id', $id)->first();
+            $user = Auth::user();
+    
+            if ($request->hasFile('poster_url')) {
+                $file = $request->file('poster_url');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/'), $filename);
+                $filename = '/images/' . $filename;
+            }
+    
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'organizer' => 'required|string|max:255',
+                'event_time_start' => 'required|date',
+                'event_time_end' => 'required|date',
+                'description' => 'required|string',
+                'activity_link' => 'required|url',
+                'guidebook_link' => 'required|url',
+            ]);
+    
+            // Create a new scholarship information record
+            $scholarship->update([
+                'name' => $request->name,
+                'organizer' => $request->organizer,
+                'event_time_start' => $request->event_time_start,
+                'event_time_end' => $request->event_time_end,
+                'description' => $request->description,
+                'poster_url' => $filename??$scholarship->poster_url,
+                'activity_link' => $request->activity_link,
+                'guidebook_link' => $request->guidebook_link,
+                'updated_at' => now(),
+            ]);
+    
+            // Return a response
+            return redirect()->route('pusatBeasiswa')->with('success', 'Informasi beasiswa berhasil diubah');
+        }catch(\Exception $e){
+            return redirect()->back()->with('error', 'Informasi beasiswa gagal diubah :'. $e->getMessage());
         }
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'organizer' => 'required|string|max:255',
-            'event_time_start' => 'required|date',
-            'event_time_end' => 'required|date',
-            'description' => 'required|string',
-            'activity_link' => 'required|url',
-            'guidebook_link' => 'required|url',
-        ]);
-
-        // Create a new scholarship information record
-        $scholarship->update([
-            'name' => $request->name,
-            'organizer' => $request->organizer,
-            'event_time_start' => $request->event_time_start,
-            'event_time_end' => $request->event_time_end,
-            'description' => $request->description,
-            'poster_url' => $filename??$scholarship->poster_url,
-            'activity_link' => $request->activity_link,
-            'guidebook_link' => $request->guidebook_link,
-            'updated_at' => now(),
-        ]);
-
-        // Return a response
-        return redirect()->route('pusatBeasiswa')->with('success', 'Informasi beasiswa berhasil diubah');
+        
     }
 
     public function store(Request $request)
     {
-        $user = Auth::user();
+        try{
+            $user = Auth::user();
 
-        if ($request->hasFile('poster_url')) {
-            $file = $request->file('poster_url');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images/'), $filename);
-            $filename = '/images/' . $filename;
+            if ($request->hasFile('poster_url')) {
+                $file = $request->file('poster_url');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('images/'), $filename);
+                $filename = '/images/' . $filename;
+            }
+    
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'organizer' => 'required|string|max:255',
+                'event_time_start' => 'required|date',
+                'event_time_end' => 'required|date',
+                'description' => 'required|string',
+                'activity_link' => 'required|url',
+                'guidebook_link' => 'required|url',
+            ]);
+    
+            // Create a new scholarship information record
+            $scholarship = ScholarshipInformation::create([
+                'name' => $request->name,
+                'organizer' => $request->organizer,
+                'event_time_start' => $request->event_time_start,
+                'event_time_end' => $request->event_time_end,
+                'description' => $request->description,
+                'activity_link' => $request->activity_link,
+                'guidebook_link' => $request->guidebook_link,
+                'poster_url' => $filename,
+                'created_by' => $user->id,
+                'is_valid' => Gate::check('ormawa') ? false : true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+    
+            // Return a response
+            return redirect()->route('pusatBeasiswa')->with('success', 'Informasi beasiswa berhasil ditambahkan');
+        }catch(\Exception $e){
+            return redirect()->back()->with('error', 'Informasi beasiswa gagal ditambahkan :'. $e->getMessage());
         }
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'organizer' => 'required|string|max:255',
-            'event_time_start' => 'required|date',
-            'event_time_end' => 'required|date',
-            'description' => 'required|string',
-            'activity_link' => 'required|url',
-            'guidebook_link' => 'required|url',
-        ]);
-
-        // Create a new scholarship information record
-        $scholarship = ScholarshipInformation::create([
-            'name' => $request->name,
-            'organizer' => $request->organizer,
-            'event_time_start' => $request->event_time_start,
-            'event_time_end' => $request->event_time_end,
-            'description' => $request->description,
-            'activity_link' => $request->activity_link,
-            'guidebook_link' => $request->guidebook_link,
-            'poster_url' => $filename,
-            'created_by' => $user->id,
-            'is_valid' => Gate::check('ormawa') ? false : true,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Return a response
-        return redirect()->route('pusatBeasiswa')->with('success', 'Informasi beasiswa berhasil ditambahkan');
+        
     }
 
     public function show(ScholarshipInformation $postId)
@@ -134,6 +143,6 @@ class ScholarshipInformationController extends Controller
         $information->update([
             'is_valid' => true
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Informasi beasiswa berhasil diverifikasi');
     }
 }

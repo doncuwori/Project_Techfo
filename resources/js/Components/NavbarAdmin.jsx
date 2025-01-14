@@ -24,6 +24,7 @@ const NavbarAdmin = () => {
     const { url } = usePage();
     const { user } = usePage().props;
     const { wadek, kaprodi, ormawa } = usePage().props.auth;
+    const { mahasiswa } = usePage().props.auth;
 
     const toggleProfileDropdown = () => {
         setIsProfileDropdownOpen(!isProfileDropdownOpen);
@@ -151,7 +152,11 @@ const NavbarAdmin = () => {
                             alt="User Profile"
                         />
                         <div className="font-medium ml-2 hover:text-orange-600 cursor-pointer">
-                            {user.name}
+                            {
+                                mahasiswa ?
+                                mahasiswa.mahasiswa_access.instansi :
+                                user.name
+                            }
                         </div>
                     </button>
 

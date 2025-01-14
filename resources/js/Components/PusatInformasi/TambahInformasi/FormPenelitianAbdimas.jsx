@@ -3,6 +3,8 @@ import { useForm } from "@inertiajs/react";
 import { Plus, Trash } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const FormPenelitianAbdimas = ({ type, edit, dosen, previous }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -278,14 +280,13 @@ const FormPenelitianAbdimas = ({ type, edit, dosen, previous }) => {
                             Deskripsi Kegiatan
                             <span className="text-red-600">*</span>
                         </label>
-                        <textarea
-                            onChange={(e) => {
-                                setData("description", e.target.value);
-                            }}
+                        <ReactQuill
+                            placeholder="Tuliskan deskripsi disini..."
+                            className="w-full border rounded-lg"
+                            theme="snow"
                             value={data.description}
-                            className="w-full border rounded-lg p-3"
-                            placeholder="Tuliskan Deskripsi Kegiatan"
-                        ></textarea>
+                            onChange={(e) => setData("description", e)}
+                        />
                     </div>
 
                     <div className="flex justify-end">

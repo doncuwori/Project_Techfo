@@ -71,7 +71,7 @@ const MainContent = ({ data }) => {
                         </p>
                     </div>
                 </div>
-                <p className="text-gray-700 mb-4">{data.description}</p>
+                <p className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: data.description }}></p>
                 <div className="mb-4">
                     <h2 className="text-lg font-bold mb-2">
                         Mahasiswa Yang Dibutuhkan

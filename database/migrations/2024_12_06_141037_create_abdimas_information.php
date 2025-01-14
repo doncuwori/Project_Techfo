@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('abdimas_information', function (Blueprint $table) {
             $table->id(); 
             $table->string('name'); 
-            $table->string('description'); 
+            $table->text('description'); 
             $table->dateTime('event_time_start'); 
             $table->dateTime('event_time_end'); 
             $table->string('location'); 
