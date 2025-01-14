@@ -12,7 +12,7 @@ class PusatInformasiLombaController extends Controller
     {
         $user = auth()->user();
 
-        $data = CompetitionInformation::orderBy('created_at', 'desc')->with('user')->get();
+        $data = CompetitionInformation::orderBy('created_at', 'desc')->with(['user.mahasiswa.mahasiswaAccess'])->get();
 
         return Inertia::render('Admin/PusatInformasi/PusatLomba', [
             'user' => $user,

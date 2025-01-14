@@ -12,7 +12,6 @@ import { useForm, usePage } from "@inertiajs/react";
 
 const TabelPusatInformasi = ({ data, title }) => {
     const { user } = usePage().props;
-    const { mahasiswa } = usePage().props.auth;
     return (
         <table className="w-full border-collapse text-sm">
             <thead>
@@ -40,7 +39,12 @@ const TabelPusatInformasi = ({ data, title }) => {
                     <tr key={index} className="border-t hover:bg-gray-50">
                         <td className="border p-2">{index + 1}</td>
                         <td className="border p-2">{item.name}</td>
-                        <td className="border p-2">{item.user.name}</td>
+                        <td className="border p-2">
+                            {
+                                item.user.mahasiswa ? 
+                                item.user.mahasiswa.mahasiswa_access.instansi : item.user.name
+                            }
+                        </td>
                         <td className="border p-2">
                             {formatDatetimeToIndonesian(item.created_at)}
                         </td>

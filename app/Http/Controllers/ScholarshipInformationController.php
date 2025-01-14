@@ -125,7 +125,7 @@ class ScholarshipInformationController extends Controller
 
     public function show(ScholarshipInformation $postId)
     {
-        $postId->load('user');
+        $postId->load('user.mahasiswa.mahasiswaAccess');
         return Inertia::render('User/Beasiswa/DetailBeasiswa', [
             'data' => $postId
         ]);
