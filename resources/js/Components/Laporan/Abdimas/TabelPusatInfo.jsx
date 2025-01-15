@@ -41,6 +41,9 @@ const TabelPusatInfo = ({ data, handler }) => {
                             Foto 3X4
                         </th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Surat Pernyataan
+                        </th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Status
                         </th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -90,6 +93,15 @@ const TabelPusatInfo = ({ data, handler }) => {
                                     className="underline text-blue-500"
                                     target="_blank"
                                     href={`/images/${item.foto}`}
+                                >
+                                    Lihat File
+                                </a>
+                            </td>
+                            <td className="py-2 text-center">
+                                <a
+                                    className="underline text-blue-500"
+                                    target="_blank"
+                                    href={`/images/${item.surat_pernyataan}`}
                                 >
                                     Lihat File
                                 </a>

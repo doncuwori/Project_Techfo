@@ -20,7 +20,7 @@ class ResearchRegistrantController extends Controller
         try{
             DB::beginTransaction();
 
-            if($request->hasFile('khs') && $request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('foto')){
+            if($request->hasFile('khs') && $request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('foto') && $request->hasFile('surat_pernyataan')){
                 $fileKhs = $request->file('khs');
                 $filenameKhs = time() . '.' . $fileKhs->getClientOriginalExtension();
                 $fileKhs->move(public_path('images/'), $filenameKhs);
@@ -36,6 +36,10 @@ class ResearchRegistrantController extends Controller
                 $fileFoto = $request->file('foto');
                 $filenameFoto = time() . '.' . $fileFoto->getClientOriginalExtension();
                 $fileFoto->move(public_path('images/'), $filenameFoto);
+
+                $fileSuratPernyataan = $request->file('surat_pernyataan');
+                $filenameSuratPernyataan = time() . '.' . $fileSuratPernyataan->getClientOriginalExtension();
+                $fileSuratPernyataan->move(public_path('images/'), $filenameSuratPernyataan);
             }
 
             $registrant = ResearchRegistrant::create([
@@ -47,6 +51,7 @@ class ResearchRegistrantController extends Controller
                 'foto' => $filenameFoto,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'surat_pernyataan' => $filenameSuratPernyataan
             ]);
 
             MahasiswaRegistrant::create([

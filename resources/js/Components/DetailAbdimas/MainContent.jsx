@@ -31,28 +31,32 @@ const MainContent = ({ data }) => {
                     </div>
                 </div>
                 <div className="flex justify-start mb-4">
-                    {(data.exist_enroll == true && data.already_enroll == false) ? 
-                    (
-                        <button className="bg-green-200 text-white font-bold py-2 px-4 rounded">
-                            Masih ada registrasi menunggu
-                        </button>
-                    ) 
-                    : (data.exist_enroll == true && data.already_enroll == true) || (data.exist_enroll == false && data.already_enroll == true) ? 
-                    (
-                        <button className="bg-green-200 text-white font-bold py-2 px-4 rounded">
-                            Sudah Daftar
-                        </button>
-                    ) 
-
-                    :
-                    
-                    (
-                        <Link href={route("daftarAbdimas", data.id)}>
-                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                Daftar
+                    {!data.closed ? (
+                        data.exist_enroll == true &&
+                        data.already_enroll == false ? (
+                            <button className="bg-green-200 text-white font-bold py-2 px-4 rounded">
+                                Masih ada registrasi menunggu
                             </button>
-                        </Link>
+                        ) : (data.exist_enroll == true &&
+                              data.already_enroll == true) ||
+                          (data.exist_enroll == false &&
+                              data.already_enroll == true) ? (
+                            <button className="bg-green-200 text-white font-bold py-2 px-4 rounded">
+                                Sudah Daftar
+                            </button>
+                        ) : (
+                            <Link href={route("daftarAbdimas", data.id)}>
+                                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                    Daftar
+                                </button>
+                            </Link>
+                        )
+                    ) : (
+                        <button className="bg-green-200 text-white font-bold py-2 px-4 rounded">
+                            Ditutup
+                        </button>
                     )}
+
                     <Link href={route("faq")}>
                         <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded ml-4">
                             Buku Panduan
@@ -71,7 +75,10 @@ const MainContent = ({ data }) => {
                         </p>
                     </div>
                 </div>
-                <p className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: data.description }}></p>
+                <p
+                    className="text-gray-700 mb-4"
+                    dangerouslySetInnerHTML={{ __html: data.description }}
+                ></p>
                 <div className="mb-4">
                     <h2 className="text-lg font-bold mb-2">
                         Mahasiswa Yang Dibutuhkan
@@ -84,14 +91,10 @@ const MainContent = ({ data }) => {
                     </div>
                 </div>
                 <div className="mb-4">
-                    <h2 className="text-lg font-bold mb-2">
-                        Jenis Pendanaan
-                    </h2>
+                    <h2 className="text-lg font-bold mb-2">Jenis Pendanaan</h2>
                     <div className="flex items-center">
                         <HandCoins className="w-5 h-5 text-orange-600" />
-                        <p className="text-gray-700 ml-2">
-                            {data.funding}
-                        </p>
+                        <p className="text-gray-700 ml-2">{data.funding}</p>
                     </div>
                 </div>
                 <div className="mb-4">

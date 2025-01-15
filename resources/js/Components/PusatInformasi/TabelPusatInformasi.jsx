@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     CheckCircle2Icon,
     CheckCircleIcon,
@@ -9,9 +9,31 @@ import {
 import { Trash } from "lucide-react";
 import { formatDate, formatDatetimeToIndonesian } from "@/lib/helper";
 import { useForm, usePage } from "@inertiajs/react";
+import PrimaryButton from "../PrimaryButton";
+import DangerButton from "../DangerButton";
 
 const TabelPusatInformasi = ({ data, title }) => {
     const { user } = usePage().props;
+    const [rejectProposalModal, setRejectProposalModal] = useState(null);
+    const { post } = useForm();
+
+    const toggleRejectProposalModal = (id) => {
+        setRejectProposalModal(id ?? null);
+    };
+
+    const handleRejectProposal = (proposalId) => {
+        let routePage =
+            title == "abdimas"
+                ? route("pusatAbdimas.rejectProposal", proposalId)
+                : route("pusatPenelitian.rejectProposal", proposalId);
+
+        post(routePage, {
+            onSuccess: () => {
+                toggleRejectProposalModal(null);
+            },
+        });
+    };
+
     return (
         <table className="w-full border-collapse text-sm">
             <thead>
@@ -32,6 +54,12 @@ const TabelPusatInformasi = ({ data, title }) => {
                     <th className="border p-2">HARI & TANGGAL UPLOAD</th>
                     <th className="border p-2">DEADLINE KEGIATAN</th>
                     <th className="border p-2">AKSI</th>
+                    {(title == "abdimas" || title == "penelitian") &&
+                    user.role == "admin" ? (
+                        <th className="border p-2">PROPOSAL DITOLAK</th>
+                    ) : (
+                        ""
+                    )}
                 </tr>
             </thead>
             <tbody>
@@ -40,10 +68,9 @@ const TabelPusatInformasi = ({ data, title }) => {
                         <td className="border p-2">{index + 1}</td>
                         <td className="border p-2">{item.name}</td>
                         <td className="border p-2">
-                            {
-                                item.user.mahasiswa ? 
-                                item.user.mahasiswa.mahasiswa_access.instansi : item.user.name
-                            }
+                            {item.user.mahasiswa
+                                ? item.user.mahasiswa.mahasiswa_access.instansi
+                                : item.user.name}
                         </td>
                         <td className="border p-2">
                             {formatDatetimeToIndonesian(item.created_at)}
@@ -191,9 +218,62 @@ const TabelPusatInformasi = ({ data, title }) => {
                                 </button>
                             </div>
                         </td>
+                        {(title == "abdimas" || title == "penelitian") &&
+                        user.role == "admin" &&
+                        item.closed ? (
+                            item.proposal_rejected ? (
+                                <td className="border p-2 text-red-500 font-bold text-center">
+                                    Ditolak
+                                </td>
+                            ) : (
+                                <td className="border p-2">
+                                    <DangerButton
+                                        onClick={(e) =>
+                                            toggleRejectProposalModal(item.id)
+                                        }
+                                    >
+                                        Tolak Proposal
+                                    </DangerButton>
+                                </td>
+                            )
+                        ) : (
+                            <td className="border p-2">
+                                -
+                            </td>
+                        )}
                     </tr>
                 ))}
             </tbody>
+            {rejectProposalModal != null && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white rounded-lg p-6 w-96 shadow-lg">
+                        <h2 className="text-lg font-semibold text-gray-800">
+                            Konfirmasi Penolakan
+                        </h2>
+                        <p className="mt-2 text-gray-600">
+                            Apakah Anda yakin ingin menolak proposal ini?
+                        </p>
+                        <div className="mt-4 flex justify-end gap-4">
+                            <button
+                                type="button"
+                                onClick={(e) => toggleRejectProposalModal(null)}
+                                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                            >
+                                Batal
+                            </button>
+                            <button
+                                type="button"
+                                onClick={(e) =>
+                                    handleRejectProposal(rejectProposalModal)
+                                }
+                                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                            >
+                                Tolak
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </table>
     );
 };

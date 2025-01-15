@@ -13,6 +13,7 @@ const FormDaftarPenelitian = ({ information }) => {
         cv: "",
         portofolio: "",
         foto: "",
+        surat_pernyataan: "",
     });
 
     const [isChecked, setIsChecked] = useState(false);
@@ -70,7 +71,7 @@ const FormDaftarPenelitian = ({ information }) => {
             file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
-            setData("portofolio", file);
+            setData("foto", file);
         } else {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
             event.target.value = "";

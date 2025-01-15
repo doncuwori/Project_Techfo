@@ -84,4 +84,25 @@ class PusatInformasiAbdimasController extends Controller
             return redirect()->route('pusatAbdimas')->with('error', 'Surat tugas gagal diupload');
         }
     }
+
+    public function rejectProposal($id)
+    {
+        $info = AbdimasInformation::where('id', $id)->first();
+
+        foreach ($info->abdimasRegistrant as $registrant) {
+            $reg = AbdimasRegistrant::where('id_abdimas_information', $id)->first();
+            $mhs = MahasiswaRegistrant::where('id_abdimas_registrant', $reg->id)->first();
+
+            $mhs->update([
+                'rejected' => true,
+                'accepted' => false
+            ]);
+        }
+
+        $info->update([
+            'proposal_rejected' => true
+        ]);
+
+        return redirect()->route('pusatAbdimas')->with('success', 'Berhasil Menolak Proposal');
+    }
 }

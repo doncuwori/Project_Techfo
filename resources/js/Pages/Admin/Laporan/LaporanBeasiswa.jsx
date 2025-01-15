@@ -19,6 +19,10 @@ const LaporanBeasiswa = ({
     const [exportPendaftar, setExportPendaftar] = useState(false);
     const [exportPenerima, setExportPenerima] = useState(false);
 
+        const [penerimaCount, setPenerimaCount] = useState(dataPenerima.filter(
+            (item) => item.is_validated === true).length);
+        const [pesertaCount, setPesertaCount] = useState(dataPendaftar.length);
+
     const [filters, setFilters] = useState({
         prodi: "",
         angkatan: "",
@@ -32,6 +36,13 @@ const LaporanBeasiswa = ({
             ...prevFilters,
             [name]: value,
         }));
+
+        if(name === "tahun"){
+            setPenerimaCount(dataPenerima.filter(
+                (item) => item.is_validated === true && item.created_at.includes(value)).length);
+            setPesertaCount(dataPendaftar.filter(
+                (item) => item.created_at.includes(value)).length);
+        }
     };
 
     const handleExport = (val) => {
@@ -58,9 +69,9 @@ const LaporanBeasiswa = ({
                     </h1>
                     <CardStatis
                         scholarshipRegistrantsCount={
-                            scholarshipRegistrantsCount
+                            pesertaCount
                         }
-                        scholarshipRecipientsCount={scholarshipRecipientsCount}
+                        scholarshipRecipientsCount={penerimaCount}
                     />
                     <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
                         <div class="flex items-center mb-4">

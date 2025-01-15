@@ -48,6 +48,10 @@ const LaporanLomba = ({
     const [exportPendaftar, setExportPendaftar] = useState(false);
     const [exportPemenang, setExportPemenang] = useState(false);
 
+    const [pemenangCount, setPemenangCount] = useState(dataPemenang.filter(
+        (item) => item.competition_achievement.is_validated === true).length);
+    const [pesertaCount, setPesertaCount] = useState(dataPendaftar.length);
+
     const [filters, setFilters] = useState({
         prodi: "",
         angkatan: "",
@@ -62,6 +66,13 @@ const LaporanLomba = ({
             ...prevFilters,
             [name]: value,
         }));
+
+        if(name === "tahun"){
+            setPemenangCount(dataPemenang.filter(
+                (item) => item.competition_achievement.is_validated === true && item.created_at.includes(value)).length);
+            setPesertaCount(dataPendaftar.filter(
+                (item) => item.created_at.includes(value)).length);
+        }
     };
 
     const handleExport = (val) => {
@@ -88,10 +99,10 @@ const LaporanLomba = ({
                     </h1>
                     <CardStatis
                         competitionAchievementsCount={
-                            competitionAchievementsCount
+                            pemenangCount
                         }
                         competitionRegistrantsCount={
-                            competitionRegistrantsCount
+                            pesertaCount
                         }
                         totalMahasiswa={totalMahasiswa}
                     />

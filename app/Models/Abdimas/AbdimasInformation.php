@@ -24,6 +24,7 @@ class AbdimasInformation extends Model
         'funding',
         'created_by',
         'description',
+        'proposal_rejected',
     ];
 
     public function dosen()
@@ -45,7 +46,9 @@ class AbdimasInformation extends Model
     {
         return MahasiswaRegistrant::whereHas('abdimasRegistrant', function ($query) {
             $query->where('id_abdimas_information', $this->id);
-        })->where('accepted', true)->count();
+        })->where('accepted', true)->exists() || MahasiswaRegistrant::whereHas('abdimasRegistrant', function ($query) {
+            $query->where('id_abdimas_information', $this->id);
+        })->where('rejected', true)->exists();
     }
 
     public function user()

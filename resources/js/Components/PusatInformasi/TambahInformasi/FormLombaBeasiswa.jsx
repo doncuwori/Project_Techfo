@@ -57,7 +57,6 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
         e.preventDefault();
 
         const routeName = function routeName() {
-            console.log(type, edit);
             if (type === "lomba" && !edit) {
                 return route("competitionInformation.store");
             } else if (type === "lomba" && edit) {

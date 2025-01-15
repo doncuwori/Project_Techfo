@@ -21,9 +21,11 @@ class DashboardAdminController extends Controller
     public function index()
     {
         $competitionRegistrantsCount = \App\Models\Competitions\MahasiswaRegistrant::count();
-        $competitionAchievementsCount = MahasiswaAchievement::count();
+        $competitionAchievementsCount = MahasiswaAchievement::whereHas('competitionAchievement', function($query){
+            $query->where('is_validated', true);
+        })->count();
         $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
-        $scholarshipRecipientsCount = ScholarshipRecipient::count();
+        $scholarshipRecipientsCount = ScholarshipRecipient::where('is_validated', true)->count();
 
         $abdimasRegistrantsCount = MahasiswaRegistrant::count();
         $abdimasRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
@@ -59,7 +61,7 @@ class DashboardAdminController extends Controller
                         $query->where('id', $p->id);
                     });
                 })->whereHas('competitionAchievement', function ($query) use ($k) {
-                    $query->where('degree', $k);
+                    $query->where('degree', $k)->where('is_validated', true);
                 })->count();
             }
         }
@@ -71,6 +73,8 @@ class DashboardAdminController extends Controller
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
                 });
+            })->whereHas('competitionAchievement', function ($query) use ($k) {
+                $query->where('is_validated', true);
             })->count();
         }
 
@@ -81,6 +85,8 @@ class DashboardAdminController extends Controller
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
                 });
+            })->whereHas('scholarshipRecipient', function ($query) use ($k) {
+                $query->where('is_validated', true);
             })->count();
         }
 

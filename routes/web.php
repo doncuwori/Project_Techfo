@@ -305,11 +305,13 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     Route::get('/pusatAbdimas/{id}', [PusatInformasiAbdimasController::class, 'show'])->name('pusatAbdimas.show');
     Route::post('/pusatAbdimas/register', [PusatInformasiAbdimasController::class, 'register'])->name('pusatAbdimas.register');
     Route::post('/pusatAbdimas/uploadSurat', [PusatInformasiAbdimasController::class, 'uploadSurat'])->name('pusatAbdimas.uploadSurat');
+    Route::post('/pusatAbdimas/reject-proposal/{id}', [PusatInformasiAbdimasController::class, 'rejectProposal'])->name('pusatAbdimas.rejectProposal');
 
     Route::get('/pusatPenelitian', [PusatInformasiPenelitianController::class, 'index'])->name('pusatPenelitian');
     Route::get('/pusatPenelitian/{id}', [PusatInformasiPenelitianController::class, 'show'])->name('pusatPenelitian.show');
     Route::post('/pusatPenelitian/register', [PusatInformasiPenelitianController::class, 'register'])->name('pusatPenelitian.register');
     Route::post('/pusatPenelitian/uploadSurat', [PusatInformasiPenelitianController::class, 'uploadSurat'])->name('pusatPenelitian.uploadSurat');
+    Route::post('/pusatPenelitian/reject-proposal/{id}', [PusatInformasiPenelitianController::class, 'rejectProposal'])->name('pusatPenelitian.rejectProposal');
 
     Route::get('/loginAdmin', function () {
         return Inertia::render('Admin/LoginAdmin');
