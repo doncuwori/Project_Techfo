@@ -109,7 +109,7 @@ const LaporanAbdimas = ({
                                     onChange={(e) => handleFilterChange(e)}
                                     class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 >
-                                    <option value="">Semua Pendanaan</option>
+                                    <option value="">Semua Jenis Pendanaan</option>
                                     {funding.map((item, index) => {
                                         return (
                                             <option value={item} key={index}>

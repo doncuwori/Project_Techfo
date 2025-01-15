@@ -104,6 +104,9 @@ const TabelTabPenerima = ({ data, filters, refs }) => {
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Foto 3x4
                         </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Surat Pernyataan
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -195,6 +198,19 @@ const TabelTabPenerima = ({ data, filters, refs }) => {
                                             window.location.origin +
                                             "/images/" +
                                             item.abdimas_registrant.foto
+                                        }
+                                    >
+                                        Lihat File
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <a
+                                        className="underline text-blue-500"
+                                        target="_blank"
+                                        href={
+                                            window.location.origin +
+                                            "/images/" +
+                                            item.abdimas_registrant.surat_pernyataan
                                         }
                                     >
                                         Lihat File
