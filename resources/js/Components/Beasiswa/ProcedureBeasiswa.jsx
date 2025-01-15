@@ -32,7 +32,7 @@ const ProcedureBeasiswa = () => {
     );
 
     return (
-        <div className="w-full px-8 sm:px-8 md:px-16 py-8 mt-10 mb-12 relative z-10">
+        <div className="w-full px-8 sm:px-8 md:px-16 py-8 mt-16 mb-12 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 {procedures.map((procedure, index) => (
                     <ProcedureCard

@@ -22,7 +22,10 @@ const PusatAbdimas = ({ user, data }) => {
             <NavbarAdmin user={user} />
             <main className="pl-72 w-full z-0">
                 <div className="container px-4 py-8 w-full">
-                    <div className="bg-white p-6 mt-14 rounded shadow-lg">
+                <h1 class="text-3xl font-bold text-black mt-16 mb-4">
+                        Pusat Informasi Pengabdian Masyarakat
+                    </h1>
+                    <div className="bg-white p-6 rounded shadow-lg">
                         {/* Header dan Search */}
                         <div className="flex justify-between items-center mb-4">
                             <div></div>
