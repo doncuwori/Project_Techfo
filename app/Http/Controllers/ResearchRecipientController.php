@@ -24,6 +24,7 @@ class ResearchRecipientController extends Controller
             'cv' => 'required|file',
             'portofolio' => 'required|file',
             'foto' => 'required|file',
+            'surat_pernyataan' => 'required|file',
         ]);
 
         // Simpan data research registrant
@@ -35,6 +36,7 @@ class ResearchRecipientController extends Controller
             'cv' => $request->cv->store('cv'),
             'portofolio' => $request->portofolio->store('portofolio'),
             'foto' => $request->foto->store('foto'),
+            'surat_pernyataan' => $request->surat_pernyataan->store('surat_pernyataan'),
             'created_by' => $user->id,
             'created_at' => now(),
             'updated_at' => now(),

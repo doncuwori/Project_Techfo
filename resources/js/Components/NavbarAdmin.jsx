@@ -133,7 +133,7 @@ const NavbarAdmin = () => {
         }
     }, [ormawa]);
 
-    // Update menu jika user adalah ormawa
+    // Update menu jika user adalah dosen
     useEffect(() => {
         if (dosen) {
             setPusatInformasiMenu([

@@ -223,7 +223,7 @@ const FormDaftarAbdimas = ({ information }) => {
                             type="file"
                             className="w-full border rounded-lg p-2"
                             onChange={handleSuratPernyataanChange}
-                            accept=".jpg,.jpeg,.png"
+                            accept=".pdf"
                         />
                         <li className="text-gray-500 text-sm mt-2">
                             Silakan unduh format Surat Pernyataan berikut{" "}

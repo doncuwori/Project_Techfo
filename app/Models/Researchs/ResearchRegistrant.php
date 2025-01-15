@@ -18,6 +18,7 @@ class ResearchRegistrant extends Model
         'cv',
         'portofolio',
         'foto',
+        'surat_pernyataan',
     ];
 
     /**
