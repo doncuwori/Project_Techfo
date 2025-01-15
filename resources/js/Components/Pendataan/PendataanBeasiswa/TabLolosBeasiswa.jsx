@@ -29,43 +29,63 @@ export const TabLolosBeasiswa = ({ country }) => {
 
     const handleFileScanBuktiChange = (event) => {
         const file = event.target.files[0];
-        setScanBuktiFile(file);
-        setData("proof_scan_url", file);
-    };
-
-    const handlePosterKegiatanChange = (event) => {
-        const file = event.target.files[0];
-        setPosterKegiatan(file);
-        setData("poster_url", file);
-    };
-
-    const handleDropScanBuktiFile = (e) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files[0];
+        
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
         ) {
             setScanBuktiFile(file);
             setData("proof_scan_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
+    };
+
+    const handlePosterKegiatanChange = (event) => {
+        const file = event.target.files[0];
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            setPosterKegiatan(file);
+            setData("poster_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
+    };
+
+    const handleDropScanBuktiFile = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
+        ) {
+            setScanBuktiFile(file);
+            setData("proof_scan_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
     const handleDropPosterKegiatanFile = (e) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
+
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
             setPosterKegiatan(file);
             setData("poster_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
@@ -270,7 +290,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                             <Upload className="text-gray-500 w-6 h-6 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png,.pdf"
@@ -312,7 +332,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                             Berkas yang diunggah dalam format: .pdf, .jpg,
                             .jpeg, .png;
                         </li>
-                        <li>Ukuran file maksimal 1MB.</li>
+                        <li>Ukuran file maksimal 2MB.</li>
                     </ul>
                 </div>
 
@@ -330,7 +350,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                             <Upload className="text-gray-500 w-6 h-6 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -372,7 +392,7 @@ export const TabLolosBeasiswa = ({ country }) => {
                             Berkas yang diunggah dalam format: .jpg, .jpeg,
                             .png;
                         </li>
-                        <li>Ukuran file maksimal 1MB.</li>
+                        <li>Ukuran file maksimal 2MB.</li>
                     </ul>
                 </div>
             </section>

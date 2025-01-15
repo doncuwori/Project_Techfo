@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('cv');
             $table->string('portofolio');
             $table->string('foto');
+            $table->string('surat_pernyataan');
             // $table->foreignId('created_by')->constrained('users');
             $table->timestamps();
         });

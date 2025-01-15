@@ -14,7 +14,12 @@ const ResearchCard = ({ title, description, date, label }) => (
             <h2 className="text-black text-lg font-medium line-clamp-2">
                 {title}
             </h2>
-            <p className="text-gray-500 text-sm line-clamp-3">{description}</p>
+            <p
+                className="text-gray-500 text-sm line-clamp-3"
+                dangerouslySetInnerHTML={{
+                    __html: description,
+                }}
+            ></p>
             <div className="flex items-center gap-2">
                 <Clock4 size={18} className="text-orange-500" />
                 <span className="text-orange-500 text-xs font-medium leading-tight">

@@ -27,8 +27,17 @@ export const TabDaftarBeasiswa = ({ country }) => {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        setData("poster_url", file);
-        setPosterKegiatan(file);
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            setData("poster_url", file);
+            setPosterKegiatan(file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
     };
 
     const handleDropFile = (e) => {
@@ -37,13 +46,13 @@ export const TabDaftarBeasiswa = ({ country }) => {
 
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
             setData("poster_url", file);
             setPosterKegiatan(file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
@@ -223,7 +232,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
                 <h2 className="text-xl font-bold mb-4">Dokumen Pendukung</h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2">
-                        Poster Kegiatan
+                        Poster Kegiatan<span className="text-red-600">*</span>
                     </label>
                     <div
                         className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center"
@@ -234,7 +243,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
                             <Upload className="text-gray-500 w-6 h-6 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -276,7 +285,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
                             Berkas yang diunggah dalam format: .jpg, .jpeg,
                             .png.
                         </li>
-                        <li>Ukuran file maksimal 1MB.</li>
+                        <li>Ukuran file maksimal 2MB.</li>
                     </ul>
                 </div>
             </section>

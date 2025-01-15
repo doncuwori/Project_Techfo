@@ -67,10 +67,10 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                             Nama Beasiswa
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            NIM
+                            Nama
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nama
+                            NIM
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Program Studi
@@ -94,6 +94,9 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                             Deskripsi Kegiatan
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Poster Kegiatan
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Scan Bukti
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -113,10 +116,10 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                                     {item.name}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.mahasiswa.nim}
+                                    {item.mahasiswa.nama}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.mahasiswa.nama}
+                                    {item.mahasiswa.nim}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {" "}
@@ -142,6 +145,20 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.description}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.poster_url !== null ? (
+                                        <a
+                                            href={`/images/${item.poster_url}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-500 underline"
+                                        >
+                                            Lihat File
+                                        </a>
+                                    ) : (
+                                        "-"
+                                    )}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.proof_scan_url !== null ? (

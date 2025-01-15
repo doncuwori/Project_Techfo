@@ -36,6 +36,11 @@ class AdminAbdimasController extends Controller
 
         $prodi = Prodi::all();
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
+        $funding = [
+            'Hibah Instansi Pemerintah',
+            'Hibah Instansi Swasta',
+            'Mandiri'
+        ];
 
         return Inertia::render('Admin/Laporan/LaporanAbdimas', [
             'abdimasRegistrantsCount' => $abdimasRegistrantsCount,
@@ -45,7 +50,8 @@ class AdminAbdimasController extends Controller
             'penerima' => $penerima,
             'pendaftarAbdimas' => $abdimasDaftar,
             'prodi' => $prodi,
-            'angkatan' => $angkatan
+            'angkatan' => $angkatan,
+            'funding' => $funding
         ]);
     }
 }

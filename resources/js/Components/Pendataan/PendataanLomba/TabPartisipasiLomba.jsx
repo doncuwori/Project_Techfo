@@ -90,23 +90,32 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        setData("poster_url", file);
-        setSelectedFile(file);
-    };
-
-    const handleDropFile = (e) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files[0];
-
+    
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
             setData("poster_url", file);
             setSelectedFile(file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
+    };
+    
+    const handleDropFile = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+    
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 && 
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            setData("poster_url", file);
+            setSelectedFile(file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
@@ -507,7 +516,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             <Upload className="text-gray-500 w-7 h-7 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -549,7 +558,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             Berkas yang diunggah dalam format: .jpg, .jpeg,
                             .png;
                         </li>
-                        <li>Ukuran file maksimal 1MB.</li>
+                        <li>Ukuran file maksimal 2MB.</li>
                     </ul>
                 </div>
             </section>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('event_date_start');
             $table->date('event_date_end');
             $table->text('description');
-            $table->string('poster_url')->nullable();
+            $table->string('poster_url');
             $table->string('phone'); 
             $table->timestamps();
         });

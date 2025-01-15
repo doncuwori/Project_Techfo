@@ -25,7 +25,7 @@ return new class extends Migration
             $table->date('activity_date_start'); // Tanggal mulai
             $table->date('activity_date_end'); // Tanggal selesai
             $table->text('description'); // Deskripsi kegiatan
-            $table->string('poster_url')->nullable(); // URL poster
+            $table->string('poster_url'); // URL poster
             $table->string('phone'); 
             $table->timestamps();
         });

@@ -32,20 +32,43 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
 
     const handleFileScanBuktiChange = (event) => {
         const file = event.target.files[0];
-        setScanBuktiFile(file);
-        setData("proof_scan_url", file);
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
+        ) {
+            setScanBuktiFile(file);
+            setData("proof_scan_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
     };
 
     const handleFileKegiatanChange = (event) => {
         const file = event.target.files[0];
-        setKegiatanFile(file);
-        setData("event_photo_url", file);
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            setKegiatanFile(file);
+            setData("event_photo_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
     };
 
     const handleFileLaporanChange = (event) => {
         const file = event.target.files[0];
-        setLaporanFile(file);
-        setData("report_url", file);
+
+        if (file && file.size <= 2 * 1024 * 1024 && /\.pdf$/i.test(file.name)) {
+            setLaporanFile(file);
+            setData("report_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
     };
 
     const handleDropScanBuktiFile = (e) => {
@@ -54,13 +77,13 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
 
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
         ) {
             setScanBuktiFile(file);
             setData("proof_scan_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
@@ -70,13 +93,13 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
 
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
             setKegiatanFile(file);
             setData("event_photo_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
@@ -84,11 +107,11 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
 
-        if (file && file.size <= 1 * 1024 * 1024 && /\.pdf$/i.test(file.name)) {
+        if (file && file.size <= 2 * 1024 * 1024 && /\.pdf$/i.test(file.name)) {
             setLaporanFile(file);
             setData("report_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
@@ -328,8 +351,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             <Upload className="text-gray-500 w-7 h-7 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png,.pdf"
@@ -372,7 +394,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             Berkas yang diunggah dalam format: .pdf, .jpg,
                             .jpeg, .png;
                         </li>
-                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 2MB.</li>
                     </ul>
                 </div>
 
@@ -390,7 +412,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             <Upload className="text-gray-500 w-7 h-7 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -432,7 +454,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             Berkas yang diunggah dalam format: .jpg, .jpeg,
                             .png;
                         </li>
-                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 2MB.</li>
                     </ul>
                 </div>
 
@@ -451,7 +473,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             <Upload className="text-gray-500 w-7 h-7 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".pdf"
@@ -506,7 +528,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             </a>
                         </li>
                         <li>Berkas yang diunggah dalam format: .pdf;</li>
-                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 2MB.</li>
                     </ul>
                 </div>
             </section>

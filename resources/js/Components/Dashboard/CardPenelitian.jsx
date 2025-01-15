@@ -88,9 +88,12 @@ const CardPenelitian = ({ data }) => {
                                 <h2 className="text-black text-lg font-medium line-clamp-2">
                                     {research.name}
                                 </h2>
-                                <p className="text-gray-500 text-sm line-clamp-3">
-                                    {research.description}
-                                </p>
+                                <p
+                                    className="text-gray-500 text-sm line-clamp-3"
+                                    dangerouslySetInnerHTML={{
+                                        __html: research.description,
+                                    }}
+                                ></p>
                                 <div className="flex items-center gap-2">
                                     <Clock4
                                         size={18}

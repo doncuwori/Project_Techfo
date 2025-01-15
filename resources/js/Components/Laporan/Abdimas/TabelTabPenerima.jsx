@@ -14,6 +14,7 @@ const TabelTabPenerima = ({ data, filters, refs }) => {
 
     useEffect(() => {
         let nama = filters.nama;
+        let funding = filters.funding;
         let prodi = filters.prodi;
         let angkatan = filters.angkatan;
         let tahun = filters.tahun;
@@ -22,6 +23,14 @@ const TabelTabPenerima = ({ data, filters, refs }) => {
         if (nama) {
             temp = temp.filter((item) =>
                 item.mahasiswa.nama.toLowerCase().includes(nama.toLowerCase())
+            );
+        }
+
+        if (funding) {
+            temp = temp.filter((item) =>
+                item.abdimas_registrant.abdimas_information.funding
+                    .toLowerCase()
+                    .includes(funding.toLowerCase())
             );
         }
 
@@ -47,7 +56,7 @@ const TabelTabPenerima = ({ data, filters, refs }) => {
             onDownload();
         }
     }, [filters, refs]);
-    
+
     return (
         <div>
             <table ref={tableRef} class="min-w-full divide-y divide-gray-200 ">

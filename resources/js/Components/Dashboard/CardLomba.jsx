@@ -91,7 +91,10 @@ const CardLomba = ({ data }) => {
                                 <div
                                     className="w-full h-44 bg-gray-300 rounded-xl relative bg-cover bg-center"
                                     style={{
-                                        backgroundImage: `url(${competition.poster_url ?? 'img/posterlomba.jpg'})`,
+                                        backgroundImage: `url(${
+                                            competition.poster_url ??
+                                            "img/posterlomba.jpg"
+                                        })`,
                                     }}
                                 >
                                     <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-0.5 rounded-2xl">
@@ -103,16 +106,21 @@ const CardLomba = ({ data }) => {
                                     <h2 className="text-black text-lg font-medium line-clamp-1">
                                         {competition.name}
                                     </h2>
-                                    <p className="text-gray-500 text-sm line-clamp-2">
-                                        {competition.description}
-                                    </p>
+                                    <p
+                                        className="text-gray-500 text-sm line-clamp-2"
+                                        dangerouslySetInnerHTML={{
+                                            __html: competition.description,
+                                        }}
+                                    ></p>
                                     <div className="flex items-center gap-2">
                                         <Clock4
                                             size={18}
                                             className="text-orange-500"
                                         />
                                         <span className="text-orange-500 text-xs font-medium leading-tight">
-                                            {formatDate(competition.event_time_end)}
+                                            {formatDate(
+                                                competition.event_time_end
+                                            )}
                                         </span>
                                     </div>
                                 </div>

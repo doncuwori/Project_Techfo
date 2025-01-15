@@ -14,6 +14,7 @@ const LaporanAbdimas = ({
     penerima,
     prodi,
     angkatan,
+    funding,
 }) => {
     const [tabValue, settabValue] = useState("Penerima");
 
@@ -25,6 +26,7 @@ const LaporanAbdimas = ({
         angkatan: "",
         nama: "",
         tahun: "",
+        funding: "",
     });
 
     const handleFilterChange = (event) => {
@@ -102,6 +104,20 @@ const LaporanAbdimas = ({
                                 </div>
                             </div>
                             <div class="flex space-x-2">
+                                <select
+                                    name="funding"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">Semua Pendanaan</option>
+                                    {funding.map((item, index) => {
+                                        return (
+                                            <option value={item} key={index}>
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
                                 <select
                                     name="prodi"
                                     onChange={(e) => handleFilterChange(e)}
