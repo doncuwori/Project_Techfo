@@ -18,7 +18,7 @@ const Beasiswa = ({ data }) => {
                 />
             </div>
             <HeaderSection pageType="beasiswa" />
-            <SearchBox />
+            {/* <SearchBox /> */}
             <Procedure />
             <div className="absolute inset-x-0 mt-6 z-0 flex justify-center">
                 <img
