@@ -24,19 +24,21 @@ export const TabDaftarBeasiswa = ({ country }) => {
 
     const [posterKegiatan, setPosterKegiatan] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
+    const [fileURL, setFileURL] = useState(null);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
 
-        if (
-            file &&
-            file.size <= 2 * 1024 * 1024 &&
-            /\.(jpg|jpeg|png)$/i.test(file.name)
-        ) {
-            setData("poster_url", file);
-            setPosterKegiatan(file);
-        } else {
+        if (file && file.size > 2097152) {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setPosterKegiatan(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("poster_url", file);
         }
     };
 
@@ -49,8 +51,10 @@ export const TabDaftarBeasiswa = ({ country }) => {
             file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
-            setData("poster_url", file);
+            const url = URL.createObjectURL(file);
             setPosterKegiatan(file);
+            setFileURL(url);
+            setData("poster_url", file);
         } else {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
@@ -58,8 +62,10 @@ export const TabDaftarBeasiswa = ({ country }) => {
 
     const handleRemoveFile = () => {
         setPosterKegiatan(null);
+        setFileURL(null);
         setData("poster_url", null);
-        document.getElementById("fileInput").value = null;
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput) fileInput.value = null;
     };
 
     const handleCheckboxChange = () => {
@@ -257,19 +263,41 @@ export const TabDaftarBeasiswa = ({ country }) => {
                         >
                             Browse File
                         </label>
-                        {posterKegiatan && (
+                        {posterKegiatan && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {posterKegiatan.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {selectedFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>

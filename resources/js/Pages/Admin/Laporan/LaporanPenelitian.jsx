@@ -14,18 +14,21 @@ const LaporanPenelitian = ({
     penerima,
     prodi,
     angkatan,
+    funding,
 }) => {
-    
     const [tabValue, settabValue] = useState("Penerima");
-
     const [exportPendaftar, setExportPendaftar] = useState(false);
     const [exportPenerima, setExportPenerima] = useState(false);
+
+    const [penerimaCount, setPenerimaCount] = useState(penerima.length);
+    const [pesertaCount, setPesertaCount] = useState(pendaftar.length);
 
     const [filters, setFilters] = useState({
         prodi: "",
         angkatan: "",
         nama: "",
         tahun: "",
+        funding: "",
     });
 
     const handleFilterChange = (event) => {
@@ -34,6 +37,15 @@ const LaporanPenelitian = ({
             ...prevFilters,
             [name]: value,
         }));
+
+        if (name === "tahun") {
+            setPenerimaCount(
+                penerima.filter((item) => item.created_at.includes(value)).length
+            );
+            setPesertaCount(
+                pendaftar.filter((item) => item.created_at.includes(value)).length
+            );
+        }
     };
 
     const handleExport = (val) => {
@@ -59,8 +71,8 @@ const LaporanPenelitian = ({
                         Laporan Penelitian
                     </h1>
                     <CardStatis
-                        researchRegistrantsCount={researchRegistrantsCount}
-                        researchRecipientsCount={researchRecipientsCount}
+                        researchRegistrantsCount={pesertaCount}
+                        researchRecipientsCount={penerimaCount}
                     />
                     <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
                         <div class="flex items-center mb-4">
@@ -103,6 +115,22 @@ const LaporanPenelitian = ({
                                 </div>
                             </div>
                             <div class="flex space-x-2">
+                                <select
+                                    name="funding"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">
+                                        Semua Jenis Pendanaan
+                                    </option>
+                                    {funding.map((item, index) => {
+                                        return (
+                                            <option value={item} key={index}>
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
                                 <select
                                     name="prodi"
                                     onChange={(e) => handleFilterChange(e)}

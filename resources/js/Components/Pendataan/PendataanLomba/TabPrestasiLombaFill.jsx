@@ -29,45 +29,53 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
     const [kegiatanFile, setKegiatanFile] = useState(null);
     const [laporanFile, setLaporanFile] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
+    const [fileURL, setFileURL] = useState(null);
 
     const handleFileScanBuktiChange = (event) => {
         const file = event.target.files[0];
 
-        if (
-            file &&
-            file.size <= 2 * 1024 * 1024 &&
-            /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
-        ) {
-            setScanBuktiFile(file);
-            setData("proof_scan_url", file);
-        } else {
+        if (file && file.size > 2097152) {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setScanBuktiFile(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("proof_scan_url", file);
         }
     };
 
     const handleFileKegiatanChange = (event) => {
         const file = event.target.files[0];
 
-        if (
-            file &&
-            file.size <= 2 * 1024 * 1024 &&
-            /\.(jpg|jpeg|png)$/i.test(file.name)
-        ) {
-            setKegiatanFile(file);
-            setData("event_photo_url", file);
-        } else {
+        if (file && file.size > 2097152) {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setKegiatanFile(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("event_photo_url", file);
         }
     };
 
     const handleFileLaporanChange = (event) => {
         const file = event.target.files[0];
 
-        if (file && file.size <= 2 * 1024 * 1024 && /\.pdf$/i.test(file.name)) {
-            setLaporanFile(file);
-            setData("report_url", file);
-        } else {
+        if (file && file.size > 2097152) {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setLaporanFile(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("report_url", file);
         }
     };
 
@@ -80,7 +88,9 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
             file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
         ) {
+            const url = URL.createObjectURL(file);
             setScanBuktiFile(file);
+            setFileURL(url);
             setData("proof_scan_url", file);
         } else {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
@@ -96,7 +106,9 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
             file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
+            const url = URL.createObjectURL(file);
             setKegiatanFile(file);
+            setFileURL(url);
             setData("event_photo_url", file);
         } else {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
@@ -108,7 +120,9 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
         const file = e.dataTransfer.files[0];
 
         if (file && file.size <= 2 * 1024 * 1024 && /\.pdf$/i.test(file.name)) {
+            const url = URL.createObjectURL(file);
             setLaporanFile(file);
+            setFileURL(url);
             setData("report_url", file);
         } else {
             toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
@@ -117,18 +131,26 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
 
     const handleRemoveScanBuktiFile = () => {
         setScanBuktiFile(null);
-        // Clear the file input field for scan bukti
-        document.getElementById("scanBuktiInput").value = null;
+        setFileURL(null);
+        setData("proof_scan_url", null);
+        const scanBuktiInput = document.getElementById("scanBuktiInput");
+        if (scanBuktiInput) scanBuktiInput.value = null;
     };
 
     const handleRemoveKegiatanFile = () => {
         setKegiatanFile(null);
-        document.getElementById("kegiatanInput").value = null;
+        setFileURL(null);
+        setData("event_photo_url", null);
+        const fotoKegiatanInput = document.getElementById("fotoKegiatanInput");
+        if (fotoKegiatanInput) fotoKegiatanInput.value = null;
     };
 
     const handleRemoveLaporanFile = () => {
         setLaporanFile(null);
-        document.getElementById("laporanInput").value = null;
+        setFileURL(null);
+        setData("report_url", null);
+        const laporanInput = document.getElementById("laporanInput");
+        if (laporanInput) laporanInput.value = null;
     };
 
     const handleCheckboxChange = () => {
@@ -365,19 +387,41 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                         >
                             Browse File
                         </label>
-                        {scanBuktiFile && (
+                        {scanBuktiFile && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {scanBuktiFile.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveScanBuktiFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {scanBuktiFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveScanBuktiFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -426,19 +470,41 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                         >
                             Browse File
                         </label>
-                        {kegiatanFile && (
+                        {kegiatanFile && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {kegiatanFile.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveKegiatanFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {kegiatanFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveKegiatanFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -487,19 +553,41 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                         >
                             Browse File
                         </label>
-                        {laporanFile && (
+                        {laporanFile && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {laporanFile.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveLaporanFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {laporanFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveLaporanFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>

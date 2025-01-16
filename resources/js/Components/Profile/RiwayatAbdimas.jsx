@@ -38,12 +38,13 @@ const RiwayatAbdimas = ({ data }) => {
                                             .abdimas_information.name
                                     }
                                 </div>
-                                <div className="text-gray-500 text-sm font-normal leading-tight line-clamp-2">
-                                    {
-                                        item.abdimas_registrant
-                                            .abdimas_information.description
-                                    }
-                                </div>
+                                <div
+                                    className="text-gray-500 text-sm font-normal leading-tight line-clamp-2"
+                                    dangerouslySetInnerHTML={{
+                                        __html: item.abdimas_registrant
+                                            .abdimas_information.description,
+                                    }}
+                                ></div>
                                 <div className="flex items-center gap-2">
                                     <Clock4
                                         size={18}

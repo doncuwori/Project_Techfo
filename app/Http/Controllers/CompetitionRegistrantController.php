@@ -75,7 +75,7 @@ class CompetitionRegistrantController extends Controller
 
             return redirect()->route('profile')->with('success', value: 'Pendataan partisipasi lomba berhasil ditambahkan');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Pendataan partisipasi lomba gagal ditambahkan!'. $e->getMessage());
+            return redirect()->back()->with('error', 'Pendataan partisipasi lomba gagal ditambahkan!');
         }
     }
 

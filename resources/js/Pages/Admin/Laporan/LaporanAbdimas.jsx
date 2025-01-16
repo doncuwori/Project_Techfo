@@ -17,9 +17,11 @@ const LaporanAbdimas = ({
     funding,
 }) => {
     const [tabValue, settabValue] = useState("Penerima");
-
     const [exportPendaftar, setExportPendaftar] = useState(false);
     const [exportPenerima, setExportPenerima] = useState(false);
+
+    const [penerimaCount, setPenerimaCount] = useState(penerima.length);
+    const [pesertaCount, setPesertaCount] = useState(pendaftar.length);
 
     const [filters, setFilters] = useState({
         prodi: "",
@@ -35,6 +37,15 @@ const LaporanAbdimas = ({
             ...prevFilters,
             [name]: value,
         }));
+
+        if (name === "tahun") {
+            setPenerimaCount(
+                penerima.filter((item) => item.created_at.includes(value)).length
+            );
+            setPesertaCount(
+                pendaftar.filter((item) => item.created_at.includes(value)).length
+            );
+        }
     };
 
     const handleExport = (val) => {
@@ -60,8 +71,8 @@ const LaporanAbdimas = ({
                         Laporan Pengabdian Masyarakat
                     </h1>
                     <CardStatis
-                        abdimasRegistrantsCount={abdimasRegistrantsCount}
-                        abdimasRecipientsCount={abdimasRecipientsCount}
+                        abdimasRegistrantsCount={pesertaCount}
+                        abdimasRecipientsCount={penerimaCount}
                     />
                     <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
                         <div class="flex items-center mb-4">
@@ -109,7 +120,9 @@ const LaporanAbdimas = ({
                                     onChange={(e) => handleFilterChange(e)}
                                     class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 >
-                                    <option value="">Semua Jenis Pendanaan</option>
+                                    <option value="">
+                                        Semua Jenis Pendanaan
+                                    </option>
                                     {funding.map((item, index) => {
                                         return (
                                             <option value={item} key={index}>

@@ -14,6 +14,7 @@ const TabelTabPendaftar = ({ data, filters, refs }) => {
 
     useEffect(() => {
         let nama = filters.nama;
+        let funding = filters.funding;
         let prodi = filters.prodi;
         let angkatan = filters.angkatan;
         let tahun = filters.tahun;
@@ -22,6 +23,14 @@ const TabelTabPendaftar = ({ data, filters, refs }) => {
         if (nama) {
             temp = temp.filter((item) =>
                 item.mahasiswa.nama.toLowerCase().includes(nama.toLowerCase())
+            );
+        }
+
+        if (funding) {
+            temp = temp.filter((item) =>
+                item.research_registrant.research_information.funding
+                    .toLowerCase()
+                    .includes(funding.toLowerCase())
             );
         }
 

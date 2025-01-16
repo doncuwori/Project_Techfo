@@ -25,6 +25,11 @@ class AdminResearchController extends Controller
 
         $prodi = Prodi::all();
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
+        $funding = [
+            'Hibah Instansi Pemerintah',
+            'Hibah Instansi Swasta',
+            'Mandiri'
+        ];
 
         return Inertia::render('Admin/Laporan/LaporanPenelitian', [
             'researchRegistrantsCount' => $researchRegistrantsCount,
@@ -33,7 +38,8 @@ class AdminResearchController extends Controller
             'pendaftar' => $pendaftar,
             'penerima' => $penerima,
             'prodi' => $prodi,
-            'angkatan' => $angkatan
+            'angkatan' => $angkatan,
+            'funding' => $funding
         ]);
     }
 }

@@ -226,18 +226,18 @@ const TabelPusatInformasi = ({ data, title }) => {
                                     Ditolak
                                 </td>
                             ) : (
-                                <td className="border p-2">
+                                <td className="border p-2 text-center align-middle">
                                     <DangerButton
                                         onClick={(e) =>
                                             toggleRejectProposalModal(item.id)
                                         }
                                     >
-                                        Tolak Proposal
+                                        Proposal Tertolak 
                                     </DangerButton>
                                 </td>
                             )
                         ) : (
-                            <td className="border p-2">
+                            <td className="border p-2 text-center align-middle">
                                 -
                             </td>
                         )}
