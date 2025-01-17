@@ -20,9 +20,9 @@ class AdminAbdimasController extends Controller
         $user = auth()->user();
         $prodi = Prodi::all();
 
-        $pendaftar = MahasiswaRegistrant::with(['abdimasRegistrant.abdimasInformation', 'mahasiswa.prodi'])->get();
+        $pendaftar = MahasiswaRegistrant::with(['abdimasRegistrant.abdimasInformation.dosen', 'mahasiswa.prodi'])->get();
 
-        $penerima = MahasiswaRegistrant::where('accepted', true)->with(['abdimasRegistrant.abdimasInformation', 'mahasiswa.prodi'])->get();
+        $penerima = MahasiswaRegistrant::where('accepted', true)->with(['abdimasRegistrant.abdimasInformation.dosen', 'mahasiswa.prodi'])->get();
 
         $abdimasDaftar = [];
 

@@ -19,9 +19,9 @@ class AdminResearchController extends Controller
 
         $user = auth()->user();
 
-        $pendaftar = MahasiswaRegistrant::with(['researchRegistrant.researchInformation', 'mahasiswa.prodi'])->get();
+        $pendaftar = MahasiswaRegistrant::with(['researchRegistrant.researchInformation.dosen', 'mahasiswa.prodi'])->get();
 
-        $penerima = MahasiswaRegistrant::where('accepted', true)->with(['researchRegistrant.researchInformation', 'mahasiswa.prodi'])->get();
+        $penerima = MahasiswaRegistrant::where('accepted', true)->with(['researchRegistrant.researchInformation.dosen', 'mahasiswa.prodi'])->get();
 
         $prodi = Prodi::all();
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');

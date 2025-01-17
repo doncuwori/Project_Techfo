@@ -107,6 +107,9 @@ const TabelTabPendaftar = ({ data, filters, refs }) => {
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Surat Pernyataan
                         </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Daftar Dosen
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -209,11 +212,23 @@ const TabelTabPendaftar = ({ data, filters, refs }) => {
                                         target="_blank"
                                         href={
                                             "/images/" +
-                                            item.abdimas_registrant.surat_pernyataan
+                                            item.abdimas_registrant
+                                                .surat_pernyataan
                                         }
                                     >
                                         Lihat File
                                     </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.abdimas_registrant.abdimas_information.dosen.map(
+                                        (item, index) => {
+                                            return (
+                                                <div className="text-left" key={index}>
+                                                    {item.nama}
+                                                </div>
+                                            );
+                                        }
+                                    )}
                                 </td>
                             </tr>
                         );
