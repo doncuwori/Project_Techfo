@@ -33,6 +33,39 @@ class DashboardAdminController extends Controller
         $researchRegistrantsCount = ResearchsMahasiswaRegistrant::count();
         $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
 
+        $bidang = [
+            'UI/UX Design',
+            'Front-End Development',
+            'Back-End Development',
+            'Business Plan',
+            'Cybersecurity',
+            'Data Science & Machine Learning',
+            'Mobile App Development',
+            'Game Development',
+            'Internet of Things (IoT)',
+            'Hackathon',
+            'Software Engineering',
+            'Cloud Computing',
+            'Robotics and Automation',
+            'Augmented Reality (AR) / Virtual Reality (VR)',
+            'Blockchain Development',
+            'Digital Marketing',
+            'Artificial Intelligence (AI)',
+            'Big Data Analytics',
+            'DevOps',
+            'Virtual Assistant Management',
+            'Web Development',
+            'Digital Animation',
+            'Full-Stack Development',
+            'Lainnya'
+        ];
+
+        $bidangPeserta = [];
+        $bidangPemenang = [];
+        foreach($bidang as $b){
+            $bidangPeserta[$b] = CompetitionRegistrant::where('field', $b)->count();
+            $bidangPemenang[$b] = CompetitionAchievement::where('field', $b)->where('is_validated', true)->count();
+        }
 
         $user = auth()->user();
 
@@ -167,6 +200,8 @@ class DashboardAdminController extends Controller
             'rekapResearchLolos' => $researchLolos,
             'arrayFundingAbdimas' => $arrayFundingAbdimas,
             'arrayFundingPenelitian' => $arrayFundingPenelitian,
+            'bidangPeserta' => $bidangPeserta,
+            'bidangPemenang' => $bidangPemenang
         ]);
 
     }

@@ -48,8 +48,11 @@ const LaporanLomba = ({
     const [exportPendaftar, setExportPendaftar] = useState(false);
     const [exportPemenang, setExportPemenang] = useState(false);
 
-    const [pemenangCount, setPemenangCount] = useState(dataPemenang.filter(
-        (item) => item.competition_achievement.is_validated === true).length);
+    const [pemenangCount, setPemenangCount] = useState(
+        dataPemenang.filter(
+            (item) => item.competition_achievement.is_validated === true
+        ).length
+    );
     const [pesertaCount, setPesertaCount] = useState(dataPendaftar.length);
 
     const [filters, setFilters] = useState({
@@ -58,6 +61,7 @@ const LaporanLomba = ({
         nama: "",
         tahun: "",
         tingkat: "",
+        bidang: ""
     });
 
     const handleFilterChange = (event) => {
@@ -67,11 +71,18 @@ const LaporanLomba = ({
             [name]: value,
         }));
 
-        if(name === "tahun"){
-            setPemenangCount(dataPemenang.filter(
-                (item) => item.competition_achievement.is_validated === true && item.created_at.includes(value)).length);
-            setPesertaCount(dataPendaftar.filter(
-                (item) => item.created_at.includes(value)).length);
+        if (name === "tahun") {
+            setPemenangCount(
+                dataPemenang.filter(
+                    (item) =>
+                        item.competition_achievement.is_validated === true &&
+                        item.created_at.includes(value)
+                ).length
+            );
+            setPesertaCount(
+                dataPendaftar.filter((item) => item.created_at.includes(value))
+                    .length
+            );
         }
     };
 
@@ -98,12 +109,8 @@ const LaporanLomba = ({
                         Laporan Lomba
                     </h1>
                     <CardStatis
-                        competitionAchievementsCount={
-                            pemenangCount
-                        }
-                        competitionRegistrantsCount={
-                            pesertaCount
-                        }
+                        competitionAchievementsCount={pemenangCount}
+                        competitionRegistrantsCount={pesertaCount}
                         totalMahasiswa={totalMahasiswa}
                     />
                     {/* <div class="self-stretch p-6 bg-white rounded-lg border-2 border-neutral-100 flex-col justify-start items-start gap-8 flex">
@@ -157,9 +164,9 @@ const LaporanLomba = ({
                                 Partisipan
                             </button>
                         </div>
-                        <div class="flex justify-between items-center relative w-full">
-                            <div class="flex items-center justify-between">
-                                <div class="relative w-full">
+                        <div class="flex justify-between items-center relative w-full flex-wrap">
+                            <div class="flex flex-wrap gap-2 mb-2">
+                                <div class="relative flex-grow">
                                     <input
                                         name="nama"
                                         onChange={(e) => handleFilterChange(e)}
@@ -169,8 +176,6 @@ const LaporanLomba = ({
                                     />
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                                 </div>
-                            </div>
-                            <div class="flex space-x-2">
                                 <select
                                     name="prodi"
                                     onChange={(e) => handleFilterChange(e)}
@@ -207,7 +212,9 @@ const LaporanLomba = ({
                                     onChange={(e) => handleFilterChange(e)}
                                     class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 >
-                                    <option value="">Semua Tingkat Prestasi</option>
+                                    <option value="">
+                                        Semua Tingkat Prestasi
+                                    </option>
                                     {tingkat.map((item, index) => {
                                         return (
                                             <option value={item} key={index}>
@@ -229,6 +236,80 @@ const LaporanLomba = ({
                                             </option>
                                         );
                                     })}
+                                </select>
+                                <select
+                                    name="bidang"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">Semua Bidang</option>
+                                    <option value="UI/UX Design">
+                                        UI/UX Design
+                                    </option>
+                                    <option value="Front-End Development">
+                                        Front-End Development
+                                    </option>
+                                    <option value="Back-End Development">
+                                        Back-End Development
+                                    </option>
+                                    <option value="Business Plan">
+                                        Business Plan
+                                    </option>
+                                    <option value="Cybersecurity">
+                                        Cybersecurity
+                                    </option>
+                                    <option value="Data Science & Machine Learning">
+                                        Data Science & Machine Learning
+                                    </option>
+                                    <option value="Mobile App Development">
+                                        Mobile App Development
+                                    </option>
+                                    <option value="Game Development">
+                                        Game Development
+                                    </option>
+                                    <option value="Internet of Things (IoT)">
+                                        Internet of Things (IoT)
+                                    </option>
+                                    <option value="Hackathon">Hackathon</option>
+                                    <option value="Software Engineering">
+                                        Software Engineering
+                                    </option>
+                                    <option value="Cloud Computing">
+                                        Cloud Computing
+                                    </option>
+                                    <option value="Robotics and Automation">
+                                        Robotics and Automation
+                                    </option>
+                                    <option value="Augmented Reality (AR) / Virtual Reality (VR)">
+                                        Augmented Reality (AR) / Virtual Reality
+                                        (VR)
+                                    </option>
+                                    <option value="Blockchain Development">
+                                        Blockchain Development
+                                    </option>
+                                    <option value="Digital Marketing">
+                                        Digital Marketing
+                                    </option>
+                                    <option value="Artificial Intelligence (AI)">
+                                        Artificial Intelligence (AI)
+                                    </option>
+                                    <option value="Big Data Analytics">
+                                        Big Data Analytics
+                                    </option>
+                                    <option value="DevOps">DevOps</option>
+                                    <option value="Virtual Assistant Management">
+                                        Virtual Assistant Management
+                                    </option>
+                                    <option value="Web Development">
+                                        Web Development
+                                    </option>
+                                    <option value="Digital Animation">
+                                        Digital Animation
+                                    </option>
+                                    <option value="Full-Stack Development">
+                                        Full-Stack Development
+                                    </option>
+                                    <option value="Lainnya">Lainnya</option>
                                 </select>
                                 <button
                                     onClick={(e) => handleExport(tabValue)}

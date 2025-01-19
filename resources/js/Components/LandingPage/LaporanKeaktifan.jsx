@@ -42,6 +42,8 @@ const LaporanKeaktifan = ({
     rekapResearchLolos,
     arrayFundingAbdimas,
     arrayFundingPenelitian,
+    bidangPeserta,
+    bidangPemenang,
 }) => {
     const pieData = {
         labels: Object.keys(rekapLomba),
@@ -170,6 +172,24 @@ const LaporanKeaktifan = ({
             },
         ],
     };
+
+    const bidangChart = {
+        labels: Object.keys(bidangPemenang),
+        datasets: [
+            {
+                label: "Peserta",
+                data: Object.values(bidangPeserta),
+                backgroundColor: ["#356a33"],
+                borderRadius: 10,
+            },
+            {
+                label: "Pemenang",
+                data: Object.values(bidangPemenang),
+                backgroundColor: ["#95d592"],
+                borderRadius: 10,
+            },
+        ],
+    }
 
     const barOptions = {
         responsive: true,
@@ -504,6 +524,21 @@ const LaporanKeaktifan = ({
                                     <Bar
                                         data={penelitianFunding}
                                         options={fundingOptions}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex">
+                        <div className="w-full">
+                            <h2 className="text-xl font-semibold text-left mb-4">
+                                Grafik Lomba Per Bidang
+                            </h2>
+                            <div className="p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <Bar
+                                        data={bidangChart}
+                                        options={barOptions}
                                     />
                                 </div>
                             </div>

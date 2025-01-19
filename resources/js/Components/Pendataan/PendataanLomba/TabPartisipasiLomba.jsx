@@ -104,14 +104,14 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
             setData("poster_url", file);
         }
     };
-    
+
     const handleDropFile = (e) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
-    
+
         if (
             file &&
-            file.size <= 2 * 1024 * 1024 && 
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
             const url = URL.createObjectURL(file);
@@ -381,10 +381,32 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                                 className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Bidang Lomba --</option>
-                                <option>Ilmiah/Penalaran/Akademik</option>
-                                <option>Minat Khusus</option>
-                                <option>Olahraga</option>
-                                <option>Sains</option>
+                                <option>UI/UX Design</option>
+                                <option>Front-End Development</option>
+                                <option>Back-End Development</option>
+                                <option>Business Plan</option>
+                                <option>Cybersecurity</option>
+                                <option>Data Science & Machine Learning</option>
+                                <option>Mobile App Development</option>
+                                <option>Game Development</option>
+                                <option>Internet of Things (IoT)</option>
+                                <option>Hackathon</option>
+                                <option>Software Engineering</option>
+                                <option>Cloud Computing</option>
+                                <option>Robotics and Automation</option>
+                                <option>
+                                    Augmented Reality (AR) / Virtual Reality
+                                    (VR)
+                                </option>
+                                <option>Blockchain Development</option>
+                                <option>Digital Marketing</option>
+                                <option>Artificial Intelligence (AI)</option>
+                                <option>Big Data Analytics</option>
+                                <option>DevOps</option>
+                                <option>Virtual Assistant Management</option>
+                                <option>Web Development</option>
+                                <option>Digital Animation</option>
+                                <option>Full-Stack Development</option>
                                 <option>Lainnya</option>
                             </select>
                         </div>

@@ -18,6 +18,7 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
         let angkatan = filters.angkatan;
         let tahun = filters.tahun;
         let tingkat = filters.tingkat; // Tambahkan scope di sini
+        let bidang = filters.bidang;
     
         let temp = dataPendaftar;
     
@@ -48,6 +49,14 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
                 item.competition_registrant.scope
                     .toLowerCase()
                     .includes(tingkat.toLowerCase())
+            );
+        }
+
+        if (bidang) {
+            temp = temp.filter((item) =>
+                item.competition_registrant.field
+                    .toLowerCase()
+                    .includes(bidang.toLowerCase())
             );
         }
     

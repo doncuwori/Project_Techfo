@@ -20,6 +20,7 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
         let angkatan = filters.angkatan;
         let tahun = filters.tahun;
         let tingkat = filters.tingkat;
+        let bidang = filters.bidang;
 
         let temp = dataPemenang;
 
@@ -50,6 +51,15 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
                 item.competition_achievement.scope
                     .toLowerCase()
                     .includes(tingkat.toLowerCase())
+            );
+        }
+
+        
+        if (bidang) {
+            temp = temp.filter((item) =>
+                item.competition_achievement.field
+                    .toLowerCase()
+                    .includes(bidang.toLowerCase())
             );
         }
 
