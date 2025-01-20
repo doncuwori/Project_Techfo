@@ -8,6 +8,7 @@ use App\Models\Abdimas\MahasiswaRegistrant;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\MahasiswaAchievement;
+use App\Models\Competitions\MahasiswaRegistrant as CompetitionsMahasiswaRegistrant;
 use App\Models\Prodi;
 use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
 use App\Models\Researchs\ResearchInformation;
@@ -63,8 +64,12 @@ class DashboardAdminController extends Controller
         $bidangPeserta = [];
         $bidangPemenang = [];
         foreach($bidang as $b){
-            $bidangPeserta[$b] = CompetitionRegistrant::where('type', $b)->count();
-            $bidangPemenang[$b] = CompetitionAchievement::where('type', $b)->where('is_validated', true)->count();
+            $bidangPeserta[$b] = CompetitionsMahasiswaRegistrant::whereHas('competitionRegistrant', function ($query) use ($b) {
+                $query->where('type', $b);
+            })->count();
+            $bidangPemenang[$b] = MahasiswaAchievement::whereHas('competitionAchievement', function ($query) use ($b) {
+                $query->where('type', $b)->where('is_validated', true);
+            })->count();
         }
 
         $user = auth()->user();
