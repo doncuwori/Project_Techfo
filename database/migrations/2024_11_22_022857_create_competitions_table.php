@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('activity_name'); // Nama kegiatan
             $table->string('scope'); // Tingkat Prestasi lomba
             $table->string('field'); // Bidang lomba
+            $table->string('type'); // Jenis lomba
             $table->string('organizer'); // Penyelenggara
             $table->string('location'); // Lokasi kegiatan
             $table->date('activity_date_start'); // Tanggal mulai
@@ -47,6 +48,7 @@ return new class extends Migration
             $table->string('activity_name'); // Nama kegiatan
             $table->string('scope'); // Tingkat Prestasi lomba
             $table->string('field'); // Bidang lomba
+            $table->string('type'); // Jenis lomba
             $table->string('organizer'); // Penyelenggara
             $table->string('location'); // Lokasi kegiatan
             $table->date('activity_date_start'); // Tanggal mulai

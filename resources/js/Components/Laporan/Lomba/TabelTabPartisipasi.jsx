@@ -63,7 +63,7 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
 
         if (jenis) {
             temp = temp.filter((item) =>
-                item.competition_registrant.tipe
+                item.competition_registrant.type
                     .toLowerCase()
                     .includes(jenis.toLowerCase())
             );
@@ -178,7 +178,7 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
                                     {item.competition_registrant.field}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
-                                    {item.competition_registrant.tipe}
+                                    {item.competition_registrant.type}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.competition_registrant.dosen.nama}

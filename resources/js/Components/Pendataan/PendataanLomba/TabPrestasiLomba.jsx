@@ -16,6 +16,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
         mentor_name: "",
         activity_name: "",
         field: "",
+        type: "",
         degree: "",
         organizer: "",
         scope: "",
@@ -509,9 +510,9 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             </label>
                             <select
                                 onChange={(e) => {
-                                    setData("field", e.target.value);
+                                    setData("type", e.target.value);
                                 }}
-                                value={data.field}
+                                value={data.type}
                                 className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Jenis Lomba --</option>

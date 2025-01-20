@@ -65,7 +65,7 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
         
         if (jenis) {
             temp = temp.filter((item) =>
-                item.competition_achievement.tipe
+                item.competition_achievement.type
                     .toLowerCase()
                     .includes(jenis.toLowerCase())
             );
@@ -200,7 +200,7 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
                                 {item.competition_achievement.field}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-center">
-                                {item.competition_achievement.tipe}
+                                {item.competition_achievement.type}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-center">
                                 {item.competition_achievement.dosen.nama}

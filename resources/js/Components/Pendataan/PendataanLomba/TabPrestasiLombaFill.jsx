@@ -272,7 +272,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             <input
                                 disabled
                                 className="w-full border rounded-lg px-4 bg-gray-100"
-                                value={dataFill.tipe}
+                                value={dataFill.type}
                             />
                         </div>
                     </div>

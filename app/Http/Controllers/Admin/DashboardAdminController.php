@@ -63,8 +63,8 @@ class DashboardAdminController extends Controller
         $bidangPeserta = [];
         $bidangPemenang = [];
         foreach($bidang as $b){
-            $bidangPeserta[$b] = CompetitionRegistrant::where('field', $b)->count();
-            $bidangPemenang[$b] = CompetitionAchievement::where('field', $b)->where('is_validated', true)->count();
+            $bidangPeserta[$b] = CompetitionRegistrant::where('type', $b)->count();
+            $bidangPemenang[$b] = CompetitionAchievement::where('type', $b)->where('is_validated', true)->count();
         }
 
         $user = auth()->user();
