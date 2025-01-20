@@ -17,8 +17,9 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
         let prodi = filters.prodi;
         let angkatan = filters.angkatan;
         let tahun = filters.tahun;
-        let tingkat = filters.tingkat; // Tambahkan scope di sini
+        let tingkat = filters.tingkat;
         let bidang = filters.bidang;
+        let jenis = filters.jenis;
     
         let temp = dataPendaftar;
     
@@ -57,6 +58,14 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
                 item.competition_registrant.field
                     .toLowerCase()
                     .includes(bidang.toLowerCase())
+            );
+        }
+
+        if (jenis) {
+            temp = temp.filter((item) =>
+                item.competition_registrant.tipe
+                    .toLowerCase()
+                    .includes(jenis.toLowerCase())
             );
         }
     
@@ -102,6 +111,9 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Bidang
+                        </th>
+                        <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Jenis
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Dosen Pembimbing/Pendamping
@@ -164,6 +176,9 @@ const TabelTabPartisipasi = ({ dataPendaftar, filters, refs }) => {
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.competition_registrant.field}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    {item.competition_registrant.tipe}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     {item.competition_registrant.dosen.nama}

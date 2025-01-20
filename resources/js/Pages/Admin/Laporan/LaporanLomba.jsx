@@ -61,7 +61,8 @@ const LaporanLomba = ({
         nama: "",
         tahun: "",
         tingkat: "",
-        bidang: ""
+        bidang: "",
+        jenis: "",
     });
 
     const handleFilterChange = (event) => {
@@ -243,6 +244,18 @@ const LaporanLomba = ({
                                     class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 >
                                     <option value="">Semua Bidang</option>
+                                    <option value="Ilmiah/Penalaran/Akademik">Ilmiah/Penalaran/Akademik</option>
+                                    <option value="Non-Akademik">Non-Akademik</option>
+                                    <option value="Olahraga">Olahraga</option>
+                                    <option value="Sains">Sains</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                                <select
+                                    name="jenis"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">Semua Jenis</option>
                                     <option value="UI/UX Design">
                                         UI/UX Design
                                     </option>

@@ -371,7 +371,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                     <div className="flex flex-col w-full">
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
-                                Bidang<span className="text-red-600">*</span>
+                                Bidang Lomba<span className="text-red-600">*</span>
                             </label>
                             <select
                                 onChange={(e) => {
@@ -381,36 +381,55 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                                 className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Bidang Lomba --</option>
-                                <option>UI/UX Design</option>
-                                <option>Front-End Development</option>
-                                <option>Back-End Development</option>
-                                <option>Business Plan</option>
-                                <option>Cybersecurity</option>
-                                <option>Data Science & Machine Learning</option>
-                                <option>Mobile App Development</option>
-                                <option>Game Development</option>
-                                <option>Internet of Things (IoT)</option>
-                                <option>Hackathon</option>
-                                <option>Software Engineering</option>
-                                <option>Cloud Computing</option>
-                                <option>Robotics and Automation</option>
-                                <option>
-                                    Augmented Reality (AR) / Virtual Reality
-                                    (VR)
-                                </option>
-                                <option>Blockchain Development</option>
-                                <option>Digital Marketing</option>
-                                <option>Artificial Intelligence (AI)</option>
-                                <option>Big Data Analytics</option>
-                                <option>DevOps</option>
-                                <option>Virtual Assistant Management</option>
-                                <option>Web Development</option>
-                                <option>Digital Animation</option>
-                                <option>Full-Stack Development</option>
+                                <option>Ilmiah/Penalaran/Akademik</option>
+                                <option>Non-Akademik</option>
+                                <option>Olahraga</option>
+                                <option>Sains</option>
                                 <option>Lainnya</option>
                             </select>
                         </div>
                     </div>
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Jenis Lomba<span className="text-red-600">*</span>
+                    </label>
+                    <select
+                        onChange={(e) => {
+                            setData("field", e.target.value);
+                        }}
+                        value={data.field}
+                        className="w-full border rounded-lg px-4"
+                    >
+                        <option>-- Pilih Jenis Lomba --</option>
+                        <option>UI/UX Design</option>
+                        <option>Front-End Development</option>
+                        <option>Back-End Development</option>
+                        <option>Business Plan</option>
+                        <option>Cybersecurity</option>
+                        <option>Data Science & Machine Learning</option>
+                        <option>Mobile App Development</option>
+                        <option>Game Development</option>
+                        <option>Internet of Things (IoT)</option>
+                        <option>Hackathon</option>
+                        <option>Software Engineering</option>
+                        <option>Cloud Computing</option>
+                        <option>Robotics and Automation</option>
+                        <option>
+                            Augmented Reality (AR) / Virtual Reality (VR)
+                        </option>
+                        <option>Blockchain Development</option>
+                        <option>Digital Marketing</option>
+                        <option>Artificial Intelligence (AI)</option>
+                        <option>Big Data Analytics</option>
+                        <option>DevOps</option>
+                        <option>Virtual Assistant Management</option>
+                        <option>Web Development</option>
+                        <option>Digital Animation</option>
+                        <option>Full-Stack Development</option>
+                        <option>Lainnya</option>
+                    </select>
                 </div>
 
                 <div className="mb-4">

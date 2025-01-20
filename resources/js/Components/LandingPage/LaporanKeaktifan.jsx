@@ -532,7 +532,7 @@ const LaporanKeaktifan = ({
                     <div className="flex">
                         <div className="w-full">
                             <h2 className="text-xl font-semibold text-left mb-4">
-                                Grafik Lomba Per Bidang
+                                Grafik Per Jenis Lomba
                             </h2>
                             <div className="p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
                                 <div className="w-full h-full flex justify-center items-center">

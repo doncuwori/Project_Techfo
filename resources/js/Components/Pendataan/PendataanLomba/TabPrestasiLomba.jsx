@@ -485,7 +485,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                     <div className="flex flex-col w-full">
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
-                                Bidang<span className="text-red-600">*</span>
+                                Bidang Lomba<span className="text-red-600">*</span>
                             </label>
                             <select
                                 onChange={(e) => {
@@ -495,6 +495,26 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                                 className="w-full border rounded-lg px-4"
                             >
                                 <option>-- Pilih Bidang Lomba --</option>
+                                <option>Ilmiah/Penalaran/Akademik</option>
+                                <option>Non-Akademik</option>
+                                <option>Olahraga</option>
+                                <option>Sains</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-bold mb-2">
+                                Jenis Lomba
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <select
+                                onChange={(e) => {
+                                    setData("field", e.target.value);
+                                }}
+                                value={data.field}
+                                className="w-full border rounded-lg px-4"
+                            >
+                                <option>-- Pilih Jenis Lomba --</option>
                                 <option>UI/UX Design</option>
                                 <option>Front-End Development</option>
                                 <option>Back-End Development</option>
@@ -524,17 +544,20 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                                 <option>Lainnya</option>
                             </select>
                         </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 font-bold mb-2">
-                                Dosen Pembimbing/Pendamping
-                                <span className="text-red-600">*</span>
-                            </label>
-                            <SearchableSelect
-                                onChange={handleDosen}
-                                options={dosenOption}
-                                placeholder={"- Pilih Dosen -"}
-                            />
-                            {/* <input
+                    </div>
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Dosen Pembimbing/Pendamping
+                        <span className="text-red-600">*</span>
+                    </label>
+                    <SearchableSelect
+                        onChange={handleDosen}
+                        options={dosenOption}
+                        placeholder={"- Pilih Dosen -"}
+                    />
+                    {/* <input
                                 type="text"
                                 onChange={(e) => {
                                     setData("mentor_name", e.target.value);
@@ -543,8 +566,6 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                                 className="w-full border rounded-lg px-4"
                                 placeholder="Tuliskan nama dosen pembimbing/pendamping..."
                             /> */}
-                        </div>
-                    </div>
                 </div>
 
                 <div className="mb-4">

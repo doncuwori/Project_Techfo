@@ -21,6 +21,7 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
         let tahun = filters.tahun;
         let tingkat = filters.tingkat;
         let bidang = filters.bidang;
+        let jenis = filters.jenis;
 
         let temp = dataPemenang;
 
@@ -54,12 +55,19 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
             );
         }
 
-        
         if (bidang) {
             temp = temp.filter((item) =>
                 item.competition_achievement.field
                     .toLowerCase()
                     .includes(bidang.toLowerCase())
+            );
+        }
+        
+        if (jenis) {
+            temp = temp.filter((item) =>
+                item.competition_achievement.tipe
+                    .toLowerCase()
+                    .includes(jenis.toLowerCase())
             );
         }
 
@@ -91,7 +99,7 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
                             No
                         </th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nama Kegiatan
+                            Nama Lomba
                         </th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Partisipan
@@ -119,6 +127,9 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
                         </th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Bidang
+                        </th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Jenis
                         </th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Dosen Pembimbing/Pendamping
@@ -187,6 +198,9 @@ const TabelTabPrestasi = ({ dataPemenang, filters, refs }) => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-center">
                                 {item.competition_achievement.field}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-center">
+                                {item.competition_achievement.tipe}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-center">
                                 {item.competition_achievement.dosen.nama}

@@ -256,7 +256,7 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     <div className="flex flex-col w-full">
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
-                                Bidang<span className="text-red-600">*</span>
+                                Bidang Lomba<span className="text-red-600">*</span>
                             </label>
                             <input
                                 disabled
@@ -266,15 +266,29 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
-                                Dosen Pembimbing/Pendamping
+                                Jenis Lomba
                                 <span className="text-red-600">*</span>
                             </label>
                             <input
                                 disabled
                                 className="w-full border rounded-lg px-4 bg-gray-100"
-                                value={dataFill.dosen.nama}
+                                value={dataFill.tipe}
                             />
-                            {/* <input
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Dosen Pembimbing/Pendamping
+                        <span className="text-red-600">*</span>
+                    </label>
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.dosen.nama}
+                    />
+                    {/* <input
                                 type="text"
                                 onChange={(e) => {
                                     setData("mentor_name", e.target.value);
@@ -283,8 +297,6 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                                 className="w-full border rounded-lg px-4"
                                 placeholder="Tuliskan nama dosen pembimbing/pendamping..."
                             /> */}
-                        </div>
-                    </div>
                 </div>
 
                 <div className="mb-4">
