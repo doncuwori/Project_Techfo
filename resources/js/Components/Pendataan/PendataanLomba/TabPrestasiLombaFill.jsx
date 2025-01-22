@@ -256,7 +256,8 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                     <div className="flex flex-col w-full">
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
-                                Bidang Lomba<span className="text-red-600">*</span>
+                                Bidang Lomba
+                                <span className="text-red-600">*</span>
                             </label>
                             <input
                                 disabled
@@ -447,8 +448,8 @@ export const TabPrestasiLombaFill = ({ dataFill }) => {
                             prestasi yang telah disahkan dengan stempel basah;
                         </li>
                         <li>
-                            Berkas yang diunggah dalam format: .pdf, .jpg,
-                            .jpeg, .png;
+                            Berkas yang diunggah dalam format: .jpg, .jpeg,
+                            .png, .pdf;
                         </li>
                         <li>Ukuran maksimal setiap file adalah 2MB.</li>
                     </ul>

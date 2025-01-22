@@ -497,7 +497,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             >
                                 <option>-- Pilih Bidang Lomba --</option>
                                 <option>Ilmiah/Penalaran/Akademik</option>
-                                <option>Non-Akademik</option>
+                                <option>Minat Khusus</option>
                                 <option>Olahraga</option>
                                 <option>Sains</option>
                                 <option>Lainnya</option>
@@ -742,8 +742,8 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             prestasi yang telah disahkan dengan stempel basah;
                         </li>
                         <li>
-                            Berkas yang diunggah dalam format: .pdf, .jpg,
-                            .jpeg, .png;
+                            Berkas yang diunggah dalam format: .jpg,
+                            .jpeg, .png, .pdf;
                         </li>
                         <li>Ukuran maksimal setiap file adalah 2MB.</li>
                     </ul>

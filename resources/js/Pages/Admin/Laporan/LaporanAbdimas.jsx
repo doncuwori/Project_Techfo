@@ -114,7 +114,7 @@ const LaporanAbdimas = ({
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                                 </div>
                             </div>
-                            <div class="flex space-x-2">
+                            <div class="flex space-x-2 mb-4">
                                 <select
                                     name="funding"
                                     onChange={(e) => handleFilterChange(e)}
@@ -184,7 +184,7 @@ const LaporanAbdimas = ({
                                 </button>
                             </div>
                         </div>
-                        <div class="overflow-x-auto">
+                        <div>
                             {tabValue == "Penerima" ? (
                                 <TabelTabPenerima
                                     data={penerima}
@@ -198,20 +198,6 @@ const LaporanAbdimas = ({
                                     refs={exportPendaftar}
                                 />
                             )}
-                        </div>
-                        <div class="flex justify-between items-center mt-4">
-                            <p class="text-gray-500">Rows per page: 10</p>
-                            <div class="flex space-x-2 items-center">
-                                <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
-                                    Prev
-                                </button>
-                                <p class="text-gray-500">1</p>
-                                <p class="text-gray-500">...</p>
-                                <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
-                                    Next
-                                </button>
-                            </div>
-                            <p class="text-gray-500">Total 1 - 10 of 130</p>
                         </div>
                     </div>
                 </div>

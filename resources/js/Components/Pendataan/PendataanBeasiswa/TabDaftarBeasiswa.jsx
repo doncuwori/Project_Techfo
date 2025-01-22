@@ -279,7 +279,7 @@ export const TabDaftarBeasiswa = ({ country }) => {
                                     </a>
                                     <div className="flex items-center justify-center space-x-1 mb-2">
                                         <p className="text-green-500">
-                                            {selectedFile.name}
+                                            {posterKegiatan.name}
                                         </p>
                                         <button
                                             type="button"

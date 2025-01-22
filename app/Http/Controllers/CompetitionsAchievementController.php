@@ -72,6 +72,7 @@ class CompetitionsAchievementController extends Controller
                     'activity_name' => $request->activity_name,
                     'scope' => $request->scope,
                     'field' => $request->field,
+                    'type' => $request->type,
                     'organizer' => $request->organizer,
                     'location' => $request->location,
                     'activity_date_start' => $request->activity_date_start,

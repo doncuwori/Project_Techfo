@@ -23,6 +23,8 @@ const LandingPage = ({
     rekapResearchLolos,
     arrayFundingAbdimas,
     arrayFundingPenelitian,
+    bidangPeserta,
+    bidangPemenang,
 }) => {
     return (
         <div>
@@ -49,6 +51,8 @@ const LandingPage = ({
                 rekapResearchLolos={rekapResearchLolos}
                 arrayFundingAbdimas={arrayFundingAbdimas}
                 arrayFundingPenelitian={arrayFundingPenelitian}
+                bidangPeserta={bidangPeserta}
+                bidangPemenang={bidangPemenang}
             />
             <Footer />
             <ScrollUpButton />

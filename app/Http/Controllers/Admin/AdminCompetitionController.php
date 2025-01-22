@@ -14,7 +14,8 @@ use Inertia\Inertia;
 
 class AdminCompetitionController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $competitionRegistrantsCount = MahasiswaRegistrant::count();
         $competitionAchievementsCount = MahasiswaAchievement::count();
         $totalMahasiswa = Mahasiswa::count();
@@ -58,7 +59,23 @@ class AdminCompetitionController extends Controller
         $dataPemenang = MahasiswaAchievement::with(['mahasiswa.prodi', 'competitionAchievement.dosen', 'competitionAchievement.country'])->orderBy('created_at', 'desc')->get();
 
         $prodi = Prodi::all();
+
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
+
+        $predikat = [
+            'Juara I',
+            'Juara II',
+            'Juara III',
+            'Juara Harapan I',
+            'Juara Harapan II',
+            'Juara Harapan III',
+            'Medali Emas',
+            'Medali Perak',
+            'Medali Perunggu',
+            'Penerima Hibah',
+            'Terbaik',
+        ];
+
         $tingkat = [
             'International',
             'Nasional',
@@ -68,6 +85,41 @@ class AdminCompetitionController extends Controller
             'Kabupaten/Kota',
             'Kecamatan',
             'UPN "Veteran" Jakarta',
+        ];
+
+        $bidang = [
+            'Ilmiah/Penalaran/Akademik',
+            ' Minat Khusus',
+            'Olahraga',
+            'Sains',
+            'Lainnya',
+        ];
+
+        $jenis = [
+            'UI/UX Design',
+            'Front-End Development',
+            'Back-End Development',
+            'Business Plan',
+            'Cybersecurity',
+            'Data Science & Machine Learning',
+            'Mobile App Development',
+            'Game Development',
+            'Internet of Things (IoT)',
+            'Hackathon',
+            'Software Engineering',
+            'Cloud Computing',
+            'Robotics and Automation',
+            'Augmented Reality (AR) / Virtual Reality (VR)',
+            'Blockchain Development',
+            'Digital Marketing',
+            'Artificial Intelligence (AI)',
+            'Big Data Analytics',
+            'DevOps',
+            'Virtual Assistant Management',
+            'Web Development',
+            'Digital Animation',
+            'Full-Stack Development',
+            'Lainnya',
         ];
 
         return Inertia::render('Admin/Laporan/LaporanLomba', [
@@ -82,6 +134,9 @@ class AdminCompetitionController extends Controller
             'prodi' => $prodi,
             'angkatan' => $angkatan,
             'tingkat' => $tingkat,
+            'predikat' => $predikat,
+            'bidang' => $bidang,
+            'jenis' => $jenis,
         ]);
     }
 

@@ -189,7 +189,7 @@ const LaporanKeaktifan = ({
                 borderRadius: 10,
             },
         ],
-    }
+    };
 
     const barOptions = {
         responsive: true,
@@ -420,7 +420,21 @@ const LaporanKeaktifan = ({
                             })}
                         </div>
                     </div>
-
+                    <div className="flex">
+                        <div className="w-full">
+                            <h2 className="text-xl font-semibold text-left mb-4">
+                                Grafik Per Jenis Lomba
+                            </h2>
+                            <div className="p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <Bar
+                                        data={bidangChart}
+                                        options={barOptions}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="flex flex-col md:flex-row gap-8 mt-6">
                         <div className="w-full">
                             <h2 className="text-xl font-semibold text-left mb-4">
@@ -524,21 +538,6 @@ const LaporanKeaktifan = ({
                                     <Bar
                                         data={penelitianFunding}
                                         options={fundingOptions}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex">
-                        <div className="w-full">
-                            <h2 className="text-xl font-semibold text-left mb-4">
-                                Grafik Per Jenis Lomba
-                            </h2>
-                            <div className="p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
-                                <div className="w-full h-full flex justify-center items-center">
-                                    <Bar
-                                        data={bidangChart}
-                                        options={barOptions}
                                     />
                                 </div>
                             </div>

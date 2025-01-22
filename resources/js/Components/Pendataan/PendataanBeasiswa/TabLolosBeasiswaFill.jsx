@@ -316,8 +316,8 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                             beasiswa yang telah disahkan dengan stempel basah;
                         </li>
                         <li>
-                            Berkas yang diunggah dalam format: .pdf, .jpg,
-                            .jpeg, .png;
+                            Berkas yang diunggah dalam format: .jpg, .jpeg,
+                            .png, .pdf;
                         </li>
                         <li>Ukuran file maksimal 2MB.</li>
                     </ul>

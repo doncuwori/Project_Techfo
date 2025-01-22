@@ -383,7 +383,7 @@ export const TabPartisipasiLomba = ({ mahasiswa, dosen, country }) => {
                             >
                                 <option>-- Pilih Bidang Lomba --</option>
                                 <option>Ilmiah/Penalaran/Akademik</option>
-                                <option>Non-Akademik</option>
+                                <option>Minat Khusus</option>
                                 <option>Olahraga</option>
                                 <option>Sains</option>
                                 <option>Lainnya</option>
