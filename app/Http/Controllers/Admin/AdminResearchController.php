@@ -19,12 +19,17 @@ class AdminResearchController extends Controller
 
         $user = auth()->user();
 
-        $pendaftar = MahasiswaRegistrant::with(['researchRegistrant.researchInformation', 'mahasiswa.prodi'])->get();
+        $pendaftar = MahasiswaRegistrant::with(['researchRegistrant.researchInformation.dosen', 'mahasiswa.prodi'])->get();
 
-        $penerima = MahasiswaRegistrant::where('accepted', true)->with(['researchRegistrant.researchInformation', 'mahasiswa.prodi'])->get();
+        $penerima = MahasiswaRegistrant::where('accepted', true)->with(['researchRegistrant.researchInformation.dosen', 'mahasiswa.prodi'])->get();
 
         $prodi = Prodi::all();
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
+        $funding = [
+            'Hibah Instansi Pemerintah',
+            'Hibah Instansi Swasta',
+            'Mandiri'
+        ];
 
         return Inertia::render('Admin/Laporan/LaporanPenelitian', [
             'researchRegistrantsCount' => $researchRegistrantsCount,
@@ -33,7 +38,8 @@ class AdminResearchController extends Controller
             'pendaftar' => $pendaftar,
             'penerima' => $penerima,
             'prodi' => $prodi,
-            'angkatan' => $angkatan
+            'angkatan' => $angkatan,
+            'funding' => $funding
         ]);
     }
 }

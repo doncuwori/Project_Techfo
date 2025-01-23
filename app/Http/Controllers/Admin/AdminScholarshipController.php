@@ -23,7 +23,16 @@ class AdminScholarshipController extends Controller
         $dataPenerima = ScholarshipRecipient::with(['mahasiswa.prodi', 'country'])->orderBy('created_at', 'desc')->get();
 
         $prodi = Prodi::all();
+
         $angkatan = Mahasiswa::distinct('angkatan')->pluck('angkatan');
+
+        $jenis = [
+            'Beasiswa dari Pemerintah',
+            'Beasiswa Swasta',
+            'Beasiswa dari Negara Maju',
+            'Beasiswa dari Komunitas',
+            'Beasiswa dari Perguruan Tinggi',
+        ];
 
         return Inertia::render('Admin/Laporan/LaporanBeasiswa', [
             'scholarshipRegistrantsCount' => $scholarshipRegistrantsCount,
@@ -32,7 +41,8 @@ class AdminScholarshipController extends Controller
             'dataPendaftar' => $dataPendaftar,
             'dataPenerima' => $dataPenerima,
             'prodi' => $prodi,
-            'angkatan' => $angkatan
+            'angkatan' => $angkatan,
+            'jenis' => $jenis,
         ]);
     }
 

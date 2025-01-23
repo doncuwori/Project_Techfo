@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Researchs\MahasiswaRegistrant;
 use App\Models\Researchs\ResearchInformation;
+use App\Models\Researchs\ResearchRegistrant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -79,5 +80,26 @@ class PusatInformasiPenelitianController extends Controller
         } else {
             return redirect()->route('pusatPenelitian')->with('error', 'Surat tugas gagal diupload');
         }
+    }
+
+    public function rejectProposal($id)
+    {
+        $info = ResearchInformation::where('id', $id)->first();
+
+        foreach ($info->researchRegistrant as $registrant) {
+            $reg = ResearchRegistrant::where('id_research_information', $id)->first();
+            $mhs = MahasiswaRegistrant::where('id_research_registrant', $reg->id)->first();
+
+            $mhs->update([
+                'rejected' => true,
+                'accepted' => false
+            ]);
+        }
+
+        $info->update([
+            'proposal_rejected' => true
+        ]);
+
+        return redirect()->route('pusatPenelitian')->with('success', 'Berhasil Menolak Proposal');
     }
 }

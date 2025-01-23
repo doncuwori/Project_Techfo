@@ -15,57 +15,90 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
     const [scanBuktiFile, setScanBuktiFile] = useState(null);
     const [posterKegiatan, setPosterKegiatan] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
+    const [fileURL, setFileURL] = useState(null);
 
     const handleFileScanBuktiChange = (event) => {
         const file = event.target.files[0];
-        setScanBuktiFile(file);
-        setData("proof_scan_url", file);
+
+        if (file && file.size > 2097152) {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setScanBuktiFile(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("proof_scan_url", file);
+        }
     };
 
     const handlePosterKegiatanChange = (event) => {
         const file = event.target.files[0];
-        setPosterKegiatan(file);
-        setData("poster_url", file);
+
+        if (file && file.size > 2097152) {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setPosterKegiatan(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("poster_url", file);
+        }
     };
 
     const handleDropScanBuktiFile = (e) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
+
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
         ) {
+            const url = URL.createObjectURL(file);
             setScanBuktiFile(file);
+            setFileURL(url);
             setData("proof_scan_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
     const handleDropPosterKegiatanFile = (e) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
+
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
+            const url = URL.createObjectURL(file);
             setPosterKegiatan(file);
+            setFileURL(url);
             setData("poster_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
     const handleRemoveScanBuktiFile = () => {
         setScanBuktiFile(null);
-        document.getElementById("scanBuktiInput").value = null;
+        setFileURL(null);
+        setData("proof_scan_url", null);
+        const scanBuktiInput = document.getElementById("scanBuktiInput");
+        if (scanBuktiInput) scanBuktiInput.value = null;
     };
 
     const handleRemovePosterKegiatan = () => {
         setPosterKegiatan(null);
-        document.getElementById("posterInput").value = null;
+        setFileURL(null);
+        setData("poster_url", null);
+        const posterInput = document.getElementById("posterInput");
+        if (posterInput) posterInput.value = null;
     };
 
     const handleCheckboxChange = () => {
@@ -222,7 +255,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                             <Upload className="text-gray-500 w-6 h-6 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png,.pdf"
@@ -236,19 +269,41 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                         >
                             Browse File
                         </label>
-                        {scanBuktiFile && (
+                        {scanBuktiFile && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {scanBuktiFile.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveScanBuktiFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {scanBuktiFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveScanBuktiFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -261,10 +316,10 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                             beasiswa yang telah disahkan dengan stempel basah;
                         </li>
                         <li>
-                            Berkas yang diunggah dalam format: .pdf, .jpg,
-                            .jpeg, .png;
+                            Berkas yang diunggah dalam format: .jpg, .jpeg,
+                            .png, .pdf;
                         </li>
-                        <li>Ukuran file maksimal 1MB.</li>
+                        <li>Ukuran file maksimal 2MB.</li>
                     </ul>
                 </div>
 
@@ -282,7 +337,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                             <Upload className="text-gray-500 w-6 h-6 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -296,19 +351,41 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                         >
                             Browse File
                         </label>
-                        {posterKegiatan && (
+                        {posterKegiatan && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {posterKegiatan.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemovePosterKegiatan}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {posterKegiatan.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemovePosterKegiatan}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -324,7 +401,7 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                             Berkas yang diunggah dalam format: .jpg, .jpeg,
                             .png;
                         </li>
-                        <li>Ukuran file maksimal 1MB.</li>
+                        <li>Ukuran file maksimal 2MB.</li>
                     </ul>
                 </div>
             </section>

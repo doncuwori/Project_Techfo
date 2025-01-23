@@ -40,6 +40,12 @@ class AbdimasInformationController extends Controller
     public function store(Request $request)
     {
         try {
+            $dosenFilter = array_filter($request->dosens, function($val) {
+                return $val != null;
+            });
+
+            $dosenFilter = array_values($dosenFilter);
+
             $user = Auth::user();
 
             $request->validate([
@@ -65,7 +71,7 @@ class AbdimasInformationController extends Controller
                 'updated_at' => now(),
             ]);
 
-            foreach ($request->dosens as  $index => $d) {
+            foreach ($dosenFilter as  $index => $d) {
                 if ($d != null) {
                     DosenAbdimas::create([
                         'id_dosen' => $d,
@@ -86,7 +92,7 @@ class AbdimasInformationController extends Controller
         try{
             $abdimas = AbdimasInformation::where('id', $id)->first();
             $user = Auth::user();
-    
+
             $request->validate([
                 'name' => 'required|string|max:255',
                 'event_time_start' => 'required|date',
@@ -95,6 +101,12 @@ class AbdimasInformationController extends Controller
                 'total_students_required' => 'required|integer',
                 'description' => 'required|string'
             ]);
+
+            $dosenFilter = array_filter($request->dosens, function($val) {
+                return $val != null;
+            });
+
+            $dosenFilter = array_values($dosenFilter);
     
     
             $abdimas->update([
@@ -108,7 +120,7 @@ class AbdimasInformationController extends Controller
             ]);
     
             $current = DosenAbdimas::where('id_abdimas_information', $abdimas->id)->get();
-            $requested = $request->dosens;
+            $requested = $dosenFilter;
     
             foreach ($current as $c) {
                 if (!in_array($c->id_dosen, $requested)) {
@@ -116,7 +128,7 @@ class AbdimasInformationController extends Controller
                 }
             }
     
-            foreach ($request->dosens as  $index => $d) {
+            foreach ($dosenFilter as  $index => $d) {
     
                 $exist = DosenAbdimas::where('id_dosen', $d)->where('id_abdimas_information', $abdimas->id)->first();
     

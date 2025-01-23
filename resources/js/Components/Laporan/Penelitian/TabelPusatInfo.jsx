@@ -3,18 +3,18 @@ import React from "react";
 const TabelPusatInfo = ({ data, handler }) => {
     const handleChange = (e) => {
         let arrayId = [];
-    
+
         data.forEach((item) => {
             let selected = document.querySelector(
                 `input[name="id_research_registrant_${item.id}"]:checked`
             );
-    
+
             arrayId.push({
                 id: item.id,
                 value: selected ? selected.value : "rejected", // Default to "rejected" if nothing is selected
             });
         });
-    
+
         handler(arrayId);
     };
 
@@ -40,6 +40,9 @@ const TabelPusatInfo = ({ data, handler }) => {
                         </th>
                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Foto 3X4
+                        </th>
+                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Surat Pernyataan
                         </th>
                         <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Status
@@ -92,6 +95,15 @@ const TabelPusatInfo = ({ data, handler }) => {
                                         className="underline text-blue-500"
                                         target="_blank"
                                         href={`/images/${item.foto}`}
+                                    >
+                                        Lihat File
+                                    </a>
+                                </td>
+                                <td className="py-2 text-center">
+                                    <a
+                                        className="underline text-blue-500"
+                                        target="_blank"
+                                        href={`/images/${item.surat_pernyataan}`}
                                     >
                                         Lihat File
                                     </a>

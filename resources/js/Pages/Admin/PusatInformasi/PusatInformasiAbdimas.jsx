@@ -180,7 +180,11 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
                             <p>
                                 <strong>Detail Kegiatan:</strong>
                             </p>
-                            <p>{abdimas.description}</p>
+                            <p
+                                dangerouslySetInnerHTML={{
+                                    __html: abdimas.description,
+                                }}
+                            ></p>
                         </div>
 
                         <UploadSuratTugas abdimas={abdimas} />
@@ -223,10 +227,9 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
                             </div>
                             <p class="text-gray-500">Total 1 - 10 of 130</p>
                         </div> */}
-                        {
-                            abdimas.closed ?
-                            ''
-                            :
+                        {abdimas.closed ? (
+                            ""
+                        ) : (
                             <div className="flex justify-end mt-4">
                                 <button
                                     onClick={handleSubmit}
@@ -235,7 +238,7 @@ const PusatInformasiAbdimas = ({ user, abdimas }) => {
                                     Simpan
                                 </button>
                             </div>
-                        }
+                        )}
                     </div>
                 </div>
             </div>

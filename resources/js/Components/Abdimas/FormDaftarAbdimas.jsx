@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm, usePage } from "@inertiajs/react";
+import toast from "react-hot-toast";
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 
 const FormDaftarAbdimas = ({ information }) => {
@@ -12,28 +13,84 @@ const FormDaftarAbdimas = ({ information }) => {
         cv: "",
         portofolio: "",
         foto: "",
+        surat_pernyataan: "",
     });
 
     const [isChecked, setIsChecked] = useState(false);
 
     const handleKhsChange = (event) => {
         const file = event.target.files[0];
-        setData("khs", file);
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(pdf)$/i.test(file.name)
+        ) {
+            setData("khs", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            event.target.value = "";
+        }
     };
 
     const handleCvChange = (event) => {
         const file = event.target.files[0];
-        setData("cv", file);
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(pdf)$/i.test(file.name)
+        ) {
+            setData("cv", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            event.target.value = "";
+        }
     };
 
     const handlePortofolioChange = (event) => {
         const file = event.target.files[0];
-        setData("portofolio", file);
+        
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(pdf)$/i.test(file.name)
+        ) {
+            setData("portofolio", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            event.target.value = "";
+        }
     };
 
     const handleFotoChange = (event) => {
         const file = event.target.files[0];
-        setData("foto", file);
+        
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            setData("foto", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            event.target.value = "";
+        }
+    };
+
+    const handleSuratPernyataanChange = (event) => {
+        const file = event.target.files[0];
+        
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(pdf)$/i.test(file.name)
+        ) {
+            setData("surat_pernyataan", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            event.target.value = "";
+        }
     };
 
     const handleCheckboxChange = () => {
@@ -109,7 +166,7 @@ const FormDaftarAbdimas = ({ information }) => {
                         />
                         <p className="text-gray-500 text-sm mt-2">
                             Tipe file yang dapat diunggah adalah .pdf, dengan
-                            ukuran file maksimal 1MB.
+                            ukuran file maksimal 2MB.
                         </p>
                     </div>
                     <div className="mb-4">
@@ -124,7 +181,7 @@ const FormDaftarAbdimas = ({ information }) => {
                         />
                         <p className="text-gray-500 text-sm mt-2">
                             Tipe file yang dapat diunggah adalah .pdf, dengan
-                            ukuran file maksimal 1MB.
+                            ukuran file maksimal 2MB.
                         </p>
                     </div>
                     <div className="mb-4">
@@ -139,7 +196,7 @@ const FormDaftarAbdimas = ({ information }) => {
                         />
                         <p className="text-gray-500 text-sm mt-2">
                             Tipe file yang dapat diunggah adalah .pdf, dengan
-                            ukuran file maksimal 1MB.
+                            ukuran file maksimal 2MB.
                         </p>
                     </div>
                     <div className="mb-4">
@@ -154,8 +211,38 @@ const FormDaftarAbdimas = ({ information }) => {
                         />
                         <p className="text-gray-500 text-sm mt-2">
                             Tipe file yang dapat diunggah adalah .jpg, .jpeg,
-                            dan .png, dengan ukuran file maksimal 1MB.
+                            dan .png, dengan ukuran file maksimal 2MB.
                         </p>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-bold mb-2">
+                            Surat Pernyataan
+                            <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                            type="file"
+                            className="w-full border rounded-lg p-2"
+                            onChange={handleSuratPernyataanChange}
+                            accept=".pdf"
+                        />
+                        <li className="text-gray-500 text-sm mt-2">
+                            Silakan unduh format Surat Pernyataan berikut{" "}
+                            <a
+                                href="https://docs.google.com/document/d/1CVVZ5QVGaUt6n9p--qwe7RemYDE4EdUNjUOWHnM371c/edit?usp=sharing"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-500 underline"
+                            >
+                                unduh file surat pernyataan;{" "}
+                            </a>
+                        </li>
+                        <li className="text-gray-500 text-sm mt-2">
+                            Wajib melampirkan Materai Rp 10.000.
+                        </li>
+                        <li className="text-gray-500 text-sm mt-2">
+                            Tipe file yang dapat diunggah adalah .pdf, dengan
+                            ukuran file maksimal 2MB.
+                        </li>
                     </div>
                     <PernyataanLegalitas
                         isChecked={isChecked}

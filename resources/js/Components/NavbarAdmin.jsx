@@ -27,7 +27,7 @@ const NavbarAdmin = () => {
     const { url } = usePage();
     const { user } = usePage().props;
     const { wadek, kaprodi, ormawa } = usePage().props.auth;
-    const { mahasiswa } = usePage().props.auth;
+    const { mahasiswa, dosen } = usePage().props.auth;
 
     // Fungsi toggle untuk dropdown profil
     const toggleProfileDropdown = () => {
@@ -132,6 +132,26 @@ const NavbarAdmin = () => {
             ]);
         }
     }, [ormawa]);
+
+    // Update menu jika user adalah dosen
+    // useEffect(() => {
+    //     if (dosen) {
+    //         setPusatInformasiMenu([
+    //             {
+    //                 name: "Abdimas",
+    //                 route1: "pusatAbdimas",
+    //                 route2: "tambahInfoAbdimas",
+    //                 route3: "",
+    //             },
+    //             {
+    //                 name: "Penelitian",
+    //                 route1: "pusatPenelitian",
+    //                 route2: "tambahInfoPenelitian",
+    //                 route3: "",
+    //             },
+    //         ]);
+    //     }
+    // }, [dosen]);
 
     const [showModal, setShowModal] = useState(false);
 

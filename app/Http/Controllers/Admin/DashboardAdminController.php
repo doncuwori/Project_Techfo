@@ -8,6 +8,7 @@ use App\Models\Abdimas\MahasiswaRegistrant;
 use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\MahasiswaAchievement;
+use App\Models\Competitions\MahasiswaRegistrant as CompetitionsMahasiswaRegistrant;
 use App\Models\Prodi;
 use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
 use App\Models\Researchs\ResearchInformation;
@@ -21,9 +22,11 @@ class DashboardAdminController extends Controller
     public function index()
     {
         $competitionRegistrantsCount = \App\Models\Competitions\MahasiswaRegistrant::count();
-        $competitionAchievementsCount = MahasiswaAchievement::count();
+        $competitionAchievementsCount = MahasiswaAchievement::whereHas('competitionAchievement', function($query){
+            $query->where('is_validated', true);
+        })->count();
         $scholarshipRegistrantsCount = ScholarshipRegistrant::count();
-        $scholarshipRecipientsCount = ScholarshipRecipient::count();
+        $scholarshipRecipientsCount = ScholarshipRecipient::where('is_validated', true)->count();
 
         $abdimasRegistrantsCount = MahasiswaRegistrant::count();
         $abdimasRecipientsCount = MahasiswaRegistrant::where('accepted', true)->count();
@@ -31,6 +34,43 @@ class DashboardAdminController extends Controller
         $researchRegistrantsCount = ResearchsMahasiswaRegistrant::count();
         $researchRecipientsCount = ResearchsMahasiswaRegistrant::where('accepted', true)->count();
 
+        $bidang = [
+            'UI/UX Design',
+            'Front-End Development',
+            'Back-End Development',
+            'Business Plan',
+            'Cybersecurity',
+            'Data Science & Machine Learning',
+            'Mobile App Development',
+            'Game Development',
+            'Internet of Things (IoT)',
+            'Hackathon',
+            'Software Engineering',
+            'Cloud Computing',
+            'Robotics and Automation',
+            'Augmented Reality (AR) / Virtual Reality (VR)',
+            'Blockchain Development',
+            'Digital Marketing',
+            'Artificial Intelligence (AI)',
+            'Big Data Analytics',
+            'DevOps',
+            'Virtual Assistant Management',
+            'Web Development',
+            'Digital Animation',
+            'Full-Stack Development',
+            'Lainnya'
+        ];
+
+        $bidangPeserta = [];
+        $bidangPemenang = [];
+        foreach($bidang as $b){
+            $bidangPeserta[$b] = CompetitionsMahasiswaRegistrant::whereHas('competitionRegistrant', function ($query) use ($b) {
+                $query->where('type', $b);
+            })->count();
+            $bidangPemenang[$b] = MahasiswaAchievement::whereHas('competitionAchievement', function ($query) use ($b) {
+                $query->where('type', $b)->where('is_validated', true);
+            })->count();
+        }
 
         $user = auth()->user();
 
@@ -59,7 +99,7 @@ class DashboardAdminController extends Controller
                         $query->where('id', $p->id);
                     });
                 })->whereHas('competitionAchievement', function ($query) use ($k) {
-                    $query->where('degree', $k);
+                    $query->where('degree', $k)->where('is_validated', true);
                 })->count();
             }
         }
@@ -71,6 +111,8 @@ class DashboardAdminController extends Controller
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
                 });
+            })->whereHas('competitionAchievement', function ($query) use ($k) {
+                $query->where('is_validated', true);
             })->count();
         }
 
@@ -81,6 +123,8 @@ class DashboardAdminController extends Controller
                 $query->whereHas('prodi', function ($query) use ($p) {
                     $query->where('id', $p->id);
                 });
+            })->whereHas('scholarshipRecipient', function ($query) use ($k) {
+                $query->where('is_validated', true);
             })->count();
         }
 
@@ -161,6 +205,8 @@ class DashboardAdminController extends Controller
             'rekapResearchLolos' => $researchLolos,
             'arrayFundingAbdimas' => $arrayFundingAbdimas,
             'arrayFundingPenelitian' => $arrayFundingPenelitian,
+            'bidangPeserta' => $bidangPeserta,
+            'bidangPemenang' => $bidangPemenang
         ]);
 
     }

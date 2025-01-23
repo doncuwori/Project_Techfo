@@ -181,7 +181,11 @@ const PusatInformasiPenelitian = ({ user, research }) => {
                             <p>
                                 <strong>Detail Kegiatan:</strong>
                             </p>
-                            <p>{research.description}</p>
+                            <p
+                                dangerouslySetInnerHTML={{
+                                    __html: research.description,
+                                }}
+                            ></p>
                         </div>
 
                         <UploadSuratTugas research={research} />

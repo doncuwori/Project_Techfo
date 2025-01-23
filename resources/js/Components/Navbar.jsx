@@ -172,7 +172,7 @@ const Navbar = () => {
                                     className={`block px-4 py-2 ${
                                         route().current("pendataanLomba")
                                             ? "bg-[#fe632e] text-white font-bold rounded-t-xl hover:font-bold"
-                                            : "hover:bg-orange-100 hover:text-[#fe632e] font-bold"
+                                            : "hover:bg-orange-100 hover:text-[#fe632e] font-bold hover:rounded-t-xl"
                                     }`}
                                 >
                                     <div className="text-base font-semibold leading-normal">
@@ -188,7 +188,7 @@ const Navbar = () => {
                                     className={`block px-4 py-2 ${
                                         route().current("pendataanBeasiswa")
                                             ? "bg-[#fe632e] text-white font-bold rounded-b-lg hover:font-bold"
-                                            : "hover:bg-orange-100 hover:text-[#fe632e] font-bold"
+                                            : "hover:bg-orange-100 hover:text-[#fe632e] font-bold hover:rounded-b-l"
                                     }`}
                                 >
                                     <div className="text-base font-semibold leading-normal">
@@ -239,9 +239,14 @@ const Navbar = () => {
                             href={route("profile")}
                             className={`block px-4 py-2 text-gray-700 transition duration-150 ${
                                 route().current("profile")
-                                    ? "bg-orange-50 text-[#fe631e] font-bold"
+                                    ? "bg-orange-50 text-[#fe632e] font-bold"
                                     : "hover:bg-orange-50 hover:text-[#fe632e] hover:font-bold"
                             }`}
+                            style={{
+                                color: route().current("profile")
+                                    ? "#fe632e"
+                                    : "",
+                            }} // Fallback color
                         >
                             Profil Saya
                         </Link>

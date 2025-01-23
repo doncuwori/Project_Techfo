@@ -14,17 +14,21 @@ const LaporanAbdimas = ({
     penerima,
     prodi,
     angkatan,
+    funding,
 }) => {
     const [tabValue, settabValue] = useState("Penerima");
-
     const [exportPendaftar, setExportPendaftar] = useState(false);
     const [exportPenerima, setExportPenerima] = useState(false);
+
+    const [penerimaCount, setPenerimaCount] = useState(penerima.length);
+    const [pesertaCount, setPesertaCount] = useState(pendaftar.length);
 
     const [filters, setFilters] = useState({
         prodi: "",
         angkatan: "",
         nama: "",
         tahun: "",
+        funding: "",
     });
 
     const handleFilterChange = (event) => {
@@ -33,6 +37,15 @@ const LaporanAbdimas = ({
             ...prevFilters,
             [name]: value,
         }));
+
+        if (name === "tahun") {
+            setPenerimaCount(
+                penerima.filter((item) => item.created_at.includes(value)).length
+            );
+            setPesertaCount(
+                pendaftar.filter((item) => item.created_at.includes(value)).length
+            );
+        }
     };
 
     const handleExport = (val) => {
@@ -58,8 +71,8 @@ const LaporanAbdimas = ({
                         Laporan Pengabdian Masyarakat
                     </h1>
                     <CardStatis
-                        abdimasRegistrantsCount={abdimasRegistrantsCount}
-                        abdimasRecipientsCount={abdimasRecipientsCount}
+                        abdimasRegistrantsCount={pesertaCount}
+                        abdimasRecipientsCount={penerimaCount}
                     />
                     <div class="bg-white p-4 rounded-lg shadow-lg mb-6">
                         <div class="flex items-center mb-4">
@@ -101,7 +114,23 @@ const LaporanAbdimas = ({
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                                 </div>
                             </div>
-                            <div class="flex space-x-2">
+                            <div class="flex space-x-2 mb-4">
+                                <select
+                                    name="funding"
+                                    onChange={(e) => handleFilterChange(e)}
+                                    class="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                >
+                                    <option value="">
+                                        Semua Jenis Pendanaan
+                                    </option>
+                                    {funding.map((item, index) => {
+                                        return (
+                                            <option value={item} key={index}>
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
                                 <select
                                     name="prodi"
                                     onChange={(e) => handleFilterChange(e)}
@@ -155,7 +184,7 @@ const LaporanAbdimas = ({
                                 </button>
                             </div>
                         </div>
-                        <div class="overflow-x-auto">
+                        <div>
                             {tabValue == "Penerima" ? (
                                 <TabelTabPenerima
                                     data={penerima}
@@ -169,20 +198,6 @@ const LaporanAbdimas = ({
                                     refs={exportPendaftar}
                                 />
                             )}
-                        </div>
-                        <div class="flex justify-between items-center mt-4">
-                            <p class="text-gray-500">Rows per page: 10</p>
-                            <div class="flex space-x-2 items-center">
-                                <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
-                                    Prev
-                                </button>
-                                <p class="text-gray-500">1</p>
-                                <p class="text-gray-500">...</p>
-                                <button class="px-3 py-1 bg-gray-300 text-gray-700 rounded-md">
-                                    Next
-                                </button>
-                            </div>
-                            <p class="text-gray-500">Total 1 - 10 of 130</p>
                         </div>
                     </div>
                 </div>

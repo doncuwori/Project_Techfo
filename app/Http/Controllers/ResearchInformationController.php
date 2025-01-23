@@ -43,6 +43,13 @@ class ResearchInformationController extends Controller
     public function store(Request $request)
     {
         try{
+            
+            $dosenFilter = array_filter($request->dosens, function($val) {
+                return $val != null;
+            });
+
+            $dosenFilter = array_values($dosenFilter);
+
             $user = Auth::user();
 
             $request->validate([
@@ -68,7 +75,7 @@ class ResearchInformationController extends Controller
                 'updated_at' => now(),
             ]);
     
-            foreach($request->dosens as  $index => $d) {
+            foreach($dosenFilter as  $index => $d) {
                 if($d!= null){
                     DosenResearch::create([
                         'id_dosen' => $d,
@@ -98,6 +105,13 @@ class ResearchInformationController extends Controller
                 'total_students_required' => 'required|integer',
                 'description' => 'required|string'
             ]);
+
+            
+            $dosenFilter = array_filter($request->dosens, function($val) {
+                return $val != null;
+            });
+
+            $dosenFilter = array_values($dosenFilter);
             
             $research->update([
                 'name' => $request->name,
@@ -110,7 +124,7 @@ class ResearchInformationController extends Controller
             ]);
     
             $current = DosenResearch::where('id_research_information', $research->id)->get();
-            $requested = $request->dosens;
+            $requested = $dosenFilter;
     
             foreach($current as $c){
                 if(!in_array($c->id_dosen, $requested)){
@@ -118,7 +132,7 @@ class ResearchInformationController extends Controller
                 }
             }
     
-            foreach($request->dosens as  $index => $d) {
+            foreach($dosenFilter as  $index => $d) {
                 
                 $exist = DosenResearch::where('id_dosen', $d)->where('id_research_information', $research->id)->first();
     

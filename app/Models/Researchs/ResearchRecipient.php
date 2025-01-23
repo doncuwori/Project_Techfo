@@ -18,6 +18,7 @@ class ResearchRecipient extends Model
         'cv',
         'portofolio',
         'foto',
+        'surat_pernyataan',
         'created_by',
     ];
 

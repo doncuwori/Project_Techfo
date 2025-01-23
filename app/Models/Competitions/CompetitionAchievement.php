@@ -20,6 +20,7 @@ class CompetitionAchievement extends Model
         'ormawa_delegation',
         'activity_name',
         'field',
+        'type',
         'organizer',
         'location',
         'activity_date_start',

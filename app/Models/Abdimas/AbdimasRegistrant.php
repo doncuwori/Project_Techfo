@@ -18,6 +18,7 @@ class AbdimasRegistrant extends Model
         'cv',
         'portofolio',
         'foto',
+        'surat_pernyataan'
     ];
 
     /**

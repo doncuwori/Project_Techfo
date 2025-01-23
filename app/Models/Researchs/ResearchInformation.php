@@ -24,6 +24,7 @@ class ResearchInformation extends Model
         'funding',
         'created_by',
         'description',
+        'proposal_rejected'
     ];
 
     protected $table = 'researches_information';
@@ -47,7 +48,9 @@ class ResearchInformation extends Model
     {
         return MahasiswaRegistrant::whereHas('researchRegistrant', function ($query) {
             $query->where('id_research_information', $this->id);
-        })->where('accepted', true)->count();
+        })->where('accepted', true)->exists() || MahasiswaRegistrant::whereHas('researchRegistrant', function ($query) {
+            $query->where('id_research_information', $this->id);
+        })->where('rejected', true)->exists();
     }
 
     

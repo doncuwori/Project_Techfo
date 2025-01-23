@@ -2,6 +2,7 @@ import { useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill";
+import { Upload } from "lucide-react";
 import "react-quill/dist/quill.snow.css";
 
 export const FormLombaBeasiswa = ({ type, previous, edit }) => {
@@ -12,6 +13,7 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
               }
             : null
     );
+    const [fileURL, setFileURL] = useState(null);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: previous?.name ?? "",
@@ -39,25 +41,49 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
     const handleFileChange = (event) => {
         const file = event.target.files[0];
 
-        if (file && file.size > 1048576) {
-            toast.error("Ukuran file maksimal 1MB.");
+        if (file && file.size > 2097152) {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
             return;
         }
-        setSelectedFile(file);
 
-        setData("poster_url", file);
+        if (file) {
+            setSelectedFile(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("poster_url", file);
+        }
+    };
+
+    const handleDropFile = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 && // Max 2MB
+            /\.(jpg|jpeg|png)$/i.test(file.name) // Only images
+        ) {
+            const url = URL.createObjectURL(file);
+            setSelectedFile(file);
+            setFileURL(url);
+            setData("poster_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
     };
 
     const handleRemoveFile = () => {
         setSelectedFile(null);
-        document.getElementById("fileInput").value = null;
+        setFileURL(null);
+        setData("poster_url", null); // Reset data
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput) fileInput.value = null;
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const routeName = function routeName() {
-            console.log(type, edit);
             if (type === "lomba" && !edit) {
                 return route("competitionInformation.store");
             } else if (type === "lomba" && edit) {
@@ -222,9 +248,16 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                     <label className="block text-gray-700 font-bold mb-2">
                         Poster Kegiatan<span className="text-red-600">*</span>
                     </label>
-                    <div className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center">
-                        <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                    <div
+                        className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center"
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={handleDropFile}
+                    >
+                        <div className="flex flex-col items-center justify-center">
+                            <Upload className="text-gray-500 w-7 h-7 mb-2" />
+                            <p>Click to upload or drag and drop</p>
+                        </div>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -238,19 +271,41 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         >
                             Browse File
                         </label>
-                        {selectedFile && (
+                        {selectedFile && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {selectedFile.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {selectedFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -263,7 +318,7 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                             Tipe file yang dapat diunggah antara lain: .jpg,
                             .jpeg, .png;
                         </li>
-                        <li>Ukuran file maksimal 1MB.</li>
+                        <li>Ukuran file maksimal 2MB.</li>
                     </ul>
                 </div>
             </section>

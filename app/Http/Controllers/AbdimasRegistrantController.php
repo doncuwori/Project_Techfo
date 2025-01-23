@@ -17,10 +17,10 @@ class AbdimasRegistrantController extends Controller
     {
         $user = Auth::user();
 
-        try{
+        try {
             DB::beginTransaction();
 
-            if($request->hasFile('khs') && $request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('foto')){
+            if ($request->hasFile('khs') && $request->hasFile('cv') && $request->hasFile('portofolio') && $request->hasFile('foto') && $request->hasFile('surat_pernyataan')) {
                 $fileKhs = $request->file('khs');
                 $filenameKhs = time() . '.' . $fileKhs->getClientOriginalExtension();
                 $fileKhs->move(public_path('images/'), $filenameKhs);
@@ -29,13 +29,17 @@ class AbdimasRegistrantController extends Controller
                 $filenameCv = time() . '.' . $fileCv->getClientOriginalExtension();
                 $fileCv->move(public_path('images/'), $filenameCv);
 
-                $filePortofolio = $request->file('portofolio'); 
+                $filePortofolio = $request->file('portofolio');
                 $filenamePortofolio = time() . '.' . $filePortofolio->getClientOriginalExtension();
                 $filePortofolio->move(public_path('images/'), $filenamePortofolio);
 
                 $fileFoto = $request->file('foto');
                 $filenameFoto = time() . '.' . $fileFoto->getClientOriginalExtension();
                 $fileFoto->move(public_path('images/'), $filenameFoto);
+
+                $fileSuratPernyataan = $request->file('surat_pernyataan');
+                $filenameSuratPernyataan = time() . '.' . $fileSuratPernyataan->getClientOriginalExtension();
+                $fileSuratPernyataan->move(public_path('images/'), $filenameSuratPernyataan);
             }
 
             $registrant = AbdimasRegistrant::create([
@@ -45,6 +49,7 @@ class AbdimasRegistrantController extends Controller
                 'cv' => $filenameCv,
                 'portofolio' => $filenamePortofolio,
                 'foto' => $filenameFoto,
+                'surat_pernyataan' => $filenameSuratPernyataan,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -57,10 +62,9 @@ class AbdimasRegistrantController extends Controller
 
             DB::commit();
             return redirect()->route('profile')->with('success', 'Abdimas berhasil didaftarkan.');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('daftarAbdimas', $request->id_abdimas_information)->with('error', 'Abdimas gagal didaftarkan!');
-
+            return redirect()->route('daftarAbdimas', $request->id_abdimas_information)->with('error', 'Abdimas gagal didaftarkan!'. $e->getMessage());
         }
     }
 

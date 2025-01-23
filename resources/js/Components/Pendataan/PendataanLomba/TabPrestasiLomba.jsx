@@ -16,6 +16,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
         mentor_name: "",
         activity_name: "",
         field: "",
+        type: "",
         degree: "",
         organizer: "",
         scope: "",
@@ -94,23 +95,54 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
     const [kegiatanFile, setKegiatanFile] = useState(null);
     const [laporanFile, setLaporanFile] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
+    const [fileURL, setFileURL] = useState(null);
 
     const handleFileScanBuktiChange = (event) => {
         const file = event.target.files[0];
-        setScanBuktiFile(file);
-        setData("proof_scan_url", file);
+
+        if (file && file.size > 2097152) {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setScanBuktiFile(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("proof_scan_url", file);
+        }
     };
 
     const handleFileKegiatanChange = (event) => {
         const file = event.target.files[0];
-        setKegiatanFile(file);
-        setData("event_photo_url", file);
+
+        if (file && file.size > 2097152) {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setKegiatanFile(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("event_photo_url", file);
+        }
     };
 
     const handleFileLaporanChange = (event) => {
         const file = event.target.files[0];
-        setLaporanFile(file);
-        setData("report_url", file);
+
+        if (file && file.size > 2097152) {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setLaporanFile(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("report_url", file);
+        }
     };
 
     const handleDropScanBuktiFile = (e) => {
@@ -119,13 +151,15 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
 
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png|pdf)$/i.test(file.name)
         ) {
+            const url = URL.createObjectURL(file);
             setScanBuktiFile(file);
+            setFileURL(url);
             setData("proof_scan_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
@@ -135,13 +169,15 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
 
         if (
             file &&
-            file.size <= 1 * 1024 * 1024 &&
+            file.size <= 2 * 1024 * 1024 &&
             /\.(jpg|jpeg|png)$/i.test(file.name)
         ) {
+            const url = URL.createObjectURL(file);
             setKegiatanFile(file);
+            setFileURL(url);
             setData("event_photo_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
@@ -149,30 +185,38 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
 
-        if (file && file.size <= 1 * 1024 * 1024 && /\.pdf$/i.test(file.name)) {
+        if (file && file.size <= 2 * 1024 * 1024 && /\.pdf$/i.test(file.name)) {
+            const url = URL.createObjectURL(file);
             setLaporanFile(file);
+            setFileURL(url);
             setData("report_url", file);
         } else {
-            toast.error("File tidak valid atau melebihi ukuran maksimal 1MB.");
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
         }
     };
 
     const handleRemoveScanBuktiFile = () => {
         setScanBuktiFile(null);
-        // Clear the file input field for scan bukti
-        document.getElementById("scanBuktiInput").value = null;
+        setFileURL(null);
+        setData("proof_scan_url", null);
+        const scanBuktiInput = document.getElementById("scanBuktiInput");
+        if (scanBuktiInput) scanBuktiInput.value = null;
     };
 
     const handleRemoveKegiatanFile = () => {
         setKegiatanFile(null);
-        // Clear the file input field for file kegiatan
-        document.getElementById("fotoKegiatanInput").value = null;
+        setFileURL(null);
+        setData("event_photo_url", null);
+        const fotoKegiatanInput = document.getElementById("fotoKegiatanInput");
+        if (fotoKegiatanInput) fotoKegiatanInput.value = null;
     };
 
     const handleRemoveLaporanFile = () => {
         setLaporanFile(null);
-        // Clear the file input field for file laporan
-        document.getElementById("laporanInput").value = null;
+        setFileURL(null);
+        setData("report_url", null);
+        const laporanInput = document.getElementById("laporanInput");
+        if (laporanInput) laporanInput.value = null;
     };
 
     const handleCheckboxChange = () => {
@@ -442,7 +486,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                     <div className="flex flex-col w-full">
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
-                                Bidang<span className="text-red-600">*</span>
+                                Bidang Lomba<span className="text-red-600">*</span>
                             </label>
                             <select
                                 onChange={(e) => {
@@ -461,15 +505,60 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 font-bold mb-2">
-                                Dosen Pembimbing/Pendamping
+                                Jenis Lomba
                                 <span className="text-red-600">*</span>
                             </label>
-                            <SearchableSelect
-                                onChange={handleDosen}
-                                options={dosenOption}
-                                placeholder={"- Pilih Dosen -"}
-                            />
-                            {/* <input
+                            <select
+                                onChange={(e) => {
+                                    setData("type", e.target.value);
+                                }}
+                                value={data.type}
+                                className="w-full border rounded-lg px-4"
+                            >
+                                <option>-- Pilih Jenis Lomba --</option>
+                                <option>UI/UX Design</option>
+                                <option>Front-End Development</option>
+                                <option>Back-End Development</option>
+                                <option>Business Plan</option>
+                                <option>Cybersecurity</option>
+                                <option>Data Science & Machine Learning</option>
+                                <option>Mobile App Development</option>
+                                <option>Game Development</option>
+                                <option>Internet of Things (IoT)</option>
+                                <option>Hackathon</option>
+                                <option>Software Engineering</option>
+                                <option>Cloud Computing</option>
+                                <option>Robotics and Automation</option>
+                                <option>
+                                    Augmented Reality (AR) / Virtual Reality
+                                    (VR)
+                                </option>
+                                <option>Blockchain Development</option>
+                                <option>Digital Marketing</option>
+                                <option>Artificial Intelligence (AI)</option>
+                                <option>Big Data Analytics</option>
+                                <option>DevOps</option>
+                                <option>Virtual Assistant Management</option>
+                                <option>Web Development</option>
+                                <option>Digital Animation</option>
+                                <option>Full-Stack Development</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Dosen Pembimbing/Pendamping
+                        <span className="text-red-600">*</span>
+                    </label>
+                    <SearchableSelect
+                        onChange={handleDosen}
+                        options={dosenOption}
+                        placeholder={"- Pilih Dosen -"}
+                    />
+                    {/* <input
                                 type="text"
                                 onChange={(e) => {
                                     setData("mentor_name", e.target.value);
@@ -478,8 +567,6 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                                 className="w-full border rounded-lg px-4"
                                 placeholder="Tuliskan nama dosen pembimbing/pendamping..."
                             /> */}
-                        </div>
-                    </div>
                 </div>
 
                 <div className="mb-4">
@@ -593,8 +680,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             <Upload className="text-gray-500 w-7 h-7 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p>Click to upload or drag and drop</p>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png,.pdf"
@@ -608,19 +694,41 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                         >
                             Browse File
                         </label>
-                        {scanBuktiFile && (
+                        {scanBuktiFile && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {scanBuktiFile.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveScanBuktiFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {scanBuktiFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveScanBuktiFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -634,10 +742,10 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             prestasi yang telah disahkan dengan stempel basah;
                         </li>
                         <li>
-                            Berkas yang diunggah dalam format: .pdf, .jpg,
-                            .jpeg, .png;
+                            Berkas yang diunggah dalam format: .jpg,
+                            .jpeg, .png, .pdf;
                         </li>
-                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 2MB.</li>
                     </ul>
                 </div>
 
@@ -655,7 +763,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             <Upload className="text-gray-500 w-7 h-7 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".jpg,.jpeg,.png"
@@ -669,19 +777,41 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                         >
                             Browse File
                         </label>
-                        {kegiatanFile && (
+                        {kegiatanFile && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {kegiatanFile.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveKegiatanFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {kegiatanFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveKegiatanFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -697,7 +827,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             Berkas yang diunggah dalam format: .jpg, .jpeg,
                             .png;
                         </li>
-                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 2MB.</li>
                     </ul>
                 </div>
 
@@ -716,7 +846,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             <Upload className="text-gray-500 w-7 h-7 mb-2" />
                             <p>Click to upload or drag and drop</p>
                         </div>
-                        <p className="text-gray-500">Max. file size: 1MB</p>
+                        <p className="text-gray-500">Max. file size: 2MB</p>
                         <input
                             type="file"
                             accept=".pdf"
@@ -730,19 +860,41 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                         >
                             Browse File
                         </label>
-                        {laporanFile && (
+                        {laporanFile && fileURL && (
                             <div className="mt-4 flex items-center justify-center">
-                                <p className="text-green-500 mr-2">
-                                    {laporanFile.name}
-                                </p>
-                                <button
-                                    type="button"
-                                    className="text-red-500 hover:text-red-700"
-                                    onClick={handleRemoveLaporanFile}
-                                    aria-label="Remove file"
-                                >
-                                    &times;
-                                </button>
+                                <div>
+                                    <a
+                                        href={fileURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <img
+                                            src={fileURL}
+                                            alt="Preview"
+                                            className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                        />
+                                    </a>
+                                    <div className="flex items-center justify-center space-x-1 mb-2">
+                                        <p className="text-green-500">
+                                            {laporanFile.name}
+                                        </p>
+                                        <button
+                                            type="button"
+                                            className="text-red-500 hover:text-red-700 ml-4"
+                                            onClick={handleRemoveLaporanFile}
+                                            aria-label="Remove file"
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                    {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -771,7 +923,7 @@ export const TabPrestasiLomba = ({ mahasiswa, dosen, country }) => {
                             </a>
                         </li>
                         <li>Berkas yang diunggah dalam format: .pdf;</li>
-                        <li>Ukuran maksimal setiap file adalah 1MB.</li>
+                        <li>Ukuran maksimal setiap file adalah 2MB.</li>
                     </ul>
                 </div>
             </section>

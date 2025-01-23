@@ -25,6 +25,7 @@ return new class extends Migration
 
             // FUNDING
             $table->enum('funding', ['Hibah Instansi Pemerintah', 'Hibah Instansi Swasta', 'Mandiri']);
+            $table->boolean('proposal_rejected')->default(false);
             $table->timestamps(); 
         });
 

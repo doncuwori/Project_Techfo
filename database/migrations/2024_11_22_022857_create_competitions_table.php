@@ -20,12 +20,13 @@ return new class extends Migration
             $table->string('activity_name'); // Nama kegiatan
             $table->string('scope'); // Tingkat Prestasi lomba
             $table->string('field'); // Bidang lomba
+            $table->string('type'); // Jenis lomba
             $table->string('organizer'); // Penyelenggara
             $table->string('location'); // Lokasi kegiatan
             $table->date('activity_date_start'); // Tanggal mulai
             $table->date('activity_date_end'); // Tanggal selesai
             $table->text('description'); // Deskripsi kegiatan
-            $table->string('poster_url')->nullable(); // URL poster
+            $table->string('poster_url'); // URL poster
             $table->string('phone'); 
             $table->timestamps();
         });
@@ -47,6 +48,7 @@ return new class extends Migration
             $table->string('activity_name'); // Nama kegiatan
             $table->string('scope'); // Tingkat Prestasi lomba
             $table->string('field'); // Bidang lomba
+            $table->string('type'); // Jenis lomba
             $table->string('organizer'); // Penyelenggara
             $table->string('location'); // Lokasi kegiatan
             $table->date('activity_date_start'); // Tanggal mulai

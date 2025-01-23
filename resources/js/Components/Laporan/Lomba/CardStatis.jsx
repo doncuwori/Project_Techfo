@@ -11,7 +11,7 @@ const CardStatis = ({
 
     return (
         <div class="flex flex-wrap -mx-4 mb-6">
-            <div class="w-full md:w-1/3 px-4">
+            <div class="w-full md:w-1/3 mb-4 px-4">
                 <div class="bg-white rounded-lg border-2 border-neutral-100 p-4 flex items-center">
                     <div class="w-[87px] h-[87px] relative">
                         <div class="absolute">
@@ -30,7 +30,7 @@ const CardStatis = ({
                     </div>
                 </div>
             </div>
-            <div class="w-full md:w-1/3 px-4">
+            <div class="w-full md:w-1/3 mb-4 px-4">
                 <div class="bg-orange-100 rounded-lg border-2 border-neutral-100 p-4 flex items-center">
                     <div class="text-5xl ml-2 mr-6">🏆</div>
                     <div>
@@ -43,7 +43,7 @@ const CardStatis = ({
                     </div>
                 </div>
             </div>
-            <div class="w-full md:w-1/3 px-4">
+            <div class="w-full md:w-1/3 mb-4 px-4">
                 <div class="bg-orange-100 rounded-lg border-2 border-neutral-100 p-4 flex items-center">
                     <div class="text-5xl ml-2 mr-6">📄</div>
                     <div>
