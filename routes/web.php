@@ -109,6 +109,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $abdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->get();
         $penelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->get();
 
+        $competitionAchievementsCount = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)
+        ->whereHas('competitionAchievement', function ($query) {
+            $query->where('is_validated', true);
+        })->count();
+
+        $scholarshipRecipientsCount = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)
+        ->whereHas('scholarshipRecipient', function ($query) {
+            $query->where('is_validated', true);
+        })
+        ->count();
+
         return Inertia::render('User/Profile',[
             'partisipasiLomba' => $partisipasiLomba,
             'prestasiLomba' => $prestasiLomba,
@@ -119,7 +130,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'pendaftarPenelitian' => $pendaftarPenelitian,
             'diterimaPenelitian' => $diterimaPenelitian,
             'abdimas' => $abdimas,
-            'penelitian' => $penelitian
+            'penelitian' => $penelitian,
+            'competitionAchievementsCount' => $competitionAchievementsCount,
+            'scholarshipRecipientsCount' => $scholarshipRecipientsCount
         ]);
     })->name('profile');
 
