@@ -208,6 +208,5 @@ class DashboardAdminController extends Controller
             'bidangPeserta' => $bidangPeserta,
             'bidangPemenang' => $bidangPemenang
         ]);
-
     }
 }

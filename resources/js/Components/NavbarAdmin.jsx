@@ -27,7 +27,7 @@ const NavbarAdmin = () => {
     const { url } = usePage();
     const { user } = usePage().props;
     const { wadek, kaprodi, ormawa } = usePage().props.auth;
-    const { mahasiswa, dosen } = usePage().props.auth;
+    const { mahasiswa } = usePage().props.auth;
 
     // Fungsi toggle untuk dropdown profil
     const toggleProfileDropdown = () => {
@@ -447,6 +447,31 @@ const NavbarAdmin = () => {
                             </ul>
                         )}
                     </li>
+
+                    {/* Management User Menu */}
+                    {user.role === "admin" ? (
+                        <li key="manajemenUser" className="mb-4">
+                            <a
+                                href={route("manajemenUser")}
+                                className={`${
+                                    route().current("manajemenUser")
+                                        ? "text-white bg-orange-500 hover:font-bold"
+                                        : "text-gray-500 hover:text-orange-500"
+                                } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
+                            >
+                                <UsersRound
+                                    className={`w-5 h-5 mr-2 ${
+                                        route().current("manajemenUser")
+                                            ? "text-white group-hover:scale-105"
+                                            : "group-hover:text-orange-500"
+                                    }`}
+                                />
+                                <span>Manajemen User</span>
+                            </a>
+                        </li>
+                    ) : (
+                        ""
+                    )}
 
                     {/* Role Switching Menu*/}
                     {ormawa ? (

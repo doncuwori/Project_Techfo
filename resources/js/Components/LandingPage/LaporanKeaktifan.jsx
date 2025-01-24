@@ -304,7 +304,7 @@ const LaporanKeaktifan = ({
         datasets: [
             {
                 label: "Jumlah Prestasi",
-                data: [90, 157, 60, 35, 50, 20, 10], // Example data
+                data: [90, 157, 60, 35, 50, 20, 10],
                 backgroundColor: [
                     "#b44621",
                     "#fe632e",
@@ -330,7 +330,7 @@ const LaporanKeaktifan = ({
             y: {
                 beginAtZero: true,
                 title: { display: true, text: "Jumlah" },
-                ticks: { stepSize: 20 }, // Adjust as needed
+                ticks: { stepSize: 20 },
             },
         },
     };

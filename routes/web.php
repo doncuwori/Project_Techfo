@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AdminScholarshipController;
 use App\Http\Controllers\Admin\AdminAbdimasController;
 use App\Http\Controllers\Admin\AdminResearchController;
 use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\ManajemenUser;
+use App\Http\Controllers\Admin\ManajemenUserController;
 use App\Http\Controllers\Admin\PusatInformasiLombaController;
 use App\Http\Controllers\Admin\PusatInformasiBeasiswaController;
 use App\Http\Controllers\Admin\PusatInformasiAbdimasController;
@@ -257,6 +259,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     // Dashboard
     Route::get('/dashboardAdmin', [DashboardAdminController::class, 'index'])->name('dashboardAdmin');
+
+    Route::get('/manajemenUser', [ManajemenUserController::class, 'index'])->name('manajemenUser');
 
     Route::post('/pusatInformasi/tambahInfoLomba', [CompetitionInformationController::class, 'store'])
         ->name('competitionInformation.store');
