@@ -261,6 +261,7 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     Route::get('/dashboardAdmin', [DashboardAdminController::class, 'index'])->name('dashboardAdmin');
 
     Route::get('/manajemenUser', [ManajemenUserController::class, 'index'])->name('manajemenUser');
+    Route::post('/manajemen-user-change', [ManajemenUserController::class, 'update'])->name('manajemenUser.update');
 
     Route::post('/pusatInformasi/tambahInfoLomba', [CompetitionInformationController::class, 'store'])
         ->name('competitionInformation.store');
