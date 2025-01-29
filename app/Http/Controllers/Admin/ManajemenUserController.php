@@ -22,11 +22,11 @@ class ManajemenUserController extends Controller
         $dosen = DosenAccess::all();
 
         foreach($dosen as $d){
-            $access[$d->nama_akses]['username'] = $d->dosen->nidn;
-            $access[$d->nama_akses]['name'] = $d->dosen->nama;
-            $access[$d->nama_akses]['access'] = $d->nama_akses;
-            $access[$d->nama_akses]['id'] = $d->id;
-            $access[$d->nama_akses]['type'] = 'dosen';
+            $access[$d->role]['username'] = $d->dosen->nidn;
+            $access[$d->role]['name'] = $d->dosen->nama;
+            $access[$d->role]['access'] = $d->role;
+            $access[$d->role]['id'] = $d->id;
+            $access[$d->role]['type'] = 'dosen';
         }
 
         $mahasiswa = MahasiswaAccess::all();

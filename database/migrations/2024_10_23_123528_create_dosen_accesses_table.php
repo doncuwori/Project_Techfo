@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('dosen_accesses', function (Blueprint $table) {
             $table->id();
             $table->string('nama_akses');
+            $table->string('role');
             $table->foreignId('id_dosen')->constrained('dosens');
             $table->timestamps();
         });

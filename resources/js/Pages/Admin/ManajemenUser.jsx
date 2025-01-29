@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import NavbarAdmin from "@/Components/NavbarAdmin";
-import { CheckCircleIcon, EyeIcon, FilePenLine, Trash } from "lucide-react";
 import { Toaster, toast } from "react-hot-toast";
 import DangerButton from "@/Components/DangerButton";
 import SearchableSelect from "@/Components/SearchableSelect";
@@ -69,7 +68,7 @@ const ManajemenUser = ({ user, access, dosen, mahasiswa }) => {
                 setMahasiswaChangeModal(null);
             },
         });
-    }
+    };
 
     const handleChangeDosen = (e) => {
         post(route("manajemenUser.update"), {
@@ -77,7 +76,7 @@ const ManajemenUser = ({ user, access, dosen, mahasiswa }) => {
                 setDosenChangeModal(null);
             },
         });
-    }
+    };
 
     // const [currentPage, setCurrentPage] = useState(1);
     // const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -202,7 +201,9 @@ const ManajemenUser = ({ user, access, dosen, mahasiswa }) => {
                                         <button
                                             type="button"
                                             onClick={(e) =>
-                                                handleChangeDosen(dosenChangeModal)
+                                                handleChangeDosen(
+                                                    dosenChangeModal
+                                                )
                                             }
                                             className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
                                         >
@@ -230,7 +231,9 @@ const ManajemenUser = ({ user, access, dosen, mahasiswa }) => {
                                             <SearchableSelect
                                                 onChange={handleMahasiswa}
                                                 options={mahasiswaOption}
-                                                placeholder={"- Pilih Mahasiswa -"}
+                                                placeholder={
+                                                    "- Pilih Mahasiswa -"
+                                                }
                                             />
                                         </div>
                                     </form>
@@ -247,7 +250,9 @@ const ManajemenUser = ({ user, access, dosen, mahasiswa }) => {
                                         <button
                                             type="button"
                                             onClick={(e) =>
-                                                handleChangeMahasiswa(mahasiswaChangeModal)
+                                                handleChangeMahasiswa(
+                                                    mahasiswaChangeModal
+                                                )
                                             }
                                             className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
                                         >
