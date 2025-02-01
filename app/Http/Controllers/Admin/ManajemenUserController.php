@@ -19,7 +19,7 @@ class ManajemenUserController extends Controller
 
         ];
 
-        $dosen = DosenAccess::all();
+        $dosen = DosenAccess::orderBy('id', 'asc')->get();
 
         foreach($dosen as $d){
             $access[$d->role]['username'] = $d->dosen->nidn;
@@ -29,7 +29,7 @@ class ManajemenUserController extends Controller
             $access[$d->role]['type'] = 'dosen';
         }
 
-        $mahasiswa = MahasiswaAccess::all();
+        $mahasiswa = MahasiswaAccess::orderBy('id', 'asc')->get();
 
         foreach($mahasiswa as $m){
             $access[$m->instansi]['username'] = $m->mahasiswa->nim;
