@@ -72,7 +72,7 @@ class CompetitionInformationController extends Controller
             // Return a response
             return redirect()->route('pusatLomba')->with('success', 'Informasi lomba berhasil diubah');
         }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Informasi lomba gagal diubah :'. $e->getMessage());
+            return redirect()->back()->with('error', 'Informasi lomba gagal diubah :');
         }
        
     }
@@ -117,7 +117,7 @@ class CompetitionInformationController extends Controller
     
             return redirect()->route('pusatLomba')->with('success', 'Informasi lomba berhasil ditambahkan');
         }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Informasi lomba gagal ditambahkan :'. $e->getMessage());
+            return redirect()->back()->with('error', 'Informasi lomba gagal ditambahkan :');
         }
         
     }

@@ -64,7 +64,7 @@ class AbdimasRegistrantController extends Controller
             return redirect()->route('profile')->with('success', 'Abdimas berhasil didaftarkan.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('daftarAbdimas', $request->id_abdimas_information)->with('error', 'Abdimas gagal didaftarkan!'. $e->getMessage());
+            return redirect()->route('daftarAbdimas', $request->id_abdimas_information)->with('error', 'Abdimas gagal didaftarkan!');
         }
     }
 

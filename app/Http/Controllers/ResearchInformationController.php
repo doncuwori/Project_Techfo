@@ -87,7 +87,7 @@ class ResearchInformationController extends Controller
     
             return redirect()->route('pusatPenelitian')->with('success', 'Informasi penelitian berhasil ditambahkan');
         }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Informasi penelitian gagal ditambahkan : '. $e->getMessage());
+            return redirect()->back()->with('error', 'Informasi penelitian gagal ditambahkan : ');
         }
         
     }
@@ -151,7 +151,7 @@ class ResearchInformationController extends Controller
     
             return redirect()->route('pusatPenelitian')->with('success', 'Informasi penelitian berhasil diubah');
         }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Informasi penelitian gagal diubah : '. $e->getMessage());
+            return redirect()->back()->with('error', 'Informasi penelitian gagal diubah : ');
         }
         
     }

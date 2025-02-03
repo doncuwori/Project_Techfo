@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import NavbarAdmin from "@/Components/NavbarAdmin";
 import { Toaster, toast } from "react-hot-toast";
+import { formatDatetimeToIndonesian } from "@/lib/helper";
 import DangerButton from "@/Components/DangerButton";
 import SearchableSelect from "@/Components/SearchableSelect";
 
@@ -115,19 +116,16 @@ const ManajemenUser = ({ user, access, dosen, mahasiswa }) => {
                                     <th className="border p-2">NAMA</th>
                                     <th className="border p-2">USERNAME</th>
                                     <th className="border p-2">ROLE / AKSES</th>
+                                    <th className="border p-2">TERAKHIR DIPERBAHARUI</th>
                                     <th className="border p-2">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {Object.values(access).map((item, index) => (
                                     <tr
-                                        // key={index}
                                         className="border-t hover:bg-gray-50"
                                     >
                                         <td className="border p-2">
-                                            {/* {(currentPage - 1) * rowsPerPage +
-                                                index +
-                                                1} */}
                                             {index + 1}
                                         </td>
                                         <td className="border p-2">
@@ -138,6 +136,9 @@ const ManajemenUser = ({ user, access, dosen, mahasiswa }) => {
                                         </td>
                                         <td className="border p-2">
                                             {item.access}
+                                        </td>
+                                        <td className="border p-2">
+                                            {formatDatetimeToIndonesian(item.updated_at)}
                                         </td>
                                         <td className="border p-2 text-center align-middle">
                                             {item.type === "mahasiswa" ? (

@@ -17,7 +17,7 @@ class PusatInformasiAbdimasController extends Controller
     {
         $user = Auth::user();
 
-        $data = AbdimasInformation::orderBy('created_at', 'desc')
+        $data = AbdimasInformation::orderBy('created_at', direction: 'desc')
             ->with(['abdimasRegistrant.mahasiswa', 'user.mahasiswa.mahasiswaAccess'])
             ->get();
 

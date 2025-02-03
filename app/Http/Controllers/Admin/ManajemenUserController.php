@@ -27,6 +27,7 @@ class ManajemenUserController extends Controller
             $access[$d->role]['access'] = $d->role;
             $access[$d->role]['id'] = $d->id;
             $access[$d->role]['type'] = 'dosen';
+            $access[$d->role]['updated_at'] = $d->updated_at;
         }
 
         $mahasiswa = MahasiswaAccess::orderBy('id', 'asc')->get();
@@ -37,6 +38,7 @@ class ManajemenUserController extends Controller
             $access[$m->instansi]['access'] = $m->instansi;
             $access[$m->instansi]['id'] = $m->id;
             $access[$m->instansi]['type'] = 'mahasiswa';
+            $access[$m->instansi]['updated_at'] = $m->updated_at;
         }
 
         $dosen = Dosen::all();
