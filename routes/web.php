@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AdminScholarshipController;
 use App\Http\Controllers\Admin\AdminAbdimasController;
 use App\Http\Controllers\Admin\AdminResearchController;
 use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\ManajemenUser;
+use App\Http\Controllers\Admin\ManajemenUserController;
 use App\Http\Controllers\Admin\PusatInformasiLombaController;
 use App\Http\Controllers\Admin\PusatInformasiBeasiswaController;
 use App\Http\Controllers\Admin\PusatInformasiAbdimasController;
@@ -109,6 +111,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $abdimas = AbdimasMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('abdimasRegistrant.abdimasInformation')->get();
         $penelitian = ResearchMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->with('researchRegistrant.researchInformation')->get();
 
+        $competitionAchievementsCount = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)
+        ->whereHas('competitionAchievement', function ($query) {
+            $query->where('is_validated', true);
+        })->count();
+
+        $scholarshipRecipientsCount = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)
+        ->whereHas('scholarshipRecipient', function ($query) {
+            $query->where('is_validated', true);
+        })
+        ->count();
+
         return Inertia::render('User/Profile',[
             'partisipasiLomba' => $partisipasiLomba,
             'prestasiLomba' => $prestasiLomba,
@@ -119,7 +132,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'pendaftarPenelitian' => $pendaftarPenelitian,
             'diterimaPenelitian' => $diterimaPenelitian,
             'abdimas' => $abdimas,
-            'penelitian' => $penelitian
+            'penelitian' => $penelitian,
+            'competitionAchievementsCount' => $competitionAchievementsCount,
+            'scholarshipRecipientsCount' => $scholarshipRecipientsCount
         ]);
     })->name('profile');
 
@@ -244,6 +259,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     // Dashboard
     Route::get('/dashboardAdmin', [DashboardAdminController::class, 'index'])->name('dashboardAdmin');
+
+    Route::get('/manajemenUser', [ManajemenUserController::class, 'index'])->name('manajemenUser');
+    Route::post('/manajemen-user-change', [ManajemenUserController::class, 'update'])->name('manajemenUser.update');
 
     Route::post('/pusatInformasi/tambahInfoLomba', [CompetitionInformationController::class, 'store'])
         ->name('competitionInformation.store');

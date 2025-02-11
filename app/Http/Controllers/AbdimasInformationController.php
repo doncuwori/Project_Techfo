@@ -147,7 +147,7 @@ class AbdimasInformationController extends Controller
     
             return redirect()->route('pusatAbdimas')->with('success', 'Informasi pengabdian Masyarakat berhasil diubah');
         }catch (\Exception $e){
-            return redirect()->back()->with('error', 'Informasi pengabdian Masyarakat gagal diubah :'. $e->getMessage());
+            return redirect()->back()->with('error', 'Informasi pengabdian Masyarakat gagal diubah :');
         }
         
     }

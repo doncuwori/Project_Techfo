@@ -47,6 +47,17 @@ const RiwayatPenerimaBeasiswa = ({ data }) => {
                         <div className="absolute bottom-4 right-4 bg-green-500 p-1 px-4 rounded-md text-white hover:shadow-lg">
                             Berhasil
                         </div>
+                        <p
+                            className={`absolute top-4 right-4 ${
+                                !d.scholarship_recipient.is_validated
+                                    ? "bg-yellow-500"
+                                    : "bg-green-500"
+                            } text-white text-xs px-2 py-0.5 rounded-2xl`}
+                        >
+                            {!d.scholarship_recipient.is_validated
+                                ? "Menunggu Validasi"
+                                : "Diterima"}
+                        </p>
                     </div>
                 ))}
             </div>

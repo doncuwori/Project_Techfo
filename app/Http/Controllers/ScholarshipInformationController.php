@@ -72,7 +72,7 @@ class ScholarshipInformationController extends Controller
             // Return a response
             return redirect()->route('pusatBeasiswa')->with('success', 'Informasi beasiswa berhasil diubah');
         }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Informasi beasiswa gagal diubah :'. $e->getMessage());
+            return redirect()->back()->with('error', 'Informasi beasiswa gagal diubah :');
         }
         
     }
@@ -118,7 +118,7 @@ class ScholarshipInformationController extends Controller
             // Return a response
             return redirect()->route('pusatBeasiswa')->with('success', 'Informasi beasiswa berhasil ditambahkan');
         }catch(\Exception $e){
-            return redirect()->back()->with('error', 'Informasi beasiswa gagal ditambahkan :'. $e->getMessage());
+            return redirect()->back()->with('error', 'Informasi beasiswa gagal ditambahkan :');
         }
         
     }

@@ -38,8 +38,8 @@ const Profile = ({
             <Navbar />
             <ProfileSection />
             <CatatanKeaktifan
-                competitionCount={`${prestasiLomba.length}/${partisipasiLomba.length}`}
-                scholarshipCount={`${penerimaBeasiswa.length}/${pendaftarBeasiswa.length}`}
+                competitionCount={`${competitionAchievementsCount}/${partisipasiLomba.length}`}
+                scholarshipCount={`${scholarshipRecipientsCount}/${pendaftarBeasiswa.length}`}
                 abdimasCount={`${diterimaAbdimas.length}/${pendaftarAbdimas.length}`}
                 researchCount={`${diterimaPenelitian.length}/${pendaftarPenelitian.length}`}
             />

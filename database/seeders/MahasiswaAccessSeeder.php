@@ -17,13 +17,8 @@ class MahasiswaAccessSeeder extends Seeder
         $access = [
             [
                 'nama_akses' => 'ormawa',
-                'nim' => '2110512004',
-                'instansi' => 'KSM Robotika'
-            ],
-            [
-                'nama_akses' => 'ormawa',
-                'nim' => '2110512104',
-                'instansi' => 'KSM Cyber Security'
+                'nim' => '2110511138',
+                'instansi' => 'BEM FIK'
             ],
             [
                 'nama_akses' => 'ormawa',
@@ -32,28 +27,28 @@ class MahasiswaAccessSeeder extends Seeder
             ],
             [
                 'nama_akses' => 'ormawa',
+                'nim' => '2110512004',
+                'instansi' => 'KSM Robotika'
+            ],
+            [
+                'nama_akses' => 'ormawa',
                 'nim' => '2110511015',
                 'instansi' => 'KSM Multimedia'
             ],
             [
                 'nama_akses' => 'ormawa',
-                'nim' => '2110511138',
-                'instansi' => 'BEM FIK'
-            ],
-            [
-                'nama_akses' => 'ormawa',
-                'nim' => '2110512059',
-                'instansi' => 'HIMA S1 SI'
-            ],
-            [
-                'nama_akses' => 'ormawa',
-                'nim' => '2110511015',
-                'instansi' => 'HIMA D3 SI'
+                'nim' => '2110512104',
+                'instansi' => 'KSM Cyber Security'
             ],
             [
                 'nama_akses' => 'ormawa',
                 'nim' => '2210501035',
                 'instansi' => 'HIMA D3 SI'
+            ],
+            [
+                'nama_akses' => 'ormawa',
+                'nim' => '2110512059',
+                'instansi' => 'HIMA S1 SI'
             ],
             [
                 'nama_akses' => 'ormawa',

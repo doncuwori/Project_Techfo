@@ -12,6 +12,7 @@ class DosenAccess extends Model
     protected $fillable = [
         'nama_akses',
         'id_dosen',
+        'role'
     ];
 
     public function dosen()

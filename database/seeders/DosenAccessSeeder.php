@@ -17,38 +17,46 @@ class DosenAccessSeeder extends Seeder
         $access = [
             [
                 'nama_akses' => 'wadek',
-                'nidn' => '0308097401'
+                'nidn' => '0308097401',
+                'role' => 'Wakil Dekan I'
             ],
             [
                 'nama_akses' => 'wadek',
-                'nidn' => '0321027401'
+                'nidn' => '0107077801',
+                'role' => 'Wakil Dekan II'
             ],
             [
                 'nama_akses' => 'wadek',
-                'nidn' => '0107077801'
+                'nidn' => '0321027401',
+                'role' => 'Wakil Dekan III'
             ],
             [
                 'nama_akses' => 'kaprodi',
-                'nidn' => '0321057001'
+                'nidn' => '0420018601',
+                'role' => 'Koor Prodi D3 Sistem Informasi'
             ],
             [
                 'nama_akses' => 'kaprodi',
-                'nidn' => '0420018601'
+                'nidn' => '0321057001',
+                'role' => 'Koor Prodi S1 Sistem Informasi'
             ],
             [
                 'nama_akses' => 'kaprodi',
-                'nidn' => '0218107101'
+                'nidn' => '0218107101',
+                'role' => 'Koor Prodi S1 Informatika'
             ],
             [
                 'nama_akses' => 'kaprodi',
-                'nidn' => '0015039301'
+                'nidn' => '0015039301',
+                'role' => 'Koor Prodi S1 Sains Data'
             ],
         ];
 
         foreach ($access as $key => $value) {
             DosenAccess::create([
                 'nama_akses' => $value['nama_akses'],
-                'id_dosen' => Dosen::where('nidn', $value['nidn'])->first()->id
+                'id_dosen' => Dosen::where('nidn', $value['nidn'])->first()->id,
+                'role' => $value['role']
             ]);
         }
     }

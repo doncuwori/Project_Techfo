@@ -47,6 +47,17 @@ const RiwayatPrestasiLomba = ({ data }) => {
                         <div className="absolute bottom-4 right-4 bg-green-500 p-1 px-4 rounded-md text-white hover:shadow-lg">
                             {d.competition_achievement.degree}
                         </div>
+                        <p
+                            className={`absolute top-4 right-4 ${
+                                !d.competition_achievement.is_validated
+                                    ? "bg-yellow-500"
+                                    : "bg-green-500"
+                            } text-white text-xs px-2 py-0.5 rounded-2xl`}
+                        >
+                            {!d.competition_achievement.is_validated
+                                ? "Menunggu Validasi"
+                                : "Diterima"}
+                        </p>
                     </div>
                 ))}
             </div>

@@ -28,9 +28,17 @@ class ProfileController extends Controller
         $idMahasiswa = Mahasiswa::where('id_user', Auth::user()->id)->first()->id;
 
         $competitionRegistrantsCount = CompetitionMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->count();
-        $competitionAchievementsCount = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)->count();
+        $competitionAchievementsCount = MahasiswaAchievement::where('id_mahasiswa', $idMahasiswa)
+        ->whereHas('competitionAchievement', function ($query) {
+            $query->where('is_validated', true);
+        })->count();
+
         $scholarshipRegistrantsCount = ScholarshipsMahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->count();
-        $scholarshipRecipientsCount = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)->count();
+        $scholarshipRecipientsCount = MahasiswaRecipient::where('id_mahasiswa', $idMahasiswa)
+        ->whereHas('scholarshipRecipient', function ($query) {
+            $query->where('is_validated', true);
+        })
+        ->count();
 
         $abdimasRegistrantsCount = MahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->count();
         $abdimasRecipientsCount = MahasiswaRegistrant::where('id_mahasiswa', $idMahasiswa)->where('accepted', true)->count();
