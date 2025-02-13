@@ -16,7 +16,7 @@ class HomeController extends Controller
                 : redirect()->route('dashboardUser');
         }
 
-        return redirect()->route('login');
+        return redirect()->route('landingPage');
 
     }
 }
