@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { usePage } from "@inertiajs/react";
 import toast, { Toaster } from "react-hot-toast";
 import Navbar from "@/Components/Navbar";
-import { BiodataUser } from "@/components/BiodataUser";
+import { BiodataUser } from "@/Components/BiodataUser";
 import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
 import { TabPrestasiLombaFill } from "@/Components/Pendataan/PendataanLomba/TabPrestasiLombaFill";
