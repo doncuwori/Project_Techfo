@@ -13,7 +13,7 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
               }
             : null
     );
-    const [fileURL, setFileURL] = useState(null);
+    const [fileURL, setFileURL] = useState(previous?.poster_url ?? null);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         name: previous?.name ?? "",
@@ -74,10 +74,10 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
 
     const handleRemoveFile = () => {
         setSelectedFile(null);
-        setFileURL(null);
-        setData("poster_url", null); // Reset data
+        setFileURL(previous?.poster_url ?? null); 
+        setData("poster_url", previous?.poster_url ?? "");
         const fileInput = document.getElementById("fileInput");
-        if (fileInput) fileInput.value = null;
+        if (fileInput) fileInput.value = null;
     };
 
     const handleSubmit = (e) => {
@@ -271,23 +271,32 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                         >
                             Browse File
                         </label>
-                        {selectedFile && fileURL && (
+                        {(selectedFile || fileURL) && (
                             <div className="mt-4 flex items-center justify-center">
                                 <div>
                                     <a
-                                        href={fileURL}
+                                        href={
+                                            fileURL ||
+                                            URL.createObjectURL(selectedFile)
+                                        }
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
                                         <img
-                                            src={fileURL}
+                                            src={
+                                                fileURL ||
+                                                URL.createObjectURL(
+                                                    selectedFile
+                                                )
+                                            }
                                             alt="Preview"
                                             className="mb-2 max-w-xs mx-auto cursor-pointer"
                                         />
                                     </a>
                                     <div className="flex items-center justify-center space-x-1 mb-2">
                                         <p className="text-green-500">
-                                            {selectedFile.name}
+                                            {selectedFile?.name ||
+                                                "Poster Lama"}
                                         </p>
                                         <button
                                             type="button"
@@ -298,13 +307,6 @@ export const FormLombaBeasiswa = ({ type, previous, edit }) => {
                                             &times;
                                         </button>
                                     </div>
-                                    {/* <a
-                                        href={fileURL}
-                                        download={selectedFile.name}
-                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
-                                    >
-                                        Download File
-                                    </a> */}
                                 </div>
                             </div>
                         )}

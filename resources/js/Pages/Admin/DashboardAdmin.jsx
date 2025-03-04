@@ -24,7 +24,7 @@ const DashboardAdmin = ({
     arrayFundingAbdimas,
     arrayFundingPenelitian,
     bidangPeserta,
-    bidangPemenang
+    bidangPemenang,
 }) => {
     return (
         <div>
@@ -33,7 +33,7 @@ const DashboardAdmin = ({
                 <div className="container px-4 py-8 w-full">
                     <div className="min-h-20 px-4 mt-14 flex flex-col justify-start items-start gap-3">
                         <div className="flex justify-center items-center">
-                            <h1 className="text-[#2d3036] text-2xl font-semibold font-inter leading-loose">
+                            <h1 className="text-black text-3xl font-bold font-inter leading-loose">
                                 Dashboard
                             </h1>
                         </div>

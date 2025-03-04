@@ -19,6 +19,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@headlessui/react": "^2.2.0",
         "chart.js": "^4.4.7",
         "chartjs-plugin-datalabels": "^2.2.0",
         "lucide-react": "^0.451.0",
