@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import SearchableSelect from "@/Components/SearchableSelect";
 import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
 
-export const TabLolosBeasiswa = ({ country }) => {
+export const TabLolosBeasiswa = ({ country, jenisBeasiswa }) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         id_country: "",
         name: "",
@@ -17,6 +17,7 @@ export const TabLolosBeasiswa = ({ country }) => {
         scan_bukti_url: "",
         poster_kegiatan_url: "",
         phone: "",
+        amount: "",
     });
 
     const countryOption = country.map((val) => {
@@ -169,6 +170,18 @@ export const TabLolosBeasiswa = ({ country }) => {
                     />
                 </div>
                 <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2">
+                        Nilai Beasiswa<span className="text-red-600">*</span>
+                    </label>
+                    <input
+                        value={data.amount}
+                        onChange={(e) => setData("amount", e.target.value)}
+                        type="text"
+                        className="w-full border rounded-lg px-4"
+                        placeholder="Contoh: 40000000"
+                    />
+                </div>
+                <div className="mb-4">
                     <label
                         htmlFor="type"
                         className="block text-gray-700 font-bold mb-2"
@@ -182,11 +195,13 @@ export const TabLolosBeasiswa = ({ country }) => {
                         className="w-full border rounded-lg px-4"
                     >
                         <option>-- Pilih Jenis Beasiswa --</option>
-                        <option>Beasiswa dari Pemerintah</option>
-                        <option>Beasiswa Swasta</option>
-                        <option>Beasiswa dari Negara Maju</option>
-                        <option>Beasiswa dari Komunitas</option>
-                        <option>Beasiswa dari Perguruan Tinggi</option>
+                        {jenisBeasiswa.map((val) => {
+                            return (
+                                <option key={val.id} value={val.name}>
+                                    {val.name}
+                                </option>
+                            );
+                        })}
                     </select>
                 </div>
 

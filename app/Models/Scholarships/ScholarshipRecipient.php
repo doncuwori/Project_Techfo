@@ -23,7 +23,8 @@ class ScholarshipRecipient extends Model
         'proof_scan_url',
         'poster_url',
         'phone',
-        'is_validated'
+        'is_validated',
+        'amount'
     ];
 
     public function mahasiswa()

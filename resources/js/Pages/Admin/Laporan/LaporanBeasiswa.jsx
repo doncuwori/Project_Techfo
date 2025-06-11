@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { getFiveYears } from "@/lib/helper";
 import NavbarAdmin from "@/Components/NavbarAdmin";
 import CardStatis from "@/Components/Laporan/Beasiswa/CardStatis";
 import TabelTabPendaftar from "@/Components/Laporan/Beasiswa/TabelTabPendaftar";
 import TabelTabPenerima from "@/Components/Laporan/Beasiswa/TabelTabPenerima";
+import toast, { Toaster } from "react-hot-toast";
+import { usePage } from "@inertiajs/react";
 
 const LaporanBeasiswa = ({
     scholarshipRegistrantsCount,
@@ -14,7 +16,7 @@ const LaporanBeasiswa = ({
     dataPenerima,
     prodi,
     angkatan,
-    jenis
+    jenis,
 }) => {
     const [tabValue, settabValue] = useState("Penerima");
     const [exportPendaftar, setExportPendaftar] = useState(false);
@@ -24,6 +26,16 @@ const LaporanBeasiswa = ({
         dataPenerima.filter((item) => item.is_validated === true).length
     );
     const [pesertaCount, setPesertaCount] = useState(dataPendaftar.length);
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        toast.dismiss();
+        if (flash.success) {
+            toast.success(flash.success);
+        } else if (flash.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
 
     const [filters, setFilters] = useState({
         jenis: "",
@@ -127,7 +139,9 @@ const LaporanBeasiswa = ({
                                     onChange={(e) => handleFilterChange(e)}
                                     className="py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 >
-                                    <option value="">Semua Jenis Beasiswa</option>
+                                    <option value="">
+                                        Semua Jenis Beasiswa
+                                    </option>
                                     {jenis.map((item, index) => (
                                         <option value={item} key={index}>
                                             {item}
@@ -206,6 +220,7 @@ const LaporanBeasiswa = ({
                     </div>
                 </div>
             </div>
+            <Toaster position="top-right" reverseOrder={false} />
         </div>
     );
 };

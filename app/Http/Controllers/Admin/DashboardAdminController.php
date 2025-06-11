@@ -9,6 +9,7 @@ use App\Models\Competitions\CompetitionRegistrant;
 use App\Models\Competitions\CompetitionAchievement;
 use App\Models\Competitions\MahasiswaAchievement;
 use App\Models\Competitions\MahasiswaRegistrant as CompetitionsMahasiswaRegistrant;
+use App\Models\MasterScholarship;
 use App\Models\Prodi;
 use App\Models\Researchs\MahasiswaRegistrant as ResearchsMahasiswaRegistrant;
 use App\Models\Researchs\ResearchInformation;
@@ -186,6 +187,14 @@ class DashboardAdminController extends Controller
             $arrayFundingPenelitian[$f] = ResearchInformation::where('funding', $f)->count();
         }
 
+        $jenisBeasiswaChart = [];
+
+        $jenisBeasiswa = MasterScholarship::all();
+
+        foreach($jenisBeasiswa as $j){
+            $jenisBeasiswaChart[$j->name] = ScholarshipRecipient::where('type', $j->name)->count();
+        }
+
         return Inertia::render('Admin/DashboardAdmin', [
             'competitionRegistrantsCount' => $competitionRegistrantsCount,
             'competitionAchievementsCount' => $competitionAchievementsCount,
@@ -206,7 +215,8 @@ class DashboardAdminController extends Controller
             'arrayFundingAbdimas' => $arrayFundingAbdimas,
             'arrayFundingPenelitian' => $arrayFundingPenelitian,
             'bidangPeserta' => $bidangPeserta,
-            'bidangPemenang' => $bidangPemenang
+            'bidangPemenang' => $bidangPemenang,
+            'jenisBeasiswaChart' => $jenisBeasiswaChart
         ]);
     }
 }

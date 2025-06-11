@@ -8,7 +8,7 @@ import { TabLolosBeasiswa } from "@/Components/Pendataan/PendataanBeasiswa/TabLo
 import Footer from "@/Components/Footer";
 import ScrollUpButton from "@/Components/ScrollUpButton";
 
-const PendataanBeasiswa = ({ country }) => {
+const PendataanBeasiswa = ({ country, jenisBeasiswa }) => {
     const [tabValue, settabValue] = useState("Daftar");
 
     const { flash } = usePage().props;
@@ -58,9 +58,9 @@ const PendataanBeasiswa = ({ country }) => {
                     </div>
                     <BiodataUser />
                     {tabValue === "Daftar" ? (
-                        <TabDaftarBeasiswa country={country} />
+                        <TabDaftarBeasiswa jenisBeasiswa={jenisBeasiswa} country={country} />
                     ) : (
-                        <TabLolosBeasiswa country={country} />
+                        <TabLolosBeasiswa jenisBeasiswa={jenisBeasiswa} country={country} />
                     )}
                 </div>
             </main>

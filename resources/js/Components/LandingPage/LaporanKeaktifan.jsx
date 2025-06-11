@@ -44,6 +44,7 @@ const LaporanKeaktifan = ({
     arrayFundingPenelitian,
     bidangPeserta,
     bidangPemenang,
+    jenisBeasiswaChart
 }) => {
     const pieData = {
         labels: Object.keys(rekapLomba),
@@ -190,6 +191,18 @@ const LaporanKeaktifan = ({
             },
         ],
     };
+
+    const jenisData = {
+        labels: Object.keys(jenisBeasiswaChart),
+        datasets: [
+            {
+                label: "Penerima",
+                data: Object.values(jenisBeasiswaChart),
+                backgroundColor: ["#95d592"],
+                borderRadius: 10,
+            },
+        ],
+    }
 
     const barOptions = {
         responsive: true,
@@ -457,6 +470,21 @@ const LaporanKeaktifan = ({
                                 </div>
                             </div>
                         </div>
+                        
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-8 mt-6">
+
+                        <div className="w-1/2">
+                            <h2 className="text-xl font-semibold text-left mb-4">
+                                Penerima Beasiswa Berdasarkan Jenis
+                            </h2>
+                            <div className="h-96 p-4 bg-white rounded-lg border border-[#d1d3d8] relative">
+                                <div className="w-full h-full flex justify-center items-center">
+                                    <Bar data={jenisData} options={barOptions} />
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-8 mt-6">
