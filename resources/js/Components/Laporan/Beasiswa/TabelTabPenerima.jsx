@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { formatDate } from "@/lib/helper";
 import { useDownloadExcel } from "react-export-table-to-excel";
+import { Link } from "@inertiajs/react";
 
 const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
     const tableRef = useRef(null);
@@ -86,6 +87,14 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
 
     return (
         <div>
+            <div className="flex space-x-2 justify-end mb-2">
+                <Link
+                    href={route("laporanBeasiswa.create-recipient")}
+                    className="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition"
+                >
+                    + Tambah Penerima
+                </Link>
+            </div>
             <div className="overflow-x-auto">
                 <table
                     ref={tableRef}
@@ -116,6 +125,9 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                             </th>
                             <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Jenis Beasiswa
+                            </th>
+                            <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Nilai Beasiswa
                             </th>
                             <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Penyelenggara
@@ -171,6 +183,9 @@ const TabelTabPenerima = ({ dataPenerima, filters, refs }) => {
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
                                         {item.type}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                                        Rp.{Number(item.amount).toLocaleString()}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
                                         {item.organizer}

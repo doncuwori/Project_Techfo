@@ -17,9 +17,14 @@ const NavbarAdmin = () => {
     const [isLaporanDropdownOpen, setIsLaporanDropdownOpen] = useState(false);
     const [isPusatInformasiDropdownOpen, setIsPusatInformasiDropdownOpen] =
         useState(false);
+    
+    const [isMasterDataDropdownOpen, setIsMasterDataDropdownOpen] =
+        useState(false);
     const [isChevronLaporanRotated, setIsChevronLaporanRotated] =
         useState(false);
     const [isChevronPusatInformasiRotated, setIsChevronPusatInformasiRotated] =
+        useState(false);
+    const [isChevronMasterDataRotated, setIsChevronMasterDataRotated] =
         useState(false);
 
     // Hooks dan data dari halaman
@@ -50,6 +55,11 @@ const NavbarAdmin = () => {
         setIsChevronPusatInformasiRotated(!isChevronPusatInformasiRotated);
     };
 
+    const toggleMasterDataDropdown = () => {
+        setIsMasterDataDropdownOpen(!isMasterDataDropdownOpen);
+        setIsChevronMasterDataRotated(!isChevronMasterDataRotated);
+    };
+
     // useEffect untuk mendeteksi URL aktif dan mengatur state dropdown
     useEffect(() => {
         const laporanRoutes = [
@@ -73,12 +83,20 @@ const NavbarAdmin = () => {
             "editInfoPenelitian",
         ];
 
+        const masterDataRoutes = [
+            "master-scholarship",
+        ];
+
         setIsLaporanDropdownOpen(
             laporanRoutes.some((route) => url.includes(route))
         );
         setIsPusatInformasiDropdownOpen(
             pusatInformasiRoutes.some((route) => url.includes(route))
         );
+
+        setIsMasterDataDropdownOpen(
+            masterDataRoutes.some((route) => url.includes(route))
+        )
     }, [url]);
 
     // Data menu pusat informasi
@@ -110,6 +128,15 @@ const NavbarAdmin = () => {
             route2: "tambahInfoPenelitian",
             route3: "pusatPenelitian.show",
             route4: "editInfoPenelitian",
+        },
+    ]);
+
+    const [masterDataMenu, setMasterDataMenu] = useState([
+        {
+            name: "Jenis Beasiswa",
+            route1: "master-scholarship.index",
+            route2: "master-scholarship.create",
+            route3: "master-scholarship.edit",
         },
     ]);
 
@@ -450,25 +477,89 @@ const NavbarAdmin = () => {
 
                     {/* Management User Menu */}
                     {user.role === "admin" ? (
-                        <li key="manajemenUser" className="mb-4">
-                            <a
-                                href={route("manajemenUser")}
-                                className={`${
-                                    route().current("manajemenUser")
-                                        ? "text-white bg-orange-500 hover:font-bold"
-                                        : "text-gray-500 hover:text-orange-500"
-                                } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
-                            >
-                                <UsersRound
-                                    className={`w-5 h-5 mr-2 ${
+                        <>
+                            <li key="manajemenUser" className="mb-4">
+                                <a
+                                    href={route("manajemenUser")}
+                                    className={`${
                                         route().current("manajemenUser")
-                                            ? "text-white group-hover:scale-105"
-                                            : "group-hover:text-orange-500"
-                                    }`}
-                                />
-                                <span>Manajemen User</span>
-                            </a>
-                        </li>
+                                            ? "text-white bg-orange-500 hover:font-bold"
+                                            : "text-gray-500 hover:text-orange-500"
+                                    } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
+                                >
+                                    <UsersRound
+                                        className={`w-5 h-5 mr-2 ${
+                                            route().current("manajemenUser")
+                                                ? "text-white group-hover:scale-105"
+                                                : "group-hover:text-orange-500"
+                                        }`}
+                                    />
+                                    <span>Manajemen User</span>
+                                </a>
+                            </li>
+                            <li key="masterData" className="mb-4">
+                                <button
+                                    onClick={toggleMasterDataDropdown}
+                                    className={`${
+                                        route().current("master-scholarship.index") ||
+                                        route().current("master-scholarship.create")||
+                                        route().current("master-scholarship.edit")
+                                            ? "text-white bg-orange-500 hover:font-bold"
+                                            : "text-gray-500 hover:text-orange-500"
+                                    } flex items-center w-full group transition duration-150 px-2 py-1 rounded-md`}
+                                >
+                                    <ChartBar
+                                        className={`w-5 h-5 mr-2 ${
+                                        route().current("master-scholarship.index") ||
+                                        route().current("master-scholarship.create")||
+                                        route().current("master-scholarship.edit")
+                                                ? "text-white group-hover:scale-105"
+                                                : "group-hover:text-orange-500"
+                                        }`}
+                                    />
+                                    <span>Data Master</span>
+                                    <ChevronDown
+                                        className={`ml-auto w-5 h-5 transform transition-transform duration-200 ${
+                                            isChevronMasterDataRotated
+                                                ? "rotate-180"
+                                                : ""
+                                        }`}
+                                    />
+                                </button>
+                                {isMasterDataDropdownOpen && (
+                                    <ul className="pl-8 mt-2">
+                                        {masterDataMenu.map((subItem) => (
+                                            <li
+                                                key={subItem.name}
+                                                className="mb-2 flex items-center group"
+                                            >
+                                                <Link
+                                                    href={route(subItem.route1)}
+                                                    className={`${
+                                                        route().current(
+                                                            subItem.route1
+                                                        ) 
+                                                            ? "text-orange-500 hover:font-bold"
+                                                            : "text-gray-500 group-hover:text-orange-500"
+                                                    } flex items-center`}
+                                                >
+                                                    <NotepadText
+                                                        className={`w-4 h-4 mr-2 ${
+                                                            route().current(
+                                                                subItem.route1
+                                                            )
+                                                                ? "text-orange-500 group-hover:scale-105"
+                                                                : "text-gray-500 group-hover:text-orange-500"
+                                                        }`}
+                                                    />
+                                                    {subItem.name}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </li>
+                        </>
                     ) : (
                         ""
                     )}

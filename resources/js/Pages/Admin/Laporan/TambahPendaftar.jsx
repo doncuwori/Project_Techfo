@@ -1,0 +1,417 @@
+import React, { useEffect, useState } from "react";
+import { Search } from "lucide-react";
+import { getFiveYears } from "@/lib/helper";
+import NavbarAdmin from "@/Components/NavbarAdmin";
+import CardStatis from "@/Components/Laporan/Beasiswa/CardStatis";
+import TabelTabPendaftar from "@/Components/Laporan/Beasiswa/TabelTabPendaftar";
+import TabelTabPenerima from "@/Components/Laporan/Beasiswa/TabelTabPenerima";
+import { useForm, usePage } from "@inertiajs/react";
+import { Upload } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
+import SearchableSelect from "@/Components/SearchableSelect";
+import PernyataanLegalitas from "@/Components/PernyataanLegalitas";
+
+const TambahPendaftar = ({ jenisBeasiswa, country, mahasiswa, user }) => {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        toast.dismiss();
+        if (flash.success) {
+            toast.success(flash.success);
+        }else if (flash.error) {
+            toast.error(flash.error);
+        }
+    }, [flash])
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        id_mahasiswa: "",
+        id_country: "",
+        name: "",
+        type: "",
+        organizer: "",
+        event_date_start: "",
+        event_date_end: "",
+        description: "",
+        poster_url: "",
+        phone: "",
+        amount: "",
+    });
+
+    const countryOption = country.map((val) => {
+        return { value: val.id, label: val.country_name };
+    });
+
+    const mahasiswaOption = mahasiswa.map((val) => {
+        return { value: val.id, label: `${val.nama} - ${val.nim}` };
+    });
+
+    const [posterKegiatan, setPosterKegiatan] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
+    const [fileURL, setFileURL] = useState(null);
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+
+        if (file && file.size > 2097152) {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+            return;
+        }
+
+        if (file) {
+            setPosterKegiatan(file);
+            const url = URL.createObjectURL(file);
+            setFileURL(url);
+            setData("poster_url", file);
+        }
+    };
+
+    const handleDropFile = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+
+        if (
+            file &&
+            file.size <= 2 * 1024 * 1024 &&
+            /\.(jpg|jpeg|png)$/i.test(file.name)
+        ) {
+            const url = URL.createObjectURL(file);
+            setPosterKegiatan(file);
+            setFileURL(url);
+            setData("poster_url", file);
+        } else {
+            toast.error("File tidak valid atau melebihi ukuran maksimal 2MB.");
+        }
+    };
+
+    const handleRemoveFile = () => {
+        setPosterKegiatan(null);
+        setFileURL(null);
+        setData("poster_url", null);
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput) fileInput.value = null;
+    };
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        post(route("laporanBeasiswa.store-registrant"), {
+            onSuccess: (res) => {
+                reset();
+                toast.success("Pendataan Pendaftar Beasiswa Berhasil Dibuat!");
+            },
+            onError: (errors) => {
+                toast.error("Pendataan Pendaftar Beasiswa Gagal Dibuat!");
+                console.error(errors);
+            },
+        });
+    };
+
+    const handleCountry = (value) => {
+        setData("id_country", value.value);
+    };
+
+    const handleMahasiswa = (value) => {
+        setData("id_mahasiswa", value.value);
+    };
+
+    return (
+        <div>
+            <NavbarAdmin user={user} />
+            <Toaster position="top-right" reverseOrder={false} />
+            <div class="pl-72 w-full">
+                <div class="container px-4 py-8 w-full">
+                    <h1 class="text-3xl font-bold text-black mt-16 mb-6">
+                        Tambah Pendaftar Beasiswa
+                    </h1>
+                </div>
+                <form
+                    onSubmit={handleSubmit}
+                    className="p-8 shadow rounded-md border mx-4"
+                >
+                    {/* Section Data Pendaftar Beasiswa */}
+                    <section className="mb-8">
+                        <h2 className="text-xl font-bold mb-4">
+                            Data Pendaftar Beasiswa
+                        </h2>
+
+                        <div className="mb-4">
+                            <label
+                                htmlFor="host_country"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Pilih Mahasiswa
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <SearchableSelect
+                                onChange={handleMahasiswa}
+                                options={mahasiswaOption}
+                                placeholder={"-- Pilih Mahasiswa --"}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-bold mb-2">
+                                Nomor Telepon (WhatsApp)
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <input
+                                type="number"
+                                className="w-full border rounded-lg p-2"
+                                placeholder="Masukkan Nomor Telepon Anda"
+                                onChange={(e) =>
+                                    setData("phone", e.target.value)
+                                }
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-bold mb-2">
+                                Nama Beasiswa
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <input
+                                value={data.name}
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
+                                type="text"
+                                className="w-full border rounded-lg px-4"
+                                placeholder="Contoh: Beasiswa Cipta Pelita Indonesia 2024"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-bold mb-2">
+                                Nilai Beasiswa
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <input
+                                value={data.amount}
+                                onChange={(e) =>
+                                    setData("amount", e.target.value)
+                                }
+                                type="number"
+                                className="w-full border rounded-lg px-4"
+                                placeholder="Contoh: 40000000"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="type"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Jenis Beasiswa
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <select
+                                value={data.type}
+                                onChange={(e) =>
+                                    setData("type", e.target.value)
+                                }
+                                id="type"
+                                className="w-full border rounded-lg px-4"
+                            >
+                                <option>-- Pilih Jenis Beasiswa --</option>
+                                {jenisBeasiswa.map((val) => {
+                                    return (
+                                        <option key={val.id} value={val.name}>
+                                            {val.name}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-bold mb-2">
+                                Penyelenggara
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <input
+                                value={data.organizer}
+                                onChange={(e) =>
+                                    setData("organizer", e.target.value)
+                                }
+                                type="text"
+                                className="w-full border rounded-lg px-4"
+                                placeholder="Tuliskan penyelenggara kegiatan..."
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="host_country"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Negara Penyelenggara
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <SearchableSelect
+                                onChange={handleCountry}
+                                options={countryOption}
+                                placeholder={"-- Pilih Negara Penyelenggara --"}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="event_date_start"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Waktu Pelaksanaan Dimulai
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <input
+                                type="date"
+                                value={data.event_date_start}
+                                onChange={(e) =>
+                                    setData("event_date_start", e.target.value)
+                                }
+                                id="event_date_start"
+                                className="w-full border rounded-lg px-4"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="event_date_end"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Waktu Pelaksanaan Berakhir
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <input
+                                type="date"
+                                value={data.event_date_end}
+                                onChange={(e) =>
+                                    setData("event_date_end", e.target.value)
+                                }
+                                id="event_date_end"
+                                className="w-full border rounded-lg px-4"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="description"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Deskripsi Kegiatan
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <textarea
+                                id="description"
+                                value={data.description}
+                                onChange={(e) =>
+                                    setData("description", e.target.value)
+                                }
+                                className="w-full border rounded-lg px-4"
+                                placeholder="Tulis teks disini..."
+                            ></textarea>
+                        </div>
+                    </section>
+
+                    {/* Section Dokumen Pendukung */}
+                    <section className="mb-8">
+                        <h2 className="text-xl font-bold mb-4">
+                            Dokumen Pendukung
+                        </h2>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-bold mb-2">
+                                Poster Kegiatan
+                                <span className="text-red-600">*</span>
+                            </label>
+                            <div
+                                className="border-dashed border-2 border-gray-300 rounded-lg p-4 text-center"
+                                onDragOver={(e) => e.preventDefault()}
+                                onDrop={handleDropFile}
+                            >
+                                <div className="flex flex-col items-center justify-center">
+                                    <Upload className="text-gray-500 w-6 h-6 mb-2" />
+                                    <p>Click to upload or drag and drop</p>
+                                </div>
+                                <p className="text-gray-500">
+                                    Max. file size: 2MB
+                                </p>
+                                <input
+                                    type="file"
+                                    accept=".jpg,.jpeg,.png"
+                                    className="hidden"
+                                    id="poster-kegiatan"
+                                    onChange={handleFileChange}
+                                />
+                                <label
+                                    htmlFor="poster-kegiatan"
+                                    className="mt-2 bg-green-500 text-white py-1 px-4 rounded-lg cursor-pointer inline-block"
+                                >
+                                    Browse File
+                                </label>
+                                {posterKegiatan && fileURL && (
+                                    <div className="mt-4 flex items-center justify-center">
+                                        <div>
+                                            <a
+                                                href={fileURL}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <img
+                                                    src={fileURL}
+                                                    alt="Preview"
+                                                    className="mb-2 max-w-xs mx-auto cursor-pointer"
+                                                />
+                                            </a>
+                                            <div className="flex items-center justify-center space-x-1 mb-2">
+                                                <p className="text-green-500">
+                                                    {posterKegiatan.name}
+                                                </p>
+                                                <button
+                                                    type="button"
+                                                    className="text-red-500 hover:text-red-700 ml-4"
+                                                    onClick={handleRemoveFile}
+                                                    aria-label="Remove file"
+                                                >
+                                                    &times;
+                                                </button>
+                                            </div>
+                                            {/* <a
+                                        href={fileURL}
+                                        download={selectedFile.name}
+                                        className="bg-blue-500 text-white py-1 px-4 rounded-lg"
+                                    >
+                                        Download File
+                                    </a> */}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <p className="text-gray-500 mt-2">
+                                Ketentuan file Poster Kegiatan yang diunggah:
+                            </p>
+                            <ul className="text-gray-500 list-disc list-inside">
+                                <li>
+                                    Poster beasiswa yang diikuti, menunjukkan
+                                    nama beasiswa.
+                                </li>
+                                <li>
+                                    Berkas yang diunggah dalam format: .jpg,
+                                    .jpeg, .png.
+                                </li>
+                                <li>Ukuran file maksimal 2MB.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <div className="flex justify-end w-full">
+                        <button
+                            type="submit"
+                            className={`mt-2 ${
+                                processing ? "bg-gray-400" : "bg-orange-500"
+                            } text-white py-1 px-4 rounded-lg`}
+                            disabled={processing}
+                        >
+                            {processing ? "Submitting..." : "Submit"}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default TambahPendaftar;

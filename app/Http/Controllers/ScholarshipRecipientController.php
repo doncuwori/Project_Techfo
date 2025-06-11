@@ -44,6 +44,7 @@ class ScholarshipRecipientController extends Controller
                 'proof_scan_url' => $proof_scan_url,
                 'poster_url' => $poster_url,
                 'phone' => $request->phone,
+                'amount' => $request->amount,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -63,6 +64,7 @@ class ScholarshipRecipientController extends Controller
                 'description' => $request->description,
                 'phone' => $request->phone,
                 'poster_url' => $poster_url,
+                'amount' => $request->amount,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -117,6 +119,7 @@ class ScholarshipRecipientController extends Controller
                     'description' => $data->description,
                     'proof_scan_url' => $proof_scan_url,
                     'poster_url' => $poster_url,
+                    'amount' => $data->amount,
                     'phone' => $data->phone,
                     'created_at' => now(),
                     'updated_at' => now(),

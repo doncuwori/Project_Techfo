@@ -25,6 +25,7 @@ const DashboardAdmin = ({
     arrayFundingPenelitian,
     bidangPeserta,
     bidangPemenang,
+    jenisBeasiswaChart
 }) => {
     return (
         <div>
@@ -70,6 +71,7 @@ const DashboardAdmin = ({
                         arrayFundingPenelitian={arrayFundingPenelitian}
                         bidangPeserta={bidangPeserta}
                         bidangPemenang={bidangPemenang}
+                        jenisBeasiswaChart={jenisBeasiswaChart}
                     />
                 </div>
             </main>

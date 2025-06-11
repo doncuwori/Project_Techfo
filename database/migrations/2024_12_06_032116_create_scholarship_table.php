@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('poster_url');
             $table->string('phone'); 
+            $table->unsignedBigInteger('amount');
             $table->timestamps();
         });
 
@@ -45,6 +46,7 @@ return new class extends Migration
             $table->string('proof_scan_url');
             $table->string('poster_url');
             $table->string('phone'); 
+            $table->unsignedBigInteger('amount');
             
             // VALIDATION
             $table->boolean('is_validated')->default(false);

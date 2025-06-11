@@ -153,6 +153,19 @@ export const TabLolosBeasiswaFill = ({ dataFill }) => {
                 </div>
                 <div className="mb-4">
                     <label
+                        htmlFor="name"
+                        className="block text-gray-700 font-bold mb-2"
+                    >
+                        Nilai Beasiswa<span className="text-red-600">*</span>
+                    </label>
+                    <input
+                        disabled
+                        className="w-full border rounded-lg px-4 bg-gray-100"
+                        value={dataFill.amount}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label
                         htmlFor="type"
                         className="block text-gray-700 font-bold mb-2"
                     >

@@ -37,6 +37,7 @@ class ScholarshipRegistrantController extends Controller
                 'phone' => $request->phone,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'amount' => $request->amount
             ]);
 
             MahasiswaRegistrant::create([

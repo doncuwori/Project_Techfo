@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminResearchController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\ManajemenUser;
 use App\Http\Controllers\Admin\ManajemenUserController;
+use App\Http\Controllers\Admin\MasterScholarshipController;
 use App\Http\Controllers\Admin\PusatInformasiLombaController;
 use App\Http\Controllers\Admin\PusatInformasiBeasiswaController;
 use App\Http\Controllers\Admin\PusatInformasiAbdimasController;
@@ -37,6 +38,7 @@ use App\Models\Competitions\MahasiswaRegistrant;
 use App\Models\Country;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
+use App\Models\MasterScholarship;
 use App\Models\Researchs\ResearchInformation;
 use App\Models\Researchs\MahasiswaRegistrant as ResearchMahasiswaRegistrant;
 use App\Models\Scholarships\MahasiswaRecipient;
@@ -194,9 +196,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/pendataanBeasiswa', function () {
         
         $country = Country::all();
+        $jenisBeasiswa = MasterScholarship::all();
 
         return Inertia::render('User/Pendataan/PendataanBeasiswa', [
-            'country' => $country
+            'country' => $country,
+            'jenisBeasiswa' => $jenisBeasiswa
         ]);
     })->name('pendataanBeasiswa');
 
@@ -334,6 +338,17 @@ Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
     Route::get('/loginAdmin', function () {
         return Inertia::render('Admin/LoginAdmin');
     });
+
+    Route::resource('master-scholarship', MasterScholarshipController::class);
+
+    Route::get('master-scholarship/{id}/delete', [MasterScholarshipController::class, 'destroy'])->name('master-scholarship.delete');
+
+    Route::get('laporanBeasiswa-registrant/create', [AdminScholarshipController::class, 'createRegistrant'])->name('laporanBeasiswa.create-registrant');
+    Route::post('laporanBeasiswa-registrant', [AdminScholarshipController::class, 'storeRegistrant'])->name('laporanBeasiswa.store-registrant');
+
+    Route::get('laporanBeasiswa-recipient/create', [AdminScholarshipController::class, 'createRecipient'])->name('laporanBeasiswa.create-recipient');
+    Route::post('laporanBeasiswa-recipient', [AdminScholarshipController::class, 'storeRecipient'])->name('laporanBeasiswa.store-recipient');
+    
 });
 
 
