@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 const LoginForm = () => {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -58,11 +59,13 @@ const LoginForm = () => {
                     />
                 </div>
 
-                <div className="absolute top-0 right-0 p-12 text-3xl md:text-4xl font-bold z-30">
-                    <span className="text-[#2d3036]">Tech</span>
-                    <span className="text-[#fe632e]">fo</span>
-                </div>
-
+                <Link href={route("landingPage")}>
+                    <div className="absolute top-0 right-0 p-12 text-3xl md:text-4xl font-bold z-30">
+                        <span className="text-[#2d3036]">Tech</span>
+                        <span className="text-[#fe632e]">fo</span>
+                    </div>
+                </Link>
+                
                 {/* Mobile Logo Content */}
                 <div className="absolute top-0 left-0 p-8 flex items-center gap-4 z-30 md:hidden">
                     <img
@@ -115,8 +118,7 @@ const LoginForm = () => {
                         {/* Password Field */}
                         <div>
                             <label className="block text-zinc-950 text-base font-medium mb-2">
-                                Password{" "}
-                                <span className="text-red-600">*</span>
+                                Password <span className="text-red-600">*</span>
                             </label>
                             <input
                                 type="password"

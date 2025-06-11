@@ -48,7 +48,7 @@ class Mahasiswa extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, foreignKey: 'id_user');
     }
 
     public function prodi()
