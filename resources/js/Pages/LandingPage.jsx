@@ -25,6 +25,7 @@ const LandingPage = ({
     arrayFundingPenelitian,
     bidangPeserta,
     bidangPemenang,
+    jenisBeasiswaChart
 }) => {
     return (
         <div>
@@ -53,6 +54,7 @@ const LandingPage = ({
                 arrayFundingPenelitian={arrayFundingPenelitian}
                 bidangPeserta={bidangPeserta}
                 bidangPemenang={bidangPemenang}
+                jenisBeasiswaChart={jenisBeasiswaChart}
             />
             <Footer />
             <ScrollUpButton />
